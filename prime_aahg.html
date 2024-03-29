@@ -66,13 +66,13 @@ function calculate() {
   var averageCost = parseFloat(document.getElementById("averageCost").value);
   var bncProfit = parseFloat(document.getElementById("bncProfit").value);
   var incomeTax = parseFloat(document.getElementById("incomeTax").value);
-  
+
   // Vérification des données numériques
   if (isNaN(matchCount) || isNaN(hotelPrice) || isNaN(nightsCount) || isNaN(prepIndemnity) || isNaN(averageCost) || isNaN(bncProfit) || isNaN(incomeTax)) {
     document.getElementById("results").innerText = "Veuillez saisir des données numériques uniquement.";
     return;
   }
-  
+
   // Calculs
   var primeTotal = matchCount * primeAmount;
   var impotsTI = 0.25 * primeTotal;
@@ -83,7 +83,7 @@ function calculate() {
   var indemnityTotal = matchCount * prepIndemnity;
   var beneficesAnciensTarifs = matchCount * prepIndemnity - averageCost;
   var beneficesNouveauxTarifs = matchCount * bncProfit;
-  
+
   // Affichage des résultats
   var resultText = "";
   resultText += "<table border='1'>";
@@ -99,13 +99,14 @@ function calculate() {
   resultText += "<tr><td>Bénéfices net avec l'ancien tarif :</td><td>" + formatNumber(beneficesAnciensTarifs.toFixed(2)) + "</td></tr>";
   resultText += "<tr><td>Bénéfices :</td><td>" + formatNumber((matchCount * bncProfit).toFixed(2)) + "</td></tr>";
   resultText += "</table>";
-  
+
   document.getElementById("results").innerHTML = resultText;
 }
 
 // Formatage des nombres par groupes de trois
-function formatNumber(number) { return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
-
+function formatNumber(number) {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 </script>
 <br>
 <br>
@@ -381,8 +382,16 @@ function formatNumber(number) { return number.toString().replace(/\B(?=(\d{3})+(
       
       // Loop through rows starting from the second row (skip header)
       for (const row of table.querySelectorAll('tr:not(:first-child)')) {
+
+          // DEBUG
+          console.log(cells);
           const cells = row.querySelectorAll('td');
           labels.push(cells[0].textContent.trim()); // Extract year from first cell
+
+
+          // DEBUG
+          console.log(cells[0]) 
+
           const montantNetImposable = parseFloat(cells[1].textContent.replace(' €', '')); // Extract and parse montant net imposable
           const montantForfaitaire = parseFloat(cells[2].textContent.replace(' €', '')); // Extract and parse montant forfaitaire
           
