@@ -10,9 +10,28 @@ guillaume ar0base rootshell.fr pour l'AAHG.
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Calculatrice de Tarifs</title>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
+<title>Graphique des données</title>
+    <!-- Inclure Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<style>
+  table {
+      width: 100%;
+      border-collapse: collapse;
+  }
+  th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+  }
+  th {
+      background-color: #f2f2f2;
+  }
+</style>
+
 
 </head>
 
@@ -111,10 +130,9 @@ function formatNumber(number) {
 <br>
 <br>
 
-
 <h2>Historique des tarifs</h2>
+<table class="table table-bordered table-hover table-condensed" style="width: 100%">
 
-<table>
     <thead>
         <tr>
             <th>Saison</th>
@@ -143,22 +161,28 @@ function formatNumber(number) {
     </tbody>
 </table>
 
+<canvas id="myChart" width="800" height="400"></canvas>
 <script>
+
+/*
+
+*/
+
     const saison = [2005,2006,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023];
-    const HeadLMamicaux = [120,126,126,130,130,135,135,135,115,115,115,125,130,130,130];
-    const HeadLMSR = [120,126,126,130,130,135,135,135,140,140,140,140,145,145,145];
-    const HeadLMPO = [220,231,185,185,185,190,190,190,140,140,140,140,145,145,145];
-    const HeadD1amicaux = [95,100,100,105,105,110,110,110,100,100,100,100,105,105,105];
-    const HeadD1SR = [95,100,100,105,105,110,110,110,115,115,115,115,120,120,120];
-    const HeadD1PO = [120,126,126,130,130,135,135,135,115,115,115,115,120,120,120];
-    const JDLamicaux = [85,90,90,95,95,100,100,100,90,90,90,95,100,100,100];
-    const JDLamicauxSR = [85,90,90,95,95,100,100,100,110,110,110,110,115,115,115];
-    const JDLamicauxPO = [95,100,120,120,120,125,125,125,110,110,110,110,115,115,115];
-    const JDLamicauxD1 = [70,74,74,80,80,85,85,85,70,70,70,85,90,90,90];
-    const JDLamicauxD1SR = [70,74,74,95,80,85,85,85,100,100,100,100,105,105,105];
-    const JDLamicauxD1PO = [85,90,90,95,95,100,100,100,100,100,100,100,105,105,105];
-    const GrandDeplacement = [70,80,80,80,80,80,80,80,80,80,80,80,80,80,80];
-    const Hotel = [46.6,59.6,61.2,62.2,62.2,64.1,64.7,65.3,65.8,73.9,74.9,75.6,76.1,77.2,77.2];
+    const HeadLMamicaux = [120,126,126,130,130,135,135,135,115,115,115,125,130,130,130,130];
+    const HeadLMSR = [120,126,126,130,130,135,135,135,140,140,140,140,145,145,145,145];
+    const HeadLMPO = [220,231,185,185,185,190,190,190,140,140,140,140,145,145,145,145];
+    const HeadD1amicaux = [95,100,100,105,105,110,110,110,100,100,100,100,105,105,105,105];
+    const HeadD1SR = [95,100,100,105,105,110,110,110,115,115,115,115,120,120,120,120];
+    const HeadD1PO = [120,126,126,130,130,135,135,135,115,115,115,115,120,120,120,120];
+    const JDLamicaux = [85,90,90,95,95,100,100,100,90,90,90,95,100,100,100,100];
+    const JDLamicauxSR = [85,90,90,95,95,100,100,100,110,110,110,110,115,115,115,115];
+    const JDLamicauxPO = [95,100,120,120,120,125,125,125,110,110,110,110,115,115,115,115];
+    const JDLamicauxD1 = [70,74,74,80,80,85,85,85,70,70,70,85,90,90,90,90];
+    const JDLamicauxD1SR = [70,74,74,95,80,85,85,85,100,100,100,100,105,105,105,105];
+    const JDLamicauxD1PO = [85,90,90,95,95,100,100,100,100,100,100,100,105,105,105,105];
+    const GrandDeplacement = [70,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80];
+    const Hotel = [46.6,59.6,61.2,62.2,62.2,64.1,64.7,65.3,65.8,73.9,74.9,75.6,76.1,77.2,77.2,];
     const Km = [0.315,0.343,0.359,0.359,0.359,0.362,0.364,0.364,0.364,0.364,0.364,0.368,0.368,0.405,0.405];
     const Repas = [15.2,16.6,17.1,17.4,17.4,17.9,18.1,18.3,18.4,18.6,18.8,19,19.1,19.4,19.4];
     const TauxInflation = [1.7,1.5,2.1,2.0,0.9,0.5,0.0,0.2,1.0,1.8,1.1,0.5,1.6,5.5,4.9];
@@ -193,94 +217,127 @@ function formatNumber(number) {
         `;
         tbody.appendChild(tr);
     }
-</script>
 
 
-<canvas id="myChart"></canvas>
+    // Création d'un contexte de dessin sur le canvas
+    const ctx = document.getElementById('myChart').getContext('2d');
 
-<script>
-
-
-    const chartElement = document.getElementById('myChart');
-
-    // Function to extract data from the table
-    function extractTableData() {
-        const table = document.getElementById('Tableau2');
-        if (!table) {
-            console.error("Tableau2 n'est pas trouvé.");
-            return { labels: [], data: [] };
-        }
-
-        const labels = [];
-        const data = [];
-
-        for (const row of table.querySelectorAll('tr:not(:first-child)')) {
-            const cells = row.querySelectorAll('td');
-
-            // Vérifier si le nombre de cellules est conforme à nos attentes
-            if (cells.length < 3) {
-                console.error("Le nombre de cellules n'est pas conforme à nos attentes.");
-                continue; // Passer à la prochaine ligne
-            }
-
-            const label = cells[0].textContent.trim();
-            const montantNetImposable = parseFloat(cells[1].textContent.replace(' €', '').replace(',', '.'));
-            const montantForfaitaire = parseFloat(cells[2].textContent.replace(' €', '').replace(',', '.'));
-
-            // Vérifier si les valeurs numériques sont valides
-            if (isNaN(montantNetImposable) || isNaN(montantForfaitaire)) {
-                console.error("Les valeurs ne sont pas numériques.");
-                continue; // Passer à la prochaine ligne
-            }
-
-            labels.push(label);
-            const previousRow = row.previousElementSibling;
-            let variation = 0;
-
-            if (previousRow) {
-                const previousCumul = parseFloat(previousRow.querySelector('td:last-child').textContent.replace(' €', '').replace(',', ''));
-                if (!isNaN(previousCumul)) {
-                    variation = ((montantNetImposable + montantForfaitaire) - previousCumul) / previousCumul * 100;
-                } else {
-                    console.error("La valeur précédente n'est pas numérique.");
+// Création du graphe
+const myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: saison,
+        datasets: [{
+            label: 'HeadL Mamicaux',
+            data: HeadLMamicaux,
+            borderColor: 'red',
+            fill: false
+        }, {
+            label: 'HeadL MSR',
+            data: HeadLMSR,
+            borderColor: 'blue',
+            fill: false
+        }, {
+            label: 'HeadL MPO',
+            data: HeadLMPO,
+            borderColor: 'green',
+            fill: false
+        }, {
+            label: 'HeadD1 amicaux',
+            data: HeadD1amicaux,
+            borderColor: 'orange',
+            fill: false
+        }, {
+            label: 'HeadD1 SR',
+            data: HeadD1SR,
+            borderColor: 'purple',
+            fill: false
+        }, {
+            label: 'HeadD1 PO',
+            data: HeadD1PO,
+            borderColor: 'brown',
+            fill: false
+        }, {
+            label: 'JDL amicaux',
+            data: JDLamicaux,
+            borderColor: 'black',
+            fill: false
+        }, {
+            label: 'JDL amicaux SR',
+            data: JDLamicauxSR,
+            borderColor: 'cyan',
+            fill: false
+        }, {
+            label: 'JDL amicaux PO',
+            data: JDLamicauxPO,
+            borderColor: 'magenta',
+            fill: false
+        }, {
+            label: 'JDL amicaux D1',
+            data: JDLamicauxD1,
+            borderColor: 'yellow',
+            fill: false
+        }, {
+            label: 'JDL amicaux D1 SR',
+            data: JDLamicauxD1SR,
+            borderColor: 'lime',
+            fill: false
+        }, {
+            label: 'JDL amicaux D1 PO',
+            data: JDLamicauxD1PO,
+            borderColor: 'olive',
+            fill: false
+        }, {
+            label: 'Grand Déplacement',
+            data: GrandDeplacement,
+            borderColor: 'navy',
+            fill: false
+        }, {
+            label: 'Hôtel',
+            data: Hotel,
+            borderColor: 'teal',
+            fill: false
+        }, {
+            label: 'Km',
+            data: Km,
+            borderColor: 'maroon',
+            fill: false
+        }, {
+            label: 'Repas',
+            data: Repas,
+            borderColor: 'pink',
+            fill: false
+        }, {
+            label: 'Taux d\'inflation',
+            data: TauxInflation,
+            borderColor: 'silver',
+            fill: false
+        }, {
+            label: 'Gazole',
+            data: Gazole,
+            borderColor: 'gold',
+            fill: false
+        }, {
+            label: 'Variation Km',
+            data: VariationKmArray,
+            borderColor: 'indigo',
+            fill: false
+        }]
+    },
+    options: {
+        responsive: false,
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
                 }
-            }
-
-            data.push(variation);
+            }]
         }
-
-        console.log('Labels:', labels);
-        console.log('Data:', data);
-
-        return { labels, data };
     }
-
-
-    // Extract data and generate chart
-    const { labels, data } = extractTableData();
-    const myChart = new Chart(chartElement, {
-        type: 'line',
-        data: {
-            labels,
-            datasets: [{
-                label: 'Taux de variation',
-                data,
-                borderColor: '#333',
-                backgroundColor: '#ccc',
-            }],
-        },
-        options: {
-            scales: {
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Taux de variation (%)',
-                    },
-                },
-            },
-        },
-    });
+});
 </script>
+
+
 
   
 
