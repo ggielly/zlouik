@@ -2,7 +2,7 @@
 
 <!--
 Générateur de simulation de primes et historique des rémunération 
-Developpé par Guillaume Gielly - guillaume ar0base rootshell.fr pour l'AAHG.
+guillaume ar0base rootshell.fr pour l'AAHG.
 2024 - Tous droits réservés à l'AAHG- GPL3
 -->
 
@@ -112,333 +112,176 @@ function formatNumber(number) {
 <br>
 
 
-<h1>Graphe du taux de variation de la prime</h1>
-<hr>
-<h2>Tableau récapitulatifs des données</h2>
-<br>
-<table id="Tableau2" class="table table-bordered table-hover table-condensed" style="width: 100%">
-  <thead><tr>
-    
-    <style>
-      table {
-        border-collapse: collapse;
-        width: 100%;
-        text-align: center;
-      }
-      th, td {
-        border: 1px solid black;
-        padding: 5px;
-      }
-      th {
-        background-color: #ddd;
-      }
-      tr:nth-child(even) {
-        background-color: #f9f9f9;
-      }
-    </style>
-      
-  <th style="width: max-content" title="Field #1"></th>
-  <th style="width: max-content" title="Field #2"><b>Année</b></th>
-  <th style="width: max-content" title="Field #3"></th>
-  <th title="Field #4">Début 4MS</th>
-  <th title="Field #5"></th>
-  <th title="Field #6">4MS en LM</th>
-  <th title="Field #7"></th>
-  <th title="Field #8"></th>
-  <th title="Field #9"></th>
-  <th title="Field #10"></th>
-  <th title="Field #11"></th>
-  <th title="Field #12">COVID-19</th>
-  <th title="Field #13"></th>
-  <th title="Field #14"></th>
-  <th title="Field #15"></th>
-  <th title="Field #16"></th>
-  <th title="Field #17">Évolution entre</th>
-  <th title="Field #18"></th>
-  </tr></thead>
-  <tbody><tr>
-  <td></td>
-  <td><b>2005-2006</b></td>  <td><b>2010-2011</b></td>  <td><b>2011-2012</b></td>  <td><b>2012-2013</b></td>  <td><b>2013-2014</b></td>  <td><b>2014-2015</b></td>  <td><b>2015-2016</b></td>  <td><b>2016-2017</b></td>
-  <td><b>2017-2018</b></td>
-  <td><b>2018-2019</b></td>
-  <td><b>2019-2020</b></td>
-  <td><b>2020-2021</b></td>
-  <td><b>2021-2022</b></td>
-  <td><b>2022-2023</b></td>
-  <td><b>2023-2024</b></td>
-  <td><b>2005&lt;x&lt;2023</b></td>
-  <td><b>Ratio évolution / inflation</b></td>
-  </tr>
-  
-  <tr>
-  <td>Head LM amicaux</td>  <td>120</td>  <td>126</td>  <td>126</td>  <td>130</td>  <td>130</td>  <td>135</td>  <td>135</td>  <td>135</td>  <td>115</td>  <td>115</td>  <td>115</td>  <td>125</td>  <td>130</td>  <td>130</td>
-  <td>130</td>
-  <td>8,3%</td>
-  <td>-17,0%</td>
-  </tr>
-  <tr>
-  <td>Head LM SR</td>  <td>120</td>  <td>126</td>  <td>126</td>  <td>130</td>  <td>130</td>  <td>135</td>  <td>135</td>  <td>135</td>  <td>140</td>  <td>140</td>  <td>140</td>  <td>140</td>  <td>145</td>  <td>145</td>  <td>145</td>  <td>20,8%</td>
-  <td>-4,5%</td>
-  </tr>
-  <tr>
-  <td>Head LM PO</td>
-  <td>220</td>  <td>231</td>  <td>185</td>  <td>185</td>  <td>185</td>  <td>190</td>  <td>190</td>  <td>190</td>  <td>140</td>  <td>140</td>  <td>140</td>  <td>140</td>  <td>145</td>  <td>145</td>  <td>145</td>  <td>-34,1%</td>  <td>-59,4%</td>  </tr>
-  <tr>
-  <td>Head D1 amicaux</td>
-  <td>95</td>  <td>100</td>  <td>100</td>  <td>105</td>  <td>105</td>  <td>110</td>  <td>110</td>  <td>110</td>  <td>100</td>  <td>100</td>  <td>100</td>  <td>100</td>  <td>105</td>  <td>105</td>  <td>105</td>  <td>10,5%</td>  <td>-14,8%</td>  </tr>  <tr>  
-    <td>Head D1 SR</td>
-  <td>95</td>  <td>100</td>  <td>100</td>  <td>105</td>  <td>105</td>  <td>110</td>  <td>110</td>  <td>110</td>  <td>115</td>  <td>115</td>  <td>115</td>  <td>115</td>  <td>120</td>  <td>120</td>  <td>120</td>  <td>26,3%</td>  <td>1,0%</td>
-  </tr>
-  <tr>
-  <td>Head D1 PO</td>  <td>120</td>  <td>126</td>  <td>126</td>  <td>130</td>  <td>130</td>  <td>135</td>  <td>135</td>  <td>135</td>  <td>115</td>  <td>115</td>  <td>115</td>  <td>115</td>  <td>120</td>  <td>120</td>  <td>120</td>  <td>0,0%</td>  <td>-25,3%</td>
-  </tr>
-  <tr>
-    <tr>
-      <td></td>      <td></td>      <td></td>      <td></td>      <td></td>      <td></td>      <td></td>      <td></td>      <td></td>      <td></td>      <td></td>      <td></td>      <td></td>      <td></td>      <td></td>      <td></td>      <td></td>      <td></td>      </tr>
-  </tr>
-  <tr>
-  <td>JDL LM amicaux</td>  <td>85</td>  <td>90</td>  <td>90</td>  <td>95</td>  <td>95</td>  <td>100</td>  <td>100</td>  <td>100</td>  <td>90</td>  <td>90</td>  <td>90</td>  <td>95</td>  <td>100</td>  <td>100</td>  <td>100</td>  <td>17,6%</td>  <td>-7,7%</td>  </tr>  <tr> 
-     <td>JDL LM SR</td>
-  <td>85</td>  <td>90</td>  <td>90</td>  <td>95</td>  <td>95</td>  <td>100</td>  <td>100</td>  <td>100</td>  <td>110</td>  <td>110</td><td>110</td>  <td>110</td>  <td>115</td>  <td>115</td>  <td>115</td>  <td>35,3%</td>  <td>10,0%</td>
-  </tr>  <tr>  <td><b>JDL LM PO</b></td>  <td>95</td>  <td>100</td>  <td>120</td>  <td>120</td>  <td>120</td>  <td>125</td>  <td>125</td>  <td>125</td>  <td>110</td>  <td>110</td>  <td>110</td>  <td>110</td>  <td>115</td>  <td>115</td>  <td>115</td>  <td>21,1%</td>  <td>-4,2%</td>
-  </tr>
-  <tr>
-  <td>JDL D1 amicaux</td>  <td>70</td>  <td>74</td>  <td>74</td>  <td>80</td>  <td>80</td>  <td>85</td>  <td>85</td>  <td>85</td>  <td>70</td>  <td>70</td>  <td>70</td>  <td>85</td>  <td>90</td>  <td>90</td>  <td>90</td>  <td>28,6%</td>
-  <td>3,3%</td>
-  </tr>
-  <tr>
-  <td>JDL D1 SR</td>  <td>70</td>  <td>74</td>  <td>74</td>  <td>95</td>  <td>80</td>  <td>85</td>  <td>85</td>  <td>85</td>  <td>100</td>  <td>100</td>  <td>100</td>  <td>100</td>  <td>105</td>  <td>105</td>  <td>105</td>  <td>50,0%</td>  <td>24,7%</td>
-  </tr>
-  <tr>
-  <td>JDL D1 PO</td>  <td>85</td>  <td>90</td>  <td>90</td>  <td>95</td>  <td>95</td>  <td>100</td>  <td>100</td>  <td>100</td>  <td>100</td>  <td>100</td>  <td>100</td>  <td>100</td>  <td>105</td>  <td>105</td>  <td>105</td>  <td>23,5%</td>  <td>-1,8%</td>
-  </tr>
-  <tr>
-  <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td>
-  </tr>
-  <tr>
-  <td>Grand déplacement</td>  <td>70</td>  <td>80</td>  <td>80</td>  <td>80</td>  <td>80</td>  <td>80</td>  <td>80</td>  <td>80</td>  <td>80</td>  <td>80</td>  <td>80</td>  <td>80</td>  <td>80</td>  <td>80</td>  <td>80</td>  <td>14,3%</td>
-  <td> </td>
-  </tr>
-  <tr>  <td>Hôtel</td>  <td>46,6</td>  <td>59,6</td>  <td>61,2</td>  <td>62,2</td>  <td>62,2</td>  <td>64,1</td>  <td>64,7</td>  <td>65,3</td>  <td>65,8</td>  <td>73,9</td>  <td>74,9</td>  <td>75,6</td>  <td>76,1</td>  <td>77,2</td>  <td>77,2</td>  <td>65,7%</td>
-  <td> </td>
-  </tr>
-  <tr>
-  <td>Km</td>  <td>0,315</td>  <td>0,343</td>  <td>0,359</td>  <td>0,359</td>  <td>0,359</td>  <td>0,362</td>  <td>0,364</td>  <td>0,364</td>  <td>0,364</td>  <td>0,364</td>  <td>0,364</td>  <td>0,368</td>  <td>0,368</td>  <td>0,405</td>  <td>0,405</td>  <td>28,6%</td>
-  <td> </td>
-  </tr>
-  <tr>
-  <td>Repas</td>
-  <td>15,2</td>  <td>16,6</td>  <td>17,1</td>  <td>17,4</td>  <td>17,4</td>  <td>17,9</td>  <td>18,1</td>  <td>18,3</td>  <td>18,4</td>  <td>18,6</td>  <td>18,8</td>  <td>19</td>  <td>19,1</td>  <td>19,4</td>  <td>19,4</td>  <td>27,6%</td>
-  <td> </td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    </tr>
-  <tr>
-  <td>Taux inflation INSEE</td>
-  <td>1,7%</td>  <td>1,5%</td>  <td>2,1%</td>  <td>2,0%</td>  <td>0,9%</td>  <td>0,5%</td>  <td>0,0%</td>  <td>0,2%</td>  <td>1,0%</td>  <td>1,8%</td>  <td>1,1%</td>  <td>0,5%</td>  <td>1,6%</td>  <td>5,5%</td>  <td>4,9%</td>  <td>25,3%</td>
-  <td> </td>
-  </tr>
-  <tr>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  </tr>
-  <tr>
-  <td>Gazole €/L</td>
-  <td>1,093</td>  <td>1,285</td>  <td>1,401</td>  <td>1,380</td>  <td>1,333</td>  <td>1,216</td>  <td>1,097</td>  <td>1,200</td>  <td>1,363</td>  <td>1,453</td>  <td>1,346</td>  <td>1,343</td>  <td>1,769</td>  <td>1,769</td>  <td> </td>
-  <td>61,8%</td>
-  <td> </td>
-  </tr>
-  <tr>
-  <td> </td>
-  <td> </td>
-  <td> </td>
-  <td> </td>
-  <td> </td>
-  <td> </td>
-  <td> </td>
-  <td> </td>
-  <td> </td>
-  <td> </td>
-  <td> </td>
-  <td> </td>
-  <td> </td>
-  <td> </td>
-  <td> </td>
-  <td> </td>
-  <td> </td>
-  <td> </td>
-  </tr>
-  <tr>
-  <td>Variation LM amicaux</td>
-  <td>0,0%</td>  <td>5,0%</td>  <td>0,0%</td>  <td>3,2%</td>  <td>0,0%</td>  <td>3,8%</td>  <td>0,0%</td>  <td>0,0%</td>  <td>-14,8%</td>  <td>0,0%</td>  <td>0,0%</td>  <td>8,7%</td>  <td>4,0%</td>  <td>0,0%</td>  <td> </td>
-  <td> </td>
-  <td> </td>
-  </tr>
-  <tr>
-  <td>Variation LM saison</td>
-  <td>0,0%</td>  <td>5,0%</td>
-  <td>0,0%</td>  <td>3,2%</td>
-  <td>0,0%</td>  <td>3,8%</td>
-  <td>0,0%</td>  <td>0,0%</td>
-  <td>3,7%</td>  <td>0,0%</td>
-  <td>0,0%</td>  <td>0,0%</td>
-  <td>3,6%</td>  <td>0,0%</td>
-  <td> </td>
-  <td> </td>
-  <td> </td>
-  </tr>
-  <tr>
-  <td>Variation LM PO</td>  <td>0,0%</td>  <td>5,0%</td>  <td>-19,9%</td>  <td>0,0%</td>  <td>0,0%</td>  <td>2,7%</td>  <td>0,0%</td>  <td>0,0%</td>  <td>-26,3%</td>  <td>0,0%</td>  <td>0,0%</td>  <td>0,0%</td>  <td>3,6%</td>  <td>0,0%</td>  <td> </td>
-  <td> </td>
-  <td> </td>
-  </tr>
-  <tr>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  </tr>
-  <tr>
-  <td><b>Variation km</b><td>
-  <td>0,0%</td>
-  <td>8,9%</td>
-  <td>4,7%</td>
-  <td>0,0%</td>
-  <td>0,0%</td>
-  <td>0,8%</td>
-  <td>0,6%</td>
-  <td>0,0%</td>
-  <td>0,0%</td>
-  <td>0,0%</td>
-  <td>0,0%</td>
-  <td>1,1%</td>
-  <td>0,0%</td>
-  <td>10,1%</td>
-  <td> </td>
-  <td> </td>
-  <td> </td>
-  </tr>
-  </tbody></table>
+<h2>Historique des tarifs</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Saison</th>
+            <th>HeadL Mamicaux</th>
+            <th>HeadL MSR</th>
+            <th>HeadL MPO</th>
+            <th>HeadD1 amicaux</th>
+            <th>HeadD1 SR</th>
+            <th>HeadD1 PO</th>
+            <th>JDL amicaux</th>
+            <th>JDL amicaux SR</th>
+            <th>JDL amicaux PO</th>
+            <th>JDL amicaux D1</th>
+            <th>JDL amicaux D1 SR</th>
+            <th>JDL amicaux D1 PO</th>
+            <th>Grand Déplacement</th>
+            <th>Hôtel</th>
+            <th>Km</th>
+            <th>Repas</th>
+            <th>Taux d'inflation</th>
+            <th>Gazole</th>
+            <th>Variation Km</th>
+        </tr>
+    </thead>
+    <tbody id="dataBody">
+    </tbody>
+</table>
+
+<script>
+    const saison = [2005,2006,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023];
+    const HeadLMamicaux = [120,126,126,130,130,135,135,135,115,115,115,125,130,130,130];
+    const HeadLMSR = [120,126,126,130,130,135,135,135,140,140,140,140,145,145,145];
+    const HeadLMPO = [220,231,185,185,185,190,190,190,140,140,140,140,145,145,145];
+    const HeadD1amicaux = [95,100,100,105,105,110,110,110,100,100,100,100,105,105,105];
+    const HeadD1SR = [95,100,100,105,105,110,110,110,115,115,115,115,120,120,120];
+    const HeadD1PO = [120,126,126,130,130,135,135,135,115,115,115,115,120,120,120];
+    const JDLamicaux = [85,90,90,95,95,100,100,100,90,90,90,95,100,100,100];
+    const JDLamicauxSR = [85,90,90,95,95,100,100,100,110,110,110,110,115,115,115];
+    const JDLamicauxPO = [95,100,120,120,120,125,125,125,110,110,110,110,115,115,115];
+    const JDLamicauxD1 = [70,74,74,80,80,85,85,85,70,70,70,85,90,90,90];
+    const JDLamicauxD1SR = [70,74,74,95,80,85,85,85,100,100,100,100,105,105,105];
+    const JDLamicauxD1PO = [85,90,90,95,95,100,100,100,100,100,100,100,105,105,105];
+    const GrandDeplacement = [70,80,80,80,80,80,80,80,80,80,80,80,80,80,80];
+    const Hotel = [46.6,59.6,61.2,62.2,62.2,64.1,64.7,65.3,65.8,73.9,74.9,75.6,76.1,77.2,77.2];
+    const Km = [0.315,0.343,0.359,0.359,0.359,0.362,0.364,0.364,0.364,0.364,0.364,0.368,0.368,0.405,0.405];
+    const Repas = [15.2,16.6,17.1,17.4,17.4,17.9,18.1,18.3,18.4,18.6,18.8,19,19.1,19.4,19.4];
+    const TauxInflation = [1.7,1.5,2.1,2.0,0.9,0.5,0.0,0.2,1.0,1.8,1.1,0.5,1.6,5.5,4.9];
+    const Gazole = [1.093,1.285,1.401,1.380,1.333,1.216,1.097,1.200,1.363,1.453,1.346,1.343,1.769,1.769];
+    const VariationKmArray = [0,8.9,4.7,0,0,0.8,0.6,0,0,0,0,0,1.1,0,10.1];
+
+    const tbody = document.getElementById('dataBody');
+
+    for (let i = 0; i < saison.length; i++) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${saison[i]}</td>
+            <td>${HeadLMamicaux[i]}</td>
+            <td>${HeadLMSR[i]}</td>
+            <td>${HeadLMPO[i]}</td>
+            <td>${HeadD1amicaux[i]}</td>
+            <td>${HeadD1SR[i]}</td>
+            <td>${HeadD1PO[i]}</td>
+            <td>${JDLamicaux[i]}</td>
+            <td>${JDLamicauxSR[i]}</td>
+            <td>${JDLamicauxPO[i]}</td>
+            <td>${JDLamicauxD1[i]}</td>
+            <td>${JDLamicauxD1SR[i]}</td>
+            <td>${JDLamicauxD1PO[i]}</td>
+            <td>${GrandDeplacement[i]}</td>
+            <td>${Hotel[i]}</td>
+            <td>${Km[i]}</td>
+            <td>${Repas[i]}</td>
+            <td>${TauxInflation[i]}</td>
+            <td>${Gazole[i]}</td>
+            <td>${VariationKmArray[i]}</td>
+        `;
+        tbody.appendChild(tr);
+    }
+</script>
 
 
-  <canvas id="myChart"></canvas>
-  <script>
-      const chartElement = document.getElementById('myChart');
-     
-  
-  // Function to extract data from the table
-  function extractTableData() {
-      const table = document.getElementById('Tableau2'); // Assumed ID of the table
-      const labels = [];
-      const data = [];
-      
-      // Loop through rows starting from the second row (skip header)
-      for (const row of table.querySelectorAll('tr:not(:first-child)')) {
+<canvas id="myChart"></canvas>
 
-          // DEBUG
-          console.log(cells);
-          const cells = row.querySelectorAll('td');
-          labels.push(cells[0].textContent.trim()); // Extract year from first cell
+<script>
 
 
-          // DEBUG
-          console.log(cells[0]) 
+    const chartElement = document.getElementById('myChart');
 
-          const montantNetImposable = parseFloat(cells[1].textContent.replace(' €', '')); // Extract and parse montant net imposable
-          const montantForfaitaire = parseFloat(cells[2].textContent.replace(' €', '')); // Extract and parse montant forfaitaire
-          
-          // Calculate variation rate (assuming montant cumulé is previous row's last cell)
-          const previousRow = row.previousElementSibling;
-          let variation;
-          if (previousRow) {
-              const previousCumul = parseFloat(previousRow.querySelector('td:last-child').textContent.replace(' €', ''));
-              variation = ((montantNetImposable + montantForfaitaire) - previousCumul) / previousCumul * 100;
-          } else {
-              variation = 0; // No variation for the first year
-          }
-          data.push(variation);
-      }
-      
-      console.log('Labels:', labels);
-      console.log('Data:', data);
-      
-      return { labels, data };
-  }
-  
-      
-      // Extract data and generate chart
-      const { labels, data } = extractTableData();
-      const myChart = new Chart(chartElement, {
-          type: 'line',
-          data: {
-              labels,
-              datasets: [{
-                  label: 'Taux de variation',
-                  data,
-                  borderColor: '#333',
-                  backgroundColor: '#ccc',
-              }],
-          },
-          options: {
-              scales: {
-                  y: {
-                      title: {
-                          display: true,
-                          text: 'Taux de variation (%)',
-                      },
-                  },
-              },
-          },
-      });
-  </script>
+    // Function to extract data from the table
+    function extractTableData() {
+        const table = document.getElementById('Tableau2');
+        if (!table) {
+            console.error("Tableau2 n'est pas trouvé.");
+            return { labels: [], data: [] };
+        }
+
+        const labels = [];
+        const data = [];
+
+        for (const row of table.querySelectorAll('tr:not(:first-child)')) {
+            const cells = row.querySelectorAll('td');
+
+            // Vérifier si le nombre de cellules est conforme à nos attentes
+            if (cells.length < 3) {
+                console.error("Le nombre de cellules n'est pas conforme à nos attentes.");
+                continue; // Passer à la prochaine ligne
+            }
+
+            const label = cells[0].textContent.trim();
+            const montantNetImposable = parseFloat(cells[1].textContent.replace(' €', '').replace(',', '.'));
+            const montantForfaitaire = parseFloat(cells[2].textContent.replace(' €', '').replace(',', '.'));
+
+            // Vérifier si les valeurs numériques sont valides
+            if (isNaN(montantNetImposable) || isNaN(montantForfaitaire)) {
+                console.error("Les valeurs ne sont pas numériques.");
+                continue; // Passer à la prochaine ligne
+            }
+
+            labels.push(label);
+            const previousRow = row.previousElementSibling;
+            let variation = 0;
+
+            if (previousRow) {
+                const previousCumul = parseFloat(previousRow.querySelector('td:last-child').textContent.replace(' €', '').replace(',', ''));
+                if (!isNaN(previousCumul)) {
+                    variation = ((montantNetImposable + montantForfaitaire) - previousCumul) / previousCumul * 100;
+                } else {
+                    console.error("La valeur précédente n'est pas numérique.");
+                }
+            }
+
+            data.push(variation);
+        }
+
+        console.log('Labels:', labels);
+        console.log('Data:', data);
+
+        return { labels, data };
+    }
+
+
+    // Extract data and generate chart
+    const { labels, data } = extractTableData();
+    const myChart = new Chart(chartElement, {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [{
+                label: 'Taux de variation',
+                data,
+                borderColor: '#333',
+                backgroundColor: '#ccc',
+            }],
+        },
+        options: {
+            scales: {
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Taux de variation (%)',
+                    },
+                },
+            },
+        },
+    });
+</script>
+
   
 
 
