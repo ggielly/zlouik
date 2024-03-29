@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+
+<!--
+Générateur de simulation de primes et historique des rémunération 
+Developpé par Guillaume Gielly - guillaume ar0base rootshell.fr pour l'AAHG.
+2024 - Tous droits réservés à l'AAHG- GPL3
+-->
+
+
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculatrice de Tarifs</title>
+</head>
+<body>
+
+<h2>Veuillez saisir les données ci-dessous et cliquer sur envoyer</h2>
+
+<h3>Nouveaux Tarifs</h3>
+<form id="nouveauxTarifsForm">
+  <label for="matchCount">Nombre de match :</label>
+  <input type="text" id="matchCount" name="matchCount" required><br><br>
+  <label for="primeAmount">Montant de la prime :</label>
+  <select id="primeAmount" name="primeAmount" required>
+    <option value="500">500€</option>
+    <option value="400">400€</option>
+  </select><br><br>
+  <label for="hotelPrice">Prix de l'hôtel moyen :</label>
+  <input type="text" id="hotelPrice" name="hotelPrice" required><br><br>
+  <label for="nightsCount">Nombre de nuit à l'hôtel :</label>
+  <input type="text" id="nightsCount" name="nightsCount" required><br><br>
+</form>
+
+<h3>Anciens Tarifs</h3>
+<form id="anciensTarifsForm">
+  <label for="prepIndemnity">Montant de l'indemnité de préparation :</label>
+  <input type="text" id="prepIndemnity" name="prepIndemnity" required><br><br>
+  <label for="averageCost">Coûts moyens engagés sur l'ensemble des matchs passés :</label>
+  <input type="text" id="averageCost" name="averageCost" required><br><br>
+  <label for="bncProfit">Bénéfices calculés au titre des BNC :</label>
+  <input type="text" id="bncProfit" name="bncProfit" required><br><br>
+</form>
+
+<h3>Fiscalité</h3>
+<form id="fiscaliteForm">
+  <label for="incomeTax">Revenu fiscal de référence :</label>
+  <input type="text" id="incomeTax" name="incomeTax" required><br><br>
+</form>
+
+<button onclick="calculate()">Envoyer</button>
+
+<div id="results"></div>
+
+<script>
+function calculate() {
+  // Récupération des valeurs
+  var matchCount = parseFloat(document.getElementById("matchCount").value);
+  var primeAmount = parseFloat(document.getElementById("primeAmount").value);
+  var hotelPrice = parseFloat(document.getElementById("hotelPrice").value);
+  var nightsCount = parseFloat(document.getElementById("nightsCount").value);
+  var prepIndemnity = parseFloat(document.getElementById("prepIndemnity").value);
+  var averageCost = parseFloat(document.getElementById("averageCost").value);
+  var bncProfit = parseFloat(document.getElementById("bncProfit").value);
+  var incomeTax = parseFloat(document.getElementById("incomeTax").value);
+  
+  // Vérification des données numériques
+  if (isNaN(matchCount) || isNaN(hotelPrice) || isNaN(nightsCount) || isNaN(prepIndemnity) || isNaN(averageCost) || isNaN(bncProfit) || isNaN(incomeTax)) {
+    document.getElementById("results").innerText = "Veuillez saisir des données numériques uniquement.";
+    return;
+  }
+  
+  // Calculs
+  var primeTotal = matchCount * primeAmount;
+  var impotsTI = 0.25 * primeTotal;
+  var beneficesTI = primeTotal - impotsTI;
+  var beneficesTotal = primeTotal - impotsTI;
+  var impotsTNS = 0.45 * primeTotal;
+  var beneficesTNS = primeTotal - impotsTNS;
+  var indemnityTotal = matchCount * prepIndemnity;
+  var beneficesAnciensTarifs = matchCount * prepIndemnity - averageCost;
+  var beneficesNouveauxTarifs = matchCount * bncProfit;
+  
+  // Affichage des résultats
+  var resultText = "";
+  resultText += "<table border='1'>";
+  resultText += "<tr><th colspan='2'>Travailleur indépendant (uberRef)</th></tr>";
+  resultText += "<tr><td>Chiffre d'affaire :</td><td>" + formatNumber(primeTotal.toFixed(2)) + "</td></tr>";
+  resultText += "<tr><td>Le montant de l'impot TI est donc de :</td><td>" + formatNumber(impotsTI.toFixed(2)) + "</td></tr>";
+  resultText += "<tr><td>Bénéfices :</td><td>" + formatNumber(beneficesTotal.toFixed(2)) + "</td></tr>";
+  resultText += "<tr><th colspan='2'>Travailleur non salarié (TNS)</th></tr>";
+  resultText += "<tr><td>Le montant des impots en TNS est de :</td><td>" + formatNumber(impotsTNS.toFixed(2)) + "</td></tr>";
+  resultText += "<tr><td>Bénéfices :</td><td>" + formatNumber((primeTotal - impotsTNS).toFixed(2)) + "</td></tr>";
+  resultText += "<tr><th colspan='2'>Ancien calcul</th></tr>";
+  resultText += "<tr><td>Montant de l'indemnité de préparation total :</td><td>" + formatNumber(indemnityTotal.toFixed(2)) + "</td></tr>";
+  resultText += "<tr><td>Bénéfices net avec l'ancien tarif :</td><td>" + formatNumber(beneficesAnciensTarifs.toFixed(2)) + "</td></tr>";
+  resultText += "<tr><td>Bénéfices :</td><td>" + formatNumber((matchCount * bncProfit).toFixed(2)) + "</td></tr>";
+  resultText += "</table>";
+  
+  document.getElementById("results").innerHTML = resultText;
+}
+
+// Formatage des nombres par groupes de trois
+function formatNumber(number) {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+</script>
+<br>
+<br>
+<hr>
+<h2>Tableau récapitulatifs des montants</h2>
+<br>
+<table class="table table-bordered table-hover table-condensed" style="width: 100%">
+  <thead><tr>
+    
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        text-align: center;
+      }
+      th, td {
+        border: 1px solid black;
+        padding: 5px;
+      }
+      th {
+        background-color: #ddd;
+      }
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+    </style>
+      
+  <th style="width: max-content" title="Field #1"></th>
+  <th style="width: max-content" title="Field #2"><b>Année</b></th>
+  <th style="width: max-content" title="Field #3"></th>
+  <th title="Field #4"></th>
+  <th title="Field #5"></th>
+  <th title="Field #6"></th>
+  <th title="Field #7"></th>
+  <th title="Field #8"></th>
+  <th title="Field #9"></th>
+  <th title="Field #10"></th>
+  <th title="Field #11"></th>
+  <th title="Field #12"></th>
+  <th title="Field #13"></th>
+  <th title="Field #14"></th>
+  <th title="Field #15"></th>
+  <th title="Field #16"></th>
+  <th title="Field #17">Evolution entre</th>
+  <th title="Field #18"></th>
+  </tr></thead>
+  <tbody><tr>
+  <td></td>
+  <td><b>2005-2006</b></td>
+  <td><b>2010-2011</b></td>
+  <td><b>2011-2012</b></td>
+  <td><b>2012-2013</b></td>
+  <td><b>2013-2014</b></td>
+  <td><b>2014-2015</b></td>
+  <td><b>2015-2016</b></td>
+  <td><b>2016-2017</b></td>
+  <td><b>2017-2018</b></td>
+  <td><b>2018-2019</b></td>
+  <td><b>2019-2020</b></td>
+  <td><b>2020-2021</b></td>
+  <td><b>2021-2022</b></td>
+  <td><b>2022-2023</b></td>
+  <td><b>2023-2024</b></td>
+  <td><b>2005&lt;x&lt;2023</b></td>
+  <td><b>Ratio évolution / inflation</b></td>
+  </tr>
+  <tr>
+  <td>Head</td>
+  <td>770</td>
+  <td>809</td>
+  <td>763</td>
+  <td>785</td>
+  <td>785</td>
+  <td>815</td>
+  <td>815</td>
+  <td>815</td>
+  <td>725</td>
+  <td>725</td>
+  <td>725</td>
+  <td>735</td>
+  <td>765</td>
+  <td>765</td>
+  <td>765</td>
+  <td> </td>
+  <td> </td>
+  </tr>
+  <tr>
+  <td>Magnus amicaux</td>
+  <td>120</td>
+  <td>126</td>
+  <td>126</td>
+  <td>130</td>
+  <td>130</td>
+  <td>135</td>
+  <td>135</td>
+  <td>135</td>
+  <td>115</td>
+  <td>115</td>
+  <td>115</td>
+  <td>125</td>
+  <td>130</td>
+  <td>130</td>
+  <td>130</td>
+  <td>8,3%</td>
+  <td>-17,0%</td>
+  </tr>
+  <tr>
+  <td>Magnus saison</td>
+  <td>120</td>
+  <td>126</td>
+  <td>126</td>
+  <td>130</td>
+  <td>130</td>
+  <td>135</td>
+  <td>135</td>
+  <td>135</td>
+  <td>140</td>
+  <td>140</td>
+  <td>140</td>
+  <td>140</td>
+  <td>145</td>
+  <td>145</td>
+  <td>145</td>
+  <td>20,8%</td>
+  <td>-4,5%</td>
+  </tr>
+  <tr>
+  <td>Magnus PO</td>
+  <td>220</td>
+  <td>231</td>
+  <td>185</td>
+  <td>185</td>
+  <td>185</td>
+  <td>190</td>
+  <td>190</td>
+  <td>190</td>
+  <td>140</td>
+  <td>140</td>
+  <td>140</td>
+  <td>140</td>
+  <td>145</td>
+  <td>145</td>
+  <td>145</td>
+  <td>-34,1%</td>
+  <td>-59,4%</td>
+  </tr>
+  <tr>
+  <td>D1 amicaux</td>
+  <td>95</td>
+  <td>100</td>
+  <td>100</td>
+  <td>105</td>
+  <td>105</td>
+  <td>110</td>
+  <td>110</td>
+  <td>110</td>
+  <td>100</td>
+  <td>100</td>
+  <td>100</td>
+  <td>100</td>
+  <td>105</td>
+  <td>105</td>
+  <td>105</td>
+  <td>10,5%</td>
+  <td>-14,8%</td>
+  </tr>
+  <tr>
+  <td>D1 saison</td>
+  <td>95</td>
+  <td>100</td>
+  <td>100</td>
+  <td>105</td>
+  <td>105</td>
+  <td>110</td>
+  <td>110</td>
+  <td>110</td>
+  <td>115</td>
+  <td>115</td>
+  <td>115</td>
+  <td>115</td>
+  <td>120</td>
+  <td>120</td>
+  <td>120</td>
+  <td>26,3%</td>
+  <td>1,0%</td>
+  </tr>
+  <tr>
+  <td>D1 PO</td>
+  <td>120</td>
+  <td>126</td>
+  <td>126</td>
+  <td>130</td>
+  <td>130</td>
+  <td>135</td>
+  <td>135</td>
+  <td>135</td>
+  <td>115</td>
+  <td>115</td>
+  <td>115</td>
+  <td>115</td>
+  <td>120</td>
+  <td>120</td>
+  <td>120</td>
+  <td>0,0%</td>
+  <td>-25,3%</td>
+  </tr>
+  <tr>
+  <td>JDL</td>
+  <td>490</td>
+  <td>518</td>
+  <td>538</td>
+  <td>580</td>
+  <td>565</td>
+  <td>595</td>
+  <td>595</td>
+  <td>595</td>
+  <td>580</td>
+  <td>580</td>
+  <td>580</td>
+  <td>600</td>
+  <td>630</td>
+  <td>630</td>
+  <td>630</td>
+  <td> </td>
+  <td> </td>
+  </tr>
+  <tr>
+  <td>Magnus amicaux</td>
+  <td>85</td>
+  <td>90</td>
+  <td>90</td>
+  <td>95</td>
+  <td>95</td>
+  <td>100</td>
+  <td>100</td>
+  <td>100</td>
+  <td>90</td>
+  <td>90</td>
+  <td>90</td>
+  <td>95</td>
+  <td>100</td>
+  <td>100</td>
+  <td>100</td>
+  <td>17,6%</td>
+  <td>-7,7%</td>
+  </tr>
+  <tr>
+  <td>Magnus saison</td>
+  <td>85</td>
+  <td>90</td>
+  <td>90</td>
+  <td>95</td>
+  <td>95</td>
+  <td>100</td>
+  <td>100</td>
+  <td>100</td>
+  <td>110</td>
+  <td>110</td>
+  <td>110</td>
+  <td>110</td>
+  <td>115</td>
+  <td>115</td>
+  <td>115</td>
+  <td>35,3%</td>
+  <td>10,0%</td>
+  </tr>
+  <tr>
+  <td><b>Magnus PO</b></td>
+  <td>95</td>
+  <td>100</td>
+  <td>120</td>
+  <td>120</td>
+  <td>120</td>
+  <td>125</td>
+  <td>125</td>
+  <td>125</td>
+  <td>110</td>
+  <td>110</td>
+  <td>110</td>
+  <td>110</td>
+  <td>115</td>
+  <td>115</td>
+  <td>115</td>
+  <td>21,1%</td>
+  <td>-4,2%</td>
+  </tr>
+  <tr>
+  <td>D1 amicaux</td>
+  <td>70</td>
+  <td>74</td>
+  <td>74</td>
+  <td>80</td>
+  <td>80</td>
+  <td>85</td>
+  <td>85</td>
+  <td>85</td>
+  <td>70</td>
+  <td>70</td>
+  <td>70</td>
+  <td>85</td>
+  <td>90</td>
+  <td>90</td>
+  <td>90</td>
+  <td>28,6%</td>
+  <td>3,3%</td>
+  </tr>
+  <tr>
+  <td>D1 saison</td>
+  <td>70</td>
+  <td>74</td>
+  <td>74</td>
+  <td>95</td>
+  <td>80</td>
+  <td>85</td>
+  <td>85</td>
+  <td>85</td>
+  <td>100</td>
+  <td>100</td>
+  <td>100</td>
+  <td>100</td>
+  <td>105</td>
+  <td>105</td>
+  <td>105</td>
+  <td>50,0%</td>
+  <td>24,7%</td>
+  </tr>
+  <tr>
+  <td>D1 PO</td>
+  <td>85</td>
+  <td>90</td>
+  <td>90</td>
+  <td>95</td>
+  <td>95</td>
+  <td>100</td>
+  <td>100</td>
+  <td>100</td>
+  <td>100</td>
+  <td>100</td>
+  <td>100</td>
+  <td>100</td>
+  <td>105</td>
+  <td>105</td>
+  <td>105</td>
+  <td>23,5%</td>
+  <td>-1,8%</td>
+  </tr>
+  <tr>
+  <td>Head/JDL</td>
+  <td>132,115</td>
+  <td>156,543</td>
+  <td>158,659</td>
+  <td>159,959</td>
+  <td>159,959</td>
+  <td>162,362</td>
+  <td>163,164</td>
+  <td>163,964</td>
+  <td>164,564</td>
+  <td>172,864</td>
+  <td>174,064</td>
+  <td>174,968</td>
+  <td>175,568</td>
+  <td>177,005</td>
+  <td>177,005</td>
+  <td> </td>
+  <td> </td>
+  </tr>
+  <tr>
+  <td>Grand déplacement</td>
+  <td>70</td>
+  <td>80</td>
+  <td>80</td>
+  <td>80</td>
+  <td>80</td>
+  <td>80</td>
+  <td>80</td>
+  <td>80</td>
+  <td>80</td>
+  <td>80</td>
+  <td>80</td>
+  <td>80</td>
+  <td>80</td>
+  <td>80</td>
+  <td>80</td>
+  <td>14,3%</td>
+  <td> </td>
+  </tr>
+  <tr>
+  <td>Hôtel</td>
+  <td>46,6</td>
+  <td>59,6</td>
+  <td>61,2</td>
+  <td>62,2</td>
+  <td>62,2</td>
+  <td>64,1</td>
+  <td>64,7</td>
+  <td>65,3</td>
+  <td>65,8</td>
+  <td>73,9</td>
+  <td>74,9</td>
+  <td>75,6</td>
+  <td>76,1</td>
+  <td>77,2</td>
+  <td>77,2</td>
+  <td>65,7%</td>
+  <td> </td>
+  </tr>
+  <tr>
+  <td>Km</td>
+  <td>0,315</td>
+  <td>0,343</td>
+  <td>0,359</td>
+  <td>0,359</td>
+  <td>0,359</td>
+  <td>0,362</td>
+  <td>0,364</td>
+  <td>0,364</td>
+  <td>0,364</td>
+  <td>0,364</td>
+  <td>0,364</td>
+  <td>0,368</td>
+  <td>0,368</td>
+  <td>0,405</td>
+  <td>0,405</td>
+  <td>28,6%</td>
+  <td> </td>
+  </tr>
+  <tr>
+  <td>Repas</td>
+  <td>15,2</td>
+  <td>16,6</td>
+  <td>17,1</td>
+  <td>17,4</td>
+  <td>17,4</td>
+  <td>17,9</td>
+  <td>18,1</td>
+  <td>18,3</td>
+  <td>18,4</td>
+  <td>18,6</td>
+  <td>18,8</td>
+  <td>19</td>
+  <td>19,1</td>
+  <td>19,4</td>
+  <td>19,4</td>
+  <td>27,6%</td>
+  <td> </td>
+  </tr>
+  <tr>
+  <td>Taux</td>
+  <td>0,017</td>
+  <td>0,015</td>
+  <td>0,021</td>
+  <td>0,02</td>
+  <td>0,009</td>
+  <td>0,005</td>
+  <td>0</td>
+  <td>0,002</td>
+  <td>0,01</td>
+  <td>0,018</td>
+  <td>0,011</td>
+  <td>0,005</td>
+  <td>0,016</td>
+  <td>0,055</td>
+  <td>0,055</td>
+  <td> </td>
+  <td> </td>
+  </tr>
+  <tr>
+  <td>Taux inflation</td>
+  <td>1,7%</td>
+  <td>1,5%</td>
+  <td>2,1%</td>
+  <td>2,0%</td>
+  <td>0,9%</td>
+  <td>0,5%</td>
+  <td>0,0%</td>
+  <td>0,2%</td>
+  <td>1,0%</td>
+  <td>1,8%</td>
+  <td>1,1%</td>
+  <td>0,5%</td>
+  <td>1,6%</td>
+  <td>5,5%</td>
+  <td>4,9%</td>
+  <td>25,3%</td>
+  <td> </td>
+  </tr>
+  <tr>
+  <td>Diesel</td>
+  <td>1,09</td>
+  <td>1,285</td>
+  <td>1,40</td>
+  <td>1,38</td>
+  <td>1,3325</td>
+  <td>1,21</td>
+  <td>1,096</td>
+  <td>1,2</td>
+  <td>1,363</td>
+  <td>1,4525</td>
+  <td>1,346</td>
+  <td>1,342</td>
+  <td>1,769</td>
+  <td>1,769</td>
+  <td>1,769</td>
+  <td> </td>
+  <td> </td>
+  </tr>
+  <tr>
+  <td>€/L</td>
+  <td>1,093</td>
+  <td>1,285</td>
+  <td>1,401</td>
+  <td>1,380</td>
+  <td>1,333</td>
+  <td>1,216</td>
+  <td>1,097</td>
+  <td>1,200</td>
+  <td>1,363</td>
+  <td>1,453</td>
+  <td>1,346</td>
+  <td>1,343</td>
+  <td>1,769</td>
+  <td>1,769</td>
+  <td> </td>
+  <td>61,8%</td>
+  <td> </td>
+  </tr>
+  <tr>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  </tr>
+  <tr>
+  <td>Variation magnus amicaux</td>
+  <td>0,0%</td>
+  <td>5,0%</td>
+  <td>0,0%</td>
+  <td>3,2%</td>
+  <td>0,0%</td>
+  <td>3,8%</td>
+  <td>0,0%</td>
+  <td>0,0%</td>
+  <td>-14,8%</td>
+  <td>0,0%</td>
+  <td>0,0%</td>
+  <td>8,7%</td>
+  <td>4,0%</td>
+  <td>0,0%</td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  </tr>
+  <tr>
+  <td>Variation magnus saison</td>
+  <td>0,0%</td>
+  <td>5,0%</td>
+  <td>0,0%</td>
+  <td>3,2%</td>
+  <td>0,0%</td>
+  <td>3,8%</td>
+  <td>0,0%</td>
+  <td>0,0%</td>
+  <td>3,7%</td>
+  <td>0,0%</td>
+  <td>0,0%</td>
+  <td>0,0%</td>
+  <td>3,6%</td>
+  <td>0,0%</td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  </tr>
+  <tr>
+  <td>Variation magnus PO</td>
+  <td>0,0%</td>
+  <td>5,0%</td>
+  <td>-19,9%</td>
+  <td>0,0%</td>
+  <td>0,0%</td>
+  <td>2,7%</td>
+  <td>0,0%</td>
+  <td>0,0%</td>
+  <td>-26,3%</td>
+  <td>0,0%</td>
+  <td>0,0%</td>
+  <td>0,0%</td>
+  <td>3,6%</td>
+  <td>0,0%</td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  </tr>
+  <tr>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  </tr>
+  <tr>
+  <td><b>Variation km</b><td>
+  <td>0,0%</td>
+  <td>8,9%</td>
+  <td>4,7%</td>
+  <td>0,0%</td>
+  <td>0,0%</td>
+  <td>0,8%</td>
+  <td>0,6%</td>
+  <td>0,0%</td>
+  <td>0,0%</td>
+  <td>0,0%</td>
+  <td>0,0%</td>
+  <td>1,1%</td>
+  <td>0,0%</td>
+  <td>10,1%</td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  </tr>
+  </tbody></table>
+<br><br><br
+  Association des arbitres de hockey sur glace 2024 - Tous droits réservés - <br>
+  Code source en licence GPL3. Github : <br>
+  Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité de l'association.<br>
+  En cas d'erreur merci de nous contacter à l'adresse suivante : <a href="mailto:guillaume ar0base rootshell.fr">
+
+</body>
+</html>
