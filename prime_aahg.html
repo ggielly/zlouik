@@ -115,6 +115,16 @@ function formatNumber(number) { return number.toString().replace(/\B(?=(\d{3})+(
   <script>
     const chartElement = document.getElementById('myChart');
     
+  const variationRates = [
+      // FIXME: Remplacer les valeurs par le calcul du taux de variation pour chaque régime
+      calculateVariationRate('TI', montantBrut, montantNet),
+      calculateVariationRate('TNS', montantBrut, montantNet),
+      calculateVariationRate('Nouveau', montantBrut, montantNet),
+      calculateVariationRate('Ancien', montantBrut, montantNet),
+  ];
+
+
+
     // Function to extract data from the table
     function extractTableData() {
       const table = document.getElementById('myChart'); // Target the table
@@ -165,6 +175,33 @@ function formatNumber(number) { return number.toString().replace(/\B(?=(\d{3})+(
         },
       },
     });
+
+   const ctx = document.getElementById('myChart').getContext('2d');
+   const chartData = {
+   labels: ['TI', 'TNS', 'Nouveau', 'Ancien'],
+    datasets: [{
+      label: 'Taux de variation',
+      data: variationRates,
+      backgroundColor: ['#ffcccb', '#ffd9b3', '#c2f0fc', '#e5b7b5']
+  }]
+};
+
+function calculateVariationRate(regime, montantBrut, montantNet) {
+  // FIXME: Remplacer par le calcul du taux de variation en fonction du régime
+  return ((montantNet - montantBrut) / montantBrut) * 100;
+}
+
+/*
+const myChart = new Chart(ctx, {
+  type: 'bar',
+  data: chartData
+});
+*/
+function calculateVariationRate(regime, montantBrut, montantNet) {
+  const montantNetRegime = montantBrut * getTauxNet(regime);
+  return ((montantNetRegime - montantNet) / montantNet) * 100;
+}
+
 
 // 
 
