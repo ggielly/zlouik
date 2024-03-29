@@ -8,8 +8,8 @@ Developpé par Guillaume Gielly - guillaume ar0base rootshell.fr pour l'AAHG.
 
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Calculatrice de Tarifs</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
@@ -110,125 +110,12 @@ function formatNumber(number) { return number.toString().replace(/\B(?=(\d{3})+(
 <br>
 <br>
 
-<h1>Graphe du tx de variation de la prime</h1>
-  <canvas id="myChart"></canvas>
-  <script>
-    const chartElement = document.getElementById('myChart');
-    
-  const variationRates = [
-      // FIXME: Remplacer les valeurs par le calcul du taux de variation pour chaque régime
-      calculateVariationRate('TI', montantBrut, montantNet),
-      calculateVariationRate('TNS', montantBrut, montantNet),
-      calculateVariationRate('Nouveau', montantBrut, montantNet),
-      calculateVariationRate('Ancien', montantBrut, montantNet),
-  ];
 
-
-
-    // Function to extract data from the table
-    function extractTableData() {
-      const table = document.getElementById('myChart'); // Target the table
-      const labels = [];
-      const data = [];
-      
-      // Loop through rows starting from the second row (skip header)
-      for (const row of table.querySelectorAll('tr:not(:first-child)')) {
-        const cells = row.querySelectorAll('td');
-        labels.push(cells[0].textContent.trim()); // Extract year from first cell
-        const montantNetImposable = parseFloat(cells[1].textContent.replace(' €', '')); // Extract and parse montant net imposable
-        const montantForfaitaire = parseFloat(cells[2].textContent.replace(' €', '')); // Extract and parse montant forfaitaire
-        
-        // Calculate variation rate (assuming montant cumulé is previous row's last cell)
-        const previousRow = row.previousElementSibling;
-        let variation;
-        if (previousRow) {
-          const previousCumul = parseFloat(previousRow.querySelector('td:last-child').textContent.replace(' €', ''));
-          variation = ((montantNetImposable + montantForfaitaire) - previousCumul) / previousCumul * 100;
-          
-        } else {
-          variation = 0; // No variation for the first year
-        }
-        data.push(variation);
-      }
-      
-      return { labels, data };
-    }
-    
-    // Extract data and generate chart
-    const { labels, data } = extractTableData();
-    const myChart = new Chart(chartElement, {
-      type: 'line',
-      data: {
-        labels,
-        datasets: [{
-          label: 'Taux de variation',
-          data,
-          borderColor: '#333',
-          backgroundColor: '#ccc',
-        }],
-      },
-      options: {
-        scales: {
-          y: {
-            title: 'Taux de variation (%)',
-          },
-        },
-      },
-    });
-
-   const ctx = document.getElementById('myChart').getContext('2d');
-   const chartData = {
-   labels: ['TI', 'TNS', 'Nouveau', 'Ancien'],
-    datasets: [{
-      label: 'Taux de variation',
-      data: variationRates,
-      backgroundColor: ['#ffcccb', '#ffd9b3', '#c2f0fc', '#e5b7b5']
-  }]
-};
-
-function calculateVariationRate(regime, montantBrut, montantNet) {
-  // FIXME: Remplacer par le calcul du taux de variation en fonction du régime
-  return ((montantNet - montantBrut) / montantBrut) * 100;
-}
-
-/*
-const myChart = new Chart(ctx, {
-  type: 'bar',
-  data: chartData
-});
-*/
-function calculateVariationRate(regime, montantBrut, montantNet) {
-  const montantNetRegime = montantBrut * getTauxNet(regime);
-  return ((montantNetRegime - montantNet) / montantNet) * 100;
-}
-
-
-// 
-
-// Debug to console.log
-const table = document.getElementById('myChart');
-const labels = [];
-const data = [];
-
-for (const row of table.querySelectorAll('tr:not(:first-child)')) {
-  const cells = row.querySelectorAll('td');
-  labels.push(cells[0].textContent.trim());
-  data.push(parseFloat(cells[1].textContent.replace(' €', '')));
-
-  console.log(labels);
-  console.log(data);
-}
-// End debug
-
-// End of script
-
-</script>
-<br>
-<br>
+<h1>Graphe du taux de variation de la prime</h1>
 <hr>
 <h2>Tableau récapitulatifs des données</h2>
 <br>
-<table class="table table-bordered table-hover table-condensed" style="width: 100%">
+<table id="Tableau2" class="table table-bordered table-hover table-condensed" style="width: 100%">
   <thead><tr>
     
     <style>
@@ -479,7 +366,75 @@ for (const row of table.querySelectorAll('tr:not(:first-child)')) {
   <td> </td>
   </tr>
   </tbody></table>
-<br><br><br
+
+
+  <canvas id="myChart"></canvas>
+  <script>
+      const chartElement = document.getElementById('myChart');
+     
+  
+  // Function to extract data from the table
+  function extractTableData() {
+      const table = document.getElementById('Tableau2'); // Assumed ID of the table
+      const labels = [];
+      const data = [];
+      
+      // Loop through rows starting from the second row (skip header)
+      for (const row of table.querySelectorAll('tr:not(:first-child)')) {
+          const cells = row.querySelectorAll('td');
+          labels.push(cells[0].textContent.trim()); // Extract year from first cell
+          const montantNetImposable = parseFloat(cells[1].textContent.replace(' €', '')); // Extract and parse montant net imposable
+          const montantForfaitaire = parseFloat(cells[2].textContent.replace(' €', '')); // Extract and parse montant forfaitaire
+          
+          // Calculate variation rate (assuming montant cumulé is previous row's last cell)
+          const previousRow = row.previousElementSibling;
+          let variation;
+          if (previousRow) {
+              const previousCumul = parseFloat(previousRow.querySelector('td:last-child').textContent.replace(' €', ''));
+              variation = ((montantNetImposable + montantForfaitaire) - previousCumul) / previousCumul * 100;
+          } else {
+              variation = 0; // No variation for the first year
+          }
+          data.push(variation);
+      }
+      
+      console.log('Labels:', labels);
+      console.log('Data:', data);
+      
+      return { labels, data };
+  }
+  
+      
+      // Extract data and generate chart
+      const { labels, data } = extractTableData();
+      const myChart = new Chart(chartElement, {
+          type: 'line',
+          data: {
+              labels,
+              datasets: [{
+                  label: 'Taux de variation',
+                  data,
+                  borderColor: '#333',
+                  backgroundColor: '#ccc',
+              }],
+          },
+          options: {
+              scales: {
+                  y: {
+                      title: {
+                          display: true,
+                          text: 'Taux de variation (%)',
+                      },
+                  },
+              },
+          },
+      });
+  </script>
+  
+
+
+
+<br><br><br>
 Association des arbitres de hockey sur glace 2024 - Tous droits réservés - <br>
 Code source en licence GPL3 : <a href="//github.com/ggielly/SuperRef">Github</a> <br>
 Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité de l'association.<br>
