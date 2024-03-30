@@ -60,28 +60,19 @@ table.AutoEntrepriseArray tfoot td {
 
 <script>
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 
+//    _____   ____ ______________________  ___________ ___________________________________________________________.___  ____________________
+//   /  _  \ |    |   \__    ___/\_____  \ \_   _____/ \      \__    ___/\______   \_   _____/\______   \______   \   |/   _____/\_   _____/
+//  /  /_\  \|    |   / |    |    /   |   \ |    __)_  /   |   \|    |    |       _/|    __)_  |     ___/|       _/   |\_____  \  |    __)_ 
+// /    |    \    |  /  |    |   /    |    \|        \/    |    \    |    |    |   \|        \ |    |    |    |   \   |/        \ |        \
+// \____|__  /______/   |____|   \_______  /_______  /\____|__  /____|    |____|_  /_______  / |____|    |____|_  /___/_______  //_______  /
+//         \/                            \/        \/         \/                 \/        \/                   \/            \/         \/ 
+//
+// 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 </script> 
-<h1>Calcul des revenus d'un travailleur indépendant</h1>
+<h1>Calcul des revenus d'un arbitre en statut de travailleur indépendant (auto entreprise)</h1>
 <p>Ce code calcule le revenu net d'un travailleur indépendant en prenant en compte les primes, les frais et les cotisations URSSAF.</p>
-
-
-<p>Sélectionnez le nombre de matchs : </p>
-    <select id="nb_matchs">
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-        <option value="20">20</option>
-        <option value="25">25</option>
-        <option value="30">30</option>
-        <option value="35">35</option>
-        <option value="40">40</option>
-        <option value="45">45</option>
-        <option value="50">50</option>
-        <option value="55">55</option>
-        <option value="60">60</option>
-        <option value="65">65</option>
-    </select>
 
 <table class="AutoEntrepriseArray">
     <thead>
@@ -97,7 +88,7 @@ table.AutoEntrepriseArray tfoot td {
             <th>Net d'URSSAF annuel</th>
             <th>Frais par match</th>
             <th>Sommes annuelle des frais</th>
-            <th>RESULTAT NET</th>
+            <th>RÉSULTAT NET</th>
         </tr>
     </thead>
     <tbody>
@@ -159,9 +150,6 @@ table.AutoEntrepriseArray tfoot td {
         </tr>
     </tbody>
 </table>
-
-
-
 <script>
  // Declaration des variables
 
@@ -171,7 +159,6 @@ table.AutoEntrepriseArray tfoot td {
  const repas = 15;
  const hotel = 80;
  const baremeKm = 0.415;
-
 
  // Colonne 1 => Nombre de matchs
  const nbre_matchs_01 = 25;
@@ -201,40 +188,32 @@ table.AutoEntrepriseArray tfoot td {
  const brut_annuel_02 = nbre_matchs_02 * prime_montant_02;
  const brut_annuel_03 = nbre_matchs_03 * prime_montant_03;
 
-
  // Colonne 8 => Cotisations annuelles
  const cotisations_annuelles_01 = nbre_matchs_01 * cotisations_urssaf_par_match_01;
  const cotisations_annuelles_02 = nbre_matchs_02 * cotisations_urssaf_par_match_03;
  const cotisations_annuelles_03 = nbre_matchs_03 * cotisations_urssaf_par_match_03;
-
 
  // Colonne 9 => Net d'URSSAF annuel
  const net_urssaf_annuel_01 = net_match_01 * nbre_matchs_01;
  const net_urssaf_annuel_02 = net_match_02 * nbre_matchs_02;
  const net_urssaf_annuel_03 = net_match_03 * nbre_matchs_03;
 
-
  // Colonne 10 => Calcul arbitraire : 30e de repas + 40e de péage + 100e de carburants
  const frais_par_match01 = 170;
  const frais_par_match02 = 100;
  const frais_par_match03 = 300;
-
 
 // Colone 11 => Total des frais annuel sur l'ensemble des matchs
  const frais_annuel_01 = frais_par_match01 * nbre_matchs_01;
  const frais_annuel_02 = frais_par_match02 * nbre_matchs_02;
  const frais_annuel_03 = frais_par_match03 * nbre_matchs_03;
 
-
 // Colonne 12 => Resultat net - ARJAN
  const resultat_net_01 = net_urssaf_annuel_01 - frais_annuel_01;
  const resultat_net_02 = net_urssaf_annuel_02 - frais_annuel_02;
  const resultat_net_03 = net_urssaf_annuel_03 - frais_annuel_03;
 
-
-
  /// IMPOSITIONS
- 
  // Taux reduit de l'impot sur les societe en EURL
  const tauxreduit_is_eurl = 15;
  
@@ -245,10 +224,8 @@ table.AutoEntrepriseArray tfoot td {
  const tauxcotisation_is_sasu = 15
  const CSG_CR = 17.20 // Valeur de la CSG
  const AC24 = 666 /// TODO : A CHANGER / CALCULER 
-
  const taux_CSG_CRSD_IR_forfaitaire = 15;
  
-
  //////
  // Affichage des résultats dans le tableau
     document.getElementById("cell2_1").innerHTML = nbre_matchs_01; // Nombre de matchs (match 1)
@@ -287,8 +264,6 @@ table.AutoEntrepriseArray tfoot td {
     document.getElementById("cell11_3").innerHTML = frais_annuel_03.toFixed(2) + " €"; // Nos frais de l'ensemble des matchs annuels
     document.getElementById("cell12_3").innerHTML = resultat_net_03.toFixed(2) + " €"; // Caillasse annuelle
 
-
-
 // Affichage des totaux ligne 4 - NE PAS AFFICHER
  // Calcul des totaux
  //const brut_annuel = prime_montant_01 + prime_montant_02 + prime_montant_03;
@@ -296,8 +271,7 @@ table.AutoEntrepriseArray tfoot td {
  //const net_annuel = brut_annuel - cotisations_annuelles;
  //document.getElementById("cell3_4").innerHTML = brut_annuel.toFixed(2) + " €"; // Brut annuel
  //document.getElementById("cell5_4").innerHTML = cotisations_annuelles.toFixed(2) + " €"; // Cotisations annuelles
-//document.getElementById("cell6_4").innerHTML = net_annuel.toFixed(2) + " €"; // Net annuel
-
+ //document.getElementById("cell6_4").innerHTML = net_annuel.toFixed(2) + " €"; // Net annuel
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Versement dividende impositon bareme
@@ -350,12 +324,7 @@ console.log(montantFinal);
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
 </script>
-
-
 
 <br>
 <br>
@@ -579,6 +548,6 @@ const myChart = new Chart(ctx, {
 Association des arbitres de hockey sur glace 2024 - Tous droits réservés - <br>
 Code source en licence GPL3 : <a href="//github.com/ggielly/SuperRef">Github</a> <br>
 Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité de l'association.<br>
-En cas d'erreur merci de nous contacter à l'adresse suivante : <a href="mailto:guillaume ar0base rootshell.fr">
+En cas d'erreur merci de nous contacter à l'adresse suivante : <a href="mailto:guillaume ar0base rootshell.fr">guillaume ar0base rootshell.fr</a>>
 </body>
 </html>
