@@ -1,23 +1,17 @@
 <!DOCTYPE html>
-
 <!--
 Générateur de simulation de primes et historique des rémunération 
 guillaume ar0base rootshell.fr pour l'AAHG.
 2024 - Tous droits réservés à l'AAHG- GPL3
 -->
-
 <html lang="fr">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-
-<title>Graphique des données</title>
+ <meta charset="UTF-8"/>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ <title>Graphique des données</title>
     <!-- Inclure Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
-<style>
+ <style>
   table {
       width: 100%;
       border-collapse: collapse;
@@ -30,102 +24,245 @@ guillaume ar0base rootshell.fr pour l'AAHG.
   th {
       background-color: #f2f2f2;
   }
-</style>
 
-
+table.AutoEntrepriseArray {
+  border: 2px solid #4F7849;
+  background-color: #EEEEEE;
+  text-align: center;
+  border-collapse: collapse;
+}
+table.AutoEntrepriseArray td, table.AutoEntrepriseArray th {
+  border: 1px solid #4F7849;
+}
+table.AutoEntrepriseArray tbody td {
+  font-size: 13px;
+  font-weight: bold;
+  color: #4F7849;
+}
+table.AutoEntrepriseArray tr:nth-child(even) {
+  background: #CEE0CC;
+}
+table.AutoEntrepriseArray thead {
+  background: #4F7849;
+}
+table.AutoEntrepriseArray thead th {
+  font-size: 13px;
+  color: #000000;
+  text-align: center;
+}
+table.AutoEntrepriseArray tfoot td {
+  font-size: 21px;
+}
+ </style>
 </head>
 
 <body>
 
-<h2>Veuillez saisir les données ci-dessous et cliquer sur envoyer</h2>
+<script>
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+</script> 
+<h1>Calcul des revenus d'un travailleur indépendant</h1>
+<p>Ce code calcule le revenu net d'un travailleur indépendant en prenant en compte les primes, les frais et les cotisations URSSAF.</p>
 
-<h3>Nouveaux Tarifs</h3>
-<form id="nouveauxTarifsForm">
-  <label for="matchCount">Nombre de match :</label>
-  <input type="text" id="matchCount" name="matchCount" required><br><br>
-  <label for="primeAmount">Montant de la prime :</label>
-  <select id="primeAmount" name="primeAmount" required>
-    <option value="500">500€</option>
-    <option value="400">400€</option>
-  </select><br><br>
-  <label for="hotelPrice">Prix de l'hôtel moyen :</label>
-  <input type="text" id="hotelPrice" name="hotelPrice" required><br><br>
-  <label for="nightsCount">Nombre de nuit à l'hôtel :</label>
-  <input type="text" id="nightsCount" name="nightsCount" required><br><br>
-</form>
 
-<h3>Anciens Tarifs</h3>
-<form id="anciensTarifsForm">
-  <label for="prepIndemnity">Montant de l'indemnité de préparation :</label>
-  <input type="text" id="prepIndemnity" name="prepIndemnity" required><br><br>
-  <label for="averageCost">Coûts moyens engagés sur l'ensemble des matchs passés :</label>
-  <input type="text" id="averageCost" name="averageCost" required><br><br>
-  <label for="bncProfit">Bénéfices calculés au titre des BNC :</label>
-  <input type="text" id="bncProfit" name="bncProfit" required><br><br>
-</form>
+<p>Sélectionnez le nombre de matchs : </p>
+    <select id="nb_matchs">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+        <option value="35">35</option>
+        <option value="40">40</option>
+        <option value="45">45</option>
+        <option value="50">50</option>
+        <option value="55">55</option>
+        <option value="60">60</option>
+        <option value="65">65</option>
+    </select>
 
-<h3>Fiscalité</h3>
-<form id="fiscaliteForm">
-  <label for="incomeTax">Revenu fiscal de référence :</label>
-  <input type="text" id="incomeTax" name="incomeTax" required><br><br>
-</form>
+<table class="AutoEntrepriseArray">
+    <thead>
+        <tr>
+            <th>Travailleur indépendant</th>
+            <th>Nbre matchs</th>
+            <th>Montant</th>
+            <th>% URSSAF</th>
+            <th>Cotisations / match</th>
+            <th>Net</th>
+            <th>Brut annuel</th>
+            <th>Cotisations annuelles</th>
+            <th>Net d'URSSAF annuel</th>
+            <th>Total par match</th>
+            <th>Total cotisations annuelles frais</th>
+            <th>Résultat net</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Seuil TVA 39 100e</td>
+            <td id="cell2_1"></td>
+            <td id="cell3_1"></td>
+            <td id="cell4_1"></td>
+            <td id="cell5_1"></td>
+            <td id="cell6_1"></td>
+            <td id="cell7_1"></td>
+            <td id="cell8_1"></td>
+            <td id ="cell9_1"></td>
+            <th id="cell10_1"></th>
+            <th id="cell11_1"></th>
+            <th id="cell12_1"></th>
+        </tr>
+        <tr>
+            <td></td>
+            <td id="cell2_2"></td>
+            <td id="cell3_2"></td>
+            <td id="cell4_1"></td>
+            <td id="cell5_2"></td>
+            <td id="cell6_2"></td>
+            <td id="cell7_2"></td>
+            <td id="cell8_2"></td>
+            <td id="cell9_2"></td>
+            <td id="cell10_2"></td>
+            <td id="cell11_2"></td>
+            <td id="cell12_2"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td id="cell2_3"></td>
+            <td id="cell3_3"></td>
+            <td id="cell4_1"></td>
+            <td id="cell5_3"></td>
+            <td id="cell6_3"></td>
+            <td id="cell7_3"></td>
+            <td id="cell8_3"></td>
+            <td id="cell9_3"></td>
+            <td id="cell10_3"></td>
+            <td id="cell11_3"></td>
+            <td id="cell12_3"></td>
+        </tr>
+    </tbody>
+</table>
 
-<button onclick="calculate()">Envoyer</button>
 
-<div id="results"></div>
 
 <script>
-function calculate() {
-  // Récupération des valeurs
-  var matchCount = parseFloat(document.getElementById("matchCount").value);
-  var primeAmount = parseFloat(document.getElementById("primeAmount").value);
-  var hotelPrice = parseFloat(document.getElementById("hotelPrice").value);
-  var nightsCount = parseFloat(document.getElementById("nightsCount").value);
-  var prepIndemnity = parseFloat(document.getElementById("prepIndemnity").value);
-  var averageCost = parseFloat(document.getElementById("averageCost").value);
-  var bncProfit = parseFloat(document.getElementById("bncProfit").value);
-  var incomeTax = parseFloat(document.getElementById("incomeTax").value);
+ // Déclaration des variables
+ const prime_montant_01 = 800;
+ const prime_montant_02 = 700;
+ const prime_montant_03 = 550;
 
-  // Vérification des données numériques
-  if (isNaN(matchCount) || isNaN(hotelPrice) || isNaN(nightsCount) || isNaN(prepIndemnity) || isNaN(averageCost) || isNaN(bncProfit) || isNaN(incomeTax)) {
-    document.getElementById("results").innerText = "Veuillez saisir des données numériques uniquement.";
-    return;
-  }
+ const frais_banque = 240;
+ const frais_comptable = 400;
+ const frais_urssaf = 1500;
+ const pourcentage_urssaf = 25;
 
-  // Calculs
-  var primeTotal = matchCount * primeAmount;
-  var impotsTI = 0.25 * primeTotal;
-  var beneficesTI = primeTotal - impotsTI;
-  var beneficesTotal = primeTotal - impotsTI;
-  var impotsTNS = 0.45 * primeTotal;
-  var beneficesTNS = primeTotal - impotsTNS;
-  var indemnityTotal = matchCount * prepIndemnity;
-  var beneficesAnciensTarifs = matchCount * prepIndemnity - averageCost;
-  var beneficesNouveauxTarifs = matchCount * bncProfit;
+ const nbre_matchs_01 = 25;
+ const nbre_matchs_02 = 40;
+ const nbre_matchs_03 = 7;
 
-  // Affichage des résultats
-  var resultText = "";
-  resultText += "<table border='1'>";
-  resultText += "<tr><th colspan='2'>Travailleur indépendant (uberRef)</th></tr>";
-  resultText += "<tr><td>Chiffre d'affaire :</td><td>" + formatNumber(primeTotal.toFixed(2)) + "</td></tr>";
-  resultText += "<tr><td>Le montant de l'impot TI est donc de :</td><td>" + formatNumber(impotsTI.toFixed(2)) + "</td></tr>";
-  resultText += "<tr><td>Bénéfices :</td><td>" + formatNumber(beneficesTotal.toFixed(2)) + "</td></tr>";
-  resultText += "<tr><th colspan='2'>Travailleur non salarié (TNS)</th></tr>";
-  resultText += "<tr><td>Le montant des impots en TNS est de :</td><td>" + formatNumber(impotsTNS.toFixed(2)) + "</td></tr>";
-  resultText += "<tr><td>Bénéfices :</td><td>" + formatNumber((primeTotal - impotsTNS).toFixed(2)) + "</td></tr>";
-  resultText += "<tr><th colspan='2'>Ancien calcul</th></tr>";
-  resultText += "<tr><td>Montant de l'indemnité de préparation total :</td><td>" + formatNumber(indemnityTotal.toFixed(2)) + "</td></tr>";
-  resultText += "<tr><td>Bénéfices net avec l'ancien tarif :</td><td>" + formatNumber(beneficesAnciensTarifs.toFixed(2)) + "</td></tr>";
-  resultText += "<tr><td>Bénéfices :</td><td>" + formatNumber((matchCount * bncProfit).toFixed(2)) + "</td></tr>";
-  resultText += "</table>";
+ // Calcul des cotisations URSSAF
+ const montant_urssaf_01 = prime_montant_01 * (pourcentage_urssaf / 100);
+ const montant_urssaf_02 = prime_montant_02 * (pourcentage_urssaf / 100);
+ const montant_urssaf_03 = prime_montant_03 * (pourcentage_urssaf / 100);
 
-  document.getElementById("results").innerHTML = resultText;
+ // Calcul du net par match
+ const net_match_01 = prime_montant_01 - montant_urssaf_01;
+ const net_match_02 = prime_montant_02 - montant_urssaf_02;
+ const net_match_03 = prime_montant_03 - montant_urssaf_03;
+
+ // Calcul des totaux
+ const brut_annuel = prime_montant_01 + prime_montant_02 + prime_montant_03;
+ const cotisations_annuelles = montant_urssaf_01 + montant_urssaf_02 + montant_urssaf_03 + frais_banque + frais_comptable + frais_urssaf;
+ const net_annuel = brut_annuel - cotisations_annuelles;
+
+ // Affichage des résultats dans le tableau
+ document.getElementById("cell2_1").innerHTML = nbre_matchs_01; // Nombre de matchs (match 1)
+ document.getElementById("cell3_1").innerHTML = prime_montant_01.toFixed(2) + " €"; // Montant prime 1
+ document.getElementById("cell4_1").innerHTML = pourcentage_urssaf + " %"; // % URSSAF
+ document.getElementById("cell5_1").innerHTML = montant_urssaf_01.toFixed(2) + " €"; // Cotisions URSSAF / match (match 1)
+
+ document.getElementById("cell2_2").innerHTML = nbre_matchs_02; // Nombre de matchs (match 2)
+ document.getElementById("cell3_2").innerHTML = prime_montant_02.toFixed(2) + " €"; // Montant prime 2
+ document.getElementById("cell5_2").innerHTML = montant_urssaf_02.toFixed(2) + " €"; // Cotisations URSSAF / match (match 2)
+ document.getElementById("cell6_2").innerHTML = net_match_02.toFixed(2) + " €"; // Net / match (match 2)
+
+ document.getElementById("cell2_3").innerHTML = nbre_matchs_03; // Nombre de matchs (match 3)
+ document.getElementById("cell3_3").innerHTML = prime_montant_03.toFixed(2) + " €"; // Montant prime 3
+ document.getElementById("cell5_3").innerHTML = montant_urssaf_03.toFixed(2) + " €"; // Cotisations URSSAF / match (match 3)
+ document.getElementById("cell6_3").innerHTML = net_match_03.toFixed(2) + " €"; // Net / match (match 3)
+
+// Affichage des totaux
+ document.getElementById("cell3_4").innerHTML = brut_annuel.toFixed(2) + " €"; // Brut annuel
+ document.getElementById("cell5_4").innerHTML = cotisations_annuelles.toFixed(2) + " €"; // Cotisations annuelles
+ document.getElementById("cell6_4").innerHTML = net_annuel.toFixed(2) + " €"; // Net annuel
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Versement dividende impositon bareme
+
+function calculerMontant_impotdividende(AC24, AG3, AG4, AG5, AG6, AH3, AH4, AH5, AI3, AI4, AI5, AI6) {
+    // Calcul de la partie principale de la formule
+    const partiePrincipale = -AC24 * AI11;
+
+    // Calcul de la premiere condition SI
+    if ((AC24 * 0.6 - 0.068 * AC24) < AG3) {
+        return partiePrincipale;
+    }
+
+    // Calcul de la deuxieme condition SI
+    if ((AC24 * 0.6 - 0.068 * AC24) < AH3) {
+        return (AC24 * 0.6 - 0.068 * AC24 - AG3) * AI3;
+    }
+
+    // Calcul de la troisieme condition SI
+    if ((AC24 * 0.6 - 0.068 * AC24) < AH4) {
+        return AI3 * (AH3 - AG3) + ((AC24 * 0.6 - 0.068 * AC24 - AG4) * AI4);
+    }
+
+    // Calcul de la quatrieme condition SI
+    if ((AC24 * 0.6 - 0.068 * AC24) < AH5) {
+        return (AH3 - AG3) * AI3 + (AH4 - AG4) * AI4 + ((AC24 * 0.6 - 0.068 * AC24 - AG5) * AI5);
+    }
+
+    // Calcul de la cinquieme condition SI
+    return ((AC24 * 0.6 - 0.068 * AC24 - AG6) * AI6 + (AH5 - AG5) * AI5 + (AH4 - AG4) * AI4 + (AH3 - AG3) * AI3) + AC24;
 }
 
-// Formatage des nombres par groupes de trois
-function formatNumber(number) {
-  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
+// Tranches imposition
+const AC24 =  /* Valeur de AC24 */;
+const AG3 = 11295 /* Valeur de AG3 */;
+const AG4 = 28798  /* Valeur de AG4 */;
+const AG5 = 82342 /* Valeur de AG5 */;
+const AG6 = 177107 /* Valeur de AG6 */;
+const AH3 = 28797 /* Valeur de AH3 */;
+const AH4 = 82341 /* Valeur de AH4 */;
+const AH5 = 177106  /* Valeur de AH5 */;
+const AI3 = 11 /* Valeur de AI3 */;
+const AI4 = 30 /* Valeur de AI4 */;
+const AI5 = 41 /* Valeur de AI5 */;
+const AI6 = 45 /* Valeur de AI6 */;
+
+const montantFinal = calculerMontant_impotdividende(AC24, AG3, AG4, AG5, AG6, AH3, AH4, AH5, AI3, AI4, AI5, AI6);
+console.log(montantFinal);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+</script>
+
+
+
+<br>
+<br>
+<script>
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   
 </script>
 <br>
 <br>
@@ -136,18 +273,18 @@ function formatNumber(number) {
     <thead>
         <tr>
             <th>Saison</th>
-            <th>HeadL Mamicaux</th>
-            <th>HeadL MSR</th>
-            <th>HeadL MPO</th>
-            <th>HeadD1 amicaux</th>
-            <th>HeadD1 SR</th>
-            <th>HeadD1 PO</th>
+            <th>Head LM amicaux</th>
+            <th>Head LM SR</th>
+            <th>Head LM PO</th>
+            <th>Head D1 amicaux</th>
+            <th>Head D1 SR</th>
+            <th>Head D1 PO</th>
             <th>JDL amicaux</th>
-            <th>JDL amicaux SR</th>
-            <th>JDL amicaux PO</th>
+            <th>JDL SR</th>
+            <th>JDL PO</th>
             <th>JDL amicaux D1</th>
-            <th>JDL amicaux D1 SR</th>
-            <th>JDL amicaux D1 PO</th>
+            <th>JDL D1 SR</th>
+            <th>JDL D1 PO</th>
             <th>Grand Déplacement</th>
             <th>Hôtel</th>
             <th>Km</th>
@@ -165,7 +302,8 @@ function formatNumber(number) {
 <script>
 
 /*
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 */
 
     const saison = [2005,2006,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023];
@@ -176,11 +314,11 @@ function formatNumber(number) {
     const HeadD1SR = [95,100,100,105,105,110,110,110,115,115,115,115,120,120,120,120];
     const HeadD1PO = [120,126,126,130,130,135,135,135,115,115,115,115,120,120,120,120];
     const JDLamicaux = [85,90,90,95,95,100,100,100,90,90,90,95,100,100,100,100];
-    const JDLamicauxSR = [85,90,90,95,95,100,100,100,110,110,110,110,115,115,115,115];
-    const JDLamicauxPO = [95,100,120,120,120,125,125,125,110,110,110,110,115,115,115,115];
+    const JDLLMSR = [85,90,90,95,95,100,100,100,110,110,110,110,115,115,115,115];
+    const JDLLMPO = [95,100,120,120,120,125,125,125,110,110,110,110,115,115,115,115];
     const JDLamicauxD1 = [70,74,74,80,80,85,85,85,70,70,70,85,90,90,90,90];
-    const JDLamicauxD1SR = [70,74,74,95,80,85,85,85,100,100,100,100,105,105,105,105];
-    const JDLamicauxD1PO = [85,90,90,95,95,100,100,100,100,100,100,100,105,105,105,105];
+    const JDLD1SR = [70,74,74,95,80,85,85,85,100,100,100,100,105,105,105,105];
+    const JDLD1PO = [85,90,90,95,95,100,100,100,100,100,100,100,105,105,105,105];
     const GrandDeplacement = [70,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80];
     const Hotel = [46.6,59.6,61.2,62.2,62.2,64.1,64.7,65.3,65.8,73.9,74.9,75.6,76.1,77.2,77.2,];
     const Km = [0.315,0.343,0.359,0.359,0.359,0.362,0.364,0.364,0.364,0.364,0.364,0.368,0.368,0.405,0.405];
@@ -202,11 +340,11 @@ function formatNumber(number) {
             <td>${HeadD1SR[i]}</td>
             <td>${HeadD1PO[i]}</td>
             <td>${JDLamicaux[i]}</td>
-            <td>${JDLamicauxSR[i]}</td>
-            <td>${JDLamicauxPO[i]}</td>
+            <td>${JDLLMSR[i]}</td>
+            <td>${JDLLMPO[i]}</td>
             <td>${JDLamicauxD1[i]}</td>
-            <td>${JDLamicauxD1SR[i]}</td>
-            <td>${JDLamicauxD1PO[i]}</td>
+            <td>${JDLD1SR[i]}</td>
+            <td>${JDLD1PO[i]}</td>
             <td>${GrandDeplacement[i]}</td>
             <td>${Hotel[i]}</td>
             <td>${Km[i]}</td>
@@ -225,6 +363,7 @@ function formatNumber(number) {
 // Création du graphe
 const myChart = new Chart(ctx, {
     type: 'line',
+    
     data: {
         labels: saison,
         datasets: [{
@@ -233,27 +372,27 @@ const myChart = new Chart(ctx, {
             borderColor: 'red',
             fill: false
         }, {
-            label: 'HeadL MSR',
+            label: 'Head LM SR',
             data: HeadLMSR,
             borderColor: 'blue',
             fill: false
         }, {
-            label: 'HeadL MPO',
+            label: 'Head LM PO',
             data: HeadLMPO,
             borderColor: 'green',
             fill: false
         }, {
-            label: 'HeadD1 amicaux',
+            label: 'Head D1 amicaux',
             data: HeadD1amicaux,
             borderColor: 'orange',
             fill: false
         }, {
-            label: 'HeadD1 SR',
+            label: 'Head D1 SR',
             data: HeadD1SR,
             borderColor: 'purple',
             fill: false
         }, {
-            label: 'HeadD1 PO',
+            label: 'Head D1 PO',
             data: HeadD1PO,
             borderColor: 'brown',
             fill: false
@@ -263,28 +402,28 @@ const myChart = new Chart(ctx, {
             borderColor: 'black',
             fill: false
         }, {
-            label: 'JDL amicaux SR',
-            data: JDLamicauxSR,
+            label: 'JDL LM SR',
+            data: JDLLMSR,
             borderColor: 'cyan',
             fill: false
         }, {
-            label: 'JDL amicaux PO',
-            data: JDLamicauxPO,
+            label: 'JDL LM PO',
+            data: JDLLMPO,
             borderColor: 'magenta',
             fill: false
         }, {
-            label: 'JDL amicaux D1',
+            label: 'JDL D1 amicaux',
             data: JDLamicauxD1,
             borderColor: 'yellow',
             fill: false
         }, {
-            label: 'JDL amicaux D1 SR',
-            data: JDLamicauxD1SR,
+            label: 'JDL D1 SR',
+            data: JDLD1SR,
             borderColor: 'lime',
             fill: false
         }, {
-            label: 'JDL amicaux D1 PO',
-            data: JDLamicauxD1PO,
+            label: 'JDL D1 PO',
+            data: JDLD1PO,
             borderColor: 'olive',
             fill: false
         }, {
@@ -325,7 +464,7 @@ const myChart = new Chart(ctx, {
         }]
     },
     options: {
-        responsive: false,
+        responsive: true,
         scales: {
             yAxes: [{
                 ticks: {
@@ -336,18 +475,10 @@ const myChart = new Chart(ctx, {
     }
 });
 </script>
-
-
-
-  
-
-
-
 <br><br><br>
 Association des arbitres de hockey sur glace 2024 - Tous droits réservés - <br>
 Code source en licence GPL3 : <a href="//github.com/ggielly/SuperRef">Github</a> <br>
 Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité de l'association.<br>
 En cas d'erreur merci de nous contacter à l'adresse suivante : <a href="mailto:guillaume ar0base rootshell.fr">
-
 </body>
 </html>
