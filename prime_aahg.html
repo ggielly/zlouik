@@ -9,9 +9,47 @@ guillaume ar0base rootshell.fr pour l'AAHG.
  <meta charset="UTF-8"/>
  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
  <title>Graphique des données</title>
-    <!-- Inclure Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   
+ 
+ <!-- Inclure Chart.js -->
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ <script src="https://d3js.org/d3.v7.min.js"></script>
+
+ <script src="chord.js"></script>
+
+
+
+
  <style>
+.axis {
+  font-family: sans-serif;
+  font-size: 10px;
+  stroke: #ccc;
+}
+
+.axis path {
+  fill: none;
+  stroke-width: 1;
+}
+
+.axis line {
+  stroke: #ddd;
+  stroke-width: 1;
+}
+
+.tick {
+  stroke: #ddd;
+  stroke-width: 1;
+}
+
+.tick text {
+  fill: #000;
+}
+
+
+
+
+
   table {
       width: 100%;
       border-collapse: collapse;
@@ -53,12 +91,138 @@ table.AutoEntrepriseArray thead th {
 table.AutoEntrepriseArray tfoot td {
   font-size: 21px;
 }
+
+table.TNS_IR_Array {
+  border: 2px solid #4F7849;
+  background-color: #EEEEEE;
+  text-align: center;
+  border-collapse: collapse;
+}
+table.TNS_IR_Array td, table.TNS_IR_Array th {
+  border: 1px solid #4F7849;
+}
+table.TNS_IR_Array tbody td {
+  font-size: 13px;
+  font-weight: bold;
+  color: #4F7849;
+}
+table.TNS_IR_Array tr:nth-child(even) {
+  background: #CEE0CC;
+}
+table.TNS_IR_Array thead {
+  background: #4F7849;
+}
+table.TNS_IR_Array thead th {
+  font-size: 13px;
+  color: #000000;
+  text-align: center;
+}
+table.TNS_IR_Array tfoot td {
+  font-size: 21px;
+}
+
+table.TNS_IS_Array {
+  border: 2px solid #4F7849;
+  background-color: #EEEEEE;
+  text-align: center;
+  border-collapse: collapse;
+}
+table.TNS_IS_Array td, table.TNS_IS_Array th {
+  border: 1px solid #4F7849;
+}
+table.TNS_IS_Array tbody td {
+  font-size: 13px;
+  font-weight: bold;
+  color: #4F7849;
+}
+table.TNS_IS_Array tr:nth-child(even) {
+  background: #CEE0CC;
+}
+table.TNS_IS_Array thead {
+  background: #4F7849;
+}
+table.TNS_IS_Array thead th {
+  font-size: 13px;
+  color: #000000;
+  text-align: center;
+}
+table.TNS_IS_Array tfoot td {
+  font-size: 21px;
+}
+
+table.SASU_IR_Array {
+  border: 2px solid #4F7849;
+  background-color: #EEEEEE;
+  text-align: center;
+  border-collapse: collapse;
+}
+table.SASU_IR_Array td, table.SASU_IR_Array th {
+  border: 1px solid #4F7849;
+}
+table.SASU_IR_Array tbody td {
+  font-size: 13px;
+  font-weight: bold;
+  color: #4F7849;
+}
+table.SASU_IR_Array tr:nth-child(even) {
+  background: #CEE0CC;
+}
+table.SASU_IR_Array thead {
+  background: #4F7849;
+}
+table.SASU_IR_Array thead th {
+  font-size: 13px;
+  color: #000000;
+  text-align: center;
+}
+table.SASU_IR_Array tfoot td {
+  font-size: 21px;
+}
+
+table.SASU_IS_Array {
+  border: 2px solid #4F7849;
+  background-color: #EEEEEE;
+  text-align: center;
+  border-collapse: collapse;
+}
+table.SASU_IS_Array td, table.SASU_IS_Array th {
+  border: 1px solid #4F7849;
+}
+table.SASU_IS_Array tbody td {
+  font-size: 13px;
+  font-weight: bold;
+  color: #4F7849;
+}
+table.SASU_IS_Array tr:nth-child(even) {
+  background: #CEE0CC;
+}
+table.SASU_IS_Array thead {
+  background: #4F7849;
+}
+table.SASU_IS_Array thead th {
+  font-size: 13px;
+  color: #000000;
+  text-align: center;
+}
+table.SASU_IS_Array tfoot td {
+  font-size: 21px;
+}
+    
+      h1 {
+        text-align: center;
+        color: #4F7849;
+      }
+      p {
+        text-align: center;
+        color: #4F7849;
+      }
+
  </style>
 </head>
 
 <body>
 
-<script>
+<!--
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 //    _____   ____ ______________________  ___________ ___________________________________________________________.___  ____________________
@@ -70,7 +234,8 @@ table.AutoEntrepriseArray tfoot td {
 //
 // 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-</script> 
+-->
+
 <h1>Calcul des revenus d'un arbitre en statut de travailleur indépendant (auto entreprise)</h1>
 <p>Ce code calcule le revenu net d'un travailleur indépendant en prenant en compte les primes, les frais et les cotisations URSSAF.</p>
 
@@ -169,6 +334,10 @@ table.AutoEntrepriseArray tfoot td {
             <th>Frais par match</th>
             <th>Sommes annuelle des frais</th>
             <th>Résultat intermédiaire</th>
+            <th>Frais annexes</th>
+            <th>Résultats net</th>
+            <th>Régime IR</th>
+            <th>vide</th>
         </tr>
     </thead>
     <tbody>
@@ -185,6 +354,12 @@ table.AutoEntrepriseArray tfoot td {
             <td id="tns_ir_cell10_1"></td>
             <td id="tns_ir_cell11_1"></td>
             <td id="tns_ir_cell12_1"></td>
+            <td id="tns_ir_cell13_1"></td>
+            <td id="tns_ir_cell14_1"></td>
+            <td id="tns_ir_cell15_1"></td>
+            <td id="tns_ir_cell16_1"></td>
+
+
         </tr>
         <tr>
             <td></td>
@@ -199,6 +374,11 @@ table.AutoEntrepriseArray tfoot td {
             <td id="tns_ir_cell10_2"></td>
             <td id="tns_ir_cell11_2"></td>
             <td id="tns_ir_cell12_2"></td>
+            <td id="tns_ir_cell13_2"></td>
+            <td id="tns_ir_cell14_2"></td>
+            <td id="tns_ir_cell15_2"></td>
+            <td id="tns_ir_cell16_2"></td>
+
         </tr>
         <tr>
             <td></td>
@@ -213,6 +393,11 @@ table.AutoEntrepriseArray tfoot td {
             <td id="tns_ir_cell10_3"></td>
             <td id="tns_ir_cell11_3"></td>
             <td id="tns_ir_cell12_3"></td>
+            <td id="tns_ir_cell13_3"></td>
+            <td id="tns_ir_cell14_3"></td>
+            <td id="tns_ir_cell15_3"></td>
+            <td id="tns_ir_cell16_3"></td>
+
         </tr>
         <tr>
             <td></td>
@@ -227,14 +412,15 @@ table.AutoEntrepriseArray tfoot td {
             <td id="tns_ir_cell10_4"></td>
             <td id="tns_ir_cell11_4"></td>
             <td id="tns_ir_cell12_4"></td>
+            <td id="tns_ir_cell13_4"></td>
+            <td id="tns_ir_cell14_4"></td>
+            <td id="tns_ir_cell15_4"></td>
+            <td id="tns_ir_cell16_4"></td>
+
         </tr>
     </tbody>
 </table>
-
-
-
-
-
+<br><br>
 
 
 <h1>Calcul des revenus d'un arbitre en statut de travailleur non salarié - EURL régime impot sur les sociétés (IS)</h1>
@@ -255,6 +441,10 @@ table.AutoEntrepriseArray tfoot td {
             <th>Frais par match</th>
             <th>Sommes annuelle des frais</th>
             <th>Résultat intermédiaire</th>
+            <th>Frais annexes</th>
+            <th>Résultats net</th>
+            <th>Régime IR</th>
+            <th>Versement dividendes</th>
         </tr>
     </thead>
     <tbody>
@@ -271,6 +461,11 @@ table.AutoEntrepriseArray tfoot td {
             <td id="tns_is_cell10_1"></td>
             <td id="tns_is_cell11_1"></td>
             <td id="tns_is_cell12_1"></td>
+            <td id="tns_is_cell13_1"></td>
+            <td id="tns_is_cell14_1"></td>
+            <td id="tns_is_cell15_1"></td>
+            <td id="tns_is_cell16_1"></td>
+
         </tr>
         <tr>
             <td></td>
@@ -285,6 +480,11 @@ table.AutoEntrepriseArray tfoot td {
             <td id="tns_is_cell10_2"></td>
             <td id="tns_is_cell11_2"></td>
             <td id="tns_is_cell12_2"></td>
+            <td id="tns_is_cell13_2"></td>
+            <td id="tns_is_cell14_2"></td>
+            <td id="tns_is_cell15_2"></td>
+            <td id="tns_is_cell16_2"></td>
+
         </tr>
         <tr>
             <td></td>
@@ -299,6 +499,10 @@ table.AutoEntrepriseArray tfoot td {
             <td id="tns_is_cell10_3"></td>
             <td id="tns_is_cell11_3"></td>
             <td id="tns_is_cell12_3"></td>
+            <td id="tns_is_cell13_3"></td>
+            <td id="tns_is_cell14_3"></td>
+            <td id="tns_is_cell15_3"></td>
+            <td id="tns_is_cell16_3"></td>
         </tr>
         <tr>
             <td></td>
@@ -313,6 +517,10 @@ table.AutoEntrepriseArray tfoot td {
             <td id="tns_is_cell10_4"></td>
             <td id="tns_is_cell11_4"></td>
             <td id="tns_is_cell12_4"></td>
+            <td id="tns_is_cell13_4"></td>
+            <td id="tns_is_cell14_4"></td>
+            <td id="tns_is_cell15_4"></td>
+            <td id="tns_is_cell16_4"></td>
         </tr>
     </tbody>
 </table>
@@ -336,6 +544,10 @@ table.AutoEntrepriseArray tfoot td {
             <th>Frais par match</th>
             <th>Sommes annuelle des frais</th>
             <th>Résultat intermédiaire</th>
+            <th>Frais annexes</th>
+            <th>Résultats net</th>
+            <th>Régime IR</th>
+            <th>Dividendes-Flat tax</th>
         </tr>
     </thead>
     <tbody>
@@ -352,6 +564,11 @@ table.AutoEntrepriseArray tfoot td {
             <td id="sasu_ir_cell10_1"></td>
             <td id="sasu_ir_cell11_1"></td>
             <td id="sasu_ir_cell12_1"></td>
+            <td id="sasu_ir_cell13_1"></td>
+            <td id="sasu_ir_cell14_1"></td>
+            <td id="sasu_ir_cell15_1"></td>
+            <td id="sasu_ir_cell16_1"></td>
+
         </tr>
         <tr>
             <td></td>
@@ -366,6 +583,10 @@ table.AutoEntrepriseArray tfoot td {
             <td id="sasu_ir_cell10_2"></td>
             <td id="sasu_ir_cell11_2"></td>
             <td id="sasu_ir_cell12_2"></td>
+            <td id="sasu_ir_cell13_2"></td>
+            <td id="sasu_ir_cell14_2"></td>
+            <td id="sasu_ir_cell15_2"></td>
+            <td id="sasu_ir_cell16_2"></td>
         </tr>
         <tr>
             <td></td>
@@ -380,6 +601,10 @@ table.AutoEntrepriseArray tfoot td {
             <td id="sasu_ir_cell10_3"></td>
             <td id="sasu_ir_cell11_3"></td>
             <td id="sasu_ir_cell12_3"></td>
+            <td id="sasu_ir_cell13_3"></td>
+            <td id="sasu_ir_cell14_3"></td>
+            <td id="sasu_ir_cell15_3"></td>
+            <td id="sasu_ir_cell16_3"></td>
         </tr>
         <tr>
             <td></td>
@@ -394,6 +619,11 @@ table.AutoEntrepriseArray tfoot td {
             <td id="sasu_ir_cell10_4"></td>
             <td id="sasu_ir_cell11_4"></td>
             <td id="sasu_ir_cell12_4"></td>
+            <td id="sasu_ir_cell13_4"></td>
+            <td id="sasu_ir_cell14_4"></td>
+            <td id="sasu_ir_cell15_4"></td>
+            <td id="sasu_ir_cell16_4"></td>
+
         </tr>
     </tbody>
 </table>
@@ -416,6 +646,10 @@ table.AutoEntrepriseArray tfoot td {
             <th>Frais par match</th>
             <th>Sommes annuelle des frais</th>
             <th>Résultat intermédiaire</th>
+            <th>Frais annexes</th>
+            <th>Résultats net</th>
+            <th>Régime IR</th>
+            <th>Dividendes/Imposition barême</th>
         </tr>
     </thead>
     <tbody>
@@ -432,6 +666,10 @@ table.AutoEntrepriseArray tfoot td {
             <td id="sasu_ir_cell10_1"></td>
             <td id="sasu_ir_cell11_1"></td>
             <td id="sasu_ir_cell12_1"></td>
+            <td id="sasu_ir_cell13_1"></td>
+            <td id="sasu_ir_cell14_1"></td>
+            <td id="sasu_ir_cell15_1"></td>
+            <td id="sasu_ir_cell16_1"></td>
         </tr>
         <tr>
             <td></td>
@@ -446,6 +684,10 @@ table.AutoEntrepriseArray tfoot td {
             <td id="sasu_ir_cell10_2"></td>
             <td id="sasu_ir_cell11_2"></td>
             <td id="sasu_ir_cell12_2"></td>
+            <td id="sasu_ir_cell13_2"></td>
+            <td id="sasu_ir_cell14_2"></td>
+            <td id="sasu_ir_cell15_2"></td>
+            <td id="sasu_ir_cell16_2"></td>        
         </tr>
         <tr>
             <td></td>
@@ -460,6 +702,11 @@ table.AutoEntrepriseArray tfoot td {
             <td id="sasu_ir_cell10_3"></td>
             <td id="sasu_ir_cell11_3"></td>
             <td id="sasu_ir_cell12_3"></td>
+            <td id="sasu_ir_cell13_3"></td>
+            <td id="sasu_ir_cell14_3"></td>
+            <td id="sasu_ir_cell15_3"></td>
+            <td id="sasu_ir_cell16_3"></td>
+            
         </tr>
         <tr>
             <td></td>
@@ -474,6 +721,10 @@ table.AutoEntrepriseArray tfoot td {
             <td id="sasu_ir_cell10_4"></td>
             <td id="sasu_ir_cell11_4"></td>
             <td id="sasu_ir_cell12_4"></td>
+            <td id="sasu_ir_cell13_4"></td>
+            <td id="sasu_ir_cell14_4"></td>
+            <td id="sasu_ir_cell15_4"></td>
+            <td id="sasu_ir_cell16_4"></td>
         </tr>
     </tbody>
 </table>
@@ -652,14 +903,288 @@ function calculerMontant_impotdividende(AC24, tranche01_bas, tranche02_bas, tran
 
 const montantFinal = calculerMontantimpotdividende(AC24, tranche01_bas, tranche02_bas, tranche03_bas, tranche04_bas, tranche01_haut, tranche02_haut, tranche03_haut, tranche01_pourcent, tranche02_pourcent, tranche03_pourcent, tranche04_pourcent);
 
-console.log(montantFinal);
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 
+
+
+</script>
+
+<canvas id="mychart01" width="400" height="400"></canvas>
+<script>
+const data = [
+  { départ: "Paris", destination: "Nice", km: 933, péage: 89.1, temps: "9h12" },
+  { départ: "Paris", destination: "Gap", km: 671, péage: 53.8, temps: "7h19" },
+  { départ: "Paris", destination: "Chamonix", km: 581, péage: 58, temps: "5h34" },
+  { départ: "Paris", destination: "Bordeaux", km: 583, péage: 60.2, temps: "5h36" },
+  { départ: "Paris", destination: "Amiens", km: 134, péage: 10.1, temps: "1h42" },
+  { départ: "Paris", destination: "Rouen", km: 133, péage: 18, temps: "1h38" },
+  { départ: "Paris", destination: "Anglet", km: 771, péage: 73.1, temps: "7h16" },
+  { départ: "Paris", destination: "Marseille", km: 773, péage: 68.1, temps: "7h29" },
+  { départ: "Paris", destination: "Briançon", km: 724, péage: 122, temps: "7h31" },
+  { départ: "Paris", destination: "Grenoble", km: 571, péage: 53.8, temps: "5h30" },
+  { départ: "Grenoble", destination: "Nice", km: 316, péage: 6.8, temps: "5h29" },
+  { départ: "Grenoble", destination: "Gap", km: 105, péage: 0, temps: "2h01" },
+  { départ: "Grenoble", destination: "Chamonix", km: 146, péage: 10.2, temps: "2h06" },
+  { départ: "Grenoble", destination: "Bordeaux", km: 630, péage: 64, temps: "6h49" },
+  { départ: "Grenoble", destination: "Amiens", km: 707, péage: 66.3, temps: "7h05" },
+  { départ: "Grenoble", destination: "Rouen", km: 699, péage: 76.8, temps: "6h37" },
+  { départ: "Grenoble", destination: "Anglet", km: 836, péage: 84, temps: "7h41" },
+  { départ: "Grenoble", destination: "Marseille", km: 306, péage: 31, temps: "2h59" },
+  { départ: "Grenoble", destination: "Briançon", km: 188, péage: 72, temps: "2h21" },
+  { départ: "Briançon", destination: "Nice", km: 302, péage: 5.2, temps: "5h06" },
+  { départ: "Briançon", destination: "Gap", km: 85, péage: 0, temps: "1h27" },
+  { départ: "Briançon", destination: "Chamonix", km: 212, péage: 12, temps: "3h16" },
+  { départ: "Briançon", destination: "Bordeaux", km: 785, péage: 78.1, temps: "8h51" },
+  { départ: "Briançon", destination: "Amiens", km: 862, péage: 80.4, temps: "9h07" },
+  { départ: "Briançon", destination: "Rouen", km: 853, péage: 90.9, temps: "8h39" },
+  { départ: "Briançon", destination: "Anglet", km: 912, péage: 78, temps: "9h14" },
+  { départ: "Briançon", destination: "Marseille", km: 260, péage: 14.7, temps: "3h19" },
+  { départ: "Marseille", destination: "Nice", km: 191, péage: 20.6, temps: "2h31" },
+  { départ: "Marseille", destination: "Gap", km: 180, péage: 14.7, temps: "2h02" },
+  { départ: "Marseille", destination: "Chamonix", km: 452, péage: 41.2, temps: "5h02" },
+  { départ: "Marseille", destination: "Bordeaux", km: 646, péage: 61.3, temps: "6h17" },
+  { départ: "Marseille", destination: "Amiens", km: 907, péage: 78.2, temps: "9h07" },
+  { départ: "Marseille", destination: "Rouen", km: 898, péage: 88.7, temps: "8h39" },
+  { départ: "Marseille", destination: "Anglet", km: 699, péage: 63.3, temps: "6h45" },
+  { départ: "Anglet", destination: "Nice", km: 859, péage: 84.3, temps: "8h29" },
+  { départ: "Anglet", destination: "Gap", km: 832, péage: 78, temps: "8h" },
+  { départ: "Anglet", destination: "Chamonix", km: 943, péage: 92.1, temps: "9h28" },
+  { départ: "Anglet", destination: "Bordeaux", km: 187, péage: 12.9, temps: "1h55" },
+  { départ: "Anglet", destination: "Amiens", km: 907, péage: 83.2, temps: "8h44" },
+  { départ: "Anglet", destination: "Rouen", km: 842, péage: 94.6, temps: "7h43" }
+];
+
+
+/*
+const labels = data.map(route => `${route.départ} - ${route.destination}`);
+const distances = data.map(route => route.km);
+const péages = data.map(route => route.péage);
+const temps = data.map(route => route.temps);
+const ctx01 = document.getElementById('mychart01').getContext('2d');
+const mychart01 = new Chart(ctx01, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Distance (km)',
+        data: distances,
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 1
+      }, {
+        label: 'Péage (€)',
+        data: péages,
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }, {
+        label: 'Temps (h)',
+        data: temps,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        xAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+
+
+// Importer la librairie Three.js
+// Définir la marge et la taille du SVG
+const margin = {top: 20, right: 20, bottom: 30, left: 40};
+const width = 960 - margin.left - margin.right;
+const height = 500 - margin.top - margin.bottom;
+
+// Créer le SVG
+const svg = d3.select("body")
+  .append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// Définir les échelles pour les axes
+const xScale = d3.scaleLinear()
+  .domain([d3.min(data, d => d.km), d3.max(data, d => d.km)])
+  .range([0, width]);
+
+const yScale = d3.scaleLinear()
+  .domain([d3.min(data, d => d.temps), d3.max(data, d => d.temps)])
+  .range([height, 0]);
+
+const zScale = d3.scaleLinear()
+  .domain([d3.min(data, d => d.péage), d3.max(data, d => d.péage)])
+  .range([0, 20]);
+
+// Créer les axes
+svg.append("g")
+  .attr("class", "x axis")
+  .attr("transform", "translate(0," + height + ")")
+  .call(d3.axisBottom(xScale));
+
+svg.append("g")
+  .attr("class", "y axis")
+  .call(d3.axisLeft(yScale));
+
+// Créer le nuage de points
+svg.selectAll(".point")
+  .data(data)
+  .enter().append("circle")
+  .attr("class", "point")
+  .attr("cx", d => xScale(d.km))
+  .attr("cy", d => yScale(d.temps))
+  .attr("r", d => zScale(d.péage))
+  .attr("fill", "steelblue")
+  .attr("opacity", 0.8);
+
+// Ajouter des info-bulles
+const tooltip = d3.select("body")
+  .append("div")
+  .attr("class", "tooltip")
+  .style("opacity", 0);
+
+svg.selectAll(".point")
+  .on("mouseover", function(event, d) {
+    tooltip.transition()
+      .duration(200)
+      .style("opacity", 0.9);
+    tooltip.html(`
+      ${d.départ} - ${d.destination}
+      <br>Distance: ${d.km} km
+      <br>Temps: ${d.temps}
+      <br>Coût: ${d.péage} €
+    `)
+    .style("left", (event.pageX + 10) + "px")
+    .style("top", (event.pageY - 28) + "px");
+  })
+  .on("mouseout", function() {
+    tooltip.transition()
+      .duration(500)
+      .style("opacity", 0);
+  });
+
+  svg.selectAll(".y.axis")
+  .attr("transform", "translate(" + margin.left + ",0)");
+
+
+
+
+*/
+
+
+
+// Créer la matrice d'adjacence
+const matrix = [];
+for (let i = 0; i < data.length; i++) {
+  matrix[i] = [];
+  for (let j = 0; j < data.length; j++) {
+    if (i === j) {
+      matrix[i][j] = 0;
+    } else {
+      matrix[i][j] = data[i].destination === data[j].départ ? 1 : 0;
+    }
+  }
+}
+
+// Définir la largeur et la hauteur du SVG
+const width = 960, height = 500;
+
+// Créer le SVG
+const svg = d3.select("body")
+  .append("svg")
+  .attr("width", width)
+  .attr("height", height);
+
+// Définir le layout du diagramme à cordes
+const chord = d3.chord()
+  .padAngle(0.05)
+  .sortSubgroups(d3.descending)
+  .matrix(matrix);
+
+// Créer les groupes pour les arcs et les rubans
+const group = svg.append("g")
+  .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+const arcs = group.selectAll(".arc")
+  .data(chord.groups)
+  .enter().append("g")
+  .attr("class", "arc");
+
+arcs.append("path")
+  .attr("d", d3.arc()
+    .innerRadius(chord.innerRadius())
+    .outerRadius(chord.outerRadius())
+    .startAngle(d.startAngle)
+    .endAngle(d.endAngle));
+
+const ribbons = group.selectAll(".ribbon")
+  .data(chord.chords)
+  .enter().append("path")
+  .attr("class", "ribbon")
+  .attr("d", d3.ribbon()
+    .radius(chord.innerRadius())
+    .startAngle(d.source.startAngle)
+    .endAngle(d.source.endAngle)
+    .cornerRadius(5));
+
+// Ajouter des info-bulles
+const tooltip = d3.select("body")
+  .append("div")
+  .attr("class", "tooltip")
+  .style("opacity", 0);
+
+ribbons.on("mouseover", function(event, d) {
+  tooltip.transition()
+    .duration(200)
+    .style("opacity", 0.9);
+  tooltip.html(`
+    ${d.source.index}: ${data[d.source.index].départ}
+    <br>→ ${d.target.index}: ${data[d.target.index].destination}
+  `)
+  .style("left", (event.pageX + 10) + "px")
+  .style("top", (event.pageY - 28) + "px");
+})
+.on("mouseout", function() {
+  tooltip.transition()
+    .duration(500)
+    .style("opacity", 0);
+});
+
+// Afficher les noms des villes
+const labels = group.selectAll(".label")
+  .data(chord.groups)
+  .enter().append("g")
+  .attr("class", "label")
+  .attr("transform", function(d) {
+    const x = (d.startAngle + d.endAngle) / 2 * 180 / Math.PI - 90;
+    const y = chord.outerRadius() + 10;
+    return "translate(" + x + "," + y + ")rotate(" + x + ")";
+  });
+
+labels.append("text")
+  .attr("dy", ".35em")
+  .attr("text-anchor", function(d) {
+    return d.startAngle > Math.PI ? "end" : "start";
+  })
+  .text(function(d) { return data[d.index].départ; });
 
 
 
 </script>
+
+
+
+
 
 <br>
 <br>
