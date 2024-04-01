@@ -15,7 +15,7 @@ guillaume ar0base rootshell.fr pour l'AAHG.
  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
  <script src="https://d3js.org/d3.v7.min.js"></script>
 
- <script src="chord.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-chord/3.0.1/d3.chord.min.js"></script>
 
 
 
@@ -913,7 +913,9 @@ const montantFinal = calculerMontantimpotdividende(AC24, tranche01_bas, tranche0
 
 <canvas id="mychart01" width="400" height="400"></canvas>
 <script>
-const data = [
+    
+const data = 
+    /*
   { départ: "Paris", destination: "Nice", km: 933, péage: 89.1, temps: "9h12" },
   { départ: "Paris", destination: "Gap", km: 671, péage: 53.8, temps: "7h19" },
   { départ: "Paris", destination: "Chamonix", km: 581, péage: 58, temps: "5h34" },
@@ -953,232 +955,1700 @@ const data = [
   { départ: "Anglet", destination: "Chamonix", km: 943, péage: 92.1, temps: "9h28" },
   { départ: "Anglet", destination: "Bordeaux", km: 187, péage: 12.9, temps: "1h55" },
   { départ: "Anglet", destination: "Amiens", km: 907, péage: 83.2, temps: "8h44" },
-  { départ: "Anglet", destination: "Rouen", km: 842, péage: 94.6, temps: "7h43" }
+  { départ: "Anglet", destination: "Rouen", km: 842, péage: 94.6, temps: "7h43" }*/
+
+[  {
+    départ: "Paris",
+    destination: "Nice",
+    km: "933",
+    péage: "89.1",
+    temps: "9h12"
+  },
+  {
+    départ: "Paris",
+    destination: "Gap",
+    km: "671",
+    péage: "53.8",
+    temps: "7h19"
+  },
+  {
+    départ: "Paris",
+    destination: "Chamonix",
+    km: "581",
+    péage: "58",
+    temps: "5h34"
+  },
+  {
+    départ: "Paris",
+    destination: "Bordeaux",
+    km: "583",
+    péage: "60.2",
+    temps: "5h36"
+  },
+  {
+    départ: "Paris",
+    destination: "Amiens",
+    km: "134",
+    péage: "10.1",
+    temps: "1h42"
+  },
+  {
+    départ: "Paris",
+    destination: "Rouen",
+    km: "133",
+    péage: "18",
+    temps: "1h38"
+  },
+  {
+    départ: "Paris",
+    destination: "Anglet",
+    km: "771",
+    péage: "73.1",
+    temps: "7h16"
+  },
+  {
+    départ: "Paris",
+    destination: "Marseille",
+    km: "773",
+    péage: "68.1",
+    temps: "7h29"
+  },
+  {
+    départ: "Paris",
+    destination: "Briançon",
+    km: "724",
+    péage: "122",
+    temps: "7h31"
+  },
+  {
+    départ: "Paris",
+    destination: "Grenoble",
+    km: "571",
+    péage: "53.8",
+    temps: "5h30"
+  },
+  {
+    départ: "Grenoble",
+    destination: "Nice",
+    km: "316",
+    péage: "6.8",
+    temps: "5h29"
+  },
+  {
+    départ: "Grenoble",
+    destination: "Gap",
+    km: "105",
+    péage: "0",
+    temps: "2h01"
+  },
+  {
+    départ: "Grenoble",
+    destination: "Chamonix",
+    km: "146",
+    péage: "10.2",
+    temps: "2h06"
+  },
+  {
+    départ: "Grenoble",
+    destination: "Bordeaux",
+    km: "630",
+    péage: "64",
+    temps: "6h49"
+  },
+  {
+    départ: "Grenoble",
+    destination: "Amiens",
+    km: "707",
+    péage: "66.3",
+    temps: "7h05"
+  },
+  {
+    départ: "Grenoble",
+    destination: "Rouen",
+    km: "699",
+    péage: "76.8",
+    temps: "6h37"
+  },
+  {
+    départ: "Grenoble",
+    destination: "Anglet",
+    km: "836",
+    péage: "84",
+    temps: "7h41"
+  },
+  {
+    départ: "Grenoble",
+    destination: "Marseille",
+    km: "306",
+    péage: "31",
+    temps: "2h59"
+  },
+  {
+    départ: "Grenoble",
+    destination: "Briançon",
+    km: "188",
+    péage: "72",
+    temps: "2h21"
+  },
+  {
+    départ: "Briançon",
+    destination: "Nice",
+    km: "302",
+    péage: "5.2",
+    temps: "5h06"
+  },
+  {
+    départ: "Briançon",
+    destination: "Gap",
+    km: "85",
+    péage: "0",
+    temps: "1h27"
+  },
+  {
+    départ: "Briançon",
+    destination: "Chamonix",
+    km: "212",
+    péage: "12",
+    temps: "3h16"
+  },
+  {
+    départ: "Briançon",
+    destination: "Bordeaux",
+    km: "785",
+    péage: "78.1",
+    temps: "8h51"
+  },
+  {
+    départ: "Briançon",
+    destination: "Amiens",
+    km: "862",
+    péage: "80.4",
+    temps: "9h07"
+  },
+  {
+    départ: "Briançon",
+    destination: "Rouen",
+    km: "853",
+    péage: "90.9",
+    temps: "8h39"
+  },
+  {
+    départ: "Briançon",
+    destination: "Anglet",
+    km: "912",
+    péage: "78",
+    temps: "9h14"
+  },
+  {
+    départ: "Briançon",
+    destination: "Marseille",
+    km: "260",
+    péage: "14.7",
+    temps: "3h19"
+  },
+  {
+    départ: "Marseille",
+    destination: "Nice",
+    km: "191",
+    péage: "20.6",
+    temps: "2h31"
+  },
+  {
+    départ: "Marseille",
+    destination: "Gap",
+    km: "180",
+    péage: "14.7",
+    temps: "2h02"
+  },
+  {
+    départ: "Marseille",
+    destination: "Chamonix",
+    km: "452",
+    péage: "41.2",
+    temps: "5h02"
+  },
+  {
+    départ: "Marseille",
+    destination: "Bordeaux",
+    km: "646",
+    péage: "61.3",
+    temps: "6h17"
+  },
+  {
+    départ: "Marseille",
+    destination: "Amiens",
+    km: "907",
+    péage: "78.2",
+    temps: "9h07"
+  },
+  {
+    départ: "Marseille",
+    destination: "Rouen",
+    km: "898",
+    péage: "88.7",
+    temps: "8h39"
+  },
+  {
+    départ: "Marseille",
+    destination: "Anglet",
+    km: "699",
+    péage: "63.3",
+    temps: "6h45"
+  },
+  {
+    départ: "Anglet",
+    destination: "Nice",
+    km: "859",
+    péage: "84.3",
+    temps: "8h29"
+  },
+  {
+    départ: "Anglet",
+    destination: "Gap",
+    km: "832",
+    péage: "78",
+    temps: "8h"
+  },
+  {
+    départ: "Anglet",
+    destination: "Chamonix",
+    km: "943",
+    péage: "92.1",
+    temps: "9h28"
+  },
+  {
+    départ: "Anglet",
+    destination: "Bordeaux",
+    km: "187",
+    péage: "12.9",
+    temps: "1h55"
+  },
+  {
+    départ: "Anglet",
+    destination: "Amiens",
+    km: "907",
+    péage: "83.2",
+    temps: "8h44"
+  },
+  {
+    départ: "Anglet",
+    destination: "Rouen",
+    km: "842",
+    péage: "94.6",
+    temps: "7h43"
+  },
+  {
+    départ: "Rouen",
+    destination: "Nice",
+    km: "1057",
+    péage: "104.8",
+    temps: "10h27"
+  },
+  {
+    départ: "Rouen",
+    destination: "Gap",
+    km: "794",
+    péage: "69.5",
+    temps: "8h34"
+  },
+  {
+    départ: "Rouen",
+    destination: "Chamonix",
+    km: "738",
+    péage: "76.1",
+    temps: "7h10"
+  },
+  {
+    départ: "Rouen",
+    destination: "Bordeaux",
+    km: "655",
+    péage: "81.7",
+    temps: "6h08"
+  },
+  {
+    départ: "Rouen",
+    destination: "Amiens",
+    km: "120",
+    péage: "5.1",
+    temps: "1h16"
+  },
+  {
+    départ: "Amiens",
+    destination: "Nice",
+    km: "1070",
+    péage: "99.2",
+    temps: "10h51"
+  },
+  {
+    départ: "Amiens",
+    destination: "Gap",
+    km: "808",
+    péage: "63.9",
+    temps: "8h58"
+  },
+  {
+    départ: "Amiens",
+    destination: "Chamonix",
+    km: "751",
+    péage: "70.5",
+    temps: "7h34"
+  },
+  {
+    départ: "Amiens",
+    destination: "Bordeaux",
+    km: "715",
+    péage: "65.3",
+    temps: "7h04"
+  },
+  {
+    départ: "Bordeaux",
+    destination: "Nice",
+    km: "804",
+    péage: "82.3",
+    temps: "8h05"
+  },
+  {
+    départ: "Bordeaux",
+    destination: "Gap",
+    km: "776",
+    péage: "76",
+    temps: "7h36"
+  },
+  {
+    départ: "Bordeaux",
+    destination: "Chamonix",
+    km: "756",
+    péage: "79.2",
+    temps: "7h49"
+  },
+  {
+    départ: "Chamonix",
+    destination: "Nice",
+    km: "458",
+    péage: "112.7",
+    temps: "4h58"
+  },
+  {
+    départ: "Chamonix",
+    destination: "Gap",
+    km: "252",
+    péage: "10.2",
+    temps: "4h04"
+  },
+  {
+    départ: "Gap",
+    destination: "Nice",
+    km: "222",
+    péage: "5.2",
+    temps: "3h51"
+  },
+  {
+    départ: "Dunkerque",
+    destination: "Nice",
+    km: "1232",
+    péage: "116.5",
+    temps: "11h41"
+  },
+  {
+    départ: "Dunkerque",
+    destination: "Gap",
+    km: "970",
+    péage: "81.2",
+    temps: "9h48"
+  },
+  {
+    départ: "Dunkerque",
+    destination: "Chamonix",
+    km: "835",
+    péage: "62.7",
+    temps: "8h47"
+  },
+  {
+    départ: "Dunkerque",
+    destination: "Bordeaux",
+    km: "871",
+    péage: "79",
+    temps: "8h26"
+  },
+  {
+    départ: "Dunkerque",
+    destination: "Amiens",
+    km: "197",
+    péage: "13.4",
+    temps: "1h57"
+  },
+  {
+    départ: "Dunkerque",
+    destination: "Rouen",
+    km: "250",
+    péage: "9.2",
+    temps: "2h29"
+  },
+  {
+    départ: "Dunkerque",
+    destination: "Anglet",
+    km: "1059",
+    péage: "91.9",
+    temps: "10h06"
+  },
+  {
+    départ: "Dunkerque",
+    destination: "Marseille",
+    km: "1072",
+    péage: "95.5",
+    temps: "9h58"
+  },
+  {
+    départ: "Dunkerque",
+    destination: "Briançon",
+    km: "990",
+    péage: "137.2",
+    temps: "10h09"
+  },
+  {
+    départ: "Dunkerque",
+    destination: "Grenoble",
+    km: "870",
+    péage: "81.2",
+    temps: "7h59"
+  },
+  {
+    départ: "Dunkerque",
+    destination: "Paris",
+    km: "293",
+    péage: "18.8",
+    temps: "3h04"
+  },
+  {
+    départ: "Lyon",
+    destination: "Nice",
+    km: "474",
+    péage: "48.7",
+    temps: "4h23"
+  },
+  {
+    départ: "Lyon",
+    destination: "Gap",
+    km: "206",
+    péage: "13.4",
+    temps: "3h05"
+  },
+  {
+    départ: "Lyon",
+    destination: "Chamonix",
+    km: "224",
+    péage: "25.5",
+    temps: "2h23"
+  },
+  {
+    départ: "Lyon",
+    destination: "Bordeaux",
+    km: "526",
+    péage: "50.6",
+    temps: "5h42"
+  },
+  {
+    départ: "Lyon",
+    destination: "Amiens",
+    km: "596",
+    péage: "50.5",
+    temps: "6h11"
+  },
+  {
+    départ: "Lyon",
+    destination: "Rouen",
+    km: "588",
+    péage: "61",
+    temps: "5h43"
+  },
+  {
+    départ: "Lyon",
+    destination: "Anglet",
+    km: "713",
+    péage: "63.5",
+    temps: "7h22"
+  },
+  {
+    départ: "Lyon",
+    destination: "Marseille",
+    km: "314",
+    péage: "27.7",
+    temps: "3h09"
+  },
+  {
+    départ: "Lyon",
+    destination: "Briançon",
+    km: "259",
+    péage: "81.6",
+    temps: "3h17"
+  },
+  {
+    départ: "Lyon",
+    destination: "Grenoble",
+    km: "106",
+    péage: "13.4",
+    temps: "1h16"
+  },
+  {
+    départ: "Lyon",
+    destination: "Paris",
+    km: "462",
+    péage: "40.4",
+    temps: "4h29"
+  },
+  {
+    départ: "Lille",
+    destination: "Nice",
+    km: "1161",
+    péage: "116.5",
+    temps: "10h57"
+  },
+  {
+    départ: "Lille",
+    destination: "Gap",
+    km: "899",
+    péage: "81.2",
+    temps: "9h04"
+  },
+  {
+    départ: "Lille",
+    destination: "Chamonix",
+    km: "764",
+    péage: "62.7",
+    temps: "8h03"
+  },
+  {
+    départ: "Lille",
+    destination: "Bordeaux",
+    km: "801",
+    péage: "79",
+    temps: "7h42"
+  },
+  {
+    départ: "Lille",
+    destination: "Amiens",
+    km: "118",
+    péage: "3.6",
+    temps: "1h39"
+  },
+  {
+    départ: "Lille",
+    destination: "Rouen",
+    km: "254",
+    péage: "16.6",
+    temps: "2h30"
+  },
+  {
+    départ: "Lille",
+    destination: "Anglet",
+    km: "989",
+    péage: "91.9",
+    temps: "9h22"
+  },
+  {
+    départ: "Lille",
+    destination: "Marseille",
+    km: "1001",
+    péage: "95.5",
+    temps: "9h14"
+  },
+  {
+    départ: "Lille",
+    destination: "Briançon",
+    km: "920",
+    péage: "137.2",
+    temps: "9h25"
+  },
+  {
+    départ: "Lille",
+    destination: "Grenoble",
+    km: "799",
+    péage: "81.2",
+    temps: "7h15"
+  },
+  {
+    départ: "Lille",
+    destination: "Paris",
+    km: "222",
+    péage: "18.8",
+    temps: "2h20"
+  },
+  {
+    départ: "Lille",
+    destination: "Dunkerque",
+    km: "73",
+    péage: "0",
+    temps: "0h55"
+  },
+  {
+    départ: "Lyon",
+    destination: "Dunkerque",
+    km: "760",
+    péage: "67.8",
+    temps: "7h04"
+  },
+  {
+    départ: "Lyon",
+    destination: "Lille",
+    km: "689",
+    péage: "67.8",
+    temps: "6h19"
+  },
+  {
+    départ: "Angers",
+    destination: "Nice",
+    km: "1065",
+    péage: "106.2",
+    temps: "10h13"
+  },
+  {
+    départ: "Angers",
+    destination: "Gap",
+    km: "799",
+    péage: "76.4",
+    temps: "8h30"
+  },
+  {
+    départ: "Angers",
+    destination: "Chamonix",
+    km: "728",
+    péage: "56.9",
+    temps: "7h25"
+  },
+  {
+    départ: "Angers",
+    destination: "Bordeaux",
+    km: "340",
+    péage: "22.4",
+    temps: "3h58"
+  },
+  {
+    départ: "Angers",
+    destination: "Amiens",
+    km: "414",
+    péage: "54",
+    temps: "4h04"
+  },
+  {
+    départ: "Angers",
+    destination: "Rouen",
+    km: "298",
+    péage: "48.9",
+    temps: "2h50"
+  },
+  {
+    départ: "Angers",
+    destination: "Anglet",
+    km: "528",
+    péage: "35.3",
+    temps: "5h38"
+  },
+  {
+    départ: "Angers",
+    destination: "Marseille",
+    km: "905",
+    péage: "85.2",
+    temps: "8h30"
+  },
+  {
+    départ: "Angers",
+    destination: "Briançon",
+    km: "852",
+    péage: "144.6",
+    temps: "8h41"
+  },
+  {
+    départ: "Angers",
+    destination: "Grenoble",
+    km: "699",
+    péage: "76.4",
+    temps: "6h41"
+  },
+  {
+    départ: "Angers",
+    destination: "Paris",
+    km: "294",
+    péage: "32.9",
+    temps: "2h55"
+  },
+  {
+    départ: "Angers",
+    destination: "Dunkerque",
+    km: "548",
+    péage: "58.1",
+    temps: "5h19"
+  },
+  {
+    départ: "Angers",
+    destination: "Lille",
+    km: "512",
+    péage: "51.7",
+    temps: "5h02"
+  },
+  {
+    départ: "Angers",
+    destination: "Lyon",
+    km: "597",
+    péage: "63",
+    temps: "5h33"
+  },
+  {
+    départ: "Strasbourg",
+    destination: "Nice",
+    km: "787",
+    péage: "35.5",
+    temps: "8h13"
+  },
+  {
+    départ: "Strasbourg",
+    destination: "Gap",
+    km: "634",
+    péage: "21.1",
+    temps: "7h23"
+  },
+  {
+    départ: "Strasbourg",
+    destination: "Chamonix",
+    km: "405",
+    péage: "0",
+    temps: "4h38"
+  },
+  {
+    départ: "Strasbourg",
+    destination: "Bordeaux",
+    km: "949",
+    péage: "67.8",
+    temps: "9h31"
+  },
+  {
+    départ: "Strasbourg",
+    destination: "Amiens",
+    km: "520",
+    péage: "47.5",
+    temps: "4h56"
+  },
+  {
+    départ: "Strasbourg",
+    destination: "Rouen",
+    km: "634",
+    péage: "54.1",
+    temps: "5h59"
+  },
+  {
+    départ: "Strasbourg",
+    destination: "Anglet",
+    km: "1137",
+    péage: "80.7",
+    temps: "11h11"
+  },
+  {
+    départ: "Strasbourg",
+    destination: "Marseille",
+    km: "803",
+    péage: "62.8",
+    temps: "7h41"
+  },
+  {
+    départ: "Strasbourg",
+    destination: "Briançon",
+    km: "632",
+    péage: "83",
+    temps: "6h57"
+  },
+  {
+    départ: "Strasbourg",
+    destination: "Grenoble",
+    km: "530",
+    péage: "21.1",
+    temps: "5h29"
+  },
+  {
+    départ: "Strasbourg",
+    destination: "Paris",
+    km: "488",
+    péage: "43.7",
+    temps: "4h45"
+  },
+  {
+    départ: "Strasbourg",
+    destination: "Dunkerque",
+    km: "595",
+    péage: "15",
+    temps: "5h57"
+  },
+  {
+    départ: "Strasbourg",
+    destination: "Lille",
+    km: "523",
+    péage: "15",
+    temps: "5h14"
+  },
+  {
+    départ: "Strasbourg",
+    destination: "Lyon",
+    km: "485",
+    péage: "33.5",
+    temps: "4h47"
+  },
+  {
+    départ: "Strasbourg",
+    destination: "Angers",
+    km: "775",
+    péage: "76.6",
+    temps: "7h23"
+  },
+  {
+    départ: "Nantes",
+    destination: "Nice",
+    km: "1116",
+    péage: "110.7",
+    temps: "11h14"
+  },
+  {
+    départ: "Nantes",
+    destination: "Gap",
+    km: "886",
+    péage: "86.7",
+    temps: "9h27"
+  },
+  {
+    départ: "Nantes",
+    destination: "Chamonix",
+    km: "814",
+    péage: "67.2",
+    temps: "8h21"
+  },
+  {
+    départ: "Nantes",
+    destination: "Bordeaux",
+    km: "316",
+    péage: "28.4",
+    temps: "3h30"
+  },
+  {
+    départ: "Nantes",
+    destination: "Amiens",
+    km: "501",
+    péage: "64.3",
+    temps: "5h"
+  },
+  {
+    départ: "Nantes",
+    destination: "Rouen",
+    km: "385",
+    péage: "59.2",
+    temps: "3h46"
+  },
+  {
+    départ: "Nantes",
+    destination: "Anglet",
+    km: "504",
+    péage: "41.3",
+    temps: "5h10"
+  },
+  {
+    départ: "Nantes",
+    destination: "Marseille",
+    km: "955",
+    péage: "89.7",
+    temps: "9h31"
+  },
+  {
+    départ: "Nantes",
+    destination: "Briançon",
+    km: "939",
+    péage: "154.9",
+    temps: "9h37"
+  },
+  {
+    départ: "Nantes",
+    destination: "Grenoble",
+    km: "786",
+    péage: "86.7",
+    temps: "7h38"
+  },
+  {
+    départ: "Nantes",
+    destination: "Paris",
+    km: "381",
+    péage: "43.2",
+    temps: "3h52"
+  },
+  {
+    départ: "Nantes",
+    destination: "Dunkerque",
+    km: "635",
+    péage: "68.4",
+    temps: "6h15"
+  },
+  {
+    départ: "Nantes",
+    destination: "Lille",
+    km: "599",
+    péage: "62",
+    temps: "5h58"
+  },
+  {
+    départ: "Nantes",
+    destination: "Lyon",
+    km: "684",
+    péage: "73.3",
+    temps: "6h29"
+  },
+  {
+    départ: "Nantes",
+    destination: "Angers",
+    km: "87",
+    péage: "10.3",
+    temps: "1h"
+  },
+  {
+    départ: "Nantes",
+    destination: "Strasbourg",
+    km: "861",
+    péage: "86.6",
+    temps: "8h17"
+  },
+  {
+    départ: "Brest",
+    destination: "Nice",
+    km: "1430",
+    péage: "106.2",
+    temps: "14h11"
+  },
+  {
+    départ: "Brest",
+    destination: "Gap",
+    km: "1164",
+    péage: "76.4",
+    temps: "12h28"
+  },
+  {
+    départ: "Brest",
+    destination: "Chamonix",
+    km: "1093",
+    péage: "56.9",
+    temps: "11h22"
+  },
+  {
+    départ: "Brest",
+    destination: "Bordeaux",
+    km: "610",
+    péage: "28.4",
+    temps: "6h42"
+  },
+  {
+    départ: "Brest",
+    destination: "Amiens",
+    km: "617",
+    péage: "24.8",
+    temps: "6h23"
+  },
+  {
+    départ: "Brest",
+    destination: "Rouen",
+    km: "500",
+    péage: "10.2",
+    temps: "5h13"
+  },
+  {
+    départ: "Brest",
+    destination: "Anglet",
+    km: "798",
+    péage: "41.3",
+    temps: "8h23"
+  },
+  {
+    départ: "Brest",
+    destination: "Marseille",
+    km: "1270",
+    péage: "85.2",
+    temps: "12h27"
+  },
+  {
+    départ: "Brest",
+    destination: "Briançon",
+    km: "1217",
+    péage: "144.6",
+    temps: "12h38"
+  },
+  {
+    départ: "Brest",
+    destination: "Grenoble",
+    km: "1064",
+    péage: "76.4",
+    temps: "10h39"
+  },
+  {
+    départ: "Brest",
+    destination: "Paris",
+    km: "591",
+    péage: "32.3",
+    temps: "6h06"
+  },
+  {
+    départ: "Brest",
+    destination: "Dunkerque",
+    km: "751",
+    péage: "28.9",
+    temps: "7h39"
+  },
+  {
+    départ: "Brest",
+    destination: "Lille",
+    km: "754",
+    péage: "36.3",
+    temps: "7h37"
+  },
+  {
+    départ: "Brest",
+    destination: "Lyon",
+    km: "962",
+    péage: "63",
+    temps: "9h30"
+  },
+  {
+    départ: "Brest",
+    destination: "Angers",
+    km: "369",
+    péage: "0",
+    temps: "4h03"
+  },
+  {
+    départ: "Brest",
+    destination: "Strasbourg",
+    km: "1071",
+    péage: "76",
+    temps: "10h32"
+  },
+  {
+    départ: "Brest",
+    destination: "Nantes",
+    km: "296",
+    péage: "0",
+    temps: "3h23"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Nice",
+    km: "566",
+    péage: "59.4",
+    temps: "5h50"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Gap",
+    km: "538",
+    péage: "53.1",
+    temps: "5h22"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Chamonix",
+    km: "679",
+    péage: "69.3",
+    temps: "7h08"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Bordeaux",
+    km: "245",
+    péage: "21.6",
+    temps: "2h29"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Amiens",
+    km: "813",
+    péage: "50.2",
+    temps: "8h09"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Rouen",
+    km: "757",
+    péage: "34.9",
+    temps: "7h46"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Anglet",
+    km: "301",
+    péage: "24.9",
+    temps: "2h56"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Marseille",
+    km: "405",
+    péage: "38.4",
+    temps: "4h07"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Briançon",
+    km: "618",
+    péage: "53.1",
+    temps: "6h37"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Grenoble",
+    km: "533",
+    péage: "59.1",
+    temps: "5h02"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Paris",
+    km: "677",
+    péage: "40.1",
+    temps: "6h36"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Dunkerque",
+    km: "966",
+    péage: "58.9",
+    temps: "9h28"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Lille",
+    km: "895",
+    péage: "58.9",
+    temps: "8h42"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Lyon",
+    km: "540",
+    péage: "57",
+    temps: "5h13"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Angers",
+    km: "582",
+    péage: "44",
+    temps: "6h04"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Strasbourg",
+    km: "971",
+    péage: "69.5",
+    temps: "9h27"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Nantes",
+    km: "555",
+    péage: "50",
+    temps: "5h38"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Brest",
+    km: "848",
+    péage: "50",
+    temps: "8h50"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Rennes",
+    km: "666",
+    péage: "50",
+    temps: "6h52"
+  },
+  {
+    départ: "Toulouse",
+    destination: "Epinal",
+    km: "861",
+    péage: "64.6",
+    temps: "8h30"
+  },
+  {
+    départ: "Epinal",
+    destination: "Nice",
+    km: "790",
+    péage: "35.5",
+    temps: "8h54"
+  },
+  {
+    départ: "Epinal",
+    destination: "Gap",
+    km: "563",
+    péage: "37.7",
+    temps: "6h47"
+  },
+  {
+    départ: "Epinal",
+    destination: "Chamonix",
+    km: "359",
+    péage: "0",
+    temps: "5h08"
+  },
+  {
+    départ: "Epinal",
+    destination: "Bordeaux",
+    km: "841",
+    péage: "62.9",
+    temps: "8h33"
+  },
+  {
+    départ: "Epinal",
+    destination: "Amiens",
+    km: "447",
+    péage: "18.9",
+    temps: "4h41"
+  },
+  {
+    départ: "Epinal",
+    destination: "Rouen",
+    km: "519",
+    péage: "46.5",
+    temps: "5h16"
+  },
+  {
+    départ: "Epinal",
+    destination: "Anglet",
+    km: "1028",
+    péage: "75.8",
+    temps: "10h13"
+  },
+  {
+    départ: "Epinal",
+    destination: "Marseille",
+    km: "694",
+    péage: "58.6",
+    temps: "6h43"
+  },
+  {
+    départ: "Epinal",
+    destination: "Briançon",
+    km: "543",
+    péage: "83",
+    temps: "7h02"
+  },
+  {
+    départ: "Epinal",
+    destination: "Grenoble",
+    km: "463",
+    péage: "37.7",
+    temps: "4h58"
+  },
+  {
+    départ: "Epinal",
+    destination: "Paris",
+    km: "386",
+    péage: "25.9",
+    temps: "4h01"
+  },
+  {
+    départ: "Epinal",
+    destination: "Dunkerque",
+    km: "548",
+    péage: "22.3",
+    temps: "5h42"
+  },
+  {
+    départ: "Epinal",
+    destination: "Lille",
+    km: "477",
+    péage: "22.3",
+    temps: "4h56"
+  },
+  {
+    départ: "Epinal",
+    destination: "Lyon",
+    km: "385",
+    péage: "30.9",
+    temps: "3h45"
+  },
+  {
+    départ: "Epinal",
+    destination: "Angers",
+    km: "646",
+    péage: "58.8",
+    temps: "6h06"
+  },
+  {
+    départ: "Epinal",
+    destination: "Strasbourg",
+    km: "133",
+    péage: "0",
+    temps: "2h21"
+  },
+  {
+    départ: "Epinal",
+    destination: "Nantes",
+    km: "732",
+    péage: "69.1",
+    temps: "7h02"
+  },
+  {
+    départ: "Epinal",
+    destination: "Brest",
+    km: "942",
+    péage: "58.2",
+    temps: "9h15"
+  },
+  {
+    départ: "Epinal",
+    destination: "Rennes",
+    km: "700",
+    péage: "58.2",
+    temps: "6h45"
+  },
+  {
+    départ: "Rennes",
+    destination: "Nice",
+    km: "1188",
+    péage: "106.2",
+    temps: "11h39"
+  },
+  {
+    départ: "Rennes",
+    destination: "Gap",
+    km: "922",
+    péage: "76.4",
+    temps: "9h56"
+  },
+  {
+    départ: "Rennes",
+    destination: "Chamonix",
+    km: "851",
+    péage: "56.9",
+    temps: "8h51"
+  },
+  {
+    départ: "Rennes",
+    destination: "Bordeaux",
+    km: "426",
+    péage: "28.4",
+    temps: "4h45"
+  },
+  {
+    départ: "Rennes",
+    destination: "Amiens",
+    km: "426",
+    péage: "24.8",
+    temps: "4h16"
+  },
+  {
+    départ: "Rennes",
+    destination: "Rouen",
+    km: "309",
+    péage: "10.2",
+    temps: "3h06"
+  },
+  {
+    départ: "Rennes",
+    destination: "Anglet",
+    km: "614",
+    péage: "41.3",
+    temps: "6h25"
+  },
+  {
+    départ: "Rennes",
+    destination: "Marseille",
+    km: "1028",
+    péage: "85.2",
+    temps: "9h56"
+  },
+  {
+    départ: "Rennes",
+    destination: "Briançon",
+    km: "975",
+    péage: "144.6",
+    temps: "10h06"
+  },
+  {
+    départ: "Rennes",
+    destination: "Grenoble",
+    km: "822",
+    péage: "76.4",
+    temps: "8h07"
+  },
+  {
+    départ: "Rennes",
+    destination: "Paris",
+    km: "348",
+    péage: "32.3",
+    temps: "3h35"
+  },
+  {
+    départ: "Rennes",
+    destination: "Dunkerque",
+    km: "560",
+    péage: "28.9",
+    temps: "5h31"
+  },
+  {
+    départ: "Rennes",
+    destination: "Lille",
+    km: "563",
+    péage: "36.3",
+    temps: "5h30"
+  },
+  {
+    départ: "Rennes",
+    destination: "Lyon",
+    km: "720",
+    péage: "63",
+    temps: "6h58"
+  },
+  {
+    départ: "Rennes",
+    destination: "Angers",
+    km: "127",
+    péage: "0",
+    temps: "1h31"
+  },
+  {
+    départ: "Rennes",
+    destination: "Strasbourg",
+    km: "828",
+    péage: "76",
+    temps: "8h"
+  },
+  {
+    départ: "Rennes",
+    destination: "Nantes",
+    km: "106",
+    péage: "0",
+    temps: "1h21"
+  },
+  {
+    départ: "Rennes",
+    destination: "Brest",
+    km: "242",
+    péage: "0",
+    temps: "2h43"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Nice",
+    km: "327",
+    péage: "33.1",
+    temps: "3h34"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Gap",
+    km: "299",
+    péage: "26.8",
+    temps: "3h06"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Chamonix",
+    km: "440",
+    péage: "43.2",
+    temps: "4h23"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Bordeaux",
+    km: "483",
+    péage: "49.9",
+    temps: "4h39"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Amiens",
+    km: "884",
+    péage: "63.3",
+    temps: "9h02"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Rouen",
+    km: "828",
+    péage: "49.2",
+    temps: "8h39"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Anglet",
+    km: "537",
+    péage: "51.9",
+    temps: "5h07"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Marseille",
+    km: "166",
+    péage: "12.1",
+    temps: "1h51"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Briançon",
+    km: "379",
+    péage: "26.8",
+    temps: "4h22"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Grenoble",
+    km: "293",
+    péage: "33",
+    temps: "2h47"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Paris",
+    km: "761",
+    péage: "72.1",
+    temps: "7h16"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Dunkerque",
+    km: "1059",
+    péage: "99.5",
+    temps: "9h51"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Lille",
+    km: "988",
+    péage: "99.5",
+    temps: "9h05"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Lyon",
+    km: "301",
+    péage: "31.7",
+    temps: "2h58"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Angers",
+    km: "774",
+    péage: "57.6",
+    temps: "7h31"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Strasbourg",
+    km: "793",
+    péage: "66.8",
+    temps: "7h28"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Nantes",
+    km: "793",
+    péage: "78.3",
+    temps: "7h48"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Brest",
+    km: "1087",
+    péage: "78.3",
+    temps: "11h"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Epinal",
+    km: "681",
+    péage: "62.6",
+    temps: "6h33"
+  },
+  {
+    départ: "Montpellier",
+    destination: "Rennes",
+    km: "897",
+    péage: "57.6",
+    temps: "8h57"
+  }
+  
 ];
 
 
-/*
-const labels = data.map(route => `${route.départ} - ${route.destination}`);
-const distances = data.map(route => route.km);
-const péages = data.map(route => route.péage);
-const temps = data.map(route => route.temps);
-const ctx01 = document.getElementById('mychart01').getContext('2d');
-const mychart01 = new Chart(ctx01, {
-    type: 'bar',
-    data: {
-      labels: labels,
-      datasets: [{
-        label: 'Distance (km)',
-        data: distances,
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderColor: 'rgba(255, 99, 132, 1)',
-        borderWidth: 1
-      }, {
-        label: 'Péage (€)',
-        data: péages,
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        borderColor: 'rgba(54, 162, 235, 1)',
-        borderWidth: 1
-      }, {
-        label: 'Temps (h)',
-        data: temps,
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        xAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
-    }
-  });
-
-
-// Importer la librairie Three.js
-// Définir la marge et la taille du SVG
-const margin = {top: 20, right: 20, bottom: 30, left: 40};
-const width = 960 - margin.left - margin.right;
-const height = 500 - margin.top - margin.bottom;
-
-// Créer le SVG
-const svg = d3.select("body")
-  .append("svg")
-  .attr("width", width + margin.left + margin.right)
-  .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-// Définir les échelles pour les axes
-const xScale = d3.scaleLinear()
-  .domain([d3.min(data, d => d.km), d3.max(data, d => d.km)])
-  .range([0, width]);
-
-const yScale = d3.scaleLinear()
-  .domain([d3.min(data, d => d.temps), d3.max(data, d => d.temps)])
-  .range([height, 0]);
-
-const zScale = d3.scaleLinear()
-  .domain([d3.min(data, d => d.péage), d3.max(data, d => d.péage)])
-  .range([0, 20]);
-
-// Créer les axes
-svg.append("g")
-  .attr("class", "x axis")
-  .attr("transform", "translate(0," + height + ")")
-  .call(d3.axisBottom(xScale));
-
-svg.append("g")
-  .attr("class", "y axis")
-  .call(d3.axisLeft(yScale));
-
-// Créer le nuage de points
-svg.selectAll(".point")
-  .data(data)
-  .enter().append("circle")
-  .attr("class", "point")
-  .attr("cx", d => xScale(d.km))
-  .attr("cy", d => yScale(d.temps))
-  .attr("r", d => zScale(d.péage))
-  .attr("fill", "steelblue")
-  .attr("opacity", 0.8);
-
-// Ajouter des info-bulles
-const tooltip = d3.select("body")
-  .append("div")
-  .attr("class", "tooltip")
-  .style("opacity", 0);
-
-svg.selectAll(".point")
-  .on("mouseover", function(event, d) {
-    tooltip.transition()
-      .duration(200)
-      .style("opacity", 0.9);
-    tooltip.html(`
-      ${d.départ} - ${d.destination}
-      <br>Distance: ${d.km} km
-      <br>Temps: ${d.temps}
-      <br>Coût: ${d.péage} €
-    `)
-    .style("left", (event.pageX + 10) + "px")
-    .style("top", (event.pageY - 28) + "px");
-  })
-  .on("mouseout", function() {
-    tooltip.transition()
-      .duration(500)
-      .style("opacity", 0);
-  });
-
-  svg.selectAll(".y.axis")
-  .attr("transform", "translate(" + margin.left + ",0)");
 
 
 
 
-*/
 
 
+// Obtenir tous les noms uniques de départs et de destinations
+const names = Array.from(new Set(data.flatMap(d => [d.départ, d.destination])));
 
-// Créer la matrice d'adjacence
-const matrix = [];
-for (let i = 0; i < data.length; i++) {
-  matrix[i] = [];
-  for (let j = 0; j < data.length; j++) {
-    if (i === j) {
-      matrix[i][j] = 0;
-    } else {
-      matrix[i][j] = data[i].destination === data[j].départ ? 1 : 0;
-    }
-  }
-}
+// Créer une matrice de distances entre chaque paire de départ et de destination
+const matrix = names.map(départ => names.map(destination => {
+  const entry = data.find(d => d.départ === départ && d.destination === destination);
+  return entry ? entry.km : 0;
+}));
 
-// Définir la largeur et la hauteur du SVG
-const width = 960, height = 500;
+// Créer une échelle de couleurs pour les arcs
+const color = d3.scaleOrdinal()
+  .domain(d3.range(names.length))
+  .range(d3.schemeCategory10);
 
-// Créer le SVG
-const svg = d3.select("body")
-  .append("svg")
-  .attr("width", width)
-  .attr("height", height);
+const width =  850;
+const height = 850;
+const innerRadius = Math.min(width, height) * 0.5 - 20;
+const outerRadius = innerRadius + 6;
 
-// Définir le layout du diagramme à cordes
+// Définir la fonction chord
 const chord = d3.chord()
   .padAngle(0.05)
   .sortSubgroups(d3.descending)
-  .matrix(matrix);
+  .sortChords(d3.descending);
 
-// Créer les groupes pour les arcs et les rubans
-const group = svg.append("g")
-  .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+// Créer un élément SVG
+const svg = d3.create("svg")
+  .attr("viewBox", [-width / 2, -height / 2, width, height])
+  .attr("width", width)
+  .attr("height", height)
+  .attr("style", "width: 100%; height: auto; font: 10px sans-serif;");
 
-const arcs = group.selectAll(".arc")
-  .data(chord.groups)
-  .enter().append("g")
-  .attr("class", "arc");
+// Générer les données chord
+const chords = chord(matrix);
 
-arcs.append("path")
+// Ajouter les cordes
+svg.append("g")
+  .selectAll("path")
+  .data(chords)
+  .join("path")
+  .attr("d", d3.ribbon().radius(innerRadius))
+  .attr("fill", d => color(d.source.index))
+  .attr("stroke", "#fff")
+  .append("title")
+  .text(d => `${names[d.source.index]} → ${names[d.target.index]}: ${d.source.value}`);
+
+// Ajouter les arcs
+svg.append("g")
+  .selectAll("g")
+  .data(chords.groups)
+  .join("g")
+  .append("path")
   .attr("d", d3.arc()
-    .innerRadius(chord.innerRadius())
-    .outerRadius(chord.outerRadius())
-    .startAngle(d.startAngle)
-    .endAngle(d.endAngle));
+    .innerRadius(innerRadius)
+    .outerRadius(outerRadius))
+  .attr("fill", d => color(d.index))
+  .attr("stroke", "#fff")
+  .append("title")
+  .text(d => `${names[d.index]}: ${d.value}`);
 
-const ribbons = group.selectAll(".ribbon")
-  .data(chord.chords)
-  .enter().append("path")
-  .attr("class", "ribbon")
-  .attr("d", d3.ribbon()
-    .radius(chord.innerRadius())
-    .startAngle(d.source.startAngle)
-    .endAngle(d.source.endAngle)
-    .cornerRadius(5));
+// Ajouter les noms autour du cercle
+svg.append("g")
+  .selectAll("g")
+  .data(chords.groups)
+  .join("g")
+  .attr("transform", d => `rotate(${(d.startAngle + d.endAngle) / 2 * 180 / Math.PI - 90}) translate(${innerRadius + 10},0)`)
+  .append("text")
+  .attr("text-anchor", d => (d.startAngle + d.endAngle) / 2 > Math.PI ? "end" : null)
+  .attr("transform", d => (d.startAngle + d.endAngle) / 2 > Math.PI ? "rotate(180)" : null)
+  .text(d => names[d.index]);
 
-// Ajouter des info-bulles
-const tooltip = d3.select("body")
-  .append("div")
-  .attr("class", "tooltip")
-  .style("opacity", 0);
-
-ribbons.on("mouseover", function(event, d) {
-  tooltip.transition()
-    .duration(200)
-    .style("opacity", 0.9);
-  tooltip.html(`
-    ${d.source.index}: ${data[d.source.index].départ}
-    <br>→ ${d.target.index}: ${data[d.target.index].destination}
-  `)
-  .style("left", (event.pageX + 10) + "px")
-  .style("top", (event.pageY - 28) + "px");
-})
-.on("mouseout", function() {
-  tooltip.transition()
-    .duration(500)
-    .style("opacity", 0);
-});
-
-// Afficher les noms des villes
-const labels = group.selectAll(".label")
-  .data(chord.groups)
-  .enter().append("g")
-  .attr("class", "label")
-  .attr("transform", function(d) {
-    const x = (d.startAngle + d.endAngle) / 2 * 180 / Math.PI - 90;
-    const y = chord.outerRadius() + 10;
-    return "translate(" + x + "," + y + ")rotate(" + x + ")";
-  });
-
-labels.append("text")
-  .attr("dy", ".35em")
-  .attr("text-anchor", function(d) {
-    return d.startAngle > Math.PI ? "end" : "start";
-  })
-  .text(function(d) { return data[d.index].départ; });
-
-
+document.body.appendChild(svg.node());
 
 </script>
 
