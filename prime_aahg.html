@@ -21,47 +21,17 @@ guillaume ar0base rootshell.fr pour l'AAHG.
 
 
  <style>
-.axis {
-  font-family: sans-serif;
-  font-size: 10px;
-  stroke: #ccc;
-}
+.axis {  font-family: sans-serif;  font-size: 10px;  stroke: #ccc;}
+.axis path {  fill: none;  stroke-width: 1;}
+.axis line {  stroke: #ddd;  stroke-width: 1;}
+.tick {  stroke: #ddd;  stroke-width: 1;}
+.tick text {  fill: #000;}
 
-.axis path {
-  fill: none;
-  stroke-width: 1;
-}
+.gras-rouge {  color: red;  font-weight: bold;}
 
-.axis line {
-  stroke: #ddd;
-  stroke-width: 1;
-}
-
-.tick {
-  stroke: #ddd;
-  stroke-width: 1;
-}
-
-.tick text {
-  fill: #000;
-}
-
-
-
-
-
-  table {
-      width: 100%;
-      border-collapse: collapse;
-  }
-  th, td {
-      border: 1px solid black;
-      padding: 8px;
-      text-align: center;
-  }
-  th {
-      background-color: #f2f2f2;
-  }
+table { width: 100%;      border-collapse: collapse; }
+th, td { border: 1px solid black; padding: 8px; text-align: center; }
+th { background-color: #f2f2f2;}
 
 table.AutoEntrepriseArray {
   border: 2px solid #4F7849;
@@ -208,11 +178,12 @@ table.SASU_IS_Array tfoot td {
   font-size: 21px;
 }
     
-      h1 {
+h1 {
         text-align: center;
         color: #4F7849;
       }
-      p {
+
+p {
         text-align: center;
         color: #4F7849;
       }
@@ -311,7 +282,7 @@ table.SASU_IS_Array tfoot td {
             <td id="cell9_4"></td>
             <td id="cell10_4"></td>
             <td id="cell11_4"></td>
-            <td id="cell12_4"></td>
+            <td id="cell12_4" class="gras-rouge"></td>
         </tr>
     </tbody>
 </table>
@@ -794,6 +765,12 @@ table.SASU_IS_Array tfoot td {
  const resultat_net_02 = net_urssaf_annuel_02 - frais_annuel_02;
  const resultat_net_03 = net_urssaf_annuel_03 - frais_annuel_03;
 
+ // Colonne 12 -> Resultat intermediaire
+const resultat_intermediaire_01 = prime_montant_01 * nbre_matchs_01 - frais_annuel_01;
+const resultat_intermediaire_02 = prime_montant_02 * nbre_matchs_02 - frais_annuel_02;
+const resultat_intermediaire_03 = prime_montant_03 * nbre_matchs_03 - frais_annuel_03;
+
+
  /// IMPOSITIONS
  // Tranches d'imposition
  const tranche01_bas = 11295 /* Valeur de tranche01_bas */;
@@ -826,6 +803,7 @@ table.SASU_IS_Array tfoot td {
 
  //////
  // Affichage des résultats dans le tableau 1 ////////////////////////////////////////////////////////////////
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     document.getElementById("cell2_1").innerHTML = nbre_matchs_01; // Nombre de matchs (match 1)
     document.getElementById("cell3_1").innerHTML = prime_montant_01 + " €"; // Montant prime 1
     document.getElementById("cell4_1").innerHTML = pourcentage_urssaf + " %"; // % URSSAF
@@ -862,14 +840,15 @@ table.SASU_IS_Array tfoot td {
     document.getElementById("cell11_3").innerHTML = frais_annuel_03.toFixed(2) + " €"; // Nos frais de l'ensemble des matchs annuels
     document.getElementById("cell12_3").innerHTML = resultat_net_03.toFixed(2) + " €"; // Caillasse annuelle
 
-    
     document.getElementById("cell7_4").innerHTML = brut_annuel_01 + brut_annuel_02 + brut_annuel_03 + " €"; // Sommes annuelle des bruts sur la saison
     document.getElementById("cell8_4").innerHTML = cotisations_annuelles_01 + cotisations_annuelles_02 + cotisations_annuelles_03 + " €"; // Sommes annuelle des cotisations sur la saison
     document.getElementById("cell9_4").innerHTML = net_urssaf_annuel_01 + net_urssaf_annuel_02 + net_urssaf_annuel_03 + " €"; // Sommes annuelle des nets sur la saison
+    
+    document.getElementById("cell11_4").innerHTML = frais_annuel_01 + frais_annuel_02 + frais_annuel_03 + " €"; // Sommes annuelle des frais sur la saison
+    document.getElementById("cell12_4").innerHTML = resultat_net_01 + resultat_net_02 + resultat_net_03 + " €"; // Sommes annuelle des resultats sur la saison
 
 
 // Affichage des resultats dans le tableau 2 ////////////////////////////////////////////////////////////////
-
 document.getElementById("tns_ir_cell2_1").innerHTML = nbre_matchs_01; // Nombre de matchs (match 1)
 document.getElementById("tns_ir_cell3_1").innerHTML = prime_montant_01  + " €"; // Montant prime 1
 document.getElementById("tns_ir_cell4_1").innerHTML = urssaf_zero + " %"; // % URSSAF
@@ -879,11 +858,10 @@ document.getElementById("tns_ir_cell7_1").innerHTML = nbre_matchs_01 * prime_mon
 document.getElementById("tns_ir_cell8_1").innerHTML = urssaf_zero * nbre_matchs_01 + " €"; // Cotisations annuelles
 document.getElementById("tns_ir_cell9_1").innerHTML = urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 +" €"; // Net d'URSSAF annuel
 document.getElementById("tns_ir_cell10_1").innerHTML = frais_par_match01 + " €"; // Frais par match
-
 document.getElementById("tns_ir_cell11_1").innerHTML = frais_annuel_01 + " €"; // Sommes annuelle des frais
-document.getElementById("tns_ir_cell12_1").innerHTML = resultat_net_01 + " €"; // Resultat intermédiaire
+document.getElementById("tns_ir_cell12_1").innerHTML = resultat_intermediaire_01 + " €"; // Resultat intermédiaire
 
-document.getElementById("tns_ir_cell13_1").innerHTML = frais_banque + frais_comptable + frais_urssaf + " €"; // Frais annexes
+document.getElementById("tns_ir_cell13_1").innerHTML = frais_banque + " €"; // Frais annexes
 
 document.getElementById("tns_ir_cell2_2").innerHTML = nbre_matchs_02; // Nombre de matchs (match 2)
 document.getElementById("tns_ir_cell3_2").innerHTML = prime_montant_02  + " €"; // Montant prime 2
@@ -894,7 +872,9 @@ document.getElementById("tns_ir_cell7_2").innerHTML = nbre_matchs_02 * prime_mon
 document.getElementById("tns_ir_cell8_2").innerHTML = urssaf_zero * nbre_matchs_02 + " €"; // Cotisations annuelles
 document.getElementById("tns_ir_cell9_2").innerHTML = urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 +" €"; // Net d'URSSAF annuel
 document.getElementById("tns_ir_cell10_2").innerHTML = frais_par_match02 + " €"; // Frais par match
-
+document.getElementById("tns_ir_cell11_2").innerHTML = frais_annuel_02 + " €"; // Sommes annuelle des frais
+document.getElementById("tns_ir_cell12_2").innerHTML = resultat_intermediaire_02 + " €"; // Resultat intermédiaire
+document.getElementById("tns_ir_cell13_2").innerHTML = frais_comptable + " €"; // Frais annexes
 
 document.getElementById("tns_ir_cell2_3").innerHTML = nbre_matchs_03; // Nombre de matchs (match 3)
 document.getElementById("tns_ir_cell3_3").innerHTML = prime_montant_03  + " €"; // Montant prime 3
@@ -905,10 +885,18 @@ document.getElementById("tns_ir_cell7_3").innerHTML = nbre_matchs_03 * prime_mon
 document.getElementById("tns_ir_cell8_3").innerHTML = urssaf_zero * nbre_matchs_03 + " €"; // Cotisations annuelles
 document.getElementById("tns_ir_cell9_3").innerHTML = urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03 +" €"; // Net d'URSSAF annuel
 document.getElementById("tns_ir_cell10_3").innerHTML = frais_par_match03 + " €"; // Frais par match
+document.getElementById("tns_ir_cell11_3").innerHTML = frais_annuel_03 + " €"; // Sommes annuelle des frais
+document.getElementById("tns_ir_cell12_3").innerHTML = resultat_intermediaire_03 + " €"; // Resultat intermédiaire
+document.getElementById("tns_ir_cell13_3").innerHTML = frais_urssaf + " €"; // Frais URSSAF
 
 document.getElementById("tns_ir_cell7_4").innerHTML = nbre_matchs_01 * prime_montant_01 + nbre_matchs_02 * prime_montant_02 + nbre_matchs_03 * prime_montant_03 + " €"; // Sommes annuelle des bruts sur la saison
 document.getElementById("tns_ir_cell8_4").innerHTML = urssaf_zero * nbre_matchs_01 + urssaf_zero * nbre_matchs_02 + urssaf_zero * nbre_matchs_03 + " €"; // Sommes annuelle des cotisations URSSAF
 document.getElementById("tns_ir_cell9_4").innerHTML = urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 + urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 + urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03 + " €"; // Sommes annuelle des nets d'URSSAF
+document.getElementById("tns_ir_cell11_4").innerHTML = frais_annuel_01 + frais_annuel_02 + frais_annuel_03 + " €"; // Sommes annuelle des frais sur la saison
+document.getElementById("tns_ir_cell12_4").innerHTML = resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 + " €"; // Sommes annuelle des resultats sur la saison
+document.getElementById("tns_ir_cell13_4").innerHTML = frais_banque + frais_comptable + frais_urssaf + " €"; // Sommes annuelle des frais annexes sur la saison
+document.getElementById("tns_ir_cell14_4").innerHTML = resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf + " €"; // Sommes annuelle des resultats net sur la saison
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
