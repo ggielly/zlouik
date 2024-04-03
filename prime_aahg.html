@@ -779,21 +779,13 @@ document.getElementById("frais_par_match03").addEventListener("input", updatePri
  var repas = 15;
  var hotel = 80;
  var baremeKm = 0.415;
-
- // Colonne 1 => Nombre de matchs
  var nbre_matchs_01 = 25;
  var nbre_matchs_02 = 40;
  var nbre_matchs_03 = 7;
-
-  //Colonne 2 => Montant des primes
  var prime_montant_01 = 550;
  var prime_montant_02 = 700;
  var prime_montant_03 = 800;
-
- // Colonne 3 => URSAFF
  var pourcentage_urssaf = 25;
-
- // Variables globales
  var cotisations_urssaf_par_match_01;
  var cotisations_urssaf_par_match_02;
  var cotisations_urssaf_par_match_03;
@@ -901,7 +893,7 @@ resultat_intermediaire_02 = prime_montant_02 * nbre_matchs_02 - frais_annuel_02;
 resultat_intermediaire_03 = prime_montant_03 * nbre_matchs_03 - frais_annuel_03;
 }
 
- function updatePrimeMontant() {
+function updatePrimeMontant() {
     primeMontant01 = document.getElementById("prime_montant_01").value;
     document.getElementById("cell3_1").innerHTML = primeMontant01 + " €";
     document.getElementById("tns_ir_cell3_1").innerHTML = primeMontant01 + " €";
