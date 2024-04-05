@@ -200,10 +200,8 @@ p {
 <h1> Simulateur de rémunération (en cours de développement).</h1>
 <hr>
 TODO : <br>
-o faire fonctionner les curseurs pour les montants des primes et des frais par match.<br>
+o <b>Valeurs fausses : TABLEAU 3 - Imposition barême.</b><br>
 o générer les tableaux de résultats.<br>
-o finir tableau 2<br>
-o finir tableau 3<br>
 o finir tableau 4<br>
 o finir tableau 5<br>
 <hr>
@@ -259,10 +257,6 @@ Paramêtres de la simulation : <br>
 <output for="frais_par_match03" id="frais_par_match03"></output><br>
 <br>
 </form>
-
-
-
-
 <hr>
 
 <h1>1 - Calcul des revenus d'un arbitre en statut de travailleur indépendant (auto entreprise)</h1>
@@ -282,7 +276,7 @@ Seuil TVA d'un travailleur indépendant : 39 100e<br>
             <th>Cotisations annuelles</th>
             <th>Net d'URSSAF annuel</th>
             <th>Frais par match</th>
-            <th>Sommes annuelle des frais</th>
+            <th>Somme annuelle des frais</th>
             <th>RÉSULTAT NET</th>
         </tr>
     </thead>
@@ -331,6 +325,8 @@ Seuil TVA d'un travailleur indépendant : 39 100e<br>
             <td id="cell12_3"></td>
         </tr>
         <tr>
+          <tfoot>
+
             <td><b>SOMMES ANNUELLES</b></td>
             <td id="cell2_4"></td>
             <td id="cell3_4">---</td>
@@ -343,6 +339,7 @@ Seuil TVA d'un travailleur indépendant : 39 100e<br>
             <td id="cell10_4">---</td>
             <td id="cell11_4"></td>
             <td id="cell12_4" class="gras-rouge"></td>
+          </tfoot>
         </tr>
     </tbody>
 </table>
@@ -368,7 +365,7 @@ Seuil TVA d'un travailleur indépendant : 36 800e<br>
             <th>Sommes annuelle des frais</th>
             <th>Résultat intermédiaire</th>
             <th>Frais annexes</th>
-            <th>Résultats net</th>
+            <th>Résultats nets</th>
             <th>Régime IR</th>
             <th>Montant revenus<br> imposables</th>
             
@@ -434,6 +431,7 @@ Seuil TVA d'un travailleur indépendant : 36 800e<br>
 
         </tr>
         <tr>
+          <tfoot>
             <td>SOMMES ANNUELLES</td>
             <td id="tns_ir_cell2_4"></td>
             <td id="tns_ir_cell3_4">---</td>
@@ -449,8 +447,8 @@ Seuil TVA d'un travailleur indépendant : 36 800e<br>
             <td id="tns_ir_cell13_4"></td>
             <td id="tns_ir_cell14_4"></td>
             <td id="tns_ir_cell15_4"></td>
-            <td id="tns_ir_cell16_4"></td>
-
+            <td id="tns_ir_cell16_4" class="gras-rouge"></td>
+          </tfoot>
         </tr>
 
     </tbody>
@@ -476,7 +474,7 @@ Seuil TVA 36 800e
             <th>Sommes annuelle des frais</th>
             <th>Résultat intermédiaire</th>
             <th>Frais annexes</th>
-            <th>Résultats net</th>
+            <th>Résultats nets</th>
             <th>Régime IS</th>
             <th>Versement dividendes</th>
         </tr>
@@ -539,6 +537,7 @@ Seuil TVA 36 800e
             <td id="tns_is_cell16_3">Flat tax</td>
         </tr>
         <tr>
+          <tfoot>
             <td>SOMMES ANNUELLES</td>
             <td id="tns_is_cell2_4"></td>
             <td id="tns_is_cell3_4">---</td>
@@ -554,7 +553,8 @@ Seuil TVA 36 800e
             <td id="tns_is_cell13_4"></td>
             <td id="tns_is_cell14_4"></td>
             <td id="tns_is_cell15_4"></td>
-            <td id="tns_is_cell16_4"></td>
+            <td id="tns_is_cell16_4" class="gras-rouge"></td>
+          </tfoot>
         </tr>
     </tbody>
 </table>
@@ -585,9 +585,9 @@ Seuil TVA 36 800e
             <th>Sommes annuelle des frais</th>
             <th>Résultat intermédiaire</th>
             <th>Frais annexes</th>
-            <th>Résultats net</th>
-            <th>Régime IR</th>
-            <th>Dividendes-Flat tax</th>
+            <th>Résultats nets</th>
+            <th>Résultat après IS</th>
+            <th>Versement de dividendes <br>Flat tax</th>
         </tr>
     </thead>
     <tbody>
@@ -606,8 +606,8 @@ Seuil TVA 36 800e
             <td id="sasu_ir_cell12_1"></td>
             <td id="sasu_ir_cell13_1"></td>
             <td id="sasu_ir_cell14_1">---</td>
-            <td id="sasu_ir_cell15_1"></td>
-            <td id="sasu_ir_cell16_1"></td>
+            <td id="sasu_ir_cell15_1">---</td>
+            <td id="sasu_ir_cell16_1">---</td>
 
         </tr>
         <tr>
@@ -630,7 +630,6 @@ Seuil TVA 36 800e
         </tr>
         <tr>
             <td>---</td>
-            <td id="sasu_ir_cell1_3"></td>
             <td id="sasu_ir_cell2_3"></td>
             <td id="sasu_ir_cell3_3"></td>
             <td id="sasu_ir_cell4_3"></td>
@@ -642,14 +641,14 @@ Seuil TVA 36 800e
             <td id="sasu_ir_cell10_3"></td>
             <td id="sasu_ir_cell11_3"></td>
             <td id="sasu_ir_cell12_3"></td>
-            <td id="sasu_ir_cell13_3"></td>
+            <td id="sasu_ir_cell13_3">---</td>
             <td id="sasu_ir_cell14_3">---</td>
-            <td id="sasu_ir_cell15_3"></td>
-            <td id="sasu_ir_cell16_3"></td>
+            <td id="sasu_ir_cell15_3">---</td>
+            <td id="sasu_ir_cell16_3">---</td>
         </tr>
         <tr>
+          <tfoot>
             <td>SOMMES ANNUELLES</td>
-            <td id="sasu_ir_cell1_4"></td>
             <td id="sasu_ir_cell2_4">---</td>
             <td id="sasu_ir_cell3_4">---</td>
             <td id="sasu_ir_cell4_4">---</td>
@@ -664,8 +663,8 @@ Seuil TVA 36 800e
             <td id="sasu_ir_cell13_4"></td>
             <td id="sasu_ir_cell14_4"></td>
             <td id="sasu_ir_cell15_4"></td>
-            <td id="sasu_ir_cell16_4"></td>
-
+            <td id="sasu_ir_cell16_4" class="gras-rouge"></td>
+          </tfoot>
         </tr>
     </tbody>
 </table>
@@ -691,9 +690,9 @@ Seuil TVA 36 800e.
             <th>Sommes annuelle des frais</th>
             <th>Résultat intermédiaire</th>
             <th>Frais annexes</th>
-            <th>Résultats net</th>
+            <th>Résultats nets</th>
             <th>Régime IS</th>
-            <th>Dividendes/Imposition barême</th>
+            <th>Versement de dividendes<br>Imposition barême</th>
         </tr>
     </thead>
     <tbody>
@@ -768,8 +767,12 @@ Seuil TVA 36 800e.
             <td id="sasu_is_cell13_4"></td>
             <td id="sasu_is_cell14_4"></td>
             <td id="sasu_is_cell15_4"></td>
-            <td id="sasu_is_cell16_4"></td>
-        </tr>
+            <td id="sasu_is_cell16_4" class="gras-rouge"></td>
+            
+            
+         </tr>
+
+            
     </tbody>
 </table>
 <br>
@@ -976,6 +979,7 @@ function updateTableaux() {
 
     const impotsSurLeRevenu = calculer_IR_EURL(AC16, tranche01_bas, tranche02_bas, tranche03_bas, tranche04_bas, tranche01_haut, tranche02_haut, tranche03_haut, tranche01_pourcent, tranche02_pourcent, tranche03_pourcent, tranche04_pourcent);
     const montantFinal = calculerMontant_impotdividende(AC24, tranche01_bas, tranche02_bas, tranche03_bas, tranche04_bas, tranche01_haut, tranche02_haut, tranche03_haut, tranche01_pourcent, tranche02_pourcent, tranche03_pourcent, tranche04_pourcent);
+    console.log("Montant final : ", montantFinal);
     const CotisationsSociales = (((tauxcotisation_eurl / 1.35) * (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf)) / 100).toFixed(2); // Cotisations sociales
     
 
@@ -1123,9 +1127,7 @@ function updateTableaux() {
     document.getElementById("tns_is_cell10_2").innerHTML = frais_par_match02 + " €"; // Frais par match
     document.getElementById("tns_is_cell11_2").innerHTML = frais_annuel_02 + " €"; // Sommes annuelle des frais
     document.getElementById("tns_is_cell12_2").innerHTML = resultat_intermediaire_02.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
-    
     document.getElementById("tns_is_cell13_2").innerHTML = frais_comptable + " €"; // Frais annexes
-    
     document.getElementById("tns_is_cell16_2").innerHTML = montantFinal.toFixed(2).toLocaleString('fr-FR') + " €"; // Impot sur les dividendes
 
     // Ligne 3
@@ -1156,10 +1158,17 @@ function updateTableaux() {
     document.getElementById("tns_is_cell13_4").innerHTML = (frais_banque + frais_comptable + frais_urssaf).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais annexes sur la saison
     document.getElementById("tns_is_cell14_4").innerHTML = resultat_net_is_TNS.toLocaleString('fr-FR') + " €"; // Résultat net
 
-    // =-AA24*AI9
+    // =AA24*AI9
     document.getElementById("tns_is_cell15_2").innerHTML = (resultat_net_is_TNS * (15 / 100)).toLocaleString('fr-FR') + " €"; // Salaires
     // Résultat net - AC22
     document.getElementById("tns_is_cell15_4").innerHTML = (resultat_net_is_TNS - (resultat_net_is_TNS * (15 / 100))).toLocaleString('fr-FR') + " €"; // impots sur le revenu
+    // = AC24 * (1-AI10) =>  AC24 * (1 - ((30/100))
+    console.log("AC24 : ", AC24);
+    console.log("AC24 * (1 - ((30/100))) : ", AC24 * (1 - ((30/100))));
+
+
+    document.getElementById("tns_is_cell16_4").innerHTML = (AC24 * (1 - ((30/100)))).toLocaleString('fr-FR') + " €"; // impots sur le revenu
+
     
 
 
@@ -1169,12 +1178,12 @@ function updateTableaux() {
     document.getElementById("sasu_ir_cell4_1").innerHTML = urssaf_zero + " %"; // % URSSAF
     document.getElementById("sasu_ir_cell5_1").innerHTML = urssaf_zero + "€"; // Cotisations URSSAF par match (match 1)
     document.getElementById("sasu_ir_cell6_1").innerHTML = urssaf_zero + prime_montant_01 + " €"; // Net par match (match 1)
-    document.getElementById("sasu_ir_cell7_1").innerHTML = nbre_matchs_01 * prime_montant_01 + " €"; // Brut annuel
-    document.getElementById("sasu_ir_cell8_1").innerHTML = urssaf_zero * nbre_matchs_01 + " €"; // Cotisations annuelles
-    document.getElementById("sasu_ir_cell9_1").innerHTML = urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 +" €"; // Net d'URSSAF annuel
+    document.getElementById("sasu_ir_cell7_1").innerHTML = nbre_matchs_01 * prime_montant_01.toLocaleString('fr-FR') + " €"; // Brut annuel
+    document.getElementById("sasu_ir_cell8_1").innerHTML = urssaf_zero * nbre_matchs_01.toLocaleString('fr-FR') + " €"; // Cotisations annuelles
+    document.getElementById("sasu_ir_cell9_1").innerHTML = urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01.toLocaleString('fr-FR') +" €"; // Net d'URSSAF annuel
     document.getElementById("sasu_ir_cell10_1").innerHTML = frais_par_match01 + " €"; // Frais par match
-    document.getElementById("sasu_ir_cell11_1").innerHTML = frais_annuel_01 + " €"; // Sommes annuelle des frais
-    document.getElementById("sasu_ir_cell12_1").innerHTML = resultat_net_01 + " €"; // Resultat intermédiaire
+    document.getElementById("sasu_ir_cell11_1").innerHTML = frais_annuel_01.toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais
+    document.getElementById("sasu_ir_cell12_1").innerHTML = resultat_intermediaire_01.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
     document.getElementById("sasu_ir_cell13_1").innerHTML = frais_banque + frais_comptable + frais_urssaf + " €"; // Frais annexes
 
 
@@ -1184,11 +1193,11 @@ function updateTableaux() {
     document.getElementById("sasu_ir_cell4_2").innerHTML = urssaf_zero + " %"; // % URSSAF
     document.getElementById("sasu_ir_cell5_2").innerHTML = urssaf_zero + "€"; // Cotisations URSSAF par match (match 2)
     document.getElementById("sasu_ir_cell6_2").innerHTML = urssaf_zero + prime_montant_02 + " €"; // Net par match (match 2)
-    document.getElementById("sasu_ir_cell7_2").innerHTML = nbre_matchs_02 * prime_montant_02 + " €"; // Brut annuel
-    document.getElementById("sasu_ir_cell8_2").innerHTML = urssaf_zero * nbre_matchs_02 + " €"; // Cotisations annuelles
-    document.getElementById("sasu_ir_cell9_2").innerHTML = urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 +" €"; // Net d'URSSAF annuel
+    document.getElementById("sasu_ir_cell7_2").innerHTML = nbre_matchs_02 * prime_montant_02.toLocaleString('fr-FR') + " €"; // Brut annuel
+    document.getElementById("sasu_ir_cell8_2").innerHTML = urssaf_zero * nbre_matchs_02.toLocaleString('fr-FR') + " €"; // Cotisations annuelles
+    document.getElementById("sasu_ir_cell9_2").innerHTML = urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02.toLocaleString('fr-FR') +" €"; // Net d'URSSAF annuel
     document.getElementById("sasu_ir_cell10_2").innerHTML = frais_par_match02 + " €"; // Frais par match
-    document.getElementById("sasu_ir_cell11_2").innerHTML = frais_annuel_02 + " €"; // Sommes annuelle des frais
+    document.getElementById("sasu_ir_cell11_2").innerHTML = frais_annuel_02.toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais
     document.getElementById("sasu_ir_cell12_2").innerHTML = resultat_intermediaire_02.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
 
 
@@ -1216,6 +1225,24 @@ function updateTableaux() {
     document.getElementById("sasu_ir_cell11_4").innerHTML = (frais_annuel_01 + frais_annuel_02 + frais_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais
     document.getElementById("sasu_ir_cell12_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des resultats sur la saison
 
+    const resultat_intermediaire_total = resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03;
+    //console.log("resultat_intermediaire_total : ", resultat_intermediaire_total);
+
+    document.getElementById("sasu_ir_cell13_1").innerHTML = frais_banque + " €"; // Frais annexes
+    document.getElementById("sasu_ir_cell13_2").innerHTML = frais_comptable + " €"; // Frais annexes
+    document.getElementById("sasu_ir_cell13_4").innerHTML = (frais_banque + frais_comptable).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais annexes sur la saison
+
+    document.getElementById("sasu_ir_cell14_4").innerHTML = (resultat_intermediaire_total - frais_banque - frais_comptable).toLocaleString('fr-FR') + " €"; // Résultat net
+    document.getElementById("sasu_ir_cell15_2").innerHTML = ((resultat_intermediaire_total - frais_banque - frais_comptable)* 0.15).toLocaleString('fr-FR') + " €"; // impots sur le revenu
+
+    const resultatApresIS = (resultat_intermediaire_total - frais_banque - frais_comptable) - (resultat_intermediaire_total - frais_banque - frais_comptable * 0.15);
+    
+    document.getElementById("sasu_ir_cell15_4").innerHTML =  ((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable)* 0.15)).toLocaleString('fr-FR') + " €"; // impots sur le revenu
+
+    document.getElementById("sasu_ir_cell16_2").innerHTML = ((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable)* 0.15)) * 0.30 + " €"; // impots sur le revenu
+    document.getElementById("sasu_ir_cell16_4").innerHTML = (((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable)* 0.15)) - 
+                  ((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable)* 0.15)) * 0.30).toLocaleString('fr-FR') + " €"; // impots sur le revenu
+    
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Affichage des resultats dans le tableau 5 ////////////////////////////////////////////////////////////////
     document.getElementById("sasu_is_cell2_1").innerHTML = nbre_matchs_01; // Nombre de matchs (match 1)
@@ -1230,7 +1257,7 @@ function updateTableaux() {
 
     document.getElementById("sasu_is_cell11_1").innerHTML = frais_annuel_01 + " €"; // Sommes annuelle des frais
     document.getElementById("sasu_is_cell12_1").innerHTML = resultat_net_01 + " €"; // Resultat intermédiaire
-    document.getElementById("sasu_is_cell13_1").innerHTML = frais_banque + frais_comptable + frais_urssaf + " €"; // Frais annexes
+    document.getElementById("sasu_is_cell13_1").innerHTML = frais_banque + frais_comptable + frais_urssaf.toLocaleString('fr-FR') + " €"; // Frais annexes
 
     document.getElementById("sasu_is_cell2_2").innerHTML = nbre_matchs_02; // Nombre de matchs (match 2)
     //document.getElementById("sasu_is_cell3_2").innerHTML = prime_montant_02  + " €"; // Montant prime 2
@@ -1242,7 +1269,7 @@ function updateTableaux() {
     document.getElementById("sasu_is_cell9_2").innerHTML = urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 +" €"; // Net d'URSSAF annuel
     document.getElementById("sasu_is_cell10_2").innerHTML = frais_par_match02 + " €"; // Frais par match
     document.getElementById("sasu_is_cell11_2").innerHTML = frais_annuel_02 + " €"; // Sommes annuelle des frais
-    document.getElementById("sasu_is_cell12_2").innerHTML = resultat_intermediaire_02.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
+    //document.getElementById("sasu_is_cell12_2").innerHTML = resultat_intermediaire_02.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
     document.getElementById("sasu_is_cell13_2").innerHTML = frais_comptable + " €"; // Frais annexes
 
 
@@ -1256,8 +1283,16 @@ function updateTableaux() {
     document.getElementById("sasu_is_cell9_3").innerHTML = urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03 +" €"; // Net d'URSSAF annuel
     document.getElementById("sasu_is_cell10_3").innerHTML = frais_par_match03 + " €"; // Frais par match
     document.getElementById("sasu_is_cell11_3").innerHTML = frais_annuel_03 + " €"; // Sommes annuelle des frais
-    document.getElementById("sasu_is_cell12_3").innerHTML = resultat_intermediaire_03.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
+    document.getElementById("sasu_is_cell12_3").innerHTML = resultat_intermediaire_03.toLocaleString('fr-FR').toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
 
+
+    document.getElementById("sasu_is_cell12_2").innerHTML = resultat_intermediaire_02.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
+    document.getElementById("sasu_is_cell13_3").innerHTML = frais_urssaf.toLocaleString('fr-FR') + " €"; // Frais annexes
+    document.getElementById("sasu_is_cell12_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des resultats sur la saison
+
+    document.getElementById("saus_is_cell13_1").innerHTML = frais_banque + " €"; // Frais annexes
+    document.getElementById("sasu_is_cell13_2").innerHTML = frais_comptable + " €"; // Frais annexes
+    document.getElementById("sasu_is_cell13_4").innerHTML = (frais_banque + frais_comptable).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais annexes sur la saison
 
     // Ligne 4 => Sommes annuelles
     document.getElementById("sasu_is_cell2_4").innerHTML = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03; // Nombre de matchs ANNUEL
@@ -1266,44 +1301,48 @@ function updateTableaux() {
     document.getElementById("sasu_is_cell8_4").innerHTML = (urssaf_zero * nbre_matchs_01 + urssaf_zero * nbre_matchs_02 + urssaf_zero * nbre_matchs_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des cotisations URSSAF
     document.getElementById("sasu_is_cell9_4").innerHTML = (urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 + urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 + urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des nets d'URSSAF
     document.getElementById("sasu_is_cell11_4").innerHTML = (frais_annuel_01 + frais_annuel_02 + frais_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais sur la saison
-    document.getElementById("sasu_is_cell12_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des resultats sur la saison
+    //document.getElementById("sasu_is_cell12_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des resultats sur la saison
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Calcul du versement dividende impositon bareme
 function calculerMontant_impotdividende(AC24, tranche01_bas, tranche02_bas, tranche03_bas, tranche04_bas, tranche01_haut, tranche02_haut, tranche03_haut, tranche01_pourcent, tranche02_pourcent, tranche03_pourcent, tranche04_pourcent) {
     // Calcul de la partie principale de la formule
-    const partiePrincipale = AC24 * CSG_CR;
+    
+
+    const partiePrincipale = AC24 * 0.172; //CSG_CR;
     console.log(AC24);
-    console.log(CSG_CR);
+    console.log(tranche01_bas , tranche02_bas , tranche03_bas , tranche04_bas , tranche01_haut , tranche02_haut , tranche03_haut , tranche01_pourcent , tranche02_pourcent , tranche03_pourcent , tranche04_pourcent);
 
-    console.log("partie prince " + partiePrincipale);
+    console.log("partie principale : " + partiePrincipale);
 
-
+    // Calcul du résultat commun à toutes les conditions
+    const calculCommun = AC24 * 0.6 - 0.068 * AC24;
 
     // Calcul de la premiere condition SI
-    if ((AC24 * 0.6 - 0.068 * AC24) < tranche01_bas) {
+    if (calculCommun < tranche01_bas) {
         return partiePrincipale;
     }
 
     // Calcul de la deuxieme condition SI
-    if ((AC24 * 0.6 - 0.068 * AC24) < tranche01_haut) {
-        return (AC24 * 0.6 - 0.068 * AC24 - tranche01_bas) * tranche01_pourcent;
+    if (calculCommun < tranche01_haut) {
+        return (calculCommun - tranche01_bas) * tranche01_pourcent;
     }
 
     // Calcul de la troisieme condition SI
-    if ((AC24 * 0.6 - 0.068 * AC24) < tranche02_haut) {
-        return tranche01_pourcent * (tranche01_haut - tranche01_bas) + ((AC24 * 0.6 - 0.068 * AC24 - tranche02_bas) * tranche02_pourcent);
+    if (calculCommun < tranche02_haut) {
+        return (tranche01_haut - tranche01_bas) * tranche01_pourcent + (calculCommun - tranche02_bas) * tranche02_pourcent;
     }
 
     // Calcul de la quatrieme condition SI
-    if ((AC24 * 0.6 - 0.068 * AC24) < tranche03_haut) {
-        return (tranche01_haut - tranche01_bas) * tranche01_pourcent + (tranche02_haut - tranche02_bas) * tranche02_pourcent + ((AC24 * 0.6 - 0.068 * AC24 - tranche03_bas) * tranche03_pourcent);
+    if (calculCommun < tranche03_haut) {
+        return (tranche01_haut - tranche01_bas) * tranche01_pourcent + (tranche02_haut - tranche02_bas) * tranche02_pourcent + (calculCommun - tranche03_bas) * tranche03_pourcent;
     }
 
     // Calcul de la cinquieme condition SI
-    return ((AC24 * 0.6 - 0.068 * AC24 - tranche04_bas) * tranche04_pourcent + (tranche03_haut - tranche03_bas) * tranche03_pourcent + (tranche02_haut - tranche02_bas) * tranche02_pourcent + (tranche01_haut - tranche01_bas) * tranche01_pourcent) + AC24;
+    return (calculCommun - tranche04_bas) * tranche04_pourcent + (tranche03_haut - tranche03_bas) * tranche03_pourcent + (tranche02_haut - tranche02_bas) * tranche02_pourcent + (tranche01_haut - tranche01_bas) * tranche01_pourcent;
 }
+
 
 // resultat 
 function calculer_IR_EURL(AC16, tranche01_bas, tranche02_bas, tranche03_bas, tranche04_bas, tranche01_haut, tranche02_haut, tranche03_haut, tranche01_pourcent, tranche02_pourcent, tranche03_pourcent, tranche04_pourcent) {
