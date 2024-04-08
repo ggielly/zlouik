@@ -1748,15 +1748,10 @@ function genererTableauResultats(resultats) {
       }
     });
   });
+  genererTableauResultats();
 
   resultats.forEach(function(trajet) {
-    /*grandDeplacementSemaine;
-    indemniteKilometrique;
-    nombreRepas;
-    prixHotel;
-    indemniteChoisie = 0 ;*/
-
-    // Calcul du grand déplacement
+   // Calcul du grand déplacement
     if (trajet.Km > 500) {
       grandDeplacementSemaine = "Oui";
       nombreRepas = 2;
@@ -1801,6 +1796,7 @@ function genererTableauResultats(resultats) {
 
 // Récupération de l'élément conteneur pour le tableau des résultats
 var tableauContainer = document.getElementById("tableauResultats");
+
 
 // Génération du tableau des résultats et insertion dans l'élément conteneur
 if (tableauContainer) {
@@ -1907,86 +1903,13 @@ cotisations_urssaf_par_match_03 = prime_montant_03 * (pourcentage_urssaf / 100);
   document.getElementById("valeur_match_03").textContent = nombre3;
 
 // Mettre à jour les éléments output avec les valeurs correspondantes
-genererTableauResultats();
+
 updateCalculs();
 }
 
-/*
 
-//////////////////////////////////////////////////////////////////
-// Obtenir tous les noms uniques de VilleDeparts et de VilleDestinations
-const names = Array.from(new Set(data.flatMap(d => [d.VilleDepart, d.VilleDestination])));
 
-// Créer une matrice de distances entre chaque paire de VilleDepart et de VilleDestination
-const matrix = names.map(VilleDepart => names.map(VilleDestination => {
-  const entry = data.find(d => d.VilleDepart === VilleDepart && d.VilleDestination === VilleDestination);
-  return entry ? entry.Km : 0;
-}));
-
-// Créer une échelle de couleurs pour les arcs
-const color = d3.scaleOrdinal()
-  .domain(d3.range(names.length))
-  .range(d3.schemeCategory10);
-
-const width =  1000;
-const height = 650;
-const innerRadius = Math.min(width, height) * 0.5 - 20;
-const outerRadius = innerRadius + 6;
-
-// Définir la fonction chord
-const chord = d3.chord()
-  .padAngle(0.05)
-  .sortSubgroups(d3.descending)
-  .sortChords(d3.descending);
-
-// Créer un élément SVG
-const svg = d3.create("svg")
-  .attr("viewBox", [-width / 2, -height / 2, width, height])
-  .attr("width", width)
-  .attr("height", height)
-  .attr("style", "width: 100%; height: auto; font: 10px sans-serif;");
-
-// Générer les données chord
-const chords = chord(matrix);
-
-// Ajouter les cordes
-svg.append("g")
-  .selectAll("path")
-  .data(chords)
-  .join("path")
-  .attr("d", d3.ribbon().radius(innerRadius))
-  .attr("fill", d => color(d.source.index))
-  .attr("stroke", "#fff")
-  .append("title")
-  .text(d => `${names[d.source.index]} → ${names[d.target.index]}: ${d.source.value}`);
-
-// Ajouter les arcs
-svg.append("g")
-  .selectAll("g")
-  .data(chords.groups)
-  .join("g")
-  .append("path")
-  .attr("d", d3.arc()
-  .innerRadius(innerRadius)
-  .outerRadius(outerRadius))
-  .attr("fill", d => color(d.index))
-  .attr("stroke", "#fff")
-  .append("title")
-  .text(d => `${names[d.index]}: ${d.value}`);
-
-// Ajouter les noms autour du cercle
-svg.append("g")
-  .selectAll("g")
-  .data(chords.groups)
-  .join("g")
-  .attr("transform", d => `rotate(${(d.startAngle + d.endAngle) / 2 * 180 / Math.PI - 90}) translate(${innerRadius + 10},0)`)
-  .append("text")
-  .attr("text-anchor", d => (d.startAngle + d.endAngle) / 2 > Math.PI ? "end" : null)
-  .attr("transform", d => (d.startAngle + d.endAngle) / 2 > Math.PI ? "rotate(180)" : null)
-  .text(d => names[d.index]);
-
-*/
-  document.body.appendChild(svg.node());
+  //document.body.appendChild(svg.node());
 
 
 
