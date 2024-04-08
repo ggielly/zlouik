@@ -221,14 +221,14 @@ En cas d'erreur ou de demande d'évolution, merci de me contacter à l'adresse s
   <table class="affichageValeurs">
     <tr>
       <th>Primes par match</th>
+      <th>Montant des primes</th>
       <th>Frais par match</th>
-      <th>Valeur Prime</th>
-      <th>Valeur Frais</th>
+      <th>Montant des frais</th>
     </tr>
     <tr>
       <td>
         <label for="prime_montant_01">Montant prime 1: </label>
-        <input type="range" id="prime_montant_01" name="prime_montant_01" min="100" max="1000" value="550">
+        <input type="range" id="prime_montant_01" name="prime_montant_01" min="100" max="1000" value="550">pp
         <output id="prime_montant_01_output"></output><br>
 
         <label for="prime_montant_02">Montant prime 2: </label>
@@ -238,6 +238,11 @@ En cas d'erreur ou de demande d'évolution, merci de me contacter à l'adresse s
         <label for="prime_montant_03">Montant prime 3: </label>
         <input type="range" id="prime_montant_03" name="prime_montant_03" min="100" max="1000" value="800">
         <output id="prime_montant_03_output"></output><br>
+      </td>
+      <td>
+        <output id="valeur_prime_01">j1</output><br>
+        <output id="valeur_prime_02">j2</output><br>
+        <output id="valeur_prime_03">j3</output><br>
       </td>
       <td>
         <label for="frais_par_match01">Montant 1 des frais par match 1: </label>
@@ -252,11 +257,7 @@ En cas d'erreur ou de demande d'évolution, merci de me contacter à l'adresse s
         <input type="range" id="frais_par_match03" name="frais_par_match03" min="10" max="1200" value="260">
         <output id="frais_par_match03_output"></output><br>
       </td>
-      <td>
-        <output id="valeur_prime_01"></output><br>
-        <output id="valeur_prime_02"></output><br>
-        <output id="valeur_prime_03"></output><br>
-      </td>
+      
       <td>
         <output id="valeur_frais_01"></output><br>
         <output id="valeur_frais_02"></output><br>
@@ -265,6 +266,13 @@ En cas d'erreur ou de demande d'évolution, merci de me contacter à l'adresse s
     </tr>
   </table>
 </form>
+
+
+
+
+
+
+
 
 <script>
 function updateValue(input) {
@@ -985,7 +993,26 @@ function updatePrimeMontant() {
     cotisations_urssaf_par_match_01 = primeMontant01 * (pourcentage_urssaf / 100);
     cotisations_urssaf_par_match_02 = primeMontant02 * (pourcentage_urssaf / 100);
     cotisations_urssaf_par_match_03 = primeMontant03 * (pourcentage_urssaf / 100);
-   
+
+    // Mise à jour du tableau d'en tête
+    var prime1 = document.getElementById("prime_montant_01").value;
+    var prime2 = document.getElementById("prime_montant_02").value;
+    var prime3 = document.getElementById("prime_montant_03").value;
+    
+    var frais1 = document.getElementById("frais_par_match01").value;
+    var frais2 = document.getElementById("frais_par_match02").value;
+    var frais3 = document.getElementById("frais_par_match03").value;
+    
+    // Mettre à jour les éléments output avec les valeurs correspondantes
+    document.getElementById("valeur_prime_01").textContent = prime1;
+    document.getElementById("valeur_prime_02").textContent = prime2;
+    document.getElementById("valeur_prime_03").textContent = prime3;
+    
+    document.getElementById("valeur_frais_01").textContent = frais1;
+    document.getElementById("valeur_frais_02").textContent = frais2;
+    document.getElementById("valeur_frais_03").textContent = frais3;
+
+    // Mettre à jour les éléments output avec les valeurs correspondantes
     updateCalculs();
 }
 
