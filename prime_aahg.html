@@ -203,8 +203,7 @@ p {
 
 <h1> Simulateur de rémunération vs. indemnités</h1>
 Association des arbitres de hockey sur glace 2024 - Tous droits réservés - Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité de l'association.<br>
-version 0.1 - 20240405<br>
-En cas d'erreur ou de demande d'évolution, merci de me contacter à l'adresse suivante : <a href="mailto:guillaume ar0base rootshell.fr">guillaume ar0base rootshell.fr</a>
+version 0.1 - 20240408<br>
 <hr>
 <h2>Paramêtres de la simulation</h2>
 - déplacez les curseurs pour sélectionner les montants souhaités !<br>
@@ -216,47 +215,43 @@ En cas d'erreur ou de demande d'évolution, merci de me contacter à l'adresse s
   <table class="affichageValeurs">
     <tr>
       <th>Primes par match</th>
-      <th>Montant des primes</th>
-      <th>Frais par match</th>
-      <th>Montant des frais</th>
+      <th>Montants des frais</th>
+      <th>Nombre de matchs</th>
+
     </tr>
     <tr>
       <td>
-        <label for="prime_montant_01">Montant prime 1: </label>
+        <label for="prime_montant_01"></label><output id="valeur_prime_01"></output>
         <input type="range" id="prime_montant_01" name="prime_montant_01" min="100" max="1000" value="550" step="10">
-        <output id="prime_montant_01_output"></output>
 
-        <label for="prime_montant_02">Montant prime 2: </label>
+        <label for="prime_montant_02"></label><output id="valeur_prime_02"></output>
         <input type="range" id="prime_montant_02" name="prime_montant_02" min="100" max="1000" value="700" step="10">
-        <output id="prime_montant_02_output"></output>
 
-        <label for="prime_montant_03">Montant prime 3: </label>
+        <label for="prime_montant_03"></label><output id="valeur_prime_03"></output>
         <input type="range" id="prime_montant_03" name="prime_montant_03" min="100" max="1000" value="800" step="10">
-        <output id="prime_montant_03_output"></output>
       </td>
+
       <td>
-        <output id="valeur_prime_01">j1</output>
-        <output id="valeur_prime_02">j2</output>
-        <output id="valeur_prime_03">j3</output>
-      </td>
-      <td>
-        <label for="frais_par_match01">Montant 1 des frais par match 1: </label>
+        <label for="frais_par_match01"></label><output id="valeur_frais_01"></output>
         <input type="range" id="frais_par_match01" name="frais_par_match01" min="10" max="1200" value="130" step="10">
-        <output id="frais_par_match01_output"></output>
 
-        <label for="frais_par_match02">Montant 2 des frais par match: </label>
+        <label for="frais_par_match02"></label><output id="valeur_frais_02"></output>
         <input type="range" id="frais_par_match02" name="frais_par_match02" min="10" max="1200" value="260" step="10">
-        <output id="frais_par_match02_output"></output>
 
-        <label for="frais_par_match03">Montant 3 des frais par match: </label>
+        <label for="frais_par_match03"></label><output id="valeur_frais_03"></output>
         <input type="range" id="frais_par_match03" name="frais_par_match03" min="10" max="1200" value="260" step="10">
-        <output id="frais_par_match03_output"></output>
+        
       </td>
       
       <td>
-        <output id="valeur_frais_01"></output>
-        <output id="valeur_frais_02"></output>
-        <output id="valeur_frais_03"></output>
+        <label for="nbre_matchs_01"></label><output id="valeur_match_01"></output>
+        <input type="range" id="nbre_matchs_01" name="nbre_matchs_01" min="0" max="60" value="25" step="1">
+  
+        <label for="nbre_matchs_02"></label><output id="valeur_match_02"></output>
+        <input type="range" id="nbre_matchs_02" name="nbre_matchs_02" min="0" max="60" value="40" step="1">
+       
+        <label for="nbre_matchs_03"></label><output id="valeur_match_03"></output>
+        <input type="range" id="nbre_matchs_03" name="nbre_matchs_03" min="0" max="60" value="7" step="1">
       </td>
     </tr>
   </table>
@@ -810,6 +805,10 @@ document.getElementById("frais_par_match01").addEventListener("input", updatePri
 document.getElementById("frais_par_match02").addEventListener("input", updatePrimeMontant);
 document.getElementById("frais_par_match03").addEventListener("input", updatePrimeMontant);
 
+document.getElementById("nbre_matchs_01").addEventListener("input", updatePrimeMontant);
+document.getElementById("nbre_matchs_02").addEventListener("input", updatePrimeMontant);
+document.getElementById("nbre_matchs_03").addEventListener("input", updatePrimeMontant);
+
 
  // Declaration des variables
  var frais_banque = 240;
@@ -818,9 +817,9 @@ document.getElementById("frais_par_match03").addEventListener("input", updatePri
  var repas = 15;
  var hotel = 80;
  var baremeKm = 0.415;
- var nbre_matchs_01 = 25;
- var nbre_matchs_02 = 40;
- var nbre_matchs_03 = 7;
+ var nbre_matchs_01 = 0;
+ var nbre_matchs_02 = 0;
+ var nbre_matchs_03 = 0;
  var prime_montant_01 = 550;
  var prime_montant_02 = 700;
  var prime_montant_03 = 800;
@@ -926,12 +925,13 @@ document.getElementById("frais_par_match03").addEventListener("input", updatePri
     resultat_intermediaire_01 = prime_montant_01 * nbre_matchs_01 - frais_annuel_01;
     resultat_intermediaire_02 = prime_montant_02 * nbre_matchs_02 - frais_annuel_02;
     resultat_intermediaire_03 = prime_montant_03 * nbre_matchs_03 - frais_annuel_03;
+
     // Fonction de mise à jour des montants de primes dans le tableau
     updateTableaux();
 }
 
 function updatePrimeMontant() {
-  prime_montant_01 = document.getElementById("prime_montant_01").value.toLocaleString('fr-FR');
+  prime_montant_01 = document.getElementById("prime_montant_01").value;
   document.getElementById("cell3_1").innerHTML = prime_montant_01.toLocaleString('fr-FR') + " €";
   document.getElementById("tns_ir_cell3_1").innerHTML = prime_montant_01.toLocaleString('fr-FR') + " €";
   document.getElementById("tns_is_cell3_1").innerHTML = prime_montant_01.toLocaleString('fr-FR') + " €";
@@ -966,19 +966,42 @@ function updatePrimeMontant() {
   document.getElementById("sasu_ir_cell10_2").innerHTML = frais_par_match02.toLocaleString('fr-FR') + " €";
   document.getElementById("sasu_is_cell10_2").innerHTML = frais_par_match02.toLocaleString('fr-FR') + " €";
 
-  frais_par_match03 = document.getElementById("frais_par_match03").value.toLocaleString('fr-FR');
+  frais_par_match03 = document.getElementById("frais_par_match03").value;
   document.getElementById("cell10_3").innerHTML = frais_par_match03 + " €";
   document.getElementById("tns_ir_cell10_3").innerHTML = frais_par_match03.toLocaleString('fr-FR') + " €";
   document.getElementById("tns_is_cell10_3").innerHTML = frais_par_match03.toLocaleString('fr-FR') + " €";
   document.getElementById("sasu_ir_cell10_3").innerHTML = frais_par_match03.toLocaleString('fr-FR') + " €";
   document.getElementById("sasu_is_cell10_3").innerHTML = frais_par_match03.toLocaleString('fr-FR') + " €";
 
-  // Calcul des cotisations URSSAF
-  cotisations_urssaf_par_match_01 = prime_montant_01 * (pourcentage_urssaf / 100);
-  cotisations_urssaf_par_match_02 = prime_montant_02 * (pourcentage_urssaf / 100);
-  cotisations_urssaf_par_match_03 = prime_montant_03 * (pourcentage_urssaf / 100);
+nbre_matchs_01 = document.getElementById("nbre_matchs_01").value;
+document.getElementById("cell2_1").innerHTML = nbre_matchs_01;
+document.getElementById("tns_ir_cell2_1").innerHTML = nbre_matchs_01;
+document.getElementById("tns_is_cell2_1").innerHTML = nbre_matchs_01;
+document.getElementById("sasu_ir_cell2_1").innerHTML = nbre_matchs_01;
+document.getElementById("sasu_is_cell2_1").innerHTML = nbre_matchs_01;
 
-  // Mise à jour du tableau d'en tête
+
+nbre_matchs_02 = document.getElementById("nbre_matchs_02").value;
+document.getElementById("cell2_2").innerHTML = nbre_matchs_02;
+document.getElementById("tns_ir_cell2_2").innerHTML = nbre_matchs_02;
+document.getElementById("tns_is_cell2_2").innerHTML = nbre_matchs_02;
+document.getElementById("sasu_ir_cell2_2").innerHTML = nbre_matchs_02;
+document.getElementById("sasu_is_cell2_2").innerHTML = nbre_matchs_02;
+
+nbre_matchs_03 = document.getElementById("nbre_matchs_03").value;
+document.getElementById("cell2_3").innerHTML = nbre_matchs_03;
+document.getElementById("tns_ir_cell2_3").innerHTML = nbre_matchs_03;
+document.getElementById("tns_is_cell2_3").innerHTML = nbre_matchs_03;
+document.getElementById("sasu_ir_cell2_3").innerHTML = nbre_matchs_03;
+document.getElementById("sasu_is_cell2_3").innerHTML = nbre_matchs_03;
+
+
+// Calcul des cotisations URSSAF
+cotisations_urssaf_par_match_01 = prime_montant_01 * (pourcentage_urssaf / 100);
+cotisations_urssaf_par_match_02 = prime_montant_02 * (pourcentage_urssaf / 100);
+cotisations_urssaf_par_match_03 = prime_montant_03 * (pourcentage_urssaf / 100);
+
+// Mise à jour du tableau d'en tête
   var prime1 = document.getElementById("prime_montant_01").value;
   var prime2 = document.getElementById("prime_montant_02").value;
   var prime3 = document.getElementById("prime_montant_03").value;
@@ -986,9 +1009,14 @@ function updatePrimeMontant() {
   var frais1 = document.getElementById("frais_par_match01").value;
   var frais2 = document.getElementById("frais_par_match02").value;
   var frais3 = document.getElementById("frais_par_match03").value;
+
+  var nombre1 = document.getElementById("nbre_matchs_01").value;
+  var nombre2 = document.getElementById("nbre_matchs_02").value;
+  var nombre3 = document.getElementById("nbre_matchs_03").value;
+
   
   // Mettre à jour les éléments output avec les valeurs correspondantes
-  document.getElementById("valeur_prime_01") .textContent = prime1;
+  document.getElementById("valeur_prime_01").textContent = prime1;
   document.getElementById("valeur_prime_02").textContent = prime2;
   document.getElementById("valeur_prime_03").textContent = prime3;
   
@@ -996,8 +1024,12 @@ function updatePrimeMontant() {
   document.getElementById("valeur_frais_02").textContent = frais2;
   document.getElementById("valeur_frais_03").textContent = frais3;
 
-  // Mettre à jour les éléments output avec les valeurs correspondantes
-  updateCalculs();
+  document.getElementById("valeur_match_01").textContent = nombre1;
+  document.getElementById("valeur_match_02").textContent = nombre2;
+  document.getElementById("valeur_match_03").textContent = nombre3;
+
+// Mettre à jour les éléments output avec les valeurs correspondantes
+updateCalculs();
 }
 
 function updateTableaux() {
@@ -1027,7 +1059,6 @@ function updateTableaux() {
     // Affichage des résultats dans le tableau 1 ////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     document.getElementById("cell2_1").innerHTML = nbre_matchs_01; // Nombre de matchs (match 1)
-    //document.getElementById("cell3_1").innerHTML = prime_montant_01 + " €"; // Montant prime 1
     document.getElementById("cell4_1").innerHTML = pourcentage_urssaf + " %"; // % URSSAF
     document.getElementById("cell5_1").innerHTML = cotisations_urssaf_par_match_01.toLocaleString('fr-FR') + " €"; // Cotisations URSSAF par match (match 1)
     document.getElementById("cell6_1").innerHTML = net_match_01.toLocaleString('fr-FR') + " €"; // Net par match (match 1)
@@ -1040,7 +1071,6 @@ function updateTableaux() {
     
     // Ligne 2
     document.getElementById("cell2_2").innerHTML = nbre_matchs_02; // Nombre de matchs (match 2)
-    //document.getElementById("cell3_2").innerHTML = prime_montant_02 + " €"; // Montant prime 2
     document.getElementById("cell4_2").innerHTML = pourcentage_urssaf + " %"; // % URSSAF
     document.getElementById("cell5_2").innerHTML = cotisations_urssaf_par_match_02 + " €"; // Cotisations URSSAF par match (match 2)
     document.getElementById("cell6_2").innerHTML = net_match_02.toLocaleString('fr-FR') + " €"; // Net par match (match 2)
@@ -1053,7 +1083,6 @@ function updateTableaux() {
 
     // Ligne 3
     document.getElementById("cell2_3").innerHTML = nbre_matchs_03; // Nombre de matchs (match 3)
-    //document.getElementById("cell3_3").innerHTML = prime_montant_03 + " €"; // Montant prime 3
     document.getElementById("cell4_3").innerHTML = pourcentage_urssaf + " %"; // % URSSAF
     document.getElementById("cell5_3").innerHTML = cotisations_urssaf_par_match_03 + " €"; // Cotisations URSSAF par match (match 3)
     document.getElementById("cell6_3").innerHTML = net_match_03 + " €"; // Net par match (match 3)
@@ -1065,8 +1094,9 @@ function updateTableaux() {
     document.getElementById("cell12_3").innerHTML = resultat_net_03.toLocaleString('fr-FR') + " €"; // Caillasse annuelle
 
     // Ligne 4 => Sommes annuelles
-    document.getElementById("cell2_4").innerHTML = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03; // Nombre de matchs ANNUEL
-    //document.getElementById("cell3_4").innerHTML = prime_montant_01 * nbre_matchs_01 + prime_montant_02 * nbre_matchs_02 + prime_montant_03 * nbre_matchs_03 + " €"; // Sommes annuelle des primes sur la saison
+    const totalmatch = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
+    document.getElementById("cell2_4").innerHTML = totalmatch.toLocaleString('fr-FR'); // Nombre de matchs ANNUEL
+
     document.getElementById("cell7_4").innerHTML = (brut_annuel_01 + brut_annuel_02 + brut_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des bruts sur la saison
     document.getElementById("cell8_4").innerHTML = (cotisations_annuelles_01 + cotisations_annuelles_02 + cotisations_annuelles_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des cotisations sur la saison
     document.getElementById("cell9_4").innerHTML = (net_urssaf_annuel_01 + net_urssaf_annuel_02 + net_urssaf_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des nets sur la saison
@@ -1076,7 +1106,6 @@ function updateTableaux() {
 
     // Affichage des resultats dans le tableau 2 ////////////////////////////////////////////////////////////////
     document.getElementById("tns_ir_cell2_1").innerHTML = nbre_matchs_01; // Nombre de matchs (match 1)
-    //document.getElementById("tns_ir_cell3_1").innerHTML = prime_montant_01  + " €"; // Montant prime 1
     document.getElementById("tns_ir_cell4_1").innerHTML = urssaf_zero + " %"; // % URSSAF
     document.getElementById("tns_ir_cell5_1").innerHTML = urssaf_zero + "€"; // Cotisations URSSAF par match (match 1)
     document.getElementById("tns_ir_cell6_1").innerHTML = (urssaf_zero + prime_montant_01).toLocaleString('fr-FR') + " €"; // Net par match (match 1)
@@ -1093,7 +1122,6 @@ function updateTableaux() {
     document.getElementById("tns_ir_cell15_1").innerHTML = CotisationsSociales.toLocaleString('fr-FR') + " €"; // Cotisations sociales
 
     document.getElementById("tns_ir_cell2_2").innerHTML = nbre_matchs_02; // Nombre de matchs (match 2)
-    //document.getElementById("tns_ir_cell3_2").innerHTML = prime_montant_02  + " €"; // Montant prime 2
     document.getElementById("tns_ir_cell4_2").innerHTML = urssaf_zero + " %"; // % URSSAF
     document.getElementById("tns_ir_cell5_2").innerHTML = urssaf_zero + "€"; // Cotisations URSSAF par match (match 2)
     document.getElementById("tns_ir_cell6_2").innerHTML = urssaf_zero + prime_montant_02 + " €"; // Net par match (match 2)
@@ -1106,7 +1134,6 @@ function updateTableaux() {
     document.getElementById("tns_ir_cell13_2").innerHTML = frais_comptable.toLocaleString('fr-FR') + " €"; // Frais annexes
     document.getElementById("tns_ir_cell15_2").innerHTML = Salaires.toLocaleString('fr-FR') + " €"; // Salaires
     document.getElementById("tns_ir_cell2_3").innerHTML = nbre_matchs_03; // Nombre de matchs (match 3)
-    //document.getElementById("tns_ir_cell3_3").innerHTML = prime_montant_03  + " €"; // Montant prime 3
     document.getElementById("tns_ir_cell4_3").innerHTML = urssaf_zero + " %"; // % URSSAF
     document.getElementById("tns_ir_cell5_3").innerHTML = urssaf_zero + "€"; // Cotisations URSSAF par match (match 3)
     document.getElementById("tns_ir_cell6_3").innerHTML = urssaf_zero + prime_montant_03 + " €"; // Net par match (match 3)
@@ -1124,7 +1151,7 @@ function updateTableaux() {
 
 
     // Ligne 4 => Sommes annuelles
-    document.getElementById("tns_ir_cell2_4").innerHTML = (nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03).toLocaleString('fr-FR'); // Nombre de matchs ANNUEL
+    document.getElementById("tns_ir_cell2_4").innerHTML = totalmatch.toLocaleString('fr-FR'); // Nombre de matchs ANNUEL
     document.getElementById("tns_ir_cell7_4").innerHTML = (nbre_matchs_01 * prime_montant_01 + nbre_matchs_02 * prime_montant_02 + nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des bruts sur la saison
     document.getElementById("tns_ir_cell8_4").innerHTML = (urssaf_zero * nbre_matchs_01 + urssaf_zero * nbre_matchs_02 + urssaf_zero * nbre_matchs_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des cotisations URSSAF
     document.getElementById("tns_ir_cell9_4").innerHTML = (urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 + urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 + urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des nets d'URSSAF
@@ -1139,7 +1166,6 @@ function updateTableaux() {
     // Affichage des resultats dans le tableau 3 ////////////////////////////////////////////////////////////////
 
     document.getElementById("tns_is_cell2_1").innerHTML = nbre_matchs_01; // Nombre de matchs (match 1)
-    //document.getElementById("tns_is_cell3_1").innerHTML = prime_montant_01  + " €"; // Montant prime 1
     document.getElementById("tns_is_cell4_1").innerHTML = urssaf_zero + " %"; // % URSSAF
     document.getElementById("tns_is_cell5_1").innerHTML = urssaf_zero + "€"; // Cotisations URSSAF par match (match 1)
     document.getElementById("tns_is_cell6_1").innerHTML = urssaf_zero + prime_montant_01 + " €"; // Net par match (match 1)
@@ -1184,7 +1210,7 @@ function updateTableaux() {
  
 
     // Ligne 4 => Sommes annuelles
-    document.getElementById("tns_is_cell2_4").innerHTML = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03; // Nombre de matchs ANNUEL
+    document.getElementById("tns_is_cell2_4").innerHTML = totalmatch; // Nombre de matchs ANNUEL
     document.getElementById("tns_is_cell7_4").innerHTML = (brut_annuel_01 + brut_annuel_02 + brut_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des bruts sur la saison
     document.getElementById("tns_is_cell8_4").innerHTML = (urssaf_zero * nbre_matchs_01 + urssaf_zero * nbre_matchs_02 + urssaf_zero * nbre_matchs_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des cotisations URSSAF
     document.getElementById("tns_is_cell9_4").innerHTML = (urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 + urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 + urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des nets d'URSSAF
@@ -1241,7 +1267,7 @@ function updateTableaux() {
 
 
     // Ligne 4
-    document.getElementById("sasu_ir_cell2_4").innerHTML = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03; // Nombre de matchs ANNUEL
+    document.getElementById("sasu_ir_cell2_4").innerHTML = totalmatch; // Nombre de matchs ANNUEL
     document.getElementById("sasu_ir_cell7_4").innerHTML = (brut_annuel_01 + brut_annuel_02 + brut_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des bruts sur la saison
     document.getElementById("sasu_ir_cell8_4").innerHTML = (urssaf_zero * nbre_matchs_01 + urssaf_zero * nbre_matchs_02 + urssaf_zero * nbre_matchs_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des cotisations URSSAF
     document.getElementById("sasu_ir_cell9_4").innerHTML = (urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 + urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 + urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des nets d'URSSAF
@@ -1265,7 +1291,6 @@ function updateTableaux() {
     document.getElementById("sasu_ir_cell16_4").innerHTML = (((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable)* 0.15)) - 
                   ((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable)* 0.15)) * 0.30).toLocaleString('fr-FR') + " €"; // impots sur le revenu
     
-
 
 
 
@@ -1316,7 +1341,7 @@ function updateTableaux() {
     document.getElementById("sasu_is_cell13_4").innerHTML = (frais_banque + frais_comptable).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais annexes sur la saison
 
     // Ligne 4 => Sommes annuelles
-    document.getElementById("sasu_is_cell2_4").innerHTML = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03; // Nombre de matchs ANNUEL
+    document.getElementById("sasu_is_cell2_4").innerHTML = totalmatch; // Nombre de matchs ANNUEL
     document.getElementById("sasu_is_cell7_4").innerHTML = (brut_annuel_01 + brut_annuel_02 + brut_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des bruts sur la saison
     document.getElementById("sasu_is_cell8_4").innerHTML = (urssaf_zero * nbre_matchs_01 + urssaf_zero * nbre_matchs_02 + urssaf_zero * nbre_matchs_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des cotisations URSSAF
     document.getElementById("sasu_is_cell9_4").innerHTML = (urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 + urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 + urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des nets d'URSSAF
@@ -1950,8 +1975,8 @@ const myChart = new Chart(ctx, {
 });
 </script>
 <br><br><br>
-Association des arbitres de hockey sur glace 2024 - Tous droits réservés - <br>
-Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité de l'association.<br>
-En cas d'erreur merci de nous contacter à l'adresse suivante : <a href="mailto:guillaume ar0base rootshell.fr">guillaume ar0base rootshell.fr</a>
+Association des arbitres de hockey sur glace 2024 - Tous droits réservés - Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité de l'association.<br>
+En cas d'erreur ou de demande d'évolution, merci de me contacter à l'adresse suivante : <a href="mailto:guillaume ar0base rootshell.fr">guillaume at rootshell point fr</a><br>
+Pas de cookie, aucune donnée enregistrée côté serveur.
 </body>
 </html>
