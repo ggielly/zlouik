@@ -18,8 +18,6 @@ guillaume ar0base rootshell.fr pour l'AAHG.
  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-chord/3.0.1/d3.chord.min.js"></script>
 
 
-
-
  <style>
 .axis {  font-family: sans-serif;  font-size: 10px;  stroke: #ccc;}
 .axis path {  fill: none;  stroke-width: 1;}
@@ -204,12 +202,9 @@ p {
 <body>
 
 <h1> Simulateur de rémunération vs. indemnités</h1>
-Association des arbitres de hockey sur glace 2024 - Tous droits réservés - <br>
-Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité de l'association.<br>
-<h3>version 0.1 - 20240405</h3><br>
+Association des arbitres de hockey sur glace 2024 - Tous droits réservés - Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité de l'association.<br>
+version 0.1 - 20240405<br>
 En cas d'erreur ou de demande d'évolution, merci de me contacter à l'adresse suivante : <a href="mailto:guillaume ar0base rootshell.fr">guillaume ar0base rootshell.fr</a>
-</h3>
-
 <hr>
 <h2>Paramêtres de la simulation</h2>
 - déplacez les curseurs pour sélectionner les montants souhaités !<br>
@@ -228,40 +223,40 @@ En cas d'erreur ou de demande d'évolution, merci de me contacter à l'adresse s
     <tr>
       <td>
         <label for="prime_montant_01">Montant prime 1: </label>
-        <input type="range" id="prime_montant_01" name="prime_montant_01" min="100" max="1000" value="550">
-        <output id="prime_montant_01_output"></output><br>
+        <input type="range" id="prime_montant_01" name="prime_montant_01" min="100" max="1000" value="550" step="10">
+        <output id="prime_montant_01_output"></output>
 
         <label for="prime_montant_02">Montant prime 2: </label>
-        <input type="range" id="prime_montant_02" name="prime_montant_02" min="100" max="1000" value="700">
-        <output id="prime_montant_02_output"></output><br>
+        <input type="range" id="prime_montant_02" name="prime_montant_02" min="100" max="1000" value="700" step="10">
+        <output id="prime_montant_02_output"></output>
 
         <label for="prime_montant_03">Montant prime 3: </label>
-        <input type="range" id="prime_montant_03" name="prime_montant_03" min="100" max="1000" value="800">
-        <output id="prime_montant_03_output"></output><br>
+        <input type="range" id="prime_montant_03" name="prime_montant_03" min="100" max="1000" value="800" step="10">
+        <output id="prime_montant_03_output"></output>
       </td>
       <td>
-        <output id="valeur_prime_01">j1</output><br>
-        <output id="valeur_prime_02">j2</output><br>
-        <output id="valeur_prime_03">j3</output><br>
+        <output id="valeur_prime_01">j1</output>
+        <output id="valeur_prime_02">j2</output>
+        <output id="valeur_prime_03">j3</output>
       </td>
       <td>
         <label for="frais_par_match01">Montant 1 des frais par match 1: </label>
-        <input type="range" id="frais_par_match01" name="frais_par_match01" min="10" max="1200" value="130">
-        <output id="frais_par_match01_output"></output><br>
+        <input type="range" id="frais_par_match01" name="frais_par_match01" min="10" max="1200" value="130" step="10">
+        <output id="frais_par_match01_output"></output>
 
         <label for="frais_par_match02">Montant 2 des frais par match: </label>
-        <input type="range" id="frais_par_match02" name="frais_par_match02" min="10" max="1200" value="260">
-        <output id="frais_par_match02_output"></output><br>
+        <input type="range" id="frais_par_match02" name="frais_par_match02" min="10" max="1200" value="260" step="10">
+        <output id="frais_par_match02_output"></output>
 
         <label for="frais_par_match03">Montant 3 des frais par match: </label>
-        <input type="range" id="frais_par_match03" name="frais_par_match03" min="10" max="1200" value="260">
-        <output id="frais_par_match03_output"></output><br>
+        <input type="range" id="frais_par_match03" name="frais_par_match03" min="10" max="1200" value="260" step="10">
+        <output id="frais_par_match03_output"></output>
       </td>
       
       <td>
-        <output id="valeur_frais_01">lll</output><br>
-        <output id="valeur_frais_02"></output><br>
-        <output id="valeur_frais_03"></output><br>
+        <output id="valeur_frais_01"></output>
+        <output id="valeur_frais_02"></output>
+        <output id="valeur_frais_03"></output>
       </td>
     </tr>
   </table>
@@ -591,7 +586,7 @@ Les 12,8% d'impots sont possiblement dispensés si le revenu fiscal de référen
 Les 17,2% de prélèvements sociaux sont obligatoires.<br>
 Le PFU est payable le 15 du mois suivant le versement des dividendes.<br>
 L'année suivante, le montant des dividendes est à déclarer dans la <a href="https://www.impots.gouv.fr/sites/default/files/formulaires/2042/2023/2042_4384.pdf">déclaration de revenus 2042 (IRPP)</a>.<br>
-Il est possible d'opter pour le barême progressif de l'impôt sur le revenu : xxx.<br>
+Il est possible d'opter pour le barême progressif de l'impôt sur le revenu.<br>
 <hr>
 <h1>4 - Calcul des revenus d'un arbitre en statut de SASU en régime impot sur le revenu (IR)</h1>
 <p>Ce code calcule le revenu net SASU IR en prenant en compte les primes, les frais et les cotisations URSSAF et les tranches d'impositions.</p>
@@ -781,7 +776,7 @@ Seuil TVA 36 800e.
         </tr>
         <tr>
           <tfoot>
-            <td>SOMMES</td>
+            <td>SOMMES ANNUELLES</td>
             <td id="sasu_is_cell2_4"></td>
             <td id="sasu_is_cell3_4">---</td>
             <td id="sasu_is_cell4_4">---</td>
@@ -882,10 +877,12 @@ document.getElementById("frais_par_match03").addEventListener("input", updatePri
  var tauxcotisation_is_sasu = 15
  var CSG_CR = 0.172 // Valeur de la CSG
 
- //var AC24 = 666 /// TODO : A CHANGER / CALCULER 
  var taux_CSG_CRSD_IR_forfaitaire = 0.15;
  var urssaf_zero = 0;
  var resultat_net_is_TNS = 0;
+
+ var AC24 = (resultat_net_is_TNS - (resultat_net_is_TNS * (15 / 100)));
+
 
  function updateCalculs() { 
     // Colonne 5 => Calcul des cotisations URSSAF
@@ -1005,22 +1002,26 @@ function updatePrimeMontant() {
 
 function updateTableaux() {
 
-  const Salaires = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf) - 
-                    (((tauxcotisation_eurl / 1.35) * (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 
+ const Salaires = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf) - 
+                   (((tauxcotisation_eurl / 1.35) * (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 
                       - frais_banque - frais_comptable - frais_urssaf)) / 100).toFixed(2); // Cotisations sociales
 
-  resultat_net_is_TNS = resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf;
+ resultat_net_is_TNS = resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf;
+ AC24 = (resultat_net_is_TNS - (resultat_net_is_TNS * (15 / 100)));
 
-  // =AC13*90%+AC13*2,9%*1,3
-    const AC16 = Salaires * 0.9 + Salaires * 2.9 / 100 * 1.3;
-    const AC24 = (resultat_net_is_TNS - (resultat_net_is_TNS * (15 / 100)));
+ const AC16 = Salaires * 0.9 + Salaires * 2.9 / 100 * 1.3;
+ const impotsSurLeRevenu = calculer_IR_EURL(AC16, tranche01_bas, tranche02_bas, tranche03_bas, tranche04_bas, tranche01_haut, tranche02_haut, tranche03_haut, tranche01_pourcent, tranche02_pourcent, tranche03_pourcent, tranche04_pourcent);
+  
+ const seuils = [tranche01_bas, tranche02_bas, tranche03_bas, tranche04_bas];
+ const pourcentages = [tranche01_pourcent, tranche02_pourcent, tranche03_pourcent, tranche04_pourcent];
+ const montantFinal = calculerMontant_impotdividende(AC24, seuils, pourcentages);
+  
+ const CotisationsSociales = (((tauxcotisation_eurl / 1.35) * (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf)) / 100).toFixed(2); // Cotisations sociales
+ // Définition des tranches d'imposition et des taux correspondants
+ //const tranches = [28797, 82341, 177106, Infinity];
 
-    const impotsSurLeRevenu = calculer_IR_EURL(AC16, tranche01_bas, tranche02_bas, tranche03_bas, tranche04_bas, tranche01_haut, tranche02_haut, tranche03_haut, tranche01_pourcent, tranche02_pourcent, tranche03_pourcent, tranche04_pourcent);
-    const montantFinal = calculerMontant_impotdividende(AC24, tranche01_bas, tranche02_bas, tranche03_bas, tranche04_bas, tranche01_haut, tranche02_haut, tranche03_haut, tranche01_pourcent, tranche02_pourcent, tranche03_pourcent, tranche04_pourcent);
-    //console.log("Montant final : ", montantFinal);
-    const CotisationsSociales = (((tauxcotisation_eurl / 1.35) * (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf)) / 100).toFixed(2); // Cotisations sociales
-    
-
+ const tranches = [11292, 28798, 82342, 177107];
+ const taux = [0.11, 0.3, 0.41, 0.45];
 
     //////
     // Affichage des résultats dans le tableau 1 ////////////////////////////////////////////////////////////////
@@ -1152,7 +1153,6 @@ function updateTableaux() {
 
     // Ligne 2
     document.getElementById("tns_is_cell2_2").innerHTML = nbre_matchs_02; // Nombre de matchs (match 2)
-    //document.getElementById("tns_is_cell3_2").innerHTML = prime_montant_02  + " €"; // Montant prime 2
     document.getElementById("tns_is_cell4_2").innerHTML = urssaf_zero + " %"; // % URSSAF
     document.getElementById("tns_is_cell5_2").innerHTML = urssaf_zero + "€"; // Cotisations URSSAF par match (match 2)
     document.getElementById("tns_is_cell6_2").innerHTML = (urssaf_zero + prime_montant_02).toLocaleString('fr-FR') + " €"; // Net par match (match 2)
@@ -1163,11 +1163,12 @@ function updateTableaux() {
     document.getElementById("tns_is_cell11_2").innerHTML = (frais_annuel_02).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais
     document.getElementById("tns_is_cell12_2").innerHTML = resultat_intermediaire_02.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
     document.getElementById("tns_is_cell13_2").innerHTML = frais_comptable + " €"; // Frais annexes
-    document.getElementById("tns_is_cell16_2").innerHTML = "BUG : " + montantFinal + " €"; // Impot sur les dividendes
+
+    document.getElementById("tns_is_cell15_2").innerHTML = (resultat_net_is_TNS * (15 / 100)).toLocaleString('fr-FR') + " €"; // Salaires
+    document.getElementById("tns_is_cell16_2").innerHTML = montantFinal.toLocaleString('fr-FR') + " €"; // Impot sur les dividendes
 
     // Ligne 3
     document.getElementById("tns_is_cell2_3").innerHTML = nbre_matchs_03; // Nombre de matchs (match 3)
-    //document.getElementById("tns_is_cell3_3").innerHTML = prime_montant_03  + " €"; // Montant prime 3
     document.getElementById("tns_is_cell4_3").innerHTML = urssaf_zero + " %"; // % URSSAF
     document.getElementById("tns_is_cell5_3").innerHTML = urssaf_zero + "€"; // Cotisations URSSAF par match (match 3)
     document.getElementById("tns_is_cell6_3").innerHTML = (urssaf_zero + prime_montant_03).toLocaleString('fr-FR') + " €"; // Net par match (match 3)
@@ -1184,7 +1185,6 @@ function updateTableaux() {
 
     // Ligne 4 => Sommes annuelles
     document.getElementById("tns_is_cell2_4").innerHTML = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03; // Nombre de matchs ANNUEL
-    //document.getElementById("tns_is_cell3_4").innerHTML = prime_montant_01 * nbre_matchs_01 + prime_montant_02 * nbre_matchs_02 + prime_montant_03 * nbre_matchs_03 + " €"; // Sommes annuelle des primes sur la saison
     document.getElementById("tns_is_cell7_4").innerHTML = (brut_annuel_01 + brut_annuel_02 + brut_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des bruts sur la saison
     document.getElementById("tns_is_cell8_4").innerHTML = (urssaf_zero * nbre_matchs_01 + urssaf_zero * nbre_matchs_02 + urssaf_zero * nbre_matchs_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des cotisations URSSAF
     document.getElementById("tns_is_cell9_4").innerHTML = (urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 + urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 + urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des nets d'URSSAF
@@ -1192,24 +1192,15 @@ function updateTableaux() {
     document.getElementById("tns_is_cell12_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des resultats sur la saison
     document.getElementById("tns_is_cell13_4").innerHTML = (frais_banque + frais_comptable + frais_urssaf).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais annexes sur la saison
     document.getElementById("tns_is_cell14_4").innerHTML = resultat_net_is_TNS.toLocaleString('fr-FR') + " €"; // Résultat net
-
-    // =AA24*AI9
-    document.getElementById("tns_is_cell15_2").innerHTML = (resultat_net_is_TNS * (15 / 100)).toLocaleString('fr-FR') + " €"; // Salaires
     // Résultat net - AC22
-    document.getElementById("tns_is_cell15_4").innerHTML = (resultat_net_is_TNS - (resultat_net_is_TNS * (15 / 100))).toLocaleString('fr-FR') + " €"; // impots sur le revenu
-    // = AC24 * (1-AI10) =>  AC24 * (1 - ((30/100))
-    //console.log("AC24 : ", AC24);
-    //console.log("AC24 * (1 - ((30/100))) : ", AC24 * (1 - ((30/100))));
-
+    //console.log("AC24 : " + AC24);
+    document.getElementById("tns_is_cell15_4").innerHTML = AC24.toLocaleString('fr-FR') + " €"; // impots sur le revenu
 
     document.getElementById("tns_is_cell16_4").innerHTML = (AC24 * (1 - ((30/100)))).toLocaleString('fr-FR') + " €"; // impots sur le revenu
 
     
-
-
     // Affichage des resultats dans le tableau 4 ////////////////////////////////////////////////////////////////
     document.getElementById("sasu_ir_cell2_1").innerHTML = nbre_matchs_01; // Nombre de matchs (match 1)
-    //document.getElementById("sasu_ir_cell3_1").innerHTML = prime_montant_01  + " €"; // Montant prime 1
     document.getElementById("sasu_ir_cell4_1").innerHTML = urssaf_zero + " %"; // % URSSAF
     document.getElementById("sasu_ir_cell5_1").innerHTML = urssaf_zero + "€"; // Cotisations URSSAF par match (match 1)
     document.getElementById("sasu_ir_cell6_1").innerHTML = (urssaf_zero + prime_montant_01).toLocaleString('fr-FR') + " €"; // Net par match (match 1)
@@ -1224,7 +1215,6 @@ function updateTableaux() {
 
     // Ligne 2
     document.getElementById("sasu_ir_cell2_2").innerHTML = nbre_matchs_02; // Nombre de matchs (match 2)
-    //document.getElementById("sasu_ir_cell3_2").innerHTML = prime_montant_02  + " €"; // Montant prime 2
     document.getElementById("sasu_ir_cell4_2").innerHTML = urssaf_zero + " %"; // % URSSAF
     document.getElementById("sasu_ir_cell5_2").innerHTML = urssaf_zero + "€"; // Cotisations URSSAF par match (match 2)
     document.getElementById("sasu_ir_cell6_2").innerHTML = (urssaf_zero + prime_montant_02).toLocaleString('fr-FR') + " €"; // Net par match (match 2)
@@ -1238,7 +1228,6 @@ function updateTableaux() {
 
     // Ligne 3
     document.getElementById("sasu_ir_cell2_3").innerHTML = nbre_matchs_03; // Nombre de matchs (match 3)
-    //document.getElementById("sasu_ir_cell3_3").innerHTML = prime_montant_03  + " €"; // Montant prime 3
     document.getElementById("sasu_ir_cell4_3").innerHTML = urssaf_zero + " %"; // % URSSAF
     document.getElementById("sasu_ir_cell5_3").innerHTML = urssaf_zero + "€"; // Cotisations URSSAF par match (match 3)
     document.getElementById("sasu_ir_cell6_3").innerHTML = (urssaf_zero + prime_montant_03).toLocaleString('fr-FR') + " €"; // Net par match (match 3)
@@ -1253,7 +1242,6 @@ function updateTableaux() {
 
     // Ligne 4
     document.getElementById("sasu_ir_cell2_4").innerHTML = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03; // Nombre de matchs ANNUEL
-    //document.getElementById("sasu_ir_cell3_4").innerHTML = prime_montant_01 * nbre_matchs_01 + prime_montant_02 * nbre_matchs_02 + prime_montant_03 * nbre_matchs_03 + " €"; // Sommes annuelle des primes sur la saison
     document.getElementById("sasu_ir_cell7_4").innerHTML = (brut_annuel_01 + brut_annuel_02 + brut_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des bruts sur la saison
     document.getElementById("sasu_ir_cell8_4").innerHTML = (urssaf_zero * nbre_matchs_01 + urssaf_zero * nbre_matchs_02 + urssaf_zero * nbre_matchs_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des cotisations URSSAF
     document.getElementById("sasu_ir_cell9_4").innerHTML = (urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 + urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 + urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des nets d'URSSAF
@@ -1261,7 +1249,6 @@ function updateTableaux() {
     document.getElementById("sasu_ir_cell12_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des resultats sur la saison
 
     const resultat_intermediaire_total = resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03;
-    //console.log("resultat_intermediaire_total : ", resultat_intermediaire_total);
 
     document.getElementById("sasu_ir_cell13_1").innerHTML = frais_banque + " €"; // Frais annexes
     document.getElementById("sasu_ir_cell13_2").innerHTML = frais_comptable + " €"; // Frais annexes
@@ -1340,20 +1327,15 @@ function updateTableaux() {
     const ResultatApresIS_temp = ((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable)* 0.15)).toFixed(2);
     document.getElementById("sasu_is_cell15_4").innerHTML = ResultatApresIS_temp.toLocaleString('fr-FR') + " €"; // impots sur le revenu
     
-    //console.log("ResultatApresIS_temp : ", ResultatApresIS_temp);
     const MontantRevenuImposable = (ResultatApresIS_temp * 0.60) - (0.068 * ResultatApresIS_temp);
-    document.getElementById("sasu_is_cell16_1").innerHTML = MontantRevenuImposable.toLocaleString('fr-FR') + " €"; // impots sur le revenu
-    document.getElementById("sasu_is_cell16_2").innerHTML = (ResultatApresIS_temp * CSG_CR).toLocaleString('fr-FR') + " €"; // Prélèvement sociaux
+    document.getElementById("sasu_is_cell16_1").innerHTML = "Montant revenus imposable : " + MontantRevenuImposable.toLocaleString('fr-FR') + " €"; // impots sur le revenu
+    document.getElementById("sasu_is_cell16_2").innerHTML = "Prélèvements sociaux : " + (ResultatApresIS_temp * CSG_CR).toLocaleString('fr-FR') + " €"; // Prélèvement sociaux
     
-    // Définition des tranches d'imposition et des taux correspondants
-    const tranches = [10000, 25000, 50000, Infinity];
-    const taux = [0.11, 0.3, 0.41, 0.45];
-
     // Utilisation de la fonction pour calculer la taxe
     const resultatPrelevementSociaux = calculerPrelevementSociaux(MontantRevenuImposable, tranches, taux);
 
-    document.getElementById("sasu_is_cell16_3").innerHTML =  "BUG : " + resultatPrelevementSociaux.toLocaleString('fr-FR') + " €"; // Prélevement sur bareme fiscal ligne 3 - BUG !!
-    document.getElementById("sasu_is_cell16_4").innerHTML =  "BUG : " + (ResultatApresIS_temp - (ResultatApresIS_temp * CSG_CR) - resultatPrelevementSociaux).toLocaleString('fr-FR') + " €"; // Total
+    document.getElementById("sasu_is_cell16_3").innerHTML =  "Prélèvement sur barême fiscal : " + resultatPrelevementSociaux.toLocaleString('fr-FR') + " €"; // Prélevement sur bareme fiscal ligne 3 - BUG !!
+    document.getElementById("sasu_is_cell16_4").innerHTML =  (ResultatApresIS_temp - (ResultatApresIS_temp * CSG_CR) - resultatPrelevementSociaux).toLocaleString('fr-FR') + " €"; // Total
 }
 
 
@@ -1381,46 +1363,40 @@ function calculerPrelevementSociaux(MontantRevenuImposable, tranches, taux) {
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Calcul du versement dividende impositon bareme
-function calculerMontant_impotdividende(AC24, tranche01_bas, tranche02_bas, tranche03_bas, tranche04_bas, tranche01_haut, tranche02_haut, tranche03_haut, tranche01_pourcent, tranche02_pourcent, tranche03_pourcent, tranche04_pourcent) {
-    // Calcul de la partie principale de la formule
-    
-
-    const partiePrincipale = AC24 * 0.172; //CSG_CR;
-    //console.log(AC24);
-    //console.log(tranche01_bas , tranche02_bas , tranche03_bas , tranche04_bas , tranche01_haut , tranche02_haut , tranche03_haut , tranche01_pourcent , tranche02_pourcent , tranche03_pourcent , tranche04_pourcent);
-
-    //console.log("partie principale : " + partiePrincipale);
-
-    // Calcul du résultat commun à toutes les conditions
+// Définition des tranches d'imposition et des taux correspondants
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function calculerMontant_impotdividende(AC24, seuils, pourcentages) {
+    const partiePrincipale = AC24 * 0.172; // CSG_CR
     const calculCommun = AC24 * 0.6 - 0.068 * AC24;
 
-    // Calcul de la premiere condition SI
-    if (calculCommun < tranche01_bas) {
-        return partiePrincipale;
+    for (let i = 0; i < seuils.length; i++) {
+        if (calculCommun < seuils[i]) {
+            return partiePrincipale;
+        } else if (calculCommun < seuils[i + 1]) {
+            let montant = 0;
+            for (let j = 0; j <= i; j++) {
+                montant += (seuils[j + 1] - seuils[j]) * pourcentages[j];
+            }
+            montant += (calculCommun - seuils[i]) * pourcentages[i];
+            return montant;
+        }
     }
 
-    // Calcul de la deuxieme condition SI
-    if (calculCommun < tranche01_haut) {
-        return (calculCommun - tranche01_bas) * tranche01_pourcent;
+    // Si aucune des conditions précédentes n'est remplie, calculer pour la dernière tranche
+    let montant = 0;
+    for (let i = 0; i < pourcentages.length; i++) {
+        montant += (seuils[i + 1] - seuils[i]) * pourcentages[i];
     }
-
-    // Calcul de la troisieme condition SI
-    if (calculCommun < tranche02_haut) {
-        return (tranche01_haut - tranche01_bas) * tranche01_pourcent + (calculCommun - tranche02_bas) * tranche02_pourcent;
-    }
-
-    // Calcul de la quatrieme condition SI
-    if (calculCommun < tranche03_haut) {
-        return (tranche01_haut - tranche01_bas) * tranche01_pourcent + (tranche02_haut - tranche02_bas) * tranche02_pourcent + (calculCommun - tranche03_bas) * tranche03_pourcent;
-    }
-
-    // Calcul de la cinquieme condition SI
-    return (calculCommun - tranche04_bas) * tranche04_pourcent + (tranche03_haut - tranche03_bas) * tranche03_pourcent + (tranche02_haut - tranche02_bas) * tranche02_pourcent + (tranche01_haut - tranche01_bas) * tranche01_pourcent;
+    return montant + (calculCommun - seuils[seuils.length - 1]) * pourcentages[seuils.length - 1];
 }
 
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// resultat 
+// Définition des tranches d'imposition et des taux correspondants
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function calculer_IR_EURL(AC16, tranche01_bas, tranche02_bas, tranche03_bas, tranche04_bas, tranche01_haut, tranche02_haut, tranche03_haut, tranche01_pourcent, tranche02_pourcent, tranche03_pourcent, tranche04_pourcent) {
    
     if (AC16 < tranche01_haut) {
@@ -1446,8 +1422,8 @@ updatePrimeMontant(); // appel direct de la fonction pour calculer au moins une 
 
 </script>
 
-<canvas id="mychart01" width="400" height="400"></canvas>
 
+<canvas id="mychart01" width="400" height="400"></canvas>
 
 <script>
     /*
@@ -1976,6 +1952,6 @@ const myChart = new Chart(ctx, {
 <br><br><br>
 Association des arbitres de hockey sur glace 2024 - Tous droits réservés - <br>
 Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité de l'association.<br>
-En cas d'erreur merci de nous contacter à l'adresse suivante : <a href="mailto:guillaume ar0base rootshell.fr">guillaume ar0base rootshell.fr</a>>
+En cas d'erreur merci de nous contacter à l'adresse suivante : <a href="mailto:guillaume ar0base rootshell.fr">guillaume ar0base rootshell.fr</a>
 </body>
 </html>
