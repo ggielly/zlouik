@@ -206,65 +206,63 @@ p {
 <h1> Simulateur de rémunération vs. indemnités</h1>
 Association des arbitres de hockey sur glace 2024 - Tous droits réservés - Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité de l'association. version 0.1 - 20240408<br>
 <hr>
-<h2>Paramêtres de la simulation : </h2>
+<h1>Paramétrage</h1>
+  <form onchange="updatePrimeMontant()">
+<label for="menuVillesDepart">Choisir une ville de départ pour générer les désignations : </label><div id="menuVillesDepart"></div>
+<label for="selectSaison">Choisir une saison : </label><select id="selectSaison"></select><br>
+<label for="PRKVoiture">Sélection de Prix de Reviens Kilométrique (PRK) du véhicule : </label><select id="PRKVoiture"></select><br>
+
 <br>
-
-<form onchange="updatePrimeMontant()">
-
-  <label for="menuVillesDepart">Choisir une ville de départ pour générer les désignations : </label><div id="menuVillesDepart"></div>
-  <label for="selectSaison">Choisir une saison : </label><select id="selectSaison"></select><br>
-  <label for="selectVilleDepart">Choisir une ville : </label><select id="selectVilleDepart"></select><br>
-  <br>
   <table class="affichageValeurs">
-    <tr>
-      <th>Primes par match</th>
-      <th>Montants des frais</th>
-      <th>Nombre de matchs</th>
-
-    </tr>
-    <tr>
-      <td>
-        <label for="prime_montant_01"></label><output id="valeur_prime_01"></output>
-        <input type="range" id="prime_montant_01" name="prime_montant_01" min="100" max="1000" value="550" step="10">
-
-        <label for="prime_montant_02"></label><output id="valeur_prime_02"></output>
-        <input type="range" id="prime_montant_02" name="prime_montant_02" min="100" max="1000" value="700" step="10">
-
-        <label for="prime_montant_03"></label><output id="valeur_prime_03"></output>
-        <input type="range" id="prime_montant_03" name="prime_montant_03" min="100" max="1000" value="800" step="10">
-      </td>
-
-      <td>
-        <label for="frais_par_match01"></label><output id="valeur_frais_01"></output>
-        <input type="range" id="frais_par_match01" name="frais_par_match01" min="10" max="1200" value="130" step="10">
-
-        <label for="frais_par_match02"></label><output id="valeur_frais_02"></output>
-        <input type="range" id="frais_par_match02" name="frais_par_match02" min="10" max="1200" value="260" step="10">
-
-        <label for="frais_par_match03"></label><output id="valeur_frais_03"></output>
-        <input type="range" id="frais_par_match03" name="frais_par_match03" min="10" max="1200" value="260" step="10">
-      </td>
-      
-      <td>
-        <label for="nbre_matchs_01"></label><output id="valeur_match_01"></output>
-        <input type="range" id="nbre_matchs_01" name="nbre_matchs_01" min="0" max="60" value="25" step="1">
+      <tr>
+        <th>Primes par match</th>
+        <th>Montants des frais</th>
+        <th>Nombre de matchs</th>
   
-        <label for="nbre_matchs_02"></label><output id="valeur_match_02"></output>
-        <input type="range" id="nbre_matchs_02" name="nbre_matchs_02" min="0" max="60" value="40" step="1">
-       
-        <label for="nbre_matchs_03"></label><output id="valeur_match_03"></output>
-        <input type="range" id="nbre_matchs_03" name="nbre_matchs_03" min="0" max="60" value="7" step="1">
-      </td>
-    </tr>
-  </table>
-  <br>
-  <hr><h1>Simulation indemnités</h1>
-  <br><div id="tableauResultats"></div>
-</form>
+      </tr>
+      <tr>
+        <td>
+          <label for="prime_montant_01"></label><output id="valeur_prime_01"></output>
+          <input type="range" id="prime_montant_01" name="prime_montant_01" min="100" max="1000" value="550" step="10">
+  
+          <label for="prime_montant_02"></label><output id="valeur_prime_02"></output>
+          <input type="range" id="prime_montant_02" name="prime_montant_02" min="100" max="1000" value="700" step="10">
+  
+          <label for="prime_montant_03"></label><output id="valeur_prime_03"></output>
+          <input type="range" id="prime_montant_03" name="prime_montant_03" min="100" max="1000" value="800" step="10">
+        </td>
+  
+        <td>
+          <label for="frais_par_match01"></label><output id="valeur_frais_01"></output>
+          <input type="range" id="frais_par_match01" name="frais_par_match01" min="10" max="1200" value="130" step="10">
+  
+          <label for="frais_par_match02"></label><output id="valeur_frais_02"></output>
+          <input type="range" id="frais_par_match02" name="frais_par_match02" min="10" max="1200" value="260" step="10">
+  
+          <label for="frais_par_match03"></label><output id="valeur_frais_03"></output>
+          <input type="range" id="frais_par_match03" name="frais_par_match03" min="10" max="1200" value="260" step="10">
+        </td>
+        
+        <td>
+          <label for="nbre_matchs_01"></label><output id="valeur_match_01"></output>
+          <input type="range" id="nbre_matchs_01" name="nbre_matchs_01" min="0" max="60" value="25" step="1">
+    
+          <label for="nbre_matchs_02"></label><output id="valeur_match_02"></output>
+          <input type="range" id="nbre_matchs_02" name="nbre_matchs_02" min="0" max="60" value="40" step="1">
+         
+          <label for="nbre_matchs_03"></label><output id="valeur_match_03"></output>
+          <input type="range" id="nbre_matchs_03" name="nbre_matchs_03" min="0" max="60" value="7" step="1">
+        </td>
+      </tr>
+    </table><br><br>
+    <hr>
+    <h1>Calcul Historique basé sur un remboursement des frais + indemnités de préparation et d'équipement</h1>
+    <div id="tableauResultats"></div><br>
+  </form>
 
-<br>
-<hr>
-<h1> Simulations rémunérations</h1><br>
+
+<br><br><hr>
+<h1>Calculs basés sur une prime de match (rémunération)</h1>
 <h1>1 - Calcul des revenus d'un arbitre en statut de travailleur indépendant (auto entreprise)</h1>
 <p>Ce code calcule le revenu net d'un travailleur indépendant en prenant en compte les primes, les frais et les cotisations URSSAF.</p>
 <br>
@@ -785,42 +783,6 @@ Seuil TVA 36 800e.
 
 <canvas id="mychart01" width="400" height="400"></canvas>
 
-<h2>Historique des tarifs</h2>
-<canvas id="myChart" width="800" height="400"></canvas>
-<table class="table table-bordered table-hover table-condensed" style="width: 60%">
-
-    <thead>
-        <tr>
-            <th>Saison</th>
-            <th>Head LM amicaux</th>
-            <th>Head LM SR</th>
-            <th>Head LM PO</th>
-            <th>Head D1 amicaux</th>
-            <th>Head D1 SR</th>
-            <th>Head D1 PO</th>
-            <th>JDL amicaux</th>
-            <th>JDL SR</th>
-            <th>JDL PO</th>
-            <th>JDL amicaux D1</th>
-            <th>JDL D1 SR</th>
-            <th>JDL D1 PO</th>
-            <th>Grand Déplacement</th>
-            <th>Hôtel</th>
-            <th>Km</th>
-            <th>Repas</th>
-            <th>Taux d'inflation</th>
-            <th>Gazole</th>
-            <th>Variation Km</th>
-        </tr>
-    </thead>
-    <tbody id="dataBody">
-    </tbody>
-</table>
-
-
-
-
-
 <script>
 // Fonction de mise à jour des montants de primes dans le tableau
 document.getElementById("prime_montant_01").addEventListener("input", updatePrimeMontant);
@@ -907,7 +869,28 @@ document.getElementById("nbre_matchs_03").addEventListener("input", updatePrimeM
 
  var AC24 = (resultat_net_is_TNS - (resultat_net_is_TNS * (15 / 100)));
 
- function updateCalculs() { 
+const saison = [2005,2006,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023];
+const HeadLMamicaux = [120,126,126,130,130,135,135,135,115,115,115,125,130,130,130,130];
+const HeadLMSR = [120,126,126,130,130,135,135,135,140,140,140,140,145,145,145,145];
+const HeadLMPO = [220,231,185,185,185,190,190,190,140,140,140,140,145,145,145,145];
+const HeadD1amicaux = [95,100,100,105,105,110,110,110,100,100,100,100,105,105,105,105];
+const HeadD1SR = [95,100,100,105,105,110,110,110,115,115,115,115,120,120,120,120];
+const HeadD1PO = [120,126,126,130,130,135,135,135,115,115,115,115,120,120,120,120];
+const JDLamicaux = [85,90,90,95,95,100,100,100,90,90,90,95,100,100,100,100];
+const JDLLMSR = [85,90,90,95,95,100,100,100,110,110,110,110,115,115,115,115];
+const JDLLMPO = [95,100,120,120,120,125,125,125,110,110,110,110,115,115,115,115];
+const JDLamicauxD1 = [70,74,74,80,80,85,85,85,70,70,70,85,90,90,90,90];
+const JDLD1SR = [70,74,74,95,80,85,85,85,100,100,100,100,105,105,105,105];
+const JDLD1PO = [85,90,90,95,95,100,100,100,100,100,100,100,105,105,105,105];
+const GrandDeplacement = [70,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80];
+const Hotel = [46.6,59.6,61.2,62.2,62.2,64.1,64.7,65.3,65.8,73.9,74.9,75.6,76.1,77.2,77.2,];
+const Km = [0.315,0.343,0.359,0.359,0.359,0.362,0.364,0.364,0.364,0.364,0.364,0.368,0.368,0.405,0.405];
+const Repas = [15.2,16.6,17.1,17.4,17.4,17.9,18.1,18.3,18.4,18.6,18.8,19,19.1,19.4,19.4];
+const TauxInflation = [1.7,1.5,2.1,2.0,0.9,0.5,0.0,0.2,1.0,1.8,1.1,0.5,1.6,5.5,4.9];
+const Gazole = [1.093,1.285,1.401,1.380,1.333,1.216,1.097,1.200,1.363,1.453,1.346,1.343,1.769,1.769];
+const VariationKmArray = [0,8.9,4.7,0,0,0.8,0.6,0,0,0,0,0,1.1,0,10.1];
+
+function updateCalculs() { 
     // Colonne 5 => Calcul des cotisations URSSAF
     cotisations_urssaf_par_match_01 = prime_montant_01 * (pourcentage_urssaf / 100);
     cotisations_urssaf_par_match_02 = prime_montant_02 * (pourcentage_urssaf / 100);
@@ -952,10 +935,109 @@ document.getElementById("nbre_matchs_03").addEventListener("input", updatePrimeM
 
     // Fonction de mise à jour des montants de primes dans le tableau
     updateTableaux();
-    
 }
 
+function updatePrimeMontant() {
+  prime_montant_01 = document.getElementById("prime_montant_01").value;
+  document.getElementById("cell3_1").innerHTML = prime_montant_01.toLocaleString('fr-FR') + " €";
+  document.getElementById("tns_ir_cell3_1").innerHTML = prime_montant_01.toLocaleString('fr-FR') + " €";
+  document.getElementById("tns_is_cell3_1").innerHTML = prime_montant_01.toLocaleString('fr-FR') + " €";
+  document.getElementById("sasu_ir_cell3_1").innerHTML = prime_montant_01.toLocaleString('fr-FR') + " €";
+  document.getElementById("sasu_is_cell3_1").innerHTML = prime_montant_01.toLocaleString('fr-FR') + " €";
 
+  prime_montant_02 = document.getElementById("prime_montant_02").value;
+  document.getElementById("cell3_2").innerHTML = prime_montant_02.toLocaleString('fr-FR') + " €";
+  document.getElementById("tns_ir_cell3_2").innerHTML = prime_montant_02.toLocaleString('fr-FR') + " €";
+  document.getElementById("tns_is_cell3_2").innerHTML = prime_montant_02.toLocaleString('fr-FR') + " €";
+  document.getElementById("sasu_ir_cell3_2").innerHTML = prime_montant_02.toLocaleString('fr-FR') + " €";
+  document.getElementById("sasu_is_cell3_2").innerHTML = prime_montant_02.toLocaleString('fr-FR') + " €";
+
+  prime_montant_03 = document.getElementById("prime_montant_03").value;
+  document.getElementById("cell3_3").innerHTML = prime_montant_03 + " €";
+  document.getElementById("tns_ir_cell3_3").innerHTML = prime_montant_03.toLocaleString('fr-FR') + " €";
+  document.getElementById("tns_is_cell3_3").innerHTML = prime_montant_03.toLocaleString('fr-FR') + " €";
+  document.getElementById("sasu_ir_cell3_3").innerHTML = prime_montant_03.toLocaleString('fr-FR') + " €";
+  document.getElementById("sasu_is_cell3_3").innerHTML = prime_montant_03.toLocaleString('fr-FR') + " €";
+
+  frais_par_match01 = document.getElementById("frais_par_match01").value;
+  document.getElementById("cell10_1").innerHTML = frais_par_match01 + " €";
+  document.getElementById("tns_ir_cell10_1").innerHTML = frais_par_match01 + " €";
+  document.getElementById("tns_is_cell10_1").innerHTML = frais_par_match01 + " €";
+  document.getElementById("sasu_ir_cell10_1").innerHTML = frais_par_match01 + " €";
+  document.getElementById("sasu_is_cell10_1").innerHTML = frais_par_match01 + " €";
+
+  frais_par_match02 = document.getElementById("frais_par_match02").value;
+  document.getElementById("cell10_2").innerHTML = frais_par_match02 + " €";
+  document.getElementById("tns_ir_cell10_2").innerHTML = frais_par_match02.toLocaleString('fr-FR') + " €";
+  document.getElementById("tns_is_cell10_2").innerHTML = frais_par_match02.toLocaleString('fr-FR') + " €";
+  document.getElementById("sasu_ir_cell10_2").innerHTML = frais_par_match02.toLocaleString('fr-FR') + " €";
+  document.getElementById("sasu_is_cell10_2").innerHTML = frais_par_match02.toLocaleString('fr-FR') + " €";
+
+  frais_par_match03 = document.getElementById("frais_par_match03").value;
+  document.getElementById("cell10_3").innerHTML = frais_par_match03 + " €";
+  document.getElementById("tns_ir_cell10_3").innerHTML = frais_par_match03.toLocaleString('fr-FR') + " €";
+  document.getElementById("tns_is_cell10_3").innerHTML = frais_par_match03.toLocaleString('fr-FR') + " €";
+  document.getElementById("sasu_ir_cell10_3").innerHTML = frais_par_match03.toLocaleString('fr-FR') + " €";
+  document.getElementById("sasu_is_cell10_3").innerHTML = frais_par_match03.toLocaleString('fr-FR') + " €";
+
+nbre_matchs_01 = document.getElementById("nbre_matchs_01").value;
+document.getElementById("cell2_1").innerHTML = nbre_matchs_01;
+document.getElementById("tns_ir_cell2_1").innerHTML = nbre_matchs_01;
+document.getElementById("tns_is_cell2_1").innerHTML = nbre_matchs_01;
+document.getElementById("sasu_ir_cell2_1").innerHTML = nbre_matchs_01;
+document.getElementById("sasu_is_cell2_1").innerHTML = nbre_matchs_01;
+
+
+nbre_matchs_02 = document.getElementById("nbre_matchs_02").value;
+document.getElementById("cell2_2").innerHTML = nbre_matchs_02;
+document.getElementById("tns_ir_cell2_2").innerHTML = nbre_matchs_02;
+document.getElementById("tns_is_cell2_2").innerHTML = nbre_matchs_02;
+document.getElementById("sasu_ir_cell2_2").innerHTML = nbre_matchs_02;
+document.getElementById("sasu_is_cell2_2").innerHTML = nbre_matchs_02;
+
+nbre_matchs_03 = document.getElementById("nbre_matchs_03").value;
+document.getElementById("cell2_3").innerHTML = nbre_matchs_03;
+document.getElementById("tns_ir_cell2_3").innerHTML = nbre_matchs_03;
+document.getElementById("tns_is_cell2_3").innerHTML = nbre_matchs_03;
+document.getElementById("sasu_ir_cell2_3").innerHTML = nbre_matchs_03;
+document.getElementById("sasu_is_cell2_3").innerHTML = nbre_matchs_03;
+
+
+// Calcul des cotisations URSSAF
+cotisations_urssaf_par_match_01 = prime_montant_01 * (pourcentage_urssaf / 100);
+cotisations_urssaf_par_match_02 = prime_montant_02 * (pourcentage_urssaf / 100);
+cotisations_urssaf_par_match_03 = prime_montant_03 * (pourcentage_urssaf / 100);
+
+// Mise à jour du tableau d'en tête
+  var prime1 = document.getElementById("prime_montant_01").value;
+  var prime2 = document.getElementById("prime_montant_02").value;
+  var prime3 = document.getElementById("prime_montant_03").value;
+  
+  var frais1 = document.getElementById("frais_par_match01").value;
+  var frais2 = document.getElementById("frais_par_match02").value;
+  var frais3 = document.getElementById("frais_par_match03").value;
+
+  var nombre1 = document.getElementById("nbre_matchs_01").value;
+  var nombre2 = document.getElementById("nbre_matchs_02").value;
+  var nombre3 = document.getElementById("nbre_matchs_03").value;
+
+  
+  // Mettre à jour les éléments output avec les valeurs correspondantes
+  document.getElementById("valeur_prime_01").textContent = prime1;
+  document.getElementById("valeur_prime_02").textContent = prime2;
+  document.getElementById("valeur_prime_03").textContent = prime3;
+  
+  document.getElementById("valeur_frais_01").textContent = frais1;
+  document.getElementById("valeur_frais_02").textContent = frais2;
+  document.getElementById("valeur_frais_03").textContent = frais3;
+
+  document.getElementById("valeur_match_01").textContent = nombre1;
+  document.getElementById("valeur_match_02").textContent = nombre2;
+  document.getElementById("valeur_match_03").textContent = nombre3;
+
+// Mettre à jour les éléments output avec les valeurs correspondantes
+updateCalculs();
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Fonction de mise à jour des montants de primes dans le tableau
@@ -1281,11 +1363,12 @@ function updateTableaux() {
     document.getElementById("sasu_is_cell16_4").innerHTML =  (ResultatApresIS_temp - (ResultatApresIS_temp * CSG_CR) - resultatPrelevementSociaux).toLocaleString('fr-FR') + " €"; // Total
 }
 
+
+function calculerPrelevementSociaux(MontantRevenuImposable, tranches, taux) {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Définition de la fonction pour calculer le prélèvement sociaux
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function calculerPrelevementSociaux(MontantRevenuImposable, tranches, taux) {
-    let taxeTotale = 0; // Initialisation du montant total de la taxe à payer
+  let taxeTotale = 0; // Initialisation du montant total de la taxe à payer
     
     // Parcours des tranches d'imposition
     for (let i = 0; i < tranches.length; i++) {
@@ -1593,29 +1676,9 @@ var data = [
   {VilleDepart: "Montpellier",VilleDestination: "Rennes",Km: "897", Peages: "57.6", TempsTrajet: "8h57"}  
 ];
 
-// Résultats
-var resultats = [];
 
-const saison = [2005,2006,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023];
-const HeadLMamicaux = [120,126,126,130,130,135,135,135,115,115,115,125,130,130,130,130];
-const HeadLMSR = [120,126,126,130,130,135,135,135,140,140,140,140,145,145,145,145];
-const HeadLMPO = [220,231,185,185,185,190,190,190,140,140,140,140,145,145,145,145];
-const HeadD1amicaux = [95,100,100,105,105,110,110,110,100,100,100,100,105,105,105,105];
-const HeadD1SR = [95,100,100,105,105,110,110,110,115,115,115,115,120,120,120,120];
-const HeadD1PO = [120,126,126,130,130,135,135,135,115,115,115,115,120,120,120,120];
-const JDLamicaux = [85,90,90,95,95,100,100,100,90,90,90,95,100,100,100,100];
-const JDLLMSR = [85,90,90,95,95,100,100,100,110,110,110,110,115,115,115,115];
-const JDLLMPO = [95,100,120,120,120,125,125,125,110,110,110,110,115,115,115,115];
-const JDLamicauxD1 = [70,74,74,80,80,85,85,85,70,70,70,85,90,90,90,90];
-const JDLD1SR = [70,74,74,95,80,85,85,85,100,100,100,100,105,105,105,105];
-const JDLD1PO = [85,90,90,95,95,100,100,100,100,100,100,100,105,105,105,105];
-const GrandDeplacement = [70,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80];
-const Hotel = [46.6,59.6,61.2,62.2,62.2,64.1,64.7,65.3,65.8,73.9,74.9,75.6,76.1,77.2,77.2,];
-const Km = [0.315,0.343,0.359,0.359,0.359,0.362,0.364,0.364,0.364,0.364,0.364,0.368,0.368,0.405,0.405];
-const Repas = [15.2,16.6,17.1,17.4,17.4,17.9,18.1,18.3,18.4,18.6,18.8,19,19.1,19.4,19.4];
-const TauxInflation = [1.7,1.5,2.1,2.0,0.9,0.5,0.0,0.2,1.0,1.8,1.1,0.5,1.6,5.5,4.9];
-const Gazole = [1.093,1.285,1.401,1.380,1.333,1.216,1.097,1.200,1.363,1.453,1.346,1.343,1.769,1.769];
-const VariationKmArray = [0,8.9,4.7,0,0,0.8,0.6,0,0,0,0,0,1.1,0,10.1];
+
+
 
 // Fonction pour créer le menu déroulant des villes de départ
 function creerMenuVillesDepart() {
@@ -1640,8 +1703,28 @@ if (selectContainer) {
 }
 
 // Nombre d'itérations
-var nombreIterations = 1; // à ajuster selon vos besoins
+var nombreIterations = nbre_matchs_01; 
 
+// Résultats
+var resultats = [];
+
+// Récupération de l'élément select pour les saisons
+var selectSaison = document.getElementById("selectSaison");
+
+// Création des options du menu déroulant
+saison.forEach(function(annee) {
+    var option = document.createElement("option");
+    option.text = annee;
+    option.value = annee;
+    selectSaison.add(option);
+});
+
+// Événement lorsqu'une saison est sélectionnée
+selectSaison.addEventListener("change", function() {
+  var selectedSaison = selectSaison.value;
+  console.log("La saison sélectionnée est :", selectedSaison);
+  // Vous pouvez ajouter ici le code pour traiter la sélection de la saison
+});
 
 
 // Fonction pour afficher les résultats une fois la ville de départ sélectionnée
@@ -1674,12 +1757,6 @@ function afficherResultats() {
   }
 }
 
-// Événement lorsqu'une saison est sélectionnée
-selectSaison.addEventListener("change", function() {
-  var selectedSaison = selectSaison.value;
-  console.log("La saison sélectionnée est :", selectedSaison);
-  // Vous pouvez ajouter ici le code pour traiter la sélection de la saison
-});
 
 // Calcul des itérations
 for (var i = 0; i < nombreIterations; i++) {
@@ -1710,63 +1787,43 @@ for (var i = 0; i < nombreIterations; i++) {
 }
 
 
-// Fonction pour générer le tableau des résultats
 function genererTableauResultats(resultats) {
   var totalIndemnitesKilometriques = 0;
   var totalRepas = 0;
   var totalHotels = 0;
-  var repasIcone = "🍟";
-  var hotelIcone = "🏰";
-  var grandDeplacementIcone = "🚣";
-  var grandDeplacementSemaine;
-  var indemniteKilometrique;
-  var nombreRepas;
-  var prixHotel;
+  var totalGrandDeplacement = 0;
+  var repasIcone = "";
+  var hotelIcone = "";
+  var totalDistance = 0;
+  var totalPeages = 0;
+  var totalHeuresTrajet = 0;
+  var totalMinutesTrajet = 0;
+  var nombreLignes = resultats.length; // Nombre de lignes du tableau
+  var indemniteChoisie = 115 ; // Indemnité de match
 
   var tableauHtml = "<table border='1'>";
-  tableauHtml += "<tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>";
+  tableauHtml += "<tr><th>Domicile / Départ</th><th>Patinoire de destination</th><th>Distances</th><th>Péages routiers</th><th>Temps de trajet</th><th>Grand déplacement semaine 🚣</th><th>Indemnités kilométriques</th><th>Repas 🍟</th><th>Hôtel 🏰</th><th>Prime de match</th></tr>";
 
-  // Ajout des boutons radio
-  tableauHtml += "<tr>";
-  tableauHtml += "<td colspan='11'>"; // Span across all existing columns (should be 11)
-  tableauHtml += "<input type='radio' id='arbitre' name='indemnite' value='150' checked> <label for='arbitre'>Arbitre (150 €)</label>";
-  tableauHtml += "<br>";
-  tableauHtml += "<input type='radio' id='jdl' name='indemnite' value='115'> <label for='jdl'>JDL (115 €)</label>";
-  tableauHtml += "</td>";
-  tableauHtml += "</tr>";
-
-  tableauHtml += "<tr><th>Domicile / Départ</th><th>Patinoire de destination</th><th>Distances</th><th>Péages routiers</th><th>Temps de trajet</th><th>Grand déplacement semaine</th><th>Indemnité</th><th>Repas</th><th>Hôtel</th></tr>";
-
-  var radios = document.querySelectorAll('input[name="indemnite"]');
-  radios.forEach(function(radio) {
-    radio.addEventListener('change', function() {
-      var tableauContainer = document.getElementById("tableauResultats");
-      if (tableauContainer) {
-        tableauContainer.innerHTML = genererTableauResultats(resultats);
-      } else {
-        console.error("L'élément conteneur pour le tableau des résultats n'existe pas dans le document.");
-      }
-    });
-  });
-  genererTableauResultats();
-
+  // Ajout de l'affichage du grand déplacement semaine
   resultats.forEach(function(trajet) {
-   // Calcul du grand déplacement
+    var grandDeplacementSemaine;
+    var indemniteKilometrique;
+    var nombreRepas;
+    var prixHotel;
+
+    // Calcul du grand déplacement
     if (trajet.Km > 500) {
-      grandDeplacementSemaine = "Oui";
+      grandDeplacementSemaine = 80;
       nombreRepas = 2;
-      prixHotel = 80;
+      prixHotel = 87;
     } else {
-      grandDeplacementSemaine = "";
+      grandDeplacementSemaine = 0;
       nombreRepas = 1;
-      prixHotel = "";
+      prixHotel = 0;
     }
 
     // Calcul des indemnités kilométriques
     indemniteKilometrique = (trajet.Km * 0.410).toFixed(2);
-
-    // Récupération de l'indemnité choisie
-    indemniteChoisie = document.querySelector('input[name="indemnite"]:checked').value;
 
     // Ajout d'une ligne au tableau pour chaque trajet
     tableauHtml += "<tr>";
@@ -1775,141 +1832,116 @@ function genererTableauResultats(resultats) {
     tableauHtml += "<td>" + trajet.Km + " Km</td>"; // Ajout de "Km" pour clarté
     tableauHtml += "<td>" + trajet.Peages + " €</td>"; // Ajout de "€" pour clarté
     tableauHtml += "<td>" + trajet.TempsTrajet + "</td>";
-    tableauHtml += "<td>" + grandDeplacementSemaine + "</td>";
-    tableauHtml += "<td>" + indemniteChoisie + " €</td>";
-    tableauHtml += "<td>" + repasIcone + " " + (nombreRepas * 17) + " €</td>";
-    tableauHtml += "<td>" + (prixHotel ? hotelIcone + " " + prixHotel + " €" : "") + "</td>";
+    tableauHtml += "<td>" + grandDeplacementSemaine + " €</td>";
+    tableauHtml += "<td>" + indemniteKilometrique + " €</td>";
+    tableauHtml += "<td>" + (nombreRepas * 17) + " €</td>";
+    tableauHtml += "<td>" + prixHotel + " €</td>";
     tableauHtml += "</tr>";
 
-    // **Calcul des totaux**
+    // Calcul du total des indemnités kilométriques
     totalIndemnitesKilometriques += parseFloat(indemniteKilometrique);
+
+    // Calcul du total des repas
     totalRepas += nombreRepas * 17;
-    totalHotels += prixHotel;
+
+    // Calcul du total des hôtels
+    totalHotels += parseFloat(prixHotel);
+
+    // Calcul du total des grands déplacements
+    totalGrandDeplacement += parseFloat(grandDeplacementSemaine);
+
+    // Calcul du total des distances
+    totalDistance += parseFloat(trajet.Km);
+
+    // Calcul du total des péages
+    totalPeages += parseFloat(trajet.Peages);
+
+    // Extraction des heures et minutes du temps de trajet
+    var tempsTrajetSplit = trajet.TempsTrajet.split("h");
+    var tempsTrajetHeures = parseInt(tempsTrajetSplit[0], 10); // Conversion en nombre entier
+    var tempsTrajetMinutes = parseInt(tempsTrajetSplit[1], 10); // Conversion en nombre entier
+
+    // Calcul du total des heures et des minutes de trajet
+    totalHeuresTrajet += tempsTrajetHeures;
+    totalMinutesTrajet += tempsTrajetMinutes;
+
+    // Si le total des minutes dépasse 60, ajuster les heures
+    if (totalMinutesTrajet >= 60) {
+      totalMinutesTrajet -= 60;
+      totalHeuresTrajet++;
+    }
   });
 
   // Ajout du total en bas du tableau
-  tableauHtml += "<tr><th></th><th></th><th></th><th></th><th></th><th></th><th>Total</th><th>" + totalIndemnitesKilometriques.toFixed(2) + " €</th><th>" + totalRepas + " €</th><th>" + totalHotels + " €</th></tr>";
+  tableauHtml += "<tr><th>TOTAUX</th><th>" + nombreLignes + "</th><th>" + totalDistance + " Km</th><th>" + totalPeages.toFixed(2) + " €</th><th>" + totalHeuresTrajet + "h" + totalMinutesTrajet + "</th><th>" + totalGrandDeplacement.toFixed(2) + " €</th><th>" + totalIndemnitesKilometriques.toFixed(2) + " €</th><th>" + totalRepas.toFixed(2) + " €</th><th>" + totalHotels.toFixed(2) + " €</th></tr>";
   tableauHtml += "</table>";
+
+  // Calcul du taux horaire
+var tempsTotalMinutes = totalHeuresTrajet * 60 + totalMinutesTrajet; // Conversion du temps total en minutes
+var tauxHoraire = tempsTotalMinutes > 0 ? (totalIndemnitesKilometriques + indemniteChoisie) / tempsTotalMinutes : 0;
+// Calcul du taux horaire en euros par heure
+var tauxHoraireEurosParHeure = tauxHoraire * 60; // Conversion du taux horaire en euros par heure
+
+// Ajout du taux horaire en euros par heure à la fin du tableau
+tableauHtml += "<p>Taux horaire: " + tauxHoraireEurosParHeure.toFixed(2) + " €/heure</p>";
+
 
   return tableauHtml;
 }
 
+
+
+
 // Récupération de l'élément conteneur pour le tableau des résultats
 var tableauContainer = document.getElementById("tableauResultats");
 
-
 // Génération du tableau des résultats et insertion dans l'élément conteneur
 if (tableauContainer) {
-  // Le tableau sera généré une fois que la ville de départ sera sélectionnée
+  tableauContainer.innerHTML = genererTableauResultats(resultats);
 } else {
   console.error("L'élément conteneur pour le tableau des résultats n'existe pas dans le document.");
 }
 
-function updatePrimeMontant() {
-  prime_montant_01 = document.getElementById("prime_montant_01").value;
-  document.getElementById("cell3_1").innerHTML = prime_montant_01.toLocaleString('fr-FR') + " €";
-  document.getElementById("tns_ir_cell3_1").innerHTML = prime_montant_01.toLocaleString('fr-FR') + " €";
-  document.getElementById("tns_is_cell3_1").innerHTML = prime_montant_01.toLocaleString('fr-FR') + " €";
-  document.getElementById("sasu_ir_cell3_1").innerHTML = prime_montant_01.toLocaleString('fr-FR') + " €";
-  document.getElementById("sasu_is_cell3_1").innerHTML = prime_montant_01.toLocaleString('fr-FR') + " €";
+   
+    
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+</script>
 
-  prime_montant_02 = document.getElementById("prime_montant_02").value;
-  document.getElementById("cell3_2").innerHTML = prime_montant_02.toLocaleString('fr-FR') + " €";
-  document.getElementById("tns_ir_cell3_2").innerHTML = prime_montant_02.toLocaleString('fr-FR') + " €";
-  document.getElementById("tns_is_cell3_2").innerHTML = prime_montant_02.toLocaleString('fr-FR') + " €";
-  document.getElementById("sasu_ir_cell3_2").innerHTML = prime_montant_02.toLocaleString('fr-FR') + " €";
-  document.getElementById("sasu_is_cell3_2").innerHTML = prime_montant_02.toLocaleString('fr-FR') + " €";
+<h2>Historique des tarifs</h2>
+<canvas id="myChart" width="800" height="400"></canvas>
+<table class="table table-bordered table-hover table-condensed" style="width: 60%">
 
-  prime_montant_03 = document.getElementById("prime_montant_03").value;
-  document.getElementById("cell3_3").innerHTML = prime_montant_03 + " €";
-  document.getElementById("tns_ir_cell3_3").innerHTML = prime_montant_03.toLocaleString('fr-FR') + " €";
-  document.getElementById("tns_is_cell3_3").innerHTML = prime_montant_03.toLocaleString('fr-FR') + " €";
-  document.getElementById("sasu_ir_cell3_3").innerHTML = prime_montant_03.toLocaleString('fr-FR') + " €";
-  document.getElementById("sasu_is_cell3_3").innerHTML = prime_montant_03.toLocaleString('fr-FR') + " €";
-
-  frais_par_match01 = document.getElementById("frais_par_match01").value;
-  document.getElementById("cell10_1").innerHTML = frais_par_match01 + " €";
-  document.getElementById("tns_ir_cell10_1").innerHTML = frais_par_match01 + " €";
-  document.getElementById("tns_is_cell10_1").innerHTML = frais_par_match01 + " €";
-  document.getElementById("sasu_ir_cell10_1").innerHTML = frais_par_match01 + " €";
-  document.getElementById("sasu_is_cell10_1").innerHTML = frais_par_match01 + " €";
-
-  frais_par_match02 = document.getElementById("frais_par_match02").value;
-  document.getElementById("cell10_2").innerHTML = frais_par_match02 + " €";
-  document.getElementById("tns_ir_cell10_2").innerHTML = frais_par_match02.toLocaleString('fr-FR') + " €";
-  document.getElementById("tns_is_cell10_2").innerHTML = frais_par_match02.toLocaleString('fr-FR') + " €";
-  document.getElementById("sasu_ir_cell10_2").innerHTML = frais_par_match02.toLocaleString('fr-FR') + " €";
-  document.getElementById("sasu_is_cell10_2").innerHTML = frais_par_match02.toLocaleString('fr-FR') + " €";
-
-  frais_par_match03 = document.getElementById("frais_par_match03").value;
-  document.getElementById("cell10_3").innerHTML = frais_par_match03 + " €";
-  document.getElementById("tns_ir_cell10_3").innerHTML = frais_par_match03.toLocaleString('fr-FR') + " €";
-  document.getElementById("tns_is_cell10_3").innerHTML = frais_par_match03.toLocaleString('fr-FR') + " €";
-  document.getElementById("sasu_ir_cell10_3").innerHTML = frais_par_match03.toLocaleString('fr-FR') + " €";
-  document.getElementById("sasu_is_cell10_3").innerHTML = frais_par_match03.toLocaleString('fr-FR') + " €";
-
-nbre_matchs_01 = document.getElementById("nbre_matchs_01").value;
-document.getElementById("cell2_1").innerHTML = nbre_matchs_01;
-document.getElementById("tns_ir_cell2_1").innerHTML = nbre_matchs_01;
-document.getElementById("tns_is_cell2_1").innerHTML = nbre_matchs_01;
-document.getElementById("sasu_ir_cell2_1").innerHTML = nbre_matchs_01;
-document.getElementById("sasu_is_cell2_1").innerHTML = nbre_matchs_01;
-
-nbre_matchs_02 = document.getElementById("nbre_matchs_02").value;
-document.getElementById("cell2_2").innerHTML = nbre_matchs_02;
-document.getElementById("tns_ir_cell2_2").innerHTML = nbre_matchs_02;
-document.getElementById("tns_is_cell2_2").innerHTML = nbre_matchs_02;
-document.getElementById("sasu_ir_cell2_2").innerHTML = nbre_matchs_02;
-document.getElementById("sasu_is_cell2_2").innerHTML = nbre_matchs_02;
-
-nbre_matchs_03 = document.getElementById("nbre_matchs_03").value;
-document.getElementById("cell2_3").innerHTML = nbre_matchs_03;
-document.getElementById("tns_ir_cell2_3").innerHTML = nbre_matchs_03;
-document.getElementById("tns_is_cell2_3").innerHTML = nbre_matchs_03;
-document.getElementById("sasu_ir_cell2_3").innerHTML = nbre_matchs_03;
-document.getElementById("sasu_is_cell2_3").innerHTML = nbre_matchs_03;
+    <thead>
+        <tr>
+            <th>Saison</th>
+            <th>Head LM amicaux</th>
+            <th>Head LM SR</th>
+            <th>Head LM PO</th>
+            <th>Head D1 amicaux</th>
+            <th>Head D1 SR</th>
+            <th>Head D1 PO</th>
+            <th>JDL amicaux</th>
+            <th>JDL SR</th>
+            <th>JDL PO</th>
+            <th>JDL amicaux D1</th>
+            <th>JDL D1 SR</th>
+            <th>JDL D1 PO</th>
+            <th>Grand Déplacement</th>
+            <th>Hôtel</th>
+            <th>Km</th>
+            <th>Repas</th>
+            <th>Taux d'inflation</th>
+            <th>Gazole</th>
+            <th>Variation Km</th>
+        </tr>
+    </thead>
+    <tbody id="dataBody">
+    </tbody>
+</table>
 
 
-// Calcul des cotisations URSSAF
-cotisations_urssaf_par_match_01 = prime_montant_01 * (pourcentage_urssaf / 100);
-cotisations_urssaf_par_match_02 = prime_montant_02 * (pourcentage_urssaf / 100);
-cotisations_urssaf_par_match_03 = prime_montant_03 * (pourcentage_urssaf / 100);
-
-// Mise à jour du tableau d'en tête
-  var prime1 = document.getElementById("prime_montant_01").value;
-  var prime2 = document.getElementById("prime_montant_02").value;
-  var prime3 = document.getElementById("prime_montant_03").value;
-  
-  var frais1 = document.getElementById("frais_par_match01").value;
-  var frais2 = document.getElementById("frais_par_match02").value;
-  var frais3 = document.getElementById("frais_par_match03").value;
-
-  var nombre1 = document.getElementById("nbre_matchs_01").value;
-  var nombre2 = document.getElementById("nbre_matchs_02").value;
-  var nombre3 = document.getElementById("nbre_matchs_03").value;
-
-  
-  // Mettre à jour les éléments output avec les valeurs correspondantes
-  document.getElementById("valeur_prime_01").textContent = prime1;
-  document.getElementById("valeur_prime_02").textContent = prime2;
-  document.getElementById("valeur_prime_03").textContent = prime3;
-  
-  document.getElementById("valeur_frais_01").textContent = frais1;
-  document.getElementById("valeur_frais_02").textContent = frais2;
-  document.getElementById("valeur_frais_03").textContent = frais3;
-
-  document.getElementById("valeur_match_01").textContent = nombre1;
-  document.getElementById("valeur_match_02").textContent = nombre2;
-  document.getElementById("valeur_match_03").textContent = nombre3;
-
-// Mettre à jour les éléments output avec les valeurs correspondantes
-
-updateCalculs();
-}
-
-
-
-  //document.body.appendChild(svg.node());
+<script>
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -2050,7 +2082,17 @@ const myChart = new Chart(ctx, {
             borderColor: 'indigo',
             fill: false
         }]
-    }
+    }//,
+    //options: {
+       // responsive: true,
+        //scales: {
+           // yAxes: [{
+              //  ticks: {
+                  //  beginAtZero: true
+               // }
+          //  }]
+       // }
+   // }
 });
 </script>
 <br><br><br>
