@@ -1515,6 +1515,7 @@ Sous licence GPL3.
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Définition des tranches d'imposition et des taux correspondants
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
     function calculer_IR_EURL(AC16, tranche01_bas, tranche02_bas, tranche03_bas, tranche04_bas, tranche01_haut, tranche02_haut, tranche03_haut, tranche01_pourcent, tranche02_pourcent, tranche03_pourcent, tranche04_pourcent) {
 
       if (AC16 < tranche01_haut) {
@@ -1532,7 +1533,38 @@ Sous licence GPL3.
 
         return (AC16 - tranche04_bas) * tranche04_pourcent + (tranche03_haut - tranche03_bas) * tranche03_pourcent + (tranche02_haut - tranche02_bas) * tranche02_pourcent + (tranche01_haut - tranche01_bas) * tranche01_pourcent;
       }
-    }
+    }*/
+    function calculer_IR_EURL(
+  AC16,
+  tranche01_bas, tranche02_bas, tranche03_bas, tranche04_bas,
+  tranche01_haut, tranche02_haut, tranche03_haut,
+  tranche01_pourcent, tranche02_pourcent, tranche03_pourcent, tranche04_pourcent
+) {
+  // Calculate tax for income falling within the first bracket
+  if (AC16 <= tranche01_haut) {
+    return (AC16 - tranche01_bas) * tranche01_pourcent;
+  }
+  
+  // Calculate tax for income falling within the second bracket
+  if (AC16 <= tranche02_haut) {
+    return (tranche01_haut - tranche01_bas) * tranche01_pourcent + (AC16 - tranche02_bas) * tranche02_pourcent;
+  }
+  
+  // Calculate tax for income falling within the third bracket
+  if (AC16 <= tranche03_haut) {
+    return (tranche01_haut - tranche01_bas) * tranche01_pourcent + 
+           (tranche02_haut - tranche02_bas) * tranche02_pourcent + 
+           (AC16 - tranche03_bas) * tranche03_pourcent;
+  }
+  
+  // Calculate tax for income exceeding all the above brackets
+  return (tranche01_haut - tranche01_bas) * tranche01_pourcent + 
+         (tranche02_haut - tranche02_bas) * tranche02_pourcent + 
+         (tranche03_haut - tranche03_bas) * tranche03_pourcent + 
+         (AC16 - tranche04_bas) * tranche04_pourcent;
+}
+
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     updatePrimeMontant(); // appel direct de la fonction pour calculer au moins une fois les données avant toute capture d'évènement UI 
@@ -1939,39 +1971,53 @@ Sous licence GPL3.
       var totalPeages = 0;
       var totalTempsTrajetMinutes = 0; // Utiliser une variable distincte pour le total des minutes de trajet
       var nombreLignes = resultats.length; // Nombre de lignes du tableau
+      var nombreGrandDeplacementSemaine = 0; // Initialisation de la variable pour le comptage des grands déplacements en semaine
 
       var indemniteChoisie = prime_montant_01; // Valeur de l'indemnité choisie
       var tableauHtml = "<table border='1'>";
-      tableauHtml += "<tr><th>Domicile / Départ</th><th>Patinoire de destination</th><th>Distances</th><th>Péages routiers</th><th>Temps de trajet</th><th>Grand déplacement semaine 🚣</th><th>Indemnités kilométriques</th><th>Repas 🍟</th><th>Hôtel 🏰</th><th>Prime de match</th><th>Indemnités kilométriques - PRK</th></tr>";
+      tableauHtml += "<tr><th>Domicile / Départ</th><th>Patinoire de destination</th><th>Distances A/R</th><th>Péages routiers A/R</th><th>Temps de trajet A/R</th><th>Grand déplacement semaine 🚣</th><th>Indemnités kilométriques A/R</th><th>Repas 🍟</th><th>Hôtel 🏰</th><th>Prime de match</th><th>Indemnités kilométriques - PRK</th></tr>";
 
       for (var i = 0; i < nombreLignes; i++) {
         var trajet = resultats[i];
         var prk = trajet.Km > 0 ? trajet.Km * parseFloat(prkVoiture) : 0;
 
         var grandDeplacementSemaine = trajet.Km > 500 ? 80 : 0;
+        if (grandDeplacementSemaine > 0) {
+      nombreGrandDeplacementSemaine++; // Incrémenter le compteur pour chaque grand déplacement
+    }
         var nombreRepas = trajet.Km > 500 ? 2 : 1;
         var prixHotel = trajet.Km > 500 ? 87 : 0;
 
         var indemniteKilometrique = (trajet.Km * 0.410).toFixed(2);
 
-        tableauHtml += `<tr><td>${trajet.VilleDepart}</td><td>${trajet.VilleDestination}</td><td>${trajet.Km} Km</td><td>${trajet.Peages} €</td><td>${trajet.TempsTrajet}</td><td>${grandDeplacementSemaine}</td><td>${indemniteKilometrique} €</td><td>${nombreRepas * 17} €</td><td>${prixHotel} €</td><td>${indemniteChoisie} €</td><td>${parseFloat(prk).toFixed(2)} €</td></tr>`;
+        tableauHtml += `<tr><td>${trajet.VilleDepart}</td><td>${trajet.VilleDestination} </td><td>${2*trajet.Km} Km</td><td>${2*trajet.Peages} €</td><td>2 x ${trajet.TempsTrajet}</td><td>${grandDeplacementSemaine}</td><td>${2*indemniteKilometrique} €</td><td>${nombreRepas * 17} €</td><td>${prixHotel} €</td><td>${indemniteChoisie} €</td><td>${parseFloat(prk).toFixed(2)} €</td></tr>`;
 
         totalIndemnitesKilometriques += parseFloat(indemniteKilometrique);
         totalRepas += nombreRepas * 17;
-        totalHotels += prixHotel;
-        totalGrandDeplacement += grandDeplacementSemaine;
+        totalHotels += parseFloat(prixHotel);
+        totalGrandDeplacement += parseFloat(grandDeplacementSemaine);
+
         totalDistance += parseFloat(trajet.Km);
         totalPeages += parseFloat(trajet.Peages);
-        totalPRK += prk;
+        totalPRK += parseFloat(prk);
 
         var [tempsTrajetHeures, tempsTrajetMinutes] = trajet.TempsTrajet.split("h").map(num => parseInt(num, 10));
         totalTempsTrajetMinutes += tempsTrajetHeures * 60 + tempsTrajetMinutes;
       }
 
-      var totalHeuresTrajet = Math.floor(totalTempsTrajetMinutes / 60);
+      var totalHeuresTrajet = Math.floor(totalTempsTrajetMinutes / 60) * 2 ;
       var totalMinutesTrajet = totalTempsTrajetMinutes % 60;
 
-      tableauHtml += `<tr><th colspan='1'>TOTAUX</th><td>${nombreLignes} matchs</td><td>${totalDistance} Km</td><td>${totalPeages.toFixed(2)} €</td><td>${totalHeuresTrajet}h${totalMinutesTrajet}</td><td>${totalGrandDeplacement.toFixed(2)} €</td><td>${totalIndemnitesKilometriques.toFixed(2)} €</td><td>${totalRepas.toFixed(2)} €</td><td>${totalHotels.toFixed(2)} €</td><td>${totalPRK.toFixed(2)} €</td></tr>`;
+      tableauHtml += `<tr><th colspan='1'>TOTAUX</th>
+        <td>${nombreLignes} matchs, ${nombreGrandDeplacementSemaine} dont en semaine</td>
+        <td>${2*totalDistance} Km</td><td>${2*totalPeages.toFixed(2)} €</td>
+        <td>${2*totalHeuresTrajet}h${2*totalMinutesTrajet}</td>
+        <td>${totalGrandDeplacement.toFixed(2)} €</td>
+        <td>${2*totalIndemnitesKilometriques.toFixed(2)} €</td>
+        <td>${totalRepas.toFixed(2)} €</td>
+        <td>${totalHotels.toFixed(2)} €</td>
+        <td>${nombreLignes * indemniteChoisie} €</td>
+        <td>${totalPRK.toFixed(2)} €</td></tr>`;
       tableauHtml += "</table>";
 
       var tauxHoraireEurosParHeure = ((totalIndemnitesKilometriques + totalPRK) / totalTempsTrajetMinutes) * 60;
