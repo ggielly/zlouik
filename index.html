@@ -207,28 +207,30 @@ p {
 Association des arbitres de hockey sur glace 2024 - Tous droits réservés - Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité de l'association. version 0.1 - 20240408<br>
 <hr>
 <h1>Paramétrage</h1>
-  <form onchange="updatePrimeMontant()">
+<form onchange="updatePrimeMontant()">
 <label for="menuVillesDepart">Choisir une ville de départ pour générer les désignations : </label><div id="menuVillesDepart"></div>
 <label for="selectSaison">Choisir une saison : </label><select id="selectSaison"></select><br>
-<label for="PRKVoiture">Sélection de Prix de Reviens Kilométrique (PRK) du véhicule : </label><select id="PRKVoiture"></select><br>
+
+<div id="menuPRK"></div><br>
 
 <br>
   <table class="affichageValeurs">
       <tr>
-        <th>Primes par match</th>
+        <th>Montant des primes par match</th>
         <th>Montants des frais</th>
         <th>Nombre de matchs</th>
   
       </tr>
       <tr>
         <td>
-          <label for="prime_montant_01"></label><output id="valeur_prime_01"></output>
-          <input type="range" id="prime_montant_01" name="prime_montant_01" min="100" max="1000" value="550" step="10">
+          
+          <label for="prime_montant_01" >Saison Régulière</label><label for="prime_montant_01"></label><output id="valeur_prime_01"></output>
+          <input type="range" id="prime_montant_01" name="prime_montant_01" min="100" max="1000" value="550" step="10"><br>
   
-          <label for="prime_montant_02"></label><output id="valeur_prime_02"></output>
-          <input type="range" id="prime_montant_02" name="prime_montant_02" min="100" max="1000" value="700" step="10">
+          <label for="prime_montant_02">Poule de relégation</label><label for="prime_montant_02"></label><output id="valeur_prime_02"></output>
+                    <input type="range" id="prime_montant_02" name="prime_montant_02" min="100" max="1000" value="700" step="10"><br>
   
-          <label for="prime_montant_03"></label><output id="valeur_prime_03"></output>
+          <label for="prime_montant_03">Phase finale</label><label for="prime_montant_03"></label><output id="valeur_prime_03"></output>
           <input type="range" id="prime_montant_03" name="prime_montant_03" min="100" max="1000" value="800" step="10">
         </td>
   
@@ -869,7 +871,6 @@ document.getElementById("nbre_matchs_03").addEventListener("input", updatePrimeM
 
  var AC24 = (resultat_net_is_TNS - (resultat_net_is_TNS * (15 / 100)));
 
-const saison = [2005,2006,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023];
 const HeadLMamicaux = [120,126,126,130,130,135,135,135,115,115,115,125,130,130,130,130];
 const HeadLMSR = [120,126,126,130,130,135,135,135,140,140,140,140,145,145,145,145];
 const HeadLMPO = [220,231,185,185,185,190,190,190,140,140,140,140,145,145,145,145];
@@ -1441,7 +1442,7 @@ updatePrimeMontant(); // appel direct de la fonction pour calculer au moins une 
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Tableau des données pour le graphique
+// Tableau des données
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var data = [ 
   {VilleDepart: "Paris",VilleDestination: "Nice",Km: "933", Peages: "89.1", TempsTrajet: "9h12"},
@@ -1676,24 +1677,37 @@ var data = [
   {VilleDepart: "Montpellier",VilleDestination: "Rennes",Km: "897", Peages: "57.6", TempsTrajet: "8h57"}  
 ];
 
-
-
-
-
 // Fonction pour créer le menu déroulant des villes de départ
 function creerMenuVillesDepart() {
-  var selectHtml = "<select id='selectVilleDepart' onchange='afficherResultats()'>";
+  // Création d'un ensemble pour stocker les villes de départ uniques
+  var villesDepartSet = new Set();
+  
+  // Ajout des villes de départ à l'ensemble
   data.forEach(function(trajet) {
-    if (!selectHtml.includes(trajet.VilleDepart)) {
-      selectHtml += "<option value='" + trajet.VilleDepart + "'>" + trajet.VilleDepart + "</option>";
-    }
+    villesDepartSet.add(trajet.VilleDepart);
+  });
+  
+  // Création du menu déroulant des villes de départ
+  var selectHtml = "<select id='selectVilleDepart' onchange='afficherResultats()'>";
+  // Itération sur l'ensemble des villes de départ uniques
+  villesDepartSet.forEach(function(villeDepart) {
+    selectHtml += "<option value='" + villeDepart + "'>" + villeDepart + "</option>";
   });
   selectHtml += "</select>";
   return selectHtml;
 }
 
-// Récupération de l'élément conteneur pour le menu déroulant
-var selectContainer = document.getElementById("menuVillesDepart");
+// Définition des années de la saison
+const saison = [2005, 2006, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023];
+
+// Récupération de l'élément conteneur pour le menu déroulant des villes de départ
+const selectContainer = document.getElementById("menuVillesDepart");
+
+// Valeur par défaut du PRKVoiture
+const prkVoiture = 0.01;
+
+// Tableau pour stocker les résultats
+const resultats = [];
 
 // Insertion du menu déroulant des villes de départ dans l'élément conteneur
 if (selectContainer) {
@@ -1702,78 +1716,84 @@ if (selectContainer) {
   console.error("L'élément conteneur pour le menu des villes de départ n'existe pas dans le document.");
 }
 
-// Nombre d'itérations
-var nombreIterations = nbre_matchs_01; 
-
-// Résultats
-var resultats = [];
-
 // Récupération de l'élément select pour les saisons
-var selectSaison = document.getElementById("selectSaison");
+const selectSaison = document.getElementById("selectSaison");
 
-// Création des options du menu déroulant
-saison.forEach(function(annee) {
-    var option = document.createElement("option");
+// Vérification si l'élément selectSaison existe
+if (selectSaison) {
+  // Création des options du menu déroulant pour les saisons
+  saison.forEach(function(annee) {
+    const option = document.createElement("option");
     option.text = annee;
     option.value = annee;
     selectSaison.add(option);
-});
+  });
 
-// Événement lorsqu'une saison est sélectionnée
-selectSaison.addEventListener("change", function() {
-  var selectedSaison = selectSaison.value;
-  console.log("La saison sélectionnée est :", selectedSaison);
-  // Vous pouvez ajouter ici le code pour traiter la sélection de la saison
-});
+  // Événement lorsqu'une saison est sélectionnée
+  selectSaison.addEventListener("change", function() {
+    const selectedSaison = selectSaison.value;
+    console.log("La saison sélectionnée est :", selectedSaison);
+  });
+} else {
+  console.error("L'élément selectSaison n'existe pas dans le document.");
+}
 
-
-// Fonction pour afficher les résultats une fois la ville de départ sélectionnée
+// Fonction pour afficher les résultats en fonction de la ville de départ sélectionnée
 function afficherResultats() {
   // Récupération de la ville de départ sélectionnée
   var selectElement = document.getElementById("selectVilleDepart");
-  var villeDepart = selectElement ? selectElement.value : "";
   if (selectElement) {
     var villeDepart = selectElement.value;
 
-    // Calcul des résultats pour la ville de départ sélectionnée
+    // Filtrage des résultats pour la ville de départ sélectionnée
     var resultats = data.filter(function(trajet) {
       return trajet.VilleDepart === villeDepart;
     });
 
-    // Génération du tableau des résultats
-    var tableauHtml = genererTableauResultats(resultats);
+    // Génération du tableau des résultats si des résultats ont été trouvés
+    var tableauHtml = "";
+    if (resultats.length > 0) {
+      tableauHtml = genererTableauResultats(resultats);
 
-    // Récupération de l'élément conteneur pour le tableau des résultats
-    var tableauContainer = document.getElementById("tableauResultats");
+      // Récupération de l'élément conteneur pour le tableau des résultats
+      var tableauContainer = document.getElementById("tableauResultats");
 
-    // Affichage du tableau des résultats dans l'élément conteneur
-    if (tableauContainer) {
-      tableauContainer.innerHTML = tableauHtml;
+      // Affichage du tableau des résultats dans l'élément conteneur
+      if (tableauContainer) {
+        tableauContainer.innerHTML = tableauHtml;
+      } else {
+        console.error("L'élément conteneur pour le tableau des résultats n'existe pas dans le document.");
+      }
     } else {
-      console.error("L'élément conteneur pour le tableau des résultats n'existe pas dans le document.");
+      // Aucun résultat trouvé pour la ville de départ sélectionnée
+      console.log("Aucun résultat trouvé pour la ville de départ sélectionnée :", villeDepart);
     }
   } else {
     console.error("L'élément selectVilleDepart n'existe pas dans le document.");
   }
 }
 
+// Nombre total d'itérations à effectuer
+var nombreIterations = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03; 
 
-// Calcul des itérations
-for (var i = 0; i < nombreIterations; i++) {
-  // Récupération de la ville de VilleDepart sélectionnée
-  var selectElement = document.getElementById("selectVilleDepart");
-  if (selectElement) {
-    var villeDepart = selectElement.value;
+// Récupération de l'élément selectVilleDepart
+var selectElement = document.getElementById("selectVilleDepart");
 
-    // Choix d'une VilleDestination aléatoire
+// Vérification si l'élément selectVilleDepart existe
+if (selectElement) {
+  var villeDepart = selectElement.value;
+
+  // Calcul des itérations
+  for (let i = 0; i < nombreIterations; i++) {
+    // Choix aléatoire d'une ville de destination parmi celles disponibles pour la ville de départ sélectionnée
     var VilleDestinationsPossibles = data.filter(function(trajet) {
       return trajet.VilleDepart === villeDepart;
     });
 
-    // Vérifier si des VilleDestinations sont disponibles
+    // Vérification si des villes de destination sont disponibles
     if (VilleDestinationsPossibles.length === 0) {
-      console.warn("Aucune VilleDestination trouvée pour la ville de VilleDepart :", villeDepart);
-      continue; // Passer à l'itération suivante si aucune VilleDestination n'est disponible
+      console.warn("Aucune ville de destination trouvée pour la ville de départ :", villeDepart);
+      continue; // Passer à l'itération suivante si aucune ville de destination n'est disponible
     }
 
     var indexVilleDestination = Math.floor(Math.random() * VilleDestinationsPossibles.length);
@@ -1781,31 +1801,41 @@ for (var i = 0; i < nombreIterations; i++) {
 
     // Ajout du trajet aux résultats
     resultats.push(VilleDestination);
-  } else {
-    console.error("L'élément selectVilleDepart n'existe pas dans le document.");
   }
+} else {
+  console.error("L'élément selectVilleDepart n'existe pas dans le document.");
 }
 
 
-function genererTableauResultats(resultats) {
+/**
+ * Génère un tableau HTML affichant les résultats des trajets.
+ * @param {Array} resultats Les résultats des trajets.
+ * @param {number} prkVoiture Le PRK par kilomètre.
+ * @param {number} prime_montant_01 La prime de match.
+ * @returns {string} Le code HTML du tableau des résultats.
+ */
+/*function genererTableauResultats(resultats, prkVoiture) {
+  var totalPRK = 0;
   var totalIndemnitesKilometriques = 0;
   var totalRepas = 0;
   var totalHotels = 0;
   var totalGrandDeplacement = 0;
-  var repasIcone = "";
-  var hotelIcone = "";
   var totalDistance = 0;
   var totalPeages = 0;
-  var totalHeuresTrajet = 0;
-  var totalMinutesTrajet = 0;
+  var totalTempsTrajetMinutes = 0; // Utiliser une variable distincte pour le total des minutes de trajet
   var nombreLignes = resultats.length; // Nombre de lignes du tableau
-  var indemniteChoisie = 115 ; // Indemnité de match
 
+  var indemniteChoisie = prime_montant_01; // Valeur par défaut de l'indemnité choisie
   var tableauHtml = "<table border='1'>";
-  tableauHtml += "<tr><th>Domicile / Départ</th><th>Patinoire de destination</th><th>Distances</th><th>Péages routiers</th><th>Temps de trajet</th><th>Grand déplacement semaine 🚣</th><th>Indemnités kilométriques</th><th>Repas 🍟</th><th>Hôtel 🏰</th><th>Prime de match</th></tr>";
+  tableauHtml += "<tr><th>Domicile / Départ</th><th>Patinoire de destination</th><th>Distances</th><th>Péages routiers</th><th>Temps de trajet</th><th>Grand déplacement semaine 🚣</th><th>Indemnités kilométriques</th><th>Repas 🍟</th><th>Hôtel 🏰</th><th>Prime de match</th><th>Indemnités kilométriques - PRK</th></tr>";
 
-  // Ajout de l'affichage du grand déplacement semaine
-  resultats.forEach(function(trajet) {
+  for (var i = 0; i < nombreLignes; i++) {
+    var trajet = resultats[i];
+    var prk = 0;
+    if (trajet.Km > 0) {
+      prk = trajet.Km * parseFloat(prkVoiture);
+    }
+
     var grandDeplacementSemaine;
     var indemniteKilometrique;
     var nombreRepas;
@@ -1813,11 +1843,11 @@ function genererTableauResultats(resultats) {
 
     // Calcul du grand déplacement
     if (trajet.Km > 500) {
-      grandDeplacementSemaine = 80;
+      grandDeplacementSemaine = 80; // Utiliser un nombre au lieu d'une chaîne pour les calculs
       nombreRepas = 2;
       prixHotel = 87;
     } else {
-      grandDeplacementSemaine = 0;
+      grandDeplacementSemaine = 0; // Utiliser un nombre au lieu d'une chaîne pour les calculs
       nombreRepas = 1;
       prixHotel = 0;
     }
@@ -1829,62 +1859,120 @@ function genererTableauResultats(resultats) {
     tableauHtml += "<tr>";
     tableauHtml += "<td>" + trajet.VilleDepart + "</td>";
     tableauHtml += "<td>" + trajet.VilleDestination + "</td>";
-    tableauHtml += "<td>" + trajet.Km + " Km</td>"; // Ajout de "Km" pour clarté
-    tableauHtml += "<td>" + trajet.Peages + " €</td>"; // Ajout de "€" pour clarté
+    tableauHtml += "<td>" + trajet.Km + " Km</td>";
+    tableauHtml += "<td>" + trajet.Peages + " €</td>";
     tableauHtml += "<td>" + trajet.TempsTrajet + "</td>";
-    tableauHtml += "<td>" + grandDeplacementSemaine + " €</td>";
+    tableauHtml += "<td>" + grandDeplacementSemaine + "</td>";
     tableauHtml += "<td>" + indemniteKilometrique + " €</td>";
     tableauHtml += "<td>" + (nombreRepas * 17) + " €</td>";
     tableauHtml += "<td>" + prixHotel + " €</td>";
+    tableauHtml += "<td>" + indemniteChoisie + " €</td>";
+    tableauHtml += "<td>" + parseFloat(prk).toFixed(2) + " €</td>";
     tableauHtml += "</tr>";
 
-    // Calcul du total des indemnités kilométriques
     totalIndemnitesKilometriques += parseFloat(indemniteKilometrique);
-
-    // Calcul du total des repas
     totalRepas += nombreRepas * 17;
-
-    // Calcul du total des hôtels
     totalHotels += parseFloat(prixHotel);
-
-    // Calcul du total des grands déplacements
     totalGrandDeplacement += parseFloat(grandDeplacementSemaine);
-
-    // Calcul du total des distances
     totalDistance += parseFloat(trajet.Km);
-
-    // Calcul du total des péages
     totalPeages += parseFloat(trajet.Peages);
+    totalPRK += parseFloat(prk);
 
     // Extraction des heures et minutes du temps de trajet
     var tempsTrajetSplit = trajet.TempsTrajet.split("h");
     var tempsTrajetHeures = parseInt(tempsTrajetSplit[0], 10); // Conversion en nombre entier
     var tempsTrajetMinutes = parseInt(tempsTrajetSplit[1], 10); // Conversion en nombre entier
 
-    // Calcul du total des heures et des minutes de trajet
-    totalHeuresTrajet += tempsTrajetHeures;
-    totalMinutesTrajet += tempsTrajetMinutes;
+    // Calcul du total des minutes de trajet
+    totalTempsTrajetMinutes += tempsTrajetHeures * 60 + tempsTrajetMinutes;
+  }
 
-    // Si le total des minutes dépasse 60, ajuster les heures
-    if (totalMinutesTrajet >= 60) {
-      totalMinutesTrajet -= 60;
-      totalHeuresTrajet++;
-    }
-  });
+  // Convertir les minutes de trajet totales en heures et minutes
+  var totalHeuresTrajet = Math.floor(totalTempsTrajetMinutes / 60);
+  var totalMinutesTrajet = totalTempsTrajetMinutes % 60;
 
   // Ajout du total en bas du tableau
-  tableauHtml += "<tr><th>TOTAUX</th><th>" + nombreLignes + "</th><th>" + totalDistance + " Km</th><th>" + totalPeages.toFixed(2) + " €</th><th>" + totalHeuresTrajet + "h" + totalMinutesTrajet + "</th><th>" + totalGrandDeplacement.toFixed(2) + " €</th><th>" + totalIndemnitesKilometriques.toFixed(2) + " €</th><th>" + totalRepas.toFixed(2) + " €</th><th>" + totalHotels.toFixed(2) + " €</th></tr>";
+  tableauHtml += "<tr><th colspan='1'>TOTAUX</th><td>"
+    + nombreLignes + " matchs</td><td>" 
+    + totalDistance + " Km</td><td>" 
+    + totalPeages.toFixed(2) + " €</td><td>" 
+    + totalHeuresTrajet + "h" + totalMinutesTrajet + "</td><td>" 
+    + totalGrandDeplacement.toFixed(2) + " €</td><td>" 
+    + totalIndemnitesKilometriques.toFixed(2) + " €</td><td>" 
+    + totalRepas.toFixed(2) + " €</td><td>" 
+    + totalHotels.toFixed(2) + " €</td><td>"
+    + totalPRK.toFixed(2) + " €</td></tr>";
+
   tableauHtml += "</table>";
 
   // Calcul du taux horaire
-var tempsTotalMinutes = totalHeuresTrajet * 60 + totalMinutesTrajet; // Conversion du temps total en minutes
-var tauxHoraire = tempsTotalMinutes > 0 ? (totalIndemnitesKilometriques + indemniteChoisie) / tempsTotalMinutes : 0;
-// Calcul du taux horaire en euros par heure
-var tauxHoraireEurosParHeure = tauxHoraire * 60; // Conversion du taux horaire en euros par heure
+  var tempsTotalMinutes = totalHeuresTrajet * 60 + totalMinutesTrajet; // Conversion du temps total en minutes
+  var tauxHoraireEurosParMinute = tempsTotalMinutes > 0 ? (totalIndemnitesKilometriques + indemniteChoisie) / tempsTotalMinutes : 0;
 
-// Ajout du taux horaire en euros par heure à la fin du tableau
-tableauHtml += "<p>Taux horaire: " + tauxHoraireEurosParHeure.toFixed(2) + " €/heure</p>";
+  // Calcul du taux horaire en euros par heure
+  var tauxHoraireEurosParHeure = tauxHoraireEurosParMinute * 60; // Conversion du taux horaire en euros par heure 
 
+  // Ajout du taux horaire en euros par heure à la fin du tableau
+  tableauHtml += "<div>Taux horaire: " + tauxHoraireEurosParHeure.toFixed(2) + " €/heure</div>";
+
+  return tableauHtml;
+}
+
+*/
+/**
+ * Génère un tableau HTML affichant les résultats des trajets.
+ * @param {Array} resultats Les résultats des trajets.
+ * @param {number} prkVoiture Le PRK par kilomètre.
+ * @param {number} prime_montant_01 La prime de match.
+ * @returns {string} Le code HTML du tableau des résultats.
+ */
+ function genererTableauResultats(resultats, prkVoiture) {
+  var totalPRK = 0;
+  var totalIndemnitesKilometriques = 0;
+  var totalRepas = 0;
+  var totalHotels = 0;
+  var totalGrandDeplacement = 0;
+  var totalDistance = 0;
+  var totalPeages = 0;
+  var totalTempsTrajetMinutes = 0; // Utiliser une variable distincte pour le total des minutes de trajet
+  var nombreLignes = resultats.length; // Nombre de lignes du tableau
+
+  var indemniteChoisie = prime_montant_01; // Valeur de l'indemnité choisie
+  var tableauHtml = "<table border='1'>";
+  tableauHtml += "<tr><th>Domicile / Départ</th><th>Patinoire de destination</th><th>Distances</th><th>Péages routiers</th><th>Temps de trajet</th><th>Grand déplacement semaine 🚣</th><th>Indemnités kilométriques</th><th>Repas 🍟</th><th>Hôtel 🏰</th><th>Prime de match</th><th>Indemnités kilométriques - PRK</th></tr>";
+
+  for (var i = 0; i < nombreLignes; i++) {
+    var trajet = resultats[i];
+    var prk = trajet.Km > 0 ? trajet.Km * parseFloat(prkVoiture) : 0;
+
+    var grandDeplacementSemaine = trajet.Km > 500 ? 80 : 0;
+    var nombreRepas = trajet.Km > 500 ? 2 : 1;
+    var prixHotel = trajet.Km > 500 ? 87 : 0;
+
+    var indemniteKilometrique = (trajet.Km * 0.410).toFixed(2);
+
+    tableauHtml += `<tr><td>${trajet.VilleDepart}</td><td>${trajet.VilleDestination}</td><td>${trajet.Km} Km</td><td>${trajet.Peages} €</td><td>${trajet.TempsTrajet}</td><td>${grandDeplacementSemaine}</td><td>${indemniteKilometrique} €</td><td>${nombreRepas * 17} €</td><td>${prixHotel} €</td><td>${indemniteChoisie} €</td><td>${parseFloat(prk).toFixed(2)} €</td></tr>`;
+
+    totalIndemnitesKilometriques += parseFloat(indemniteKilometrique);
+    totalRepas += nombreRepas * 17;
+    totalHotels += prixHotel;
+    totalGrandDeplacement += grandDeplacementSemaine;
+    totalDistance += parseFloat(trajet.Km);
+    totalPeages += parseFloat(trajet.Peages);
+    totalPRK += prk;
+
+    var [tempsTrajetHeures, tempsTrajetMinutes] = trajet.TempsTrajet.split("h").map(num => parseInt(num, 10));
+    totalTempsTrajetMinutes += tempsTrajetHeures * 60 + tempsTrajetMinutes;
+  }
+
+  var totalHeuresTrajet = Math.floor(totalTempsTrajetMinutes / 60);
+  var totalMinutesTrajet = totalTempsTrajetMinutes % 60;
+
+  tableauHtml += `<tr><th colspan='1'>TOTAUX</th><td>${nombreLignes} matchs</td><td>${totalDistance} Km</td><td>${totalPeages.toFixed(2)} €</td><td>${totalHeuresTrajet}h${totalMinutesTrajet}</td><td>${totalGrandDeplacement.toFixed(2)} €</td><td>${totalIndemnitesKilometriques.toFixed(2)} €</td><td>${totalRepas.toFixed(2)} €</td><td>${totalHotels.toFixed(2)} €</td><td>${totalPRK.toFixed(2)} €</td></tr>`;
+  tableauHtml += "</table>";
+
+  var tauxHoraireEurosParHeure = ((totalIndemnitesKilometriques + totalPRK) / totalTempsTrajetMinutes) * 60;
+  tableauHtml += `<div>Taux horaire: ${tauxHoraireEurosParHeure.toFixed(2)} €/heure</div>`;
 
   return tableauHtml;
 }
@@ -1892,18 +1980,38 @@ tableauHtml += "<p>Taux horaire: " + tauxHoraireEurosParHeure.toFixed(2) + " €
 
 
 
-// Récupération de l'élément conteneur pour le tableau des résultats
-var tableauContainer = document.getElementById("tableauResultats");
-
-// Génération du tableau des résultats et insertion dans l'élément conteneur
-if (tableauContainer) {
-  tableauContainer.innerHTML = genererTableauResultats(resultats);
-} else {
-  console.error("L'élément conteneur pour le tableau des résultats n'existe pas dans le document.");
+// Fonction pour mettre à jour le tableau des résultats avec le PRKVoiture sélectionné
+function updatePRK() {
+  // Récupérer la valeur sélectionnée du PRKVoiture dans le menu déroulant
+  var prkVoiture = document.getElementById("PRKVoiture").value;
+  // Récupérer l'élément conteneur du tableau des résultats
+  var tableauContainer = document.getElementById("tableauResultats");
+  if (tableauContainer) {
+    // Mettre à jour le contenu du tableau des résultats avec les données et le PRKVoiture sélectionné
+    tableauContainer.innerHTML = genererTableauResultats(data, prkVoiture);
+  } else {
+    console.error("L'élément conteneur pour le tableau des résultats n'existe pas dans le document.");
+  }
 }
 
-   
-    
+// Code HTML pour le menu déroulant PRKVoiture
+var selectPRK = "<label for='PRKVoiture'>Sélection du Prix de Revient Kilométrique (PRK) du véhicule : </label>";
+selectPRK += "<select id='PRKVoiture' onchange='updatePRK()'>";
+// Générer les options du menu déroulant pour les valeurs de PRK de 0.01 à 1.20 avec un pas de 0.01
+for (var i = 1; i <= 120; i++) {
+  var prkOptionValue = (i / 100).toFixed(2); // Utilisation d'une variable différente pour éviter la réaffectation de prkValue
+  selectPRK += "<option value='" + prkOptionValue + "'>" + prkOptionValue + "</option>";
+}
+selectPRK += "</select>";
+
+// Ajout du menu déroulant PRKVoiture à la page HTML
+document.getElementById("menuPRK").innerHTML = selectPRK;
+
+// Appel initial de la fonction updatePRK pour afficher les résultats initiaux
+updatePRK();
+
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 </script>
 
@@ -1939,13 +2047,9 @@ if (tableauContainer) {
     </tbody>
 </table>
 
-
 <script>
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-    
 
     const tbody = document.getElementById('dataBody');
 
