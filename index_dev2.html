@@ -76,6 +76,9 @@ Association des arbitres de hockey sur glace 2024 - Tous droits réservés - Les
          
           <label for="nbre_matchs_03"></label><output id="valeur_match_03"></output>
           <input type="range" id="nbre_matchs_03" name="nbre_matchs_03" min="0" max="60" value="7" step="1">
+          <br><label for="pourcentageGrandDeplacement">Pourcentage de match en semaine avec grands déplacements :</label><br>
+          <input type="range" id="pourcentageGrandDeplacement" name="pourcentageGrandDeplacement" min="0" max="100" value="0" step="1" oninput="this.nextElementSibling.value = this.value">
+          <output>0</output>%
         </td>
       </tr>
     </table><br><br>
