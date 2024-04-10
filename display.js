@@ -52,25 +52,6 @@ var display = {
     },
 
 
-    // génération du menu des saisons
-    menuSaisons: function() {
-        // Récupération de l'élément select pour les saisons
-        const selectSaison = document.getElementById("selectSaison");
-        // Vérification si l'élément selectSaison existe
-        if (selectSaison) {
-            // Création des options du menu déroulant pour les saisons
-            saison.forEach(function(annee) {
-                const option = document.createElement("option");
-                option.text = annee;
-                option.value = annee;
-                selectSaison.add(option);
-            });
-        } else {
-            console.error("L'élément selectSaison n'existe pas dans le document.");
-        }
-    },
-
-
     // Affichage des résultats du tableau historique en fonction de la ville de départ sélectionnée
     updateHistoriqueVille: function() {
         // Récupération de la ville de départ sélectionnée
