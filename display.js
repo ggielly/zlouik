@@ -101,6 +101,7 @@ var display = {
         var totalDistance = 0;
         var totalPeages = 0;
         var totalTempsTrajetMinutes = 0; // Utiliser une variable distincte pour le total des minutes de trajet
+        var totalIndemniteChoisie = 0;
 
         // Récupération du pourcentage de grands déplacements autorisés
         var pourcentageGrandDeplacement = document.getElementById("pourcentageGrandDeplacement").value;
@@ -142,6 +143,7 @@ var display = {
             totalDistance += parseFloat(trajet.Km);
             totalPeages += parseFloat(trajet.Peages);
             totalPRK += parseFloat(prk);
+            totalIndemniteChoisie += parseFloat(indemniteChoisie);
     
             var [tempsTrajetHeures, tempsTrajetMinutes] = trajet.TempsTrajet.split("h").map(num => parseInt(num, 10));
             totalTempsTrajetMinutes += tempsTrajetHeures * 60 + tempsTrajetMinutes;
@@ -150,7 +152,7 @@ var display = {
         var totalHeuresTrajet = Math.floor(totalTempsTrajetMinutes / 60);
         var totalMinutesTrajet = totalTempsTrajetMinutes % 60;
     
-        tableauHtml += `<tr><th colspan='1'>TOTAUX</th><td>${nombreLignes} matchs</td><td>${totalDistance} Km</td><td>${totalPeages.toFixed(2)} €</td><td>${totalHeuresTrajet}h${totalMinutesTrajet}</td><td>${totalGrandDeplacement.toFixed(2)} €</td><td>${totalIndemnitesKilometriques.toFixed(2)} €</td><td>${totalRepas.toFixed(2)} €</td><td>${totalHotels.toFixed(2)} €</td><td>${totalPRK.toFixed(2)} €</td></tr>`;
+        tableauHtml += `<tr><th colspan='1'>TOTAUX</th><td>${nombreLignes} matchs</td><td>${totalDistance} Km</td><td>${totalPeages.toFixed(2)} €</td><td>${totalHeuresTrajet}h${totalMinutesTrajet}</td><td>${totalGrandDeplacement.toFixed(2)} €</td><td>${totalIndemnitesKilometriques.toFixed(2)} €</td><td>${totalRepas.toFixed(2)} €</td><td>${totalHotels.toFixed(2)} €</td><td>${totalIndemniteChoisie} €</td><td>${totalPRK.toFixed(2)} €</td></tr>`;
         tableauHtml += "</table>";
     
         var tauxHoraireEurosParHeure = ((totalIndemnitesKilometriques + totalPRK) / totalTempsTrajetMinutes) * 60;

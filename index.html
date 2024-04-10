@@ -12,40 +12,38 @@ Sous licence GPL3.
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simulateur AAHG</title>
+    <title>Simulateur ZLOUIK</title>
 
     <link href="default.css" rel="stylesheet" />
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-chord/3.0.1/d3.chord.min.js"></script>
+  <!----  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-chord/3.0.1/d3.chord.min.js"></script> -->
 
     <script src="data.js"></script>
-    <script src="initialisation.js"></script>
+    <script src="display.js"></script>
     <script src="simu.js"></script>
     <script src="graph.js"></script>
 </head>
 
 <body>
 
-    <h1> ZLOUIK</h1>
+    <h1>ZLOUIK</h1>
     Zone Logicielle Orientée Utilisation et Impositions Kafkaïennes, soit un générateur de simulation de primes et
     historique des rémunérations.<br>
-    Association des arbitres de hockey sur glace 2024 - Tous droits réservés - Les données sont fournies à titre
-    indicatif
-    et ne sauraient engager la responsabilité de l'association. version 0.1 - 20240408<br>
-    <hr>
-    <h1>Informations</h1>
-    Vous êtes agent public (fonctionnaire d'état, territorial, hospitalière ou contractuel) : seule la micro-entreprise est possible, une fois la demande de cumul acceptée.
-    
+    Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité des auteurs.<br>
     <hr>
     <h1>Paramétrage</h1>
-    <form onchange="updatePrimeMontant()">
+    <form onchange="display.updatePrimeMontant()">
+        
         <label for="menuVillesDepart">Choisir une ville de départ pour générer les désignations : </label>
-        <div id="menuVillesDepart"></div>
-        <label for="selectSaison">Choisir une saison : </label><select id="selectSaison"></select><br>
-
-        <div id="menuPRK"></div><br>
+        <div id="menuVillesDepart">
+            
+            <select id="villeDepart" title="Select a departure city"></select>
+        </div>
+        
+        <select id="menuPRK" title="Select an option"></select>
+        </div><br>
     
         <br>
         <table class="affichageValeurs">
@@ -104,25 +102,26 @@ Sous licence GPL3.
                 </td>
             </tr>
         </table><br><br>
-        <hr>
-        <h1>Calcul historique basé sur un remboursement des frais + indemnités de préparation et d'équipement</h1>
-        <p>Montant des primes de préparation et d'équipement :
-        <form id="indemniteChoisieForm">
-            <input type="radio" id="indemnite145" name="indemnite" value="145" onchange="updateTableau()">
-            <label for="indemnite145">145</label>
-            <input type="radio" id="indemnite130" name="indemnite" value="130" onchange="updateTableau()">
-            <label for="indemnite130">130</label>
-            <input type="radio" id="indemnite115" name="indemnite" value="115" onchange="updateTableau()">
-            <label for="indemnite115">115</label>
-            <input type="radio" id="indemnite100" name="indemnite" value="100" onchange="updateTableau()" checked>
-            <label for="indemnite100">100</label>
-        </form>
-        </p>
-        <br>
-    
-        <div id="tableauResultats"></div><br>
-    
     </form>
+    <hr>
+    <h1>Calcul historique basé sur un remboursement des frais + indemnités de préparation et d'équipement</h1>
+        
+    <form id="indemniteChoisieForm">
+    <p>Montant des primes de préparation et d'équipement :            
+        <input type="radio" id="indemnite145" name="indemnite" value="145">
+        <label for="indemnite145">145</label>
+        <input type="radio" id="indemnite130" name="indemnite" value="130">
+        <label for="indemnite130">130</label>
+        <input type="radio" id="indemnite115" name="indemnite" value="115">
+        <label for="indemnite115">115</label>
+        <input type="radio" id="indemnite100" name="indemnite" value="100" checked>
+        <label for="indemnite100">100</label>
+        </p>
+    </form>
+    <br>
+
+    <div id="tableauHistorique"></div><br>
+    
 
 <br><br><hr>
 <h1>Calculs basés sur une prime de match (rémunération)</h1>
@@ -637,24 +636,12 @@ Seuil TVA 36 800e.
             <td id="sasu_is_cell15_4"></td>
             <td id="sasu_is_cell16_4" class="gras-vert"></td>
           </tfoot>
-         </tr>
-
-            
+         </tr>         
     </tbody>
 </table>
 <br>
 
 <canvas id="mychart01" width="400" height="400"></canvas>
-
-<script>
-
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
-</script>
 
 <h2>Historique des tarifs</h2>
 <canvas id="myChart" width="800" height="400"></canvas>
@@ -692,7 +679,6 @@ Seuil TVA 36 800e.
   window.onload = init;
 </script>
 <br><br><br>
-Association des arbitres de hockey sur glace 2024 - Tous droits réservés - Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité de l'association.<br>
 En cas d'erreur ou de demande d'évolution, merci de me contacter à l'adresse suivante : <a href="mailto:guillaume ar0base rootshell.fr">guillaume at rootshell point fr</a><br>
 Pas de cookie, aucune donnée enregistrée côté serveur.
 </body>
