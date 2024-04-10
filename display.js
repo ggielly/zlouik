@@ -112,20 +112,36 @@ var display = {
         var totalDistance = 0;
         var totalPeages = 0;
         var totalTempsTrajetMinutes = 0; // Utiliser une variable distincte pour le total des minutes de trajet
-        var nombreLignes = resultats.length; // Nombre de lignes du tableau
-    
+
+        // Récupération du pourcentage de grands déplacements autorisés
+        var pourcentageGrandDeplacement = document.getElementById("pourcentageGrandDeplacement").value;
+
+        // Séparation des résultats en deux catégories
+        var grandsDeplacements = resultats.filter(trajet => parseFloat(trajet.Km) > 250);
+        var petitsDeplacements = resultats.filter(trajet => parseFloat(trajet.Km) <= 250);
+
+        // Calcul du nombre maximum de grands déplacements autorisés
+        var maxGrandsDeplacementsAutorises = Math.round(grandsDeplacements.length * pourcentageGrandDeplacement / 100);
+
+        // Ajustement de la liste des grands déplacements en fonction du pourcentage autorisé
+        grandsDeplacements = grandsDeplacements.slice(0, maxGrandsDeplacementsAutorises);
+
+        // Fusion des listes ajustées pour la génération du tableau
+        var resultatsAjustes = grandsDeplacements.concat(petitsDeplacements);
+        var nombreLignes = resultatsAjustes.length; // Utilisons la longueur de `resultatsAjustes` pour prendre en compte la contrainte de %age
+
         var indemniteChoisie = prime_montant_01; // Valeur de l'indemnité choisie
         var tableauHtml = "<table border='1'>";
         tableauHtml += "<tr><th>Domicile / Départ</th><th>Patinoire de destination</th><th>Distances</th><th>Péages routiers</th><th>Temps de trajet</th><th>Grand déplacement semaine 🚣</th><th>Indemnités kilométriques</th><th>Repas 🍟</th><th>Hôtel 🏰</th><th>Prime de match</th><th>Indemnités kilométriques - PRK</th></tr>";
-    
+
         for (var i = 0; i < nombreLignes; i++) {
-            var trajet = resultats[i];
+            var trajet = resultatsAjustes[i];       // Utilisation de `resultatsAjustes` pour prendre en compte la contrainte de %age
             var prk = trajet.Km > 0 ? trajet.Km * parseFloat(prkVoiture) : 0;
-    
+
             var grandDeplacementSemaine = trajet.Km > 500 ? 80 : 0;
             var nombreRepas = trajet.Km > 500 ? 2 : 1;
             var prixHotel = trajet.Km > 500 ? 87 : 0;
-    
+
             var indemniteKilometrique = (trajet.Km * 0.410).toFixed(2);
     
             tableauHtml += `<tr><td>${trajet.VilleDepart}</td><td>${trajet.VilleDestination}</td><td>${trajet.Km} Km</td><td>${trajet.Peages} €</td><td>${trajet.TempsTrajet}</td><td>${grandDeplacementSemaine}</td><td>${indemniteKilometrique} €</td><td>${nombreRepas * 17} €</td><td>${prixHotel} €</td><td>${indemniteChoisie} €</td><td>${parseFloat(prk).toFixed(2)} €</td></tr>`;
@@ -136,7 +152,7 @@ var display = {
             totalGrandDeplacement += grandDeplacementSemaine;
             totalDistance += parseFloat(trajet.Km);
             totalPeages += parseFloat(trajet.Peages);
-            totalPRK += prk;
+            totalPRK += parseFloat(prk);
     
             var [tempsTrajetHeures, tempsTrajetMinutes] = trajet.TempsTrajet.split("h").map(num => parseInt(num, 10));
             totalTempsTrajetMinutes += tempsTrajetHeures * 60 + tempsTrajetMinutes;
@@ -154,13 +170,6 @@ var display = {
         return tableauHtml;
     },  
 };
-
-
-
-
-
-
-
 
 // génération du menu des saisons
 var menuSaisons = function() {
