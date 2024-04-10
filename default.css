@@ -184,7 +184,7 @@ p {
  width: 200px;
 }
 
-#tableauResultats tr:hover {
+#tableauHistorique tr:hover {
   background-color: yellow;
   font-weight: 600;
   border-color: orangered;
