@@ -18,7 +18,7 @@ Sous licence GPL3.
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-chord/3.0.1/d3.chord.min.js"></script>
+  <!----  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-chord/3.0.1/d3.chord.min.js"></script> -->
 
     <script src="data.js"></script>
     <script src="display.js"></script>
@@ -34,12 +34,15 @@ Sous licence GPL3.
     Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité des auteurs.<br>
     <hr>
     <h1>Paramétrage</h1>
-    <form>
+    <form onchange="display.updatePrimeMontant()">
+        
         <label for="menuVillesDepart">Choisir une ville de départ pour générer les désignations : </label>
         <div id="menuVillesDepart">
-            <select id="villeDepart" title=""></select>
+            
+            <select id="villeDepart" title="Select a departure city"></select>
         </div>
-           <select id="menuPRK"></select>
+        
+        <select id="menuPRK" title="Select an option"></select>
         </div><br>
     
         <br>

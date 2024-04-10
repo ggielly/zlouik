@@ -197,13 +197,6 @@ var gereEvents = function() {
 
     document.getElementById("villeDepart").addEventListener("input", display.updateHistoriqueVille);
     document.getElementById("menuPRK").addEventListener("input", display.updateHistoriquePRK);
-
-    // Événement lorsqu'une saison est sélectionnée
-    const selectSaison = document.getElementById("selectSaison");
-    selectSaison.addEventListener("change", function() {
-        const selectedSaison = selectSaison.value;
-        console.log("La saison sélectionnée est :", selectedSaison);
-    });
 };
 
 
@@ -211,6 +204,8 @@ var gereEvents = function() {
 // ajout des menus calculés dynamiquement
 // appel des fonctions de calcul initial de certaines données basées sur  primes / frais / nb match
 var initialize = function() {
+    // affichage des sliders et des valeurs initiales
+    display.updatePrimeMontant()
     // ajout menu villes de départ
     display.menuVilles();
     // ajout menu PRK
