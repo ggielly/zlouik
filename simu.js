@@ -213,8 +213,6 @@ var gereEvents = function() {
 var initialize = function() {
     // ajout menu villes de départ
     display.menuVilles();
-    // ajout menu saisons
-    display.menuSaisons();
     // ajout menu PRK
     display.menuPRK();
     // calcul des destinations possibles
