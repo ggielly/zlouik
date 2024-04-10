@@ -19,7 +19,7 @@ Sous licence GPL3.
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-chord/3.0.1/d3.chord.min.js"></script>
-    
+
     <script src="data.js"></script>
     <script src="initialisation.js"></script>
     <script src="simu.js"></script>
@@ -35,6 +35,10 @@ Sous licence GPL3.
     indicatif
     et ne sauraient engager la responsabilité de l'association. version 0.1 - 20240408<br>
     <hr>
+    <h1>Informations</h1>
+    Vous êtes agent public (fonctionnaire d'état, territorial, hospitalière ou contractuel) : seule la micro-entreprise est possible, une fois la demande de cumul acceptée.
+    
+    <hr>
     <h1>Paramétrage</h1>
     <form onchange="updatePrimeMontant()">
         <label for="menuVillesDepart">Choisir une ville de départ pour générer les désignations : </label>
@@ -42,74 +46,83 @@ Sous licence GPL3.
         <label for="selectSaison">Choisir une saison : </label><select id="selectSaison"></select><br>
 
         <div id="menuPRK"></div><br>
-
+    
         <br>
         <table class="affichageValeurs">
-      <tr>
-        <th>Montant des primes par match</th>
-        <th>Montants des frais</th>
-        <th>Nombre de matchs</th>
-  
-      </tr>
-      <tr>
-        <td>
-          
-          <label for="prime_montant_01" >Saison Régulière</label><label for="prime_montant_01"></label><output id="valeur_prime_01"></output>
-          <input type="range" id="prime_montant_01" name="prime_montant_01" min="100" max="1000" value="550" step="10"><br>
-  
-          <label for="prime_montant_02">Poule de relégation</label><label for="prime_montant_02"></label><output id="valeur_prime_02"></output>
+            <tr>
+                <th>Montant des primes par match</th>
+                <th>Montants des frais</th>
+                <th>Nombre de matchs</th>
+    
+            </tr>
+            <tr>
+                <td>
+    
+                    <label for="prime_montant_01">Saison régulière</label><label for="prime_montant_01"></label><output
+                        id="valeur_prime_01"></output>
+                    <input type="range" id="prime_montant_01" name="prime_montant_01" min="100" max="1000" value="550" step="10"><br>
+    
+                    <label for="prime_montant_02">Poule de relégation</label><label for="prime_montant_02"></label><output
+                        id="valeur_prime_02"></output>
                     <input type="range" id="prime_montant_02" name="prime_montant_02" min="100" max="1000" value="700" step="10"><br>
-  
-          <label for="prime_montant_03">Phase finale</label><label for="prime_montant_03"></label><output id="valeur_prime_03"></output>
-          <input type="range" id="prime_montant_03" name="prime_montant_03" min="100" max="1000" value="800" step="10">
-        </td>
-  
-        <td>
-          <label for="frais_par_match01"></label><output id="valeur_frais_01"></output>
-          <input type="range" id="frais_par_match01" name="frais_par_match01" min="10" max="1200" value="130" step="10">
-  
-          <label for="frais_par_match02"></label><output id="valeur_frais_02"></output>
-          <input type="range" id="frais_par_match02" name="frais_par_match02" min="10" max="1200" value="260" step="10">
-  
-          <label for="frais_par_match03"></label><output id="valeur_frais_03"></output>
-          <input type="range" id="frais_par_match03" name="frais_par_match03" min="10" max="1200" value="260" step="10">
-        </td>
-        
-        <td>
-          <label for="nbre_matchs_01"></label><output id="valeur_match_01"></output>
-          <input type="range" id="nbre_matchs_01" name="nbre_matchs_01" min="0" max="60" value="25" step="1">
     
-          <label for="nbre_matchs_02"></label><output id="valeur_match_02"></output>
-          <input type="range" id="nbre_matchs_02" name="nbre_matchs_02" min="0" max="60" value="40" step="1">
-         
-          <label for="nbre_matchs_03"></label><output id="valeur_match_03"></output>
-          <input type="range" id="nbre_matchs_03" name="nbre_matchs_03" min="0" max="60" value="7" step="1">
-          <br><label for="pourcentageGrandDeplacement">Pourcentage de match en semaine avec grands déplacements :</label><br>
-          <input type="range" id="pourcentageGrandDeplacement" name="pourcentageGrandDeplacement" min="0" max="100" value="0" step="1" oninput="this.nextElementSibling.value = this.value">
-          <output>0</output>%
-        </td>
-    </tr>
-    </table><br><br>
-    <hr>
-    <h1>Calcul historique basé sur un remboursement des frais + indemnités de préparation et d'équipement</h1>
-    <p>Montant des primes de préparation et d'équipement :
-    <form id="indemniteChoisieForm">
-        <input type="radio" id="indemnite145" name="indemnite" value="145" onchange="updateTableau()">
-        <label for="indemnite145">145</label>
-        <input type="radio" id="indemnite130" name="indemnite" value="130" onchange="updateTableau()">
-        <label for="indemnite130">130</label>
-        <input type="radio" id="indemnite115" name="indemnite" value="115" onchange="updateTableau()">
-        <label for="indemnite115">115</label>
-        <input type="radio" id="indemnite100" name="indemnite" value="100" onchange="updateTableau()" checked>
-        <label for="indemnite100">100</label>
+                    <label for="prime_montant_03">Phase finale</label><label for="prime_montant_03"></label><output
+                        id="valeur_prime_03"></output>
+                    <input type="range" id="prime_montant_03" name="prime_montant_03" min="100" max="1000" value="800" step="10">
+                </td>
+    
+                <td>
+                    <label for="frais_par_match01"></label><output id="valeur_frais_01"></output>
+                    <label for="frais_par_match01">Saison régulière</label>
+                    <input type="range" id="frais_par_match01" name="frais_par_match01" min="10" max="1200" value="130" step="10">
+    
+                    <label for="frais_par_match02"></label><output id="valeur_frais_02"></output>
+                    <label for="frais_par_match02">Poule de relégation</label>
+                    <input type="range" id="frais_par_match02" name="frais_par_match02" min="10" max="1200" value="260" step="10">
+    
+                    <label for="frais_par_match03"></label><output id="valeur_frais_03"></output>
+                    <label for="frais_par_match03">Phase finale</label>
+                    <input type="range" id="frais_par_match03" name="frais_par_match03" min="10" max="1200" value="260" step="10">
+                </td>
+    
+                <td>
+                    <label for="nbre_matchs_01"></label><output id="valeur_match_01"></output>
+                    <label for="nbre_matchs_01">Saison régulière</label>
+                    <input type="range" id="nbre_matchs_01" name="nbre_matchs_01" min="0" max="60" value="25" step="1">
+    
+                    <label for="nbre_matchs_02"></label><output id="valeur_match_02"></output>
+                    <label for="nbre_matchs_02">Poule relegation</label>
+                    <input type="range" id="nbre_matchs_02" name="nbre_matchs_02" min="0" max="60" value="40" step="1">
+    
+                    <label for="nbre_matchs_03"></label><output id="valeur_match_03"></output>
+                    <label for="nbre_matchs_03">Phase finale</label>
+                    <input type="range" id="nbre_matchs_03" name="nbre_matchs_03" min="0" max="60" value="7" step="1">
+                    <br>
+                    <label for="pourcentageGrandDeplacement">Pourcentage de match en semaine avec grands déplacements : </label><br>
+                    <input type="range" id="pourcentageGrandDeplacement" name="pourcentageGrandDeplacement" min="0" max="100" value="0" step="1" oninput="this.nextElementSibling.value = this.value">
+                    <output>0</output>%
+                </td>
+            </tr>
+        </table><br><br>
+        <hr>
+        <h1>Calcul historique basé sur un remboursement des frais + indemnités de préparation et d'équipement</h1>
+        <p>Montant des primes de préparation et d'équipement :
+        <form id="indemniteChoisieForm">
+            <input type="radio" id="indemnite145" name="indemnite" value="145" onchange="updateTableau()">
+            <label for="indemnite145">145</label>
+            <input type="radio" id="indemnite130" name="indemnite" value="130" onchange="updateTableau()">
+            <label for="indemnite130">130</label>
+            <input type="radio" id="indemnite115" name="indemnite" value="115" onchange="updateTableau()">
+            <label for="indemnite115">115</label>
+            <input type="radio" id="indemnite100" name="indemnite" value="100" onchange="updateTableau()" checked>
+            <label for="indemnite100">100</label>
+        </form>
+        </p>
+        <br>
+    
+        <div id="tableauResultats"></div><br>
+    
     </form>
-    </p><br>
-    <p><button type="button" id="refreshButton">Rafraîchir les données</button></p>
-    
-    <div id="tableauResultats"></div><br>
-    
-    </form>
-
 
 <br><br><hr>
 <h1>Calculs basés sur une prime de match (rémunération)</h1>
