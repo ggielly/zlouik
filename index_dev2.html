@@ -8,36 +8,43 @@ Sous licence GPL3.
 
 -->
 <html lang="fr">
-<head>
- <meta charset="UTF-8"/>
- <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
- <title>Simulateur AAHG</title>
-   
- <link href="default.css" rel="stylesheet" />
- <!---- Inclure Chart.js    <select id="selectVilleDepart"-->
- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
- <script src="https://d3js.org/d3.v7.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-chord/3.0.1/d3.chord.min.js"></script>
- <script src="data.js"></script>
- <script src="initialisation.js"></script>
- <script src="simu.js"></script>
- <script src="graph.js"></script>
 
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulateur AAHG</title>
+
+    <link href="default.css" rel="stylesheet" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-chord/3.0.1/d3.chord.min.js"></script>
+    
+    <script src="data.js"></script>
+    <script src="initialisation.js"></script>
+    <script src="simu.js"></script>
+    <script src="graph.js"></script>
 </head>
+
 <body>
 
-<h1> Simulateur de rémunération vs. indemnités</h1>
-Association des arbitres de hockey sur glace 2024 - Tous droits réservés - Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité de l'association. version 0.1 - 20240408<br>
-<hr>
-<h1>Paramétrage</h1>
-<form onchange="updatePrimeMontant()">
-<label for="menuVillesDepart">Choisir une ville de départ pour générer les désignations : </label><div id="menuVillesDepart"></div>
-<label for="selectSaison">Choisir une saison : </label><select id="selectSaison"></select><br>
+    <h1> ZLOUIK</h1>
+    Zone Logicielle Orientée Utilisation et Impositions Kafkaïennes, soit un générateur de simulation de primes et
+    historique des rémunérations.<br>
+    Association des arbitres de hockey sur glace 2024 - Tous droits réservés - Les données sont fournies à titre
+    indicatif
+    et ne sauraient engager la responsabilité de l'association. version 0.1 - 20240408<br>
+    <hr>
+    <h1>Paramétrage</h1>
+    <form onchange="updatePrimeMontant()">
+        <label for="menuVillesDepart">Choisir une ville de départ pour générer les désignations : </label>
+        <div id="menuVillesDepart"></div>
+        <label for="selectSaison">Choisir une saison : </label><select id="selectSaison"></select><br>
 
-<div id="menuPRK"></div><br>
+        <div id="menuPRK"></div><br>
 
-<br>
-  <table class="affichageValeurs">
+        <br>
+        <table class="affichageValeurs">
       <tr>
         <th>Montant des primes par match</th>
         <th>Montants des frais</th>
@@ -81,12 +88,27 @@ Association des arbitres de hockey sur glace 2024 - Tous droits réservés - Les
           <input type="range" id="pourcentageGrandDeplacement" name="pourcentageGrandDeplacement" min="0" max="100" value="0" step="1" oninput="this.nextElementSibling.value = this.value">
           <output>0</output>%
         </td>
-      </tr>
+    </tr>
     </table><br><br>
     <hr>
-    <h1>Calcul Historique basé sur un remboursement des frais + indemnités de préparation et d'équipement</h1>
+    <h1>Calcul historique basé sur un remboursement des frais + indemnités de préparation et d'équipement</h1>
+    <p>Montant des primes de préparation et d'équipement :
+    <form id="indemniteChoisieForm">
+        <input type="radio" id="indemnite145" name="indemnite" value="145" onchange="updateTableau()">
+        <label for="indemnite145">145</label>
+        <input type="radio" id="indemnite130" name="indemnite" value="130" onchange="updateTableau()">
+        <label for="indemnite130">130</label>
+        <input type="radio" id="indemnite115" name="indemnite" value="115" onchange="updateTableau()">
+        <label for="indemnite115">115</label>
+        <input type="radio" id="indemnite100" name="indemnite" value="100" onchange="updateTableau()" checked>
+        <label for="indemnite100">100</label>
+    </form>
+    </p><br>
+    <p><button type="button" id="refreshButton">Rafraîchir les données</button></p>
+    
     <div id="tableauResultats"></div><br>
-  </form>
+    
+    </form>
 
 
 <br><br><hr>
