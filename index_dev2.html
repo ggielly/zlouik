@@ -40,14 +40,17 @@ Sous licence GPL3.
     
     <hr>
     <h1>Paramétrage</h1>
-    <form onchange="updatePrimeMontant()">
+    <form onchange="updateCalculs">
         <label for="menuVillesDepart">Choisir une ville de départ pour générer les désignations : </label>
         <div id="menuVillesDepart">
             <select id="villeDepart"></select>
         </div>
         <label for="selectSaison">Choisir une saison : </label><select id="selectSaison"></select><br>
 
-        <div id="menuPRK"></div><br>
+        <div >
+            <label for='PRKVoiture'>Sélection du Prix de Revient Kilométrique (PRK) du véhicule : </label>
+            <select id="menuPRK"></select>
+        </div><br>
     
         <br>
         <table class="affichageValeurs">
@@ -114,7 +117,7 @@ Sous licence GPL3.
             <label for="indemnite145">145</label>
             <input type="radio" id="indemnite130" name="indemnite" value="130" onchange="updateTableau()">
             <label for="indemnite130">130</label>
-            <input type="radio" id="indemnite115" name="indemnite" value="115" onchange="updateTableau()">
+            updatePRK <input type="radio" id="indemnite115" name="indemnite" value="115" onchange="updateTableau()">
             <label for="indemnite115">115</label>
             <input type="radio" id="indemnite100" name="indemnite" value="100" onchange="updateTableau()" checked>
             <label for="indemnite100">100</label>
@@ -122,7 +125,7 @@ Sous licence GPL3.
         </p>
         <br>
     
-        <div id="tableauResultats"></div><br>
+        <div id="tableauHistorique"></div><br>
     
     </form>
 
