@@ -292,7 +292,7 @@ Sous licence GPL3.
     <br>
     <table class="affichageValeurs">
       <tr>
-        <th>Montant des primes par match</th>
+        <th>Montant des futures primes par match</th>
         <th>Montants des frais</th>
         <th>Nombre de matchs</th>
 
@@ -335,14 +335,34 @@ Sous licence GPL3.
 
           <label for="nbre_matchs_03"></label><output id="valeur_match_03"></output>
           <input type="range" id="nbre_matchs_03" name="nbre_matchs_03" min="0" max="60" value="7" step="1">
+
+          <br><label for="pourcentageGrandDeplacement">Pourcentage de match en semaine avec grands déplacements :</label><br>
+<input type="range" id="pourcentageGrandDeplacement" name="pourcentageGrandDeplacement" min="0" max="100" value="0" step="1" oninput="this.nextElementSibling.value = this.value">
+<output>0</output>%
+
         </td>
       </tr>
     </table><br><br>
     <hr>
-    <h1>Calcul Historique basé sur un remboursement des frais + indemnités de préparation et d'équipement</h1>
+
+   
+
+    <h1>Calcul historique basé sur un remboursement des frais + indemnités de préparation et d'équipement</h1>
+    <p>Montant des primes de préparation et d'équipement : <form id="indemniteChoisieForm">
+      <input type="radio" id="indemnite145" name="indemnite" value="145" onchange="updateTableau()">
+      <label for="indemnite145">145</label>
+      <input type="radio" id="indemnite130" name="indemnite" value="130" onchange="updateTableau()">
+      <label for="indemnite130">130</label>
+      <input type="radio" id="indemnite115" name="indemnite" value="115" onchange="updateTableau()">
+      <label for="indemnite115">115</label>
+      <input type="radio" id="indemnite100" name="indemnite" value="100" onchange="updateTableau()" checked>
+      <label for="indemnite100">100</label>
+    </form></p><br>
+    <p><button type="button" id="refreshButton">Rafraîchir les données</button></p>
+
     <div id="tableauResultats"></div><br>
 
-    <button type="button" id="refreshButton">Rafraîchir les données</button>
+  
 
   </form>
 
@@ -896,6 +916,8 @@ Sous licence GPL3.
     document.getElementById("nbre_matchs_03").addEventListener("input", updatePrimeMontant);
 
     // Déclaration des variables
+    
+    var nombreIterations = 0;
     var frais_banque = 240;
     var frais_comptable = 400;
     var frais_urssaf = 1500;
@@ -905,6 +927,7 @@ Sous licence GPL3.
     var nbre_matchs_01 = 0;
     var nbre_matchs_02 = 0;
     var nbre_matchs_03 = 0;
+    var totalmatch = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
     var prime_montant_01 = 550;
     var prime_montant_02 = 700;
     var prime_montant_03 = 800;
@@ -1163,6 +1186,8 @@ Sous licence GPL3.
       const tranches = [11292, 28798, 82342, 177107];
       const taux = [0.11, 0.3, 0.41, 0.45];
 
+      const totalmatch = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
+
       ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Affichage des résultats dans le tableau 1 
       ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1202,7 +1227,6 @@ Sous licence GPL3.
       document.getElementById("cell12_3").innerHTML = resultat_net_03.toLocaleString('fr-FR') + " €"; // Caillasse annuelle
 
       // Ligne 4 => Sommes annuelles
-      const totalmatch = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
       document.getElementById("cell2_4").innerHTML = totalmatch.toLocaleString('fr-FR'); // Nombre de matchs ANNUEL
 
       document.getElementById("cell7_4").innerHTML = (brut_annuel_01 + brut_annuel_02 + brut_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des bruts sur la saison
@@ -1515,54 +1539,35 @@ Sous licence GPL3.
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Définition des tranches d'imposition et des taux correspondants
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /*
-    function calculer_IR_EURL(AC16, tranche01_bas, tranche02_bas, tranche03_bas, tranche04_bas, tranche01_haut, tranche02_haut, tranche03_haut, tranche01_pourcent, tranche02_pourcent, tranche03_pourcent, tranche04_pourcent) {
-
-      if (AC16 < tranche01_haut) {
-
-        const tempdebug = (AC16 - tranche01_bas) * tranche01_pourcent;
-
-        return (AC16 - tranche01_bas) * tranche01_pourcent;
-      } else if (AC16 < tranche02_haut) {
-
-        return tranche01_pourcent * (tranche01_haut - tranche01_bas) + (AC16 - tranche02_bas) * tranche02_pourcent;
-      } else if (AC16 < tranche03_haut) {
-
-        return (tranche01_haut - tranche01_bas) * tranche01_pourcent + (tranche02_haut - tranche02_bas) * tranche02_pourcent + (AC16 - tranche03_bas) * tranche03_pourcent;
-      } else {
-
-        return (AC16 - tranche04_bas) * tranche04_pourcent + (tranche03_haut - tranche03_bas) * tranche03_pourcent + (tranche02_haut - tranche02_bas) * tranche02_pourcent + (tranche01_haut - tranche01_bas) * tranche01_pourcent;
-      }
-    }*/
     function calculer_IR_EURL(
-  AC16,
-  tranche01_bas, tranche02_bas, tranche03_bas, tranche04_bas,
-  tranche01_haut, tranche02_haut, tranche03_haut,
-  tranche01_pourcent, tranche02_pourcent, tranche03_pourcent, tranche04_pourcent
-) {
-  // Calculate tax for income falling within the first bracket
-  if (AC16 <= tranche01_haut) {
-    return (AC16 - tranche01_bas) * tranche01_pourcent;
-  }
-  
-  // Calculate tax for income falling within the second bracket
-  if (AC16 <= tranche02_haut) {
-    return (tranche01_haut - tranche01_bas) * tranche01_pourcent + (AC16 - tranche02_bas) * tranche02_pourcent;
-  }
-  
-  // Calculate tax for income falling within the third bracket
-  if (AC16 <= tranche03_haut) {
-    return (tranche01_haut - tranche01_bas) * tranche01_pourcent + 
-           (tranche02_haut - tranche02_bas) * tranche02_pourcent + 
-           (AC16 - tranche03_bas) * tranche03_pourcent;
-  }
-  
-  // Calculate tax for income exceeding all the above brackets
-  return (tranche01_haut - tranche01_bas) * tranche01_pourcent + 
-         (tranche02_haut - tranche02_bas) * tranche02_pourcent + 
-         (tranche03_haut - tranche03_bas) * tranche03_pourcent + 
-         (AC16 - tranche04_bas) * tranche04_pourcent;
-}
+      AC16,
+      tranche01_bas, tranche02_bas, tranche03_bas, tranche04_bas,
+      tranche01_haut, tranche02_haut, tranche03_haut,
+      tranche01_pourcent, tranche02_pourcent, tranche03_pourcent, tranche04_pourcent
+    ) {
+      // Calculate tax for income falling within the first bracket
+      if (AC16 <= tranche01_haut) {
+        return (AC16 - tranche01_bas) * tranche01_pourcent;
+      }
+
+      // Calculate tax for income falling within the second bracket
+      if (AC16 <= tranche02_haut) {
+        return (tranche01_haut - tranche01_bas) * tranche01_pourcent + (AC16 - tranche02_bas) * tranche02_pourcent;
+      }
+
+      // Calculate tax for income falling within the third bracket
+      if (AC16 <= tranche03_haut) {
+        return (tranche01_haut - tranche01_bas) * tranche01_pourcent +
+          (tranche02_haut - tranche02_bas) * tranche02_pourcent +
+          (AC16 - tranche03_bas) * tranche03_pourcent;
+      }
+
+      // Calculate tax for income exceeding all the above brackets
+      return (tranche01_haut - tranche01_bas) * tranche01_pourcent +
+        (tranche02_haut - tranche02_bas) * tranche02_pourcent +
+        (tranche03_haut - tranche03_bas) * tranche03_pourcent +
+        (AC16 - tranche04_bas) * tranche04_pourcent;
+    }
 
 
 
@@ -1823,26 +1828,26 @@ Sous licence GPL3.
 
     // Fonction pour créer le menu déroulant des villes de départ
     function creerMenuVillesDepart() {
-  // Création d'un ensemble pour stocker les villes de départ uniques
-  var villesDepartSet = new Set();
+      // Création d'un ensemble pour stocker les villes de départ uniques
+      var villesDepartSet = new Set();
 
-  // Ajout des villes de départ à l'ensemble
-  data.forEach(function (trajet) {
-    villesDepartSet.add(trajet.VilleDepart);
-  });
+      // Ajout des villes de départ à l'ensemble
+      data.forEach(function (trajet) {
+        villesDepartSet.add(trajet.VilleDepart);
+      });
 
-  // Conversion de l'ensemble en tableau et tri par ordre alphabétique
-  var villesDepartArray = Array.from(villesDepartSet).sort();
+      // Conversion de l'ensemble en tableau et tri par ordre alphabétique
+      var villesDepartArray = Array.from(villesDepartSet).sort();
 
-  // Création du menu déroulant des villes de départ
-  var selectHtml = "<select id='selectVilleDepart' onchange='afficherResultats()'>";
-  // Itération sur le tableau des villes de départ triées
-  villesDepartArray.forEach(function (villeDepart) {
-    selectHtml += "<option value='" + villeDepart + "'>" + villeDepart + "</option>";
-  });
-  selectHtml += "</select>";
-  return selectHtml;
-}
+      // Création du menu déroulant des villes de départ
+      var selectHtml = "<select id='selectVilleDepart' onchange='afficherResultats()'>";
+      // Itération sur le tableau des villes de départ triées
+      villesDepartArray.forEach(function (villeDepart) {
+        selectHtml += "<option value='" + villeDepart + "'>" + villeDepart + "</option>";
+      });
+      selectHtml += "</select>";
+      return selectHtml;
+    }
 
 
     // Définition des années de la saison
@@ -1852,7 +1857,7 @@ Sous licence GPL3.
     const selectContainer = document.getElementById("menuVillesDepart");
 
     // Valeur par défaut du PRKVoiture
-    const prkVoiture = 0.01;
+    var prkVoiture = 0.01;
 
     // Tableau pour stocker les résultats
     const resultats = [];
@@ -1888,6 +1893,8 @@ Sous licence GPL3.
 
     // Fonction pour afficher les résultats en fonction de la ville de départ sélectionnée
     function afficherResultats() {
+      totalmatch = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
+
       // Récupération de la ville de départ sélectionnée
       var selectElement = document.getElementById("selectVilleDepart");
       if (selectElement) {
@@ -1901,7 +1908,7 @@ Sous licence GPL3.
         // Génération du tableau des résultats si des résultats ont été trouvés
         var tableauHtml = "";
         if (resultats.length > 0) {
-          tableauHtml = genererTableauResultats(resultats);
+          tableauHtml = genererTableauResultats(resultats, prkVoiture, totalmatch);
 
           // Récupération de l'élément conteneur pour le tableau des résultats
           var tableauContainer = document.getElementById("tableauResultats");
@@ -1922,7 +1929,12 @@ Sous licence GPL3.
     }
 
     // Nombre total d'itérations à effectuer
-    var nombreIterations = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03;
+    totalmatch = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
+
+    nombreIterations = totalmatch;
+    //var nombreIterations = 1;
+    console.log("Nombre d'itérations à effectuer :", nombreIterations);
+
 
     // Récupération de l'élément selectVilleDepart
     var selectElement = document.getElementById("selectVilleDepart");
@@ -1954,6 +1966,20 @@ Sous licence GPL3.
       console.error("L'élément selectVilleDepart n'existe pas dans le document.");
     }
 
+
+    function updateTableau() {
+  // Supposons que prkVoiture est récupéré de la même manière qu'avant
+  var prkVoiture = parseFloat(document.getElementById('PRKVoiture').value);
+
+  // Utilisation de `data` directement, car elle contient déjà les trajets
+  var resultats = data; 
+
+  // Mettre à jour le contenu du tableau des résultats avec les données filtrées et le PRKVoiture sélectionné
+  document.getElementById("tableauResultats").innerHTML = genererTableauResultats(resultats, prkVoiture);
+}
+
+
+
     /**
      * Génère un tableau HTML affichant les résultats des trajets.
      * @param {Array} resultats Les résultats des trajets.
@@ -1973,24 +1999,28 @@ Sous licence GPL3.
       var nombreLignes = resultats.length; // Nombre de lignes du tableau
       var nombreGrandDeplacementSemaine = 0; // Initialisation de la variable pour le comptage des grands déplacements en semaine
 
-      var indemniteChoisie = prime_montant_01; // Valeur de l'indemnité choisie
+      //var indemniteChoisie = prime_montant_01; // Valeur de l'indemnité choisie
       var tableauHtml = "<table border='1'>";
+
+          // Récupération de la valeur sélectionnée
+  var indemniteChoisie = document.querySelector('input[name="indemnite"]:checked').value;
+
       tableauHtml += "<tr><th>Domicile / Départ</th><th>Patinoire de destination</th><th>Distances A/R</th><th>Péages routiers A/R</th><th>Temps de trajet A/R</th><th>Grand déplacement semaine 🚣</th><th>Indemnités kilométriques A/R</th><th>Repas 🍟</th><th>Hôtel 🏰</th><th>Prime de match</th><th>Indemnités kilométriques - PRK</th></tr>";
 
       for (var i = 0; i < nombreLignes; i++) {
         var trajet = resultats[i];
         var prk = trajet.Km > 0 ? trajet.Km * parseFloat(prkVoiture) : 0;
-
+        
         var grandDeplacementSemaine = trajet.Km > 500 ? 80 : 0;
         if (grandDeplacementSemaine > 0) {
-      nombreGrandDeplacementSemaine++; // Incrémenter le compteur pour chaque grand déplacement
-    }
+          nombreGrandDeplacementSemaine++; // Incrémenter le compteur pour chaque grand déplacement
+        }
         var nombreRepas = trajet.Km > 500 ? 2 : 1;
         var prixHotel = trajet.Km > 500 ? 87 : 0;
 
         var indemniteKilometrique = (trajet.Km * 0.410).toFixed(2);
 
-        tableauHtml += `<tr><td>${trajet.VilleDepart}</td><td>${trajet.VilleDestination} </td><td>${2*trajet.Km} Km</td><td>${2*trajet.Peages} €</td><td>2 x ${trajet.TempsTrajet}</td><td>${grandDeplacementSemaine}</td><td>${2*indemniteKilometrique} €</td><td>${nombreRepas * 17} €</td><td>${prixHotel} €</td><td>${indemniteChoisie} €</td><td>${parseFloat(prk).toFixed(2)} €</td></tr>`;
+        tableauHtml += `<tr><td>${trajet.VilleDepart}</td><td>${trajet.VilleDestination} </td><td>${2 * trajet.Km} Km</td><td>${2 * trajet.Peages} €</td><td>2 x ${trajet.TempsTrajet}</td><td>${grandDeplacementSemaine}</td><td>${2 * indemniteKilometrique} €</td><td>${nombreRepas * 17} €</td><td>${prixHotel} €</td><td>${indemniteChoisie} €</td><td>${parseFloat(prk).toFixed(2)} €</td></tr>`;
 
         totalIndemnitesKilometriques += parseFloat(indemniteKilometrique);
         totalRepas += nombreRepas * 17;
@@ -2005,15 +2035,15 @@ Sous licence GPL3.
         totalTempsTrajetMinutes += tempsTrajetHeures * 60 + tempsTrajetMinutes;
       }
 
-      var totalHeuresTrajet = Math.floor(totalTempsTrajetMinutes / 60) * 2 ;
+      var totalHeuresTrajet = Math.floor(totalTempsTrajetMinutes / 60) * 2;
       var totalMinutesTrajet = totalTempsTrajetMinutes % 60;
 
       tableauHtml += `<tr><th colspan='1'>TOTAUX</th>
         <td>${nombreLignes} matchs, ${nombreGrandDeplacementSemaine} dont en semaine</td>
-        <td>${2*totalDistance} Km</td><td>${2*totalPeages.toFixed(2)} €</td>
-        <td>${2*totalHeuresTrajet}h${2*totalMinutesTrajet}</td>
+        <td>${2 * totalDistance} Km</td><td>${2 * totalPeages.toFixed(2)} €</td>
+        <td>${2 * totalHeuresTrajet}h${2 * totalMinutesTrajet}</td>
         <td>${totalGrandDeplacement.toFixed(2)} €</td>
-        <td>${2*totalIndemnitesKilometriques.toFixed(2)} €</td>
+        <td>${2 * totalIndemnitesKilometriques.toFixed(2)} €</td>
         <td>${totalRepas.toFixed(2)} €</td>
         <td>${totalHotels.toFixed(2)} €</td>
         <td>${nombreLignes * indemniteChoisie} €</td>
@@ -2038,7 +2068,7 @@ Sous licence GPL3.
         var tableauContainer = document.getElementById("tableauResultats");
         if (tableauContainer) {
           // Mettre à jour le contenu du tableau des résultats avec les données et le PRKVoiture sélectionné
-          tableauContainer.innerHTML = genererTableauResultats(data, prkVoiture);
+          tableauContainer.innerHTML = genererTableauResultats(data, prkVoiture, totalmatch);
         } else {
           console.error("L'élément conteneur pour le tableau des résultats n'existe pas dans le document.");
         }
@@ -2063,6 +2093,8 @@ Sous licence GPL3.
 
       document.getElementById('refreshButton').addEventListener('click', function () {
         updatePrimeMontant();
+        updateTableau(); // Mettre à jour le tableau des résultats
+
       });
 
 
