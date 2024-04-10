@@ -28,29 +28,23 @@ Sous licence GPL3.
 
 <body>
 
-    <h1> ZLOUIK</h1>
+    <h1>ZLOUIK</h1>
     Zone Logicielle Orientée Utilisation et Impositions Kafkaïennes, soit un générateur de simulation de primes et
     historique des rémunérations.<br>
-    Association des arbitres de hockey sur glace 2024 - Tous droits réservés - Les données sont fournies à titre
-    indicatif
-    et ne sauraient engager la responsabilité de l'association. version 0.1 - 20240408<br>
+    Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité des auteurs.<br>
     <hr>
     <h1>Informations</h1>
     Vous êtes agent public (fonctionnaire d'état, territorial, hospitalière ou contractuel) : seule la micro-entreprise est possible, une fois la demande de cumul acceptée.
-    
     <hr>
     <h1>Paramétrage</h1>
     <form onchange="updateCalculs">
         <label for="menuVillesDepart">Choisir une ville de départ pour générer les désignations : </label>
         <div id="menuVillesDepart">
-            <select id="villeDepart"></select>
+            <select id="villeDepart" title=""></select>
         </div>
         <label for="selectSaison">Choisir une saison : </label><select id="selectSaison"></select><br>
 
-        <div >
-            <label for='PRKVoiture'>Sélection du Prix de Revient Kilométrique (PRK) du véhicule : </label>
-            <select id="menuPRK"></select>
-        </div><br>
+        <div id="menuPRK"></div><br>
     
         <br>
         <table class="affichageValeurs">
@@ -685,7 +679,6 @@ Seuil TVA 36 800e.
   window.onload = init;
 </script>
 <br><br><br>
-Association des arbitres de hockey sur glace 2024 - Tous droits réservés - Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité de l'association.<br>
 En cas d'erreur ou de demande d'évolution, merci de me contacter à l'adresse suivante : <a href="mailto:guillaume ar0base rootshell.fr">guillaume at rootshell point fr</a><br>
 Pas de cookie, aucune donnée enregistrée côté serveur.
 </body>
