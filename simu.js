@@ -193,6 +193,8 @@ var gereEvents = function() {
     document.getElementById("nbre_matchs_02").addEventListener("input", updateCalculs);
     document.getElementById("nbre_matchs_03").addEventListener("input", updateCalculs);
 
+    document.getElementById("indemniteChoisieForm").addEventListener("change", display.updateHistoriqueVille);
+
     document.getElementById("villeDepart").addEventListener("input", display.updateHistoriqueVille);
     document.getElementById("menuPRK").addEventListener("input", display.updateHistoriquePRK);
 

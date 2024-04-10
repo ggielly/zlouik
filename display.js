@@ -24,8 +24,14 @@ var display = {
             // Création du menu déroulant des villes de départ
             var options = "";
             // Itération sur l'ensemble des villes de départ uniques
+            var first = true;
             villesDepartSet.forEach(function(villeDepart) {
-                options += "<option value='" + villeDepart + "'>" + villeDepart + "</option>\n";
+                var sel = "";
+                if (first) {
+                    sel = " selected";
+                    first = false;
+                }
+                options += "<option value='" + villeDepart + "'"+ sel + ">" + villeDepart + "</option>\n";
             });
             selectContainer.innerHTML = options;
         } else {
@@ -104,6 +110,7 @@ var display = {
     },
 
     // génère le tableau historique de résultats
+    // renvoie un tableau html, ne pas appeler directement
     tableauHistorique: function(resultats, prkVoiture) {
         var totalPRK = 0;
         var totalIndemnitesKilometriques = 0;
@@ -131,7 +138,7 @@ var display = {
         var resultatsAjustes = grandsDeplacements.concat(petitsDeplacements);
         var nombreLignes = resultatsAjustes.length; // Utilisons la longueur de `resultatsAjustes` pour prendre en compte la contrainte de %age
 
-        var indemniteChoisie = prime_montant_01; // Valeur de l'indemnité choisie
+        var indemniteChoisie = parseInt(document.getElementById('indemniteChoisieForm').indemnite.value);
         var tableauHtml = "<table border='1'>";
         tableauHtml += "<tr><th>Domicile / Départ</th><th>Patinoire de destination</th><th>Distances</th><th>Péages routiers</th><th>Temps de trajet</th><th>Grand déplacement semaine 🚣</th><th>Indemnités kilométriques</th><th>Repas 🍟</th><th>Hôtel 🏰</th><th>Prime de match</th><th>Indemnités kilométriques - PRK</th></tr>";
 

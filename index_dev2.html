@@ -37,14 +37,16 @@ Sous licence GPL3.
     Vous êtes agent public (fonctionnaire d'état, territorial, hospitalière ou contractuel) : seule la micro-entreprise est possible, une fois la demande de cumul acceptée.
     <hr>
     <h1>Paramétrage</h1>
-    <form onchange="updateCalculs">
+    <form>
         <label for="menuVillesDepart">Choisir une ville de départ pour générer les désignations : </label>
         <div id="menuVillesDepart">
             <select id="villeDepart" title=""></select>
         </div>
         <label for="selectSaison">Choisir une saison : </label><select id="selectSaison"></select><br>
 
-        <div id="menuPRK"></div><br>
+        <div>
+            <select id="menuPRK"></select>
+        </div><br>
     
         <br>
         <table class="affichageValeurs">
@@ -103,25 +105,26 @@ Sous licence GPL3.
                 </td>
             </tr>
         </table><br><br>
-        <hr>
-        <h1>Calcul historique basé sur un remboursement des frais + indemnités de préparation et d'équipement</h1>
-        <p>Montant des primes de préparation et d'équipement :
-        <form id="indemniteChoisieForm">
-            <input type="radio" id="indemnite145" name="indemnite" value="145" onchange="updateTableau()">
-            <label for="indemnite145">145</label>
-            <input type="radio" id="indemnite130" name="indemnite" value="130" onchange="updateTableau()">
-            <label for="indemnite130">130</label>
-            updatePRK <input type="radio" id="indemnite115" name="indemnite" value="115" onchange="updateTableau()">
-            <label for="indemnite115">115</label>
-            <input type="radio" id="indemnite100" name="indemnite" value="100" onchange="updateTableau()" checked>
-            <label for="indemnite100">100</label>
-        </form>
-        </p>
-        <br>
-    
-        <div id="tableauHistorique"></div><br>
-    
     </form>
+    <hr>
+    <h1>Calcul historique basé sur un remboursement des frais + indemnités de préparation et d'équipement</h1>
+        
+    <form id="indemniteChoisieForm">
+    <p>Montant des primes de préparation et d'équipement :            
+        <input type="radio" id="indemnite145" name="indemnite" value="145">
+        <label for="indemnite145">145</label>
+        <input type="radio" id="indemnite130" name="indemnite" value="130">
+        <label for="indemnite130">130</label>
+        <input type="radio" id="indemnite115" name="indemnite" value="115">
+        <label for="indemnite115">115</label>
+        <input type="radio" id="indemnite100" name="indemnite" value="100" checked>
+        <label for="indemnite100">100</label>
+        </p>
+    </form>
+    <br>
+
+    <div id="tableauHistorique"></div><br>
+    
 
 <br><br><hr>
 <h1>Calculs basés sur une prime de match (rémunération)</h1>
