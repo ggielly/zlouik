@@ -188,7 +188,6 @@ var gereEvents = function() {
     document.getElementById("prime_montant_02").addEventListener("change", updateCalculs);
     document.getElementById("prime_montant_03").addEventListener("change", updateCalculs);
 
-
     document.getElementById("frais_par_match01").addEventListener("input", display.updateSliderValues);
     document.getElementById("frais_par_match02").addEventListener("input", display.updateSliderValues);
     document.getElementById("frais_par_match03").addEventListener("input", display.updateSliderValues);
@@ -203,10 +202,9 @@ var gereEvents = function() {
     document.getElementById("nbre_matchs_02").addEventListener("change", updateCalculs);
     document.getElementById("nbre_matchs_03").addEventListener("change", updateCalculs);
 
-    document.getElementById("indemniteChoisieForm").addEventListener("change", display.updateHistoriqueVille);
-
-    document.getElementById("villeDepart").addEventListener("input", display.updateHistoriqueVille);
-    document.getElementById("menuPRK").addEventListener("input", display.updateHistoriquePRK);
+    document.getElementById("indemniteChoisieForm").addEventListener("change", display.updateHistorique);
+    document.getElementById("villeDepart").addEventListener("input", display.updateHistorique);
+    document.getElementById("menuPRK").addEventListener("input", display.updateHistorique);
 };
 
 

@@ -544,21 +544,6 @@ var display = {
         cotisations_urssaf_par_match_01 = prime_montant_01 * (pourcentage_urssaf / 100);
         cotisations_urssaf_par_match_02 = prime_montant_02 * (pourcentage_urssaf / 100);
         cotisations_urssaf_par_match_03 = prime_montant_03 * (pourcentage_urssaf / 100);
-    
-        // Mise à jour du tableau d'en tête
-        var prime1 = document.getElementById("prime_montant_01").value;
-        var prime2 = document.getElementById("prime_montant_02").value;
-        var prime3 = document.getElementById("prime_montant_03").value;
-    
-        var frais1 = document.getElementById("frais_par_match01").value;
-        var frais2 = document.getElementById("frais_par_match02").value;
-        var frais3 = document.getElementById("frais_par_match03").value;
-    
-        var nombre1 = document.getElementById("nbre_matchs_01").value;
-        var nombre2 = document.getElementById("nbre_matchs_02").value;
-        var nombre3 = document.getElementById("nbre_matchs_03").value;
-    
-
     },
     
     // Mise à jour des valeurs affichées des sliders
@@ -574,6 +559,12 @@ var display = {
         document.getElementById("valeur_match_01").textContent = document.getElementById("nbre_matchs_01").value;
         document.getElementById("valeur_match_02").textContent = document.getElementById("nbre_matchs_02").value;
         document.getElementById("valeur_match_03").textContent = document.getElementById("nbre_matchs_03").value;
+    },
+
+    // Actualise le tableau historique de façon globable
+    updateHistorique: function() {
+        display.updateHistoriquePRK();
+        display.updateHistoriqueVille();
     }
 };
 
