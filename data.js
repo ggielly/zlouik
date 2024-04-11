@@ -1,7 +1,11 @@
 // Ce fichier contient toutes les variables globales, les constantes et autres données
 
 // Déclaration des variables globales
+const nomHeaderTableauComparatif = ["Saison régulière", "Poule de relégation", "Phase finale"];
 var frais_banque = 240;
+
+var indemniteChoisie = 666; // DEBUG
+var totalIndemniteChoisie = 0; // DEBUG
 var frais_comptable = 400;
 var frais_urssaf = 1500;
 var repas = 15;
