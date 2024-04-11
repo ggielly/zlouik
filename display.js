@@ -70,7 +70,7 @@ var display = {
                 // Récupération du PRK de la voiture sélectionné
                 var prkVoiture = parseFloat(document.getElementById('menuPRK').value);
                 // Génération du tableau des résultats
-                var tableauHtml = display.tableauComparatif(resultats, prkVoiture);
+                var tableauHtml = display.tableauComparatif(resultats, prkVoiture, nomHeaderTableauComparatif);
 
                 // Récupération de l'élément conteneur pour le tableau des résultats
                 var tableauContainer = document.getElementById("tableauComparatif");
@@ -99,7 +99,7 @@ var display = {
     // nomHeaderTableauComparatif : nom du tableau à générer - TODO
     // nomPrimeTableauComparatif : nom de la prime à afficher - TODO
 // ORIGINALE
-    tableauComparatif: function(resultats, prkVoiture) {
+   /*  tableauComparatif: function(resultats, prkVoiture, nomHeaderTableauComparatif, nomPrimeTableauComparatif) {
         // Récupération des noms des colonnes du tableau comparatif
         var tableauGlobalHtml = ""; // Chaîne pour accumuler les tableaux HTML générés        
         var totalPRK = 0;
@@ -131,7 +131,7 @@ var display = {
 
         var indemniteChoisie = parseInt(document.getElementById('indemniteChoisieForm').indemnite.value);
 
-        var tableauHtml = "<table border='1'><thead><tr><th>nomHeaderTableauComparatif</th></tr></thead>";
+        var tableauHtml = "<table border='1'><thead><tr><th>${nomHeaderTableauComparatif}</th></tr></thead>";
 
 
         tableauHtml += "<tr><th>Domicile / Départ</th><th>Patinoire de destination</th><th>Distances</th><th>Péages routiers</th><th>Temps de trajet</th><th>Grand déplacement semaine 🚣</th><th>Indemnités kilométriques</th><th>Repas 🍟</th><th>Hôtel 🏰</th><th>Prime de match</th><th>Indemnités kilométriques - PRK</th><th>nomPrime</th></tr>";
@@ -180,64 +180,104 @@ var display = {
     
  
         return tableauHtml;
-    },  
+    },  */ 
 
-/*
+
     tableauComparatif: function (resultats, prkVoiture, nomHeaderTableauComparatif) {
-        var pourcentageGrandDeplacement = parseInt(document.getElementById("pourcentageGrandDeplacement").value, 10) / 100;
-        var indemniteChoisie = parseInt(document.getElementById('indemniteChoisieForm').indemnite.value);
-        var primeAmounts = [
-            document.getElementById('prime_montant_01').value,
-            document.getElementById('prime_montant_02').value,
-            document.getElementById('prime_montant_03').value
-        ];
+        
         var tableauGlobalHtml = "";
-    
-        // Iterate through each prime amount and corresponding header
-        nomHeaderTableauComparatif.forEach((header, index) => {
-            var primeMontant = parseFloat(primeAmounts[index]);
-            var tableauHtml = `<table border='1'><thead><tr><th colspan='12'>${header}</th></tr></thead><tbody>`;
-            tableauHtml += "<tr><th>Domicile / Départ</th><th>Patinoire de destination</th><th>Distances</th><th>Péages routiers</th><th>Temps de trajet</th><th>Grand déplacement semaine 🚣</th><th>Indemnités kilométriques</th><th>Repas 🍟</th><th>Hôtel 🏰</th><th>Prime de match</th><th>Indemnités kilométriques - PRK</th><th>nomPrime</th></tr>";
-    
-            let totals = { distance: 0, peages: 0, tempsTrajetMinutes: 0, prk: 0, indemnitesKilometriques: 0, repas: 0, hotels: 0, grandDeplacement: 0, primeMontantTotal: 0 };
-    
-            resultats.forEach(trajet => {
-                const km = parseFloat(trajet.Km);
-                const prk = km * parseFloat(prkVoiture);
-                const grandDeplacementSemaine = km > 500 ? 80 : 0;
-                const nombreRepas = km > 500 ? 2 : 1;
-                const prixHotel = km > 500 ? 87 : 0;
-                const indemniteKilometrique = (km * 0.410).toFixed(2);
-                
-                tableauHtml += `<tr><td>${trajet.VilleDepart}</td><td>${trajet.VilleDestination}</td><td>${km} Km</td><td>${trajet.Peages} €</td><td>${trajet.TempsTrajet}</td><td>${grandDeplacementSemaine} €</td><td>${indemniteKilometrique} €</td><td>${nombreRepas * 17} €</td><td>${prixHotel} €</td><td>${primeMontant} €</td><td>${prk.toFixed(2)} €</td></tr>`;
-    
-                // Update totals
-                totals.distance += km;
-                totals.peages += parseFloat(trajet.Peages);
-                totals.prk += prk;
-                totals.indemnitesKilometriques += parseFloat(indemniteKilometrique);
-                totals.repas += nombreRepas * 17;
-                totals.hotels += prixHotel;
-                totals.grandDeplacement += grandDeplacementSemaine;
-                totals.primeMontantTotal += primeMontant;
-                
-                const [tempsTrajetHeures, tempsTrajetMinutes] = trajet.TempsTrajet.split("h").map(num => parseInt(num, 10));
-                totals.tempsTrajetMinutes += tempsTrajetHeures * 60 + tempsTrajetMinutes;
+
+        /*// Récupération des noms des colonnes du tableau comparatif
+        indemniteChoisie = parseInt(document.getElementById('indemniteChoisieForm').indemnite.value);
+    console.log("indemniteChoisie avant : ", indemniteChoisie);
+
+        // Récupération de l'indemnité choisie
+        //indemniteChoisie = document.querySelector('#indemniteChoisieForm input[name="indemnite"]:checked');
+    console.log("indemniteChoisie apres : ", indemniteChoisie);
+
+        if (indemniteChoisie) {
+            indemniteChoisie = parseFloat(indemniteChoisie.valueOf);
+        } else {
+            console.error("ERREUR : Pas d'indemnité remontée.");
+            return; 
+        }*/
+
+        let indemniteChoisie = parseInt(document.getElementById('indemniteChoisieForm').indemnite.value);
+        if (!indemniteChoisie) {
+            console.error("ERREUR : Pas d'indemnité remontée.");
+            return; }
+
+        // Récupération du pourcentage de grands déplacements autorisés
+        const pourcentageGrandDeplacement = parseInt(document.getElementById("pourcentageGrandDeplacement").value, 10) / 100;
+
+        
+        // Itération sur chaque en-tête
+        nomHeaderTableauComparatif.forEach((nomHeader, index) => {
+            var tableauHtml = `<table border='1'><thead><tr><th colspan='11'>${nomHeader}</th></tr></thead><tbody>`;
+            tableauHtml += `<tr><th>Domicile / Départ</th><th>Patinoire de destination</th><th>Distances</th><th>Péages routiers</th><th>Temps de trajet</th><th>Grand déplacement semaine 🚣</th><th>Indemnités kilométriques</th><th>Repas 🍟</th><th>Hôtel 🏰</th><th>Prime de match</th><th>Indemnités kilométriques - PRK</th><th>nomPrime</th></tr>`;
+
+            let totalDistance = 0;
+            let totalPeages = 0;
+            let totalTempsTrajetMinutes = 0;
+            let totalPRK = 0;
+            let totalIndemnitesKilometriques = 0;
+            let totalRepas = 0;
+            let totalHotels = 0;
+            let totalGrandDeplacement = 0;
+
+            let filteredResults = resultats.filter(trajet => parseFloat(trajet.Km) > 250);
+            let maxGrandsDeplacementsAutorises = Math.round(filteredResults.length * pourcentageGrandDeplacement);
+            let grandsDeplacements = filteredResults.slice(0, maxGrandsDeplacementsAutorises);
+            let petitsDeplacements = resultats.filter(trajet => parseFloat(trajet.Km) <= 250);
+            let resultatsAjustes = grandsDeplacements.concat(petitsDeplacements);
+
+            resultatsAjustes.forEach(trajet => {
+                let prk = trajet.Km > 0 ? trajet.Km * parseFloat(prkVoiture) : 0;
+                let grandDeplacementSemaine = trajet.Km > 500 ? 80 : 0;
+                let nombreRepas = trajet.Km > 500 ? 2 : 1;
+                let prixHotel = trajet.Km > 500 ? 87 : 0;
+                let indemniteKilometrique = (trajet.Km * 0.410).toFixed(2);
+
+
+                //indemniteChoisie = parseFloat(document.getElementById('indemniteChoisieForm').indemnite.value); 
+
+                tableauHtml += `<tr><td>${trajet.VilleDepart}</td><td>${trajet.VilleDestination}</td>
+                        <td>${trajet.Km} Km</td><td>${trajet.Peages} €</td><td>${trajet.TempsTrajet}</td>
+                        <td>${grandDeplacementSemaine} €</td>
+                        <td>${indemniteKilometrique} €</td>
+                        <td>${nombreRepas * 17} €</td>
+                        <td>${prixHotel} €</td>
+                        <td>${indemniteChoisie} €</td>
+                        <td>${parseFloat(prk).toFixed(2)} €</td></tr>`;
+
+                totalDistance += parseFloat(trajet.Km);
+                totalPeages += parseFloat(trajet.Peages);
+                let [heures, minutes] = trajet.TempsTrajet.split('h').map(num => parseInt(num, 10));
+
+                totalTempsTrajetMinutes += heures * 60 + minutes;
+                totalPRK += parseFloat(prk);
+                totalIndemnitesKilometriques += parseFloat(indemniteKilometrique);
+                totalRepas += parseFloat(nombreRepas * 17);
+                totalHotels += parseFloat(prixHotel);
+                totalGrandDeplacement += parseFloat(grandDeplacementSemaine);
+                totalIndemniteChoisie += parseFloat(indemniteChoisie);
             });
-    
-            const totalHeuresTrajet = Math.floor(totals.tempsTrajetMinutes / 60);
-            const totalMinutesTrajet = totals.tempsTrajetMinutes % 60;
-    
-            tableauHtml += `<tr><th colspan='1'>TOTAUX</th><td>${resultats.length} matchs</td><td>${totals.distance} Km</td><td>${totals.peages.toFixed(2)} €</td><td>${totalHeuresTrajet}h${totalMinutesTrajet}</td><td>${totals.grandDeplacement.toFixed(2)} €</td><td>${totals.indemnitesKilometriques.toFixed(2)} €</td><td>${totals.repas.toFixed(2)} €</td><td>${totals.hotels.toFixed(2)} €</td><td>${totals.primeMontantTotal} €</td><td>${totals.prk.toFixed(2)} €</td></tr>`;
-            tableauHtml += "</table><br>";
-    
+
+            // Ajout des totaux au tableau
+            let totalHeuresTrajet = Math.floor(totalTempsTrajetMinutes / 60);
+            let totalMinutesTrajet = totalTempsTrajetMinutes % 60;
+            //
+            tableauHtml += `<tr><th colspan='1'>TOTAUX</th><td>${resultatsAjustes.length} matchs</td><td>${totalDistance} Km</td><td>${totalPeages.toFixed(2)} €</td><td>${totalHeuresTrajet}h${totalMinutesTrajet}</td><td>${totalGrandDeplacement.toFixed(2)} €</td><td>${totalIndemnitesKilometriques.toFixed(2)} €</td><td>${totalRepas.toFixed(2)} €</td><td>${totalHotels.toFixed(2)} €</td><td>${totalIndemniteChoisie} €</td><td>${totalPRK.toFixed(2)} €</td></tr>`;
+            // orig
+        //  tableauHtml += `<tr><th colspan='1'>TOTAUX</th><td>${nombreLignes} matchs</td><td>${totalDistance} Km</td><td>${totalPeages.toFixed(2)} €</td><td>${totalHeuresTrajet}h${totalMinutesTrajet}</td><td>${totalGrandDeplacement.toFixed(2)} €</td><td>${totalIndemnitesKilometriques.toFixed(2)} €</td><td>${totalRepas.toFixed(2)} €</td><td>${totalHotels.toFixed(2)} €</td><td>${totalIndemniteChoisie} €</td><td>${totalPRK.toFixed(2)} €</td></tr>`;
+
+            tableauHtml += "</tbody></table><br>";
             tableauGlobalHtml += tableauHtml;
         });
-    
+
         return tableauGlobalHtml;
     },
-    
-*/
+
 
 
 
@@ -250,7 +290,7 @@ var display = {
         var tableauContainer = document.getElementById("tableauComparatif");
         if (tableauContainer) {
             // Mettre à jour le contenu du tableau des résultats avec les données et le PRKVoiture sélectionné
-            tableauContainer.innerHTML = display.tableauComparatif(data, prkVoiture);
+            tableauContainer.innerHTML = display.tableauComparatif(data, prkVoiture, nomHeaderTableauComparatif);
         } else {
             console.error("L'élément conteneur pour le tableau historique des résultats n'existe pas dans le document.");
         }
