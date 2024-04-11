@@ -558,19 +558,23 @@ var display = {
         var nombre2 = document.getElementById("nbre_matchs_02").value;
         var nombre3 = document.getElementById("nbre_matchs_03").value;
     
-        // Mettre à jour les éléments output avec les valeurs correspondantes
-        document.getElementById("valeur_prime_01").textContent = prime1;
-        document.getElementById("valeur_prime_02").textContent = prime2;
-        document.getElementById("valeur_prime_03").textContent = prime3;
-    
-        document.getElementById("valeur_frais_01").textContent = frais1;
-        document.getElementById("valeur_frais_02").textContent = frais2;
-        document.getElementById("valeur_frais_03").textContent = frais3;
-    
-        document.getElementById("valeur_match_01").textContent = nombre1;
-        document.getElementById("valeur_match_02").textContent = nombre2;
-        document.getElementById("valeur_match_03").textContent = nombre3;
+
     },
+    
+    // Mise à jour des valeurs affichées des sliders
+    updateSliderValues: function() {
+        document.getElementById("valeur_prime_01").textContent = document.getElementById("prime_montant_01").value;
+        document.getElementById("valeur_prime_02").textContent = document.getElementById("prime_montant_02").value;
+        document.getElementById("valeur_prime_03").textContent = document.getElementById("prime_montant_03").value;
+    
+        document.getElementById("valeur_frais_01").textContent = document.getElementById("frais_par_match01").value;
+        document.getElementById("valeur_frais_02").textContent = document.getElementById("frais_par_match02").value;
+        document.getElementById("valeur_frais_03").textContent = document.getElementById("frais_par_match03").value;
+    
+        document.getElementById("valeur_match_01").textContent = document.getElementById("nbre_matchs_01").value;
+        document.getElementById("valeur_match_02").textContent = document.getElementById("nbre_matchs_02").value;
+        document.getElementById("valeur_match_03").textContent = document.getElementById("nbre_matchs_03").value;
+    }
 };
 
 

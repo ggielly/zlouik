@@ -181,17 +181,27 @@ var calculDestinations = function() {
 // enregistre toutes les fonctions à appeler selon les évènements UI
 var gereEvents = function() {
     // Sliders Primes / Frais / Nb Match
-    document.getElementById("prime_montant_01").addEventListener("input", updateCalculs);
-    document.getElementById("prime_montant_02").addEventListener("input", updateCalculs);
-    document.getElementById("prime_montant_03").addEventListener("input", updateCalculs);
+    document.getElementById("prime_montant_01").addEventListener("input", display.updateSliderValues);
+    document.getElementById("prime_montant_02").addEventListener("input", display.updateSliderValues);
+    document.getElementById("prime_montant_03").addEventListener("input", display.updateSliderValues);
+    document.getElementById("prime_montant_01").addEventListener("change", updateCalculs);
+    document.getElementById("prime_montant_02").addEventListener("change", updateCalculs);
+    document.getElementById("prime_montant_03").addEventListener("change", updateCalculs);
 
-    document.getElementById("frais_par_match01").addEventListener("input", updateCalculs);
-    document.getElementById("frais_par_match02").addEventListener("input", updateCalculs);
-    document.getElementById("frais_par_match03").addEventListener("input", updateCalculs);
 
-    document.getElementById("nbre_matchs_01").addEventListener("input", updateCalculs);
-    document.getElementById("nbre_matchs_02").addEventListener("input", updateCalculs);
-    document.getElementById("nbre_matchs_03").addEventListener("input", updateCalculs);
+    document.getElementById("frais_par_match01").addEventListener("input", display.updateSliderValues);
+    document.getElementById("frais_par_match02").addEventListener("input", display.updateSliderValues);
+    document.getElementById("frais_par_match03").addEventListener("input", display.updateSliderValues);
+    document.getElementById("frais_par_match01").addEventListener("change", updateCalculs);
+    document.getElementById("frais_par_match02").addEventListener("change", updateCalculs);
+    document.getElementById("frais_par_match03").addEventListener("change", updateCalculs);
+
+    document.getElementById("nbre_matchs_01").addEventListener("input", display.updateSliderValues);
+    document.getElementById("nbre_matchs_02").addEventListener("input", display.updateSliderValues);
+    document.getElementById("nbre_matchs_03").addEventListener("input", display.updateSliderValues);
+    document.getElementById("nbre_matchs_01").addEventListener("change", updateCalculs);
+    document.getElementById("nbre_matchs_02").addEventListener("change", updateCalculs);
+    document.getElementById("nbre_matchs_03").addEventListener("change", updateCalculs);
 
     document.getElementById("indemniteChoisieForm").addEventListener("change", display.updateHistoriqueVille);
 
@@ -205,7 +215,8 @@ var gereEvents = function() {
 // appel des fonctions de calcul initial de certaines données basées sur  primes / frais / nb match
 var initialize = function() {
     // affichage des sliders et des valeurs initiales
-    display.updatePrimeMontant()
+    display.updateSliderValues();
+    display.updatePrimeMontant();
     // ajout menu villes de départ
     display.menuVilles();
     // ajout menu PRK
@@ -215,7 +226,7 @@ var initialize = function() {
 
     // Calcul des valeurs initiales
     updateCalculs(); // appel direct de la fonction pour calculer au moins une fois les données avant toute capture d'évènement UI 
-    // Appel initial de la fonction updatePRK pour afficher les résultats initiaux
+    // Appel initial de la fonction updateHistoriqueVille() pour afficher les résultats initiaux
     display.updateHistoriqueVille();
 };
 
