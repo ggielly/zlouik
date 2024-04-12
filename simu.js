@@ -216,7 +216,11 @@ var initialize = function() {
      // ajout du menu déroulant pour le choix de l'indemnité
     // affichage des sliders et des valeurs initiales
     display.updateSliderValues();
-    display.createIndemniteChoisieDiv();
+
+
+    const indemniteDiv = display.createIndemniteChoisieDiv();
+    document.body.appendChild(indemniteDiv);
+
     display.updatePrimeMontant();
     // ajout menu villes de départ
     display.menuVilles();

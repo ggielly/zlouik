@@ -8,46 +8,51 @@
 // bibliothèque d'affichage display
 var display = {
 
-    createIndemniteChoisieDiv: function() {
-        // Create the main container element
-        const indemniteChoisieDiv = document.createElement('div');
-        indemniteChoisieDiv.id = 'indemniteChoisieDiv';
-        indemniteChoisieDiv.textContent = 'Montant des primes de préparation et d\'équipement (historique):';
-      
-        // Create a container for radio buttons and labels
-        const radioContainer = document.createElement('div');
-      
-        // Define an array of options for flexibility
-        const indemniteOptions = [
-          { value: 145, label: '145' },
-          { value: 130, label: '130' },
-          { value: 115, label: '115', checked: true },  // Pre-select 115
-          { value: 100, label: '100' },
-        ];
-      
-        // Create radio buttons and labels dynamically using a loop
-        for (const option of indemniteOptions) {
-          const radioInput = document.createElement('input');
-          radioInput.type = 'radio';
-          radioInput.id = `indemnite${option.value}`;
-          radioInput.name = 'indemnite';
-          radioInput.value = option.value;
-          radioInput.checked = option.checked;  // Set checked state based on option
-      
-          const radioLabel = document.createElement('label');
-          radioLabel.for = radioInput.id;
-          radioLabel.textContent = option.label;
-      
-          // Append both radio and label to the container
-          radioContainer.appendChild(radioInput);
-          radioContainer.appendChild(radioLabel);
-        }
-      
-        // Append the radio container to the main element
-        indemniteChoisieDiv.appendChild(radioContainer);
-      
-        return indemniteChoisieDiv;
-      },
+
+        createIndemniteChoisieDiv: function() {
+            // Création de l'élément div pour le choix de l'indemnité
+            const indemniteChoisieDiv = document.createElement('div');
+            indemniteChoisieDiv.id = 'indemniteChoisieDiv';
+            indemniteChoisieDiv.textContent = 'Montant des primes de préparation et d\'équipement (historique):';
+
+            // Création de l'élément div pour le choix de l'indemnité
+            const radioContainer = document.createElement('div');
+    
+            // Créer les options pour le choix de l'indemnité
+            const indemniteOptions = [
+                { value: 145, label: '145' },
+                { value: 130, label: '130' },
+                { value: 115, label: '115', checked: true },  // Pre-select 115
+                { value: 100, label: '100' },
+            ];
+    
+            // Créer les boutons radio pour chaque option
+            for (const option of indemniteOptions) {
+                const radioInput = document.createElement('input');
+                radioInput.type = 'radio';
+                radioInput.id = `indemnite${option.value}`;
+                radioInput.name = 'indemnite';
+                radioInput.value = option.value;
+                if (option.checked) {
+                    radioInput.checked = true;
+                }
+    
+                const radioLabel = document.createElement('label');
+                radioLabel.htmlFor = radioInput.id;  // Lier le label à l'input
+                radioLabel.textContent = option.label;
+    
+                // Ajouter l'input et le label au conteneur
+                radioContainer.appendChild(radioInput);
+                radioContainer.appendChild(radioLabel);
+            }
+    
+            // Ajouter le conteneur des boutons radio à l'élément div
+            indemniteChoisieDiv.appendChild(radioContainer);
+    
+            return indemniteChoisieDiv;
+        },
+    
+    
       
 
     // génération du menu des villes de départ
