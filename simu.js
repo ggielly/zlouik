@@ -217,9 +217,9 @@ var initialize = function() {
     // affichage des sliders et des valeurs initiales
     display.updateSliderValues();
 
-
-    const indemniteDiv = display.createIndemniteChoisieDiv();
-    document.body.appendChild(indemniteDiv);
+    display.createIndemniteChoisieDiv();
+    //const indemniteDiv = display.createIndemniteChoisieDiv();
+    //document.body.appendChild(indemniteDiv);
 
     display.updatePrimeMontant();
     // ajout menu villes de départ

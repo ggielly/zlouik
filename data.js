@@ -2,8 +2,6 @@
 
 // Déclaration des variables globales
 
-document.getElementById('indemniteChoisieDiv').indemnite.value = "100";
-
 const nomHeaderTableauComparatif = ["Saison régulière", "Poule de relégation", "Phase finale"];
 var frais_banque = 240;
 
