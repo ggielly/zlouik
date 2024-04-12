@@ -73,7 +73,7 @@ var display = {
                 var tableauHtml = display.tableauComparatif(resultats, prkVoiture);
 
                 // Récupération de l'élément conteneur pour le tableau des résultats
-                var tableauContainer = document.getElementById("tableauComparatif");
+                var tableauContainer = document.getElementById("tableauComparatifDiv");
 
                 // Affichage du tableau des résultats dans l'élément conteneur
                 if (tableauContainer) {
@@ -247,7 +247,7 @@ var display = {
         // Récupérer la valeur sélectionnée du PRKVoiture dans le menu déroulant
         var prkVoiture = document.getElementById("menuPRK").value;
         // Récupérer l'élément conteneur du tableau des résultats
-        var tableauContainer = document.getElementById("tableauComparatif");
+        var tableauContainer = document.getElementById("tableauComparatifDiv");
         if (tableauContainer) {
             // Mettre à jour le contenu du tableau des résultats avec les données et le PRKVoiture sélectionné
             tableauContainer.innerHTML = display.tableauComparatif(data, prkVoiture);
