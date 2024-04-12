@@ -212,8 +212,11 @@ var gereEvents = function() {
 // ajout des menus calculés dynamiquement
 // appel des fonctions de calcul initial de certaines données basées sur  primes / frais / nb match
 var initialize = function() {
+
+     // ajout du menu déroulant pour le choix de l'indemnité
     // affichage des sliders et des valeurs initiales
     display.updateSliderValues();
+    display.createIndemniteChoisieDiv();
     display.updatePrimeMontant();
     // ajout menu villes de départ
     display.menuVilles();

@@ -8,6 +8,48 @@
 // bibliothèque d'affichage display
 var display = {
 
+    createIndemniteChoisieDiv: function() {
+        // Create the main container element
+        const indemniteChoisieDiv = document.createElement('div');
+        indemniteChoisieDiv.id = 'indemniteChoisieDiv';
+        indemniteChoisieDiv.textContent = 'Montant des primes de préparation et d\'équipement (historique):';
+      
+        // Create a container for radio buttons and labels
+        const radioContainer = document.createElement('div');
+      
+        // Define an array of options for flexibility
+        const indemniteOptions = [
+          { value: 145, label: '145' },
+          { value: 130, label: '130' },
+          { value: 115, label: '115', checked: true },  // Pre-select 115
+          { value: 100, label: '100' },
+        ];
+      
+        // Create radio buttons and labels dynamically using a loop
+        for (const option of indemniteOptions) {
+          const radioInput = document.createElement('input');
+          radioInput.type = 'radio';
+          radioInput.id = `indemnite${option.value}`;
+          radioInput.name = 'indemnite';
+          radioInput.value = option.value;
+          radioInput.checked = option.checked;  // Set checked state based on option
+      
+          const radioLabel = document.createElement('label');
+          radioLabel.for = radioInput.id;
+          radioLabel.textContent = option.label;
+      
+          // Append both radio and label to the container
+          radioContainer.appendChild(radioInput);
+          radioContainer.appendChild(radioLabel);
+        }
+      
+        // Append the radio container to the main element
+        indemniteChoisieDiv.appendChild(radioContainer);
+      
+        return indemniteChoisieDiv;
+      },
+      
+
     // génération du menu des villes de départ
     menuVilles: function() {
         // Récupération de l'élément conteneur pour le menu déroulant des villes de départ
