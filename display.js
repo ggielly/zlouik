@@ -129,7 +129,7 @@ var display = {
         var resultatsAjustes = grandsDeplacements.concat(petitsDeplacements);
         var nombreLignes = resultatsAjustes.length; // Utilisons la longueur de `resultatsAjustes` pour prendre en compte la contrainte de %age
 
-        var indemniteChoisie = parseInt(document.getElementById('indemniteChoisieForm').indemnite.value);
+        var indemniteChoisie = parseInt(document.getElementById('indemniteChoisieDiv').indemnite.value);
 
         var tableauHtml = "<table border='1'><thead><tr><th>nomHeaderTableauComparatif</th></tr></thead>";
 
