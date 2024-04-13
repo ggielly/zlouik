@@ -212,27 +212,35 @@ var gereEvents = function() {
 // appel des fonctions de calcul initial de certaines données basées sur  primes / frais / nb match
 var initialize = function() {
 
-    display.updateSelectedIndemnityValue();
     display.setupRadioChangeListeners();
+
+    
      // ajout du menu déroulant pour le choix de l'indemnité
     // affichage des sliders et des valeurs initiales
-    display.updateSliderValues();
-
-    //display.createIndemniteChoisieDiv();
 
 
-    display.updatePrimeMontant();
+    display.createIndemniteChoisieDiv();
+
+
     // ajout menu villes de départ
     display.menuVilles();
     // ajout menu PRK
     display.menuPRK();
     // calcul des destinations possibles
+    display.updateSliderValues();
     calculDestinations();
 
-    // Calcul des valeurs initiales
-    updateCalculs(); // appel direct de la fonction pour calculer au moins une fois les données avant toute capture d'évènement UI 
     // Appel initial de la fonction updateHistoriqueVille() pour afficher les résultats initiaux
     display.updateHistoriqueVille();
+    
+    // Appel initial de la fonction updateTableauxFederation() pour afficher les résultats initiaux
+    display.updateSelectedIndemnityValue();
+
+    display.updatePrimeMontant();
+    updateCalculs();
+    display.tableauComparatif();
+
+
 };
 
 

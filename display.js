@@ -126,6 +126,11 @@ var display = {
     updateHistoriqueVille: function () {
         // Récupération de la ville de départ sélectionnée
         var selectElement = document.getElementById("villeDepart");
+        if (!selectElement) {
+            console.error("L'élément villeDepart n'existe pas dans le document.");
+            return; // Sortie de la fonction si l'élément villeDepart n'existe pas
+        }
+
         if (selectElement) {
             var villeDepart = selectElement.value;
 
@@ -171,7 +176,7 @@ var display = {
     // ORIGINALE
     tableauComparatif: function (resultats, prkVoiture) {
         // Récupération des noms des colonnes du tableau comparatif
-        var tableauGlobalHtml = ""; // Chaîne pour accumuler les tableaux HTML générés        
+        //var tableauGlobalHtml = ""; // Chaîne pour accumuler les tableaux HTML générés        
         var totalPRK = 0;
         var totalIndemnitesKilometriques = 0;
         var totalRepas = 0;
@@ -186,6 +191,7 @@ var display = {
         var pourcentageGrandDeplacement = document.getElementById("pourcentageGrandDeplacement").value;
 
         // Séparation des résultats en deux catégories
+        console.log(resultats);
         var grandsDeplacements = resultats.filter(trajet => parseFloat(trajet.Km) > 250);
         var petitsDeplacements = resultats.filter(trajet => parseFloat(trajet.Km) <= 250);
 
@@ -198,9 +204,6 @@ var display = {
         // Fusion des listes ajustées pour la génération du tableau
         var resultatsAjustes = grandsDeplacements.concat(petitsDeplacements);
         var nombreLignes = resultatsAjustes.length; // Utilisons la longueur de `resultatsAjustes` pour prendre en compte la contrainte de %age
-
-
-
 
         //var indemniteChoisie = parseInt(document.getElementById("0x1: " +'indemniteChoisieDiv').indemnite.value);
         var indemniteChoisie = 0;
