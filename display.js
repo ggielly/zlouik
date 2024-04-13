@@ -2,14 +2,38 @@
 
 // On encapsule toutes les fonctions dans un unique objet "var display" pour ensuite
 // pouvoir les appeler de la sorte : display.nom_fonction() depuis init()
-// Ceci permet de savoir quelles fonctions ne servent que à l'affichage
-
+//
+// Ceci permet de savoir quelles fonctions ne servent qu'à l'affichage
+// et de les isoler dans ce fichier.
 
 // bibliothèque d'affichage display
 var display = {
 
+
+    updateSelectedIndemnityValue: function() {
+        // Récupérer la valeur sélectionnée du bouton radio
+        var selectedRadio = document.querySelector('#indemniteChoisieDiv input[type="radio"]:checked');
+        // Afficher la valeur sélectionnée dans la console
+        if (selectedRadio) {
+            console.log('Valeur sélectionnée:', selectedRadio.value);
+        } else {
+            console.error('Aucun bouton radio n’est sélectionné.');
+        }
+    },
+
+    setupRadioChangeListeners: function() {
+        // Récupérer tous les boutons radio dans le div
+        var radios = document.querySelectorAll('#indemniteChoisieDiv input[type="radio"]');
+        // Ajouter un écouteur d'événements pour chaque bouton radio
+        radios.forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                console.log('Nouvelle valeur sélectionnée:', radio.value);
+            });
+        });
+    },
+
     // Création du formulaire pour le choix de l'indemnité
-    createIndemniteChoisieDiv: function() {
+    createIndemniteChoisieDiv: function () {
         // Création de l'élément div pour le choix de l'indemnité
         const indemniteChoisieDiv = document.createElement('div');
         indemniteChoisieDiv.id = 'indemniteChoisieDiv';
@@ -28,6 +52,7 @@ var display = {
 
         // Créer les boutons radio pour chaque option
         for (const option of indemniteOptions) {
+            // Créer l'input radio
             const radioInput = document.createElement('input');
             radioInput.type = 'radio';
             radioInput.id = `indemnite${option.value}`;
@@ -36,7 +61,7 @@ var display = {
             if (option.checked) {
                 radioInput.checked = true;
             }
-
+            // Créer le label pour l'input radio
             const radioLabel = document.createElement('label');
             radioLabel.htmlFor = radioInput.id;  // Lier le label à l'input
             radioLabel.textContent = option.label;
@@ -48,10 +73,9 @@ var display = {
 
         // Ajouter le conteneur des boutons radio à l'élément div
         indemniteChoisieDiv.appendChild(radioContainer);
-
+        // Ajouter l'élément div au document
         return indemniteChoisieDiv;
     },
-
 
 
     // génération du menu des villes de départ
@@ -175,7 +199,29 @@ var display = {
         var resultatsAjustes = grandsDeplacements.concat(petitsDeplacements);
         var nombreLignes = resultatsAjustes.length; // Utilisons la longueur de `resultatsAjustes` pour prendre en compte la contrainte de %age
 
-        var indemniteChoisie = parseInt(document.getElementById('indemniteChoisieDiv').indemnite.value);
+
+
+
+        //var indemniteChoisie = parseInt(document.getElementById("0x1: " +'indemniteChoisieDiv').indemnite.value);
+        var indemniteChoisie = 0;
+        var radios = document.querySelectorAll('#indemniteChoisieDiv input[type="radio"]:checked');
+        console.log(document.querySelectorAll('#indemniteChoisieDiv input[type="radio"]:checked'));
+
+        if (radios.length > 0) {
+            indemniteChoisie = parseInt(radios[0].value);
+        } else {
+            console.error('No indemnity option is selected.');
+        }
+
+
+        console.log(document.getElementById('indemniteChoisieDiv'));
+        var elemIndemnite = document.getElementById('indemniteChoisieDiv');
+        if (elemIndemnite && elemIndemnite.querySelector('input[name="indemnite"]')) {
+            var indemniteChoisie = parseInt(elemIndemnite.querySelector('input[name="indemnite"]').value);
+        } else {
+            console.error('Élément ou propriété indemnite non trouvée!');
+        }
+
 
         var tableauHtml = "<table border='1'><thead><tr><th>nomHeaderTableauComparatif</th></tr></thead>";
 

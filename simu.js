@@ -1,10 +1,9 @@
-// Ce fichier contient le programme principal et la logique des calculs
-
-
+// Ce fichier contient le programme principal et la logique des calculs de la simulation de prévisionnel
 
 // fonction de calcul de données générales sur le prévisionnel fédé
 // les résultats sont stockés dans les variables globales déclarées dans data.js
 // Cette fonction appelle display.updateTableauxFederation() pour afficher les résultats des calculs
+
 var updateCalculs = function() { 
     // Colonne 5 => Calcul des cotisations URSSAF
     cotisations_urssaf_par_match_01 = prime_montant_01 * (pourcentage_urssaf / 100);
@@ -213,13 +212,14 @@ var gereEvents = function() {
 // appel des fonctions de calcul initial de certaines données basées sur  primes / frais / nb match
 var initialize = function() {
 
+    display.updateSelectedIndemnityValue();
+    display.setupRadioChangeListeners();
      // ajout du menu déroulant pour le choix de l'indemnité
     // affichage des sliders et des valeurs initiales
     display.updateSliderValues();
 
-    display.createIndemniteChoisieDiv();
-    //const indemniteDiv = display.createIndemniteChoisieDiv();
-    //document.body.appendChild(indemniteDiv);
+    //display.createIndemniteChoisieDiv();
+
 
     display.updatePrimeMontant();
     // ajout menu villes de départ

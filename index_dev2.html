@@ -45,7 +45,9 @@ Sous licence GPL3.
         Choisissez le Prix de Reviens Kilométrique (PRK) de votre véhicule : <select id="menuPRK" title=" "></select>
         </div><br>
 
-        <script> /*
+        
+
+
         <div id="indemniteChoisieDiv">
             Montant des primes de préparation et d'équipement (historique):
             <div>
@@ -64,7 +66,7 @@ Sous licence GPL3.
                 <input type="radio" id="indemnite100" name="indemnite" value="100">
                 <label for="indemnite100">100</label>
             </div>
-        </div>*/ </script>
+        </div>
         
         <br>
         <table class="affichageValeurs">
@@ -686,7 +688,15 @@ Seuil TVA 36 800e.
 </table>
 
 <script>
-  window.onload = init;
+  //window.onload = init;
+  // Best practice pour le chargement de la page
+  document.addEventListener('DOMContentLoaded', function () {
+    init();
+    console.log(document.getElementById('indemniteChoisieDiv'));
+    console.log(document.querySelectorAll('#indemniteChoisieDiv input[type="radio"]'));
+
+});
+
 </script>
 <br><br><br>
 En cas d'erreur ou de demande d'évolution, merci de me contacter à l'adresse suivante : <a href="mailto:guillaume ar0base rootshell.fr">guillaume at rootshell point fr</a><br>
