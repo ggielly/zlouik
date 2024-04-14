@@ -307,7 +307,7 @@ var display = {
             let totalGrandDeplacement = 0, totalDistance = 0, totalPeages = 0, totalTempsTrajet = 0;
             let totalPrimes = 0, totalFraisHistorique = 0, totalPreparation = 0;
 
-            let htmlTableau = `<h3>${etiquette}</h3><table id="tableauComparatif" class="customTable" border='1'><thead><tr><th>Domicile / Départ</th><th>Destination</th><th>Distance</th><th>Péages</th><th>Temps de trajet</th><th>Grand déplacement</th><th>Indemnités kilométriques</th><th>Repas</th><th>Hôtel</th><th>Indemnité de préparation et d'équipement</th><th>Note de frais historique</th><th>Prime</th><th>PRK</th></tr></thead><tbody>`;
+            let htmlTableau = `<h3>${etiquette}</h3><table id="tableauComparatif" class="customTable" border='3'><thead><tr><th>Domicile / Départ</th><th>Destination</th><th>Distance</th><th>Péages</th><th>Temps de trajet</th><th>Grand déplacement</th><th>Indemnités kilométriques</th><th>Repas</th><th>Hôtel</th><th>Indemnité de préparation et d'équipement</th><th>Note de frais historique</th><th>Prime</th><th>PRK</th></tr></thead><tbody>`;
 
             resultats.forEach(trajet => {
                 let distance = parseFloat(trajet.Km);
