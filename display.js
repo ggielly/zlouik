@@ -10,7 +10,7 @@
 var display = {
 
 
-    updateSelectedIndemnityValue: function() {
+    updateSelectedIndemnityValue: function () {
         // Récupérer la valeur sélectionnée du bouton radio
         var selectedRadio = document.querySelector('#indemniteChoisieDiv input[type="radio"]:checked');
         // Afficher la valeur sélectionnée dans la console
@@ -21,12 +21,12 @@ var display = {
         }
     },
 
-    setupRadioChangeListeners: function() {
+    setupRadioChangeListeners: function () {
         // Récupérer tous les boutons radio dans le div
         var radios = document.querySelectorAll('#indemniteChoisieDiv input[type="radio"]');
         // Ajouter un écouteur d'événements pour chaque bouton radio
-        radios.forEach(function(radio) {
-            radio.addEventListener('change', function() {
+        radios.forEach(function (radio) {
+            radio.addEventListener('change', function () {
                 console.log('Nouvelle valeur sélectionnée:', radio.value);
             });
         });
@@ -124,6 +124,9 @@ var display = {
 
     // Affichage des résultats du tableau historique en fonction de la ville de départ sélectionnée
     updateHistoriqueVille: function () {
+        console.log("Mise à jour historique pour la ville: ", document.getElementById("villeDepart").value);
+
+        
         // Récupération de la ville de départ sélectionnée
         var selectElement = document.getElementById("villeDepart");
         if (!selectElement) {
@@ -191,9 +194,9 @@ var display = {
         var pourcentageGrandDeplacement = document.getElementById("pourcentageGrandDeplacement").value;
 
         // Séparation des résultats en deux catégories
-        console.log(resultats);
         var grandsDeplacements = resultats.filter(trajet => parseFloat(trajet.Km) > 250);
         var petitsDeplacements = resultats.filter(trajet => parseFloat(trajet.Km) <= 250);
+
 
         // Calcul du nombre maximum de grands déplacements autorisés
         var maxGrandsDeplacementsAutorises = Math.round(grandsDeplacements.length * pourcentageGrandDeplacement / 100);
@@ -233,11 +236,11 @@ var display = {
 
         for (var i = 0; i < nombreLignes; i++) {
             var trajet = resultatsAjustes[i];       // Utilisation de `resultatsAjustes` pour prendre en compte la contrainte de %age
-            var prk = trajet.Km > 0 ? trajet.Km * parseFloat(prkVoiture) : 0;
+            var prk = parseFloat(trajet.Km) > 0 ? parseFloat(trajet.Km) * parseFloat(prkVoiture) : 0;
 
-            var grandDeplacementSemaine = trajet.Km > 500 ? 80 : 0;
-            var nombreRepas = trajet.Km > 500 ? 2 : 1;
-            var prixHotel = trajet.Km > 500 ? 87 : 0;
+            var grandDeplacementSemaine = parseFloat(trajet.Km) > 500 ? 80 : 0;
+            var nombreRepas = parseFloat(trajet.Km) > 500 ? 2 : 1;
+            var prixHotel = parseFloat(trajet.Km) > 500 ? 87 : 0;
 
             var indemniteKilometrique = (trajet.Km * 0.410).toFixed(2);
 
@@ -743,13 +746,5 @@ var display = {
         display.updateHistoriqueVille();
     }
 };
-
-
-
-
-
-
-
-
 
 

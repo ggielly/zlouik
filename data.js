@@ -385,4 +385,6 @@ var data = [
     { VilleDepart: "Lille", VilleDestination: "Rennes", Km: "598", Peages: "55", TempsTrajet: "5h45" },
     { VilleDepart: "Reims", VilleDestination: "Saint-Étienne", Km: "487", Peages: "50", TempsTrajet: "4h40" },
     { VilleDepart: "Le Havre", VilleDestination: "Toulon", Km: "890", Peages: "85", TempsTrajet: "8h35" }
+
 ];
+

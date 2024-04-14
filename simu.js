@@ -178,7 +178,25 @@ var calculDestinations = function() {
 };
 
 // enregistre toutes les fonctions à appeler selon les évènements UI
-var gereEvents = function() {
+var gereEvents = function () {
+
+    var elementsIds = [
+        "prime_montant_01", "prime_montant_02", "prime_montant_03",
+        "frais_par_match01", "frais_par_match02", "frais_par_match03",
+        "nbre_matchs_01", "nbre_matchs_02", "nbre_matchs_03"
+    ];
+
+    elementsIds.forEach(function (id) {
+        var element = document.getElementById(id);
+        if (element) {
+            element.addEventListener("input", display.updateSliderValues);
+            element.addEventListener("change", updateCalculs);
+        } else {
+            console.error("Element not found: ", id);
+        }
+    });
+
+
     // Sliders Primes / Frais / Nb Match
     document.getElementById("prime_montant_01").addEventListener("input", display.updateSliderValues);
     document.getElementById("prime_montant_02").addEventListener("input", display.updateSliderValues);
@@ -202,6 +220,7 @@ var gereEvents = function() {
     document.getElementById("nbre_matchs_03").addEventListener("change", updateCalculs);
 
     document.getElementById("indemniteChoisieForm").addEventListener("change", display.updateHistorique);
+    
     document.getElementById("villeDepart").addEventListener("input", display.updateHistorique);
     document.getElementById("menuPRK").addEventListener("input", display.updateHistorique);
 };
@@ -211,46 +230,23 @@ var gereEvents = function() {
 // ajout des menus calculés dynamiquement
 // appel des fonctions de calcul initial de certaines données basées sur  primes / frais / nb match
 var initialize = function() {
-
     display.setupRadioChangeListeners();
-
-    
-     // ajout du menu déroulant pour le choix de l'indemnité
-    // affichage des sliders et des valeurs initiales
-
-
     display.createIndemniteChoisieDiv();
-
-
-    // ajout menu villes de départ
     display.menuVilles();
-    // ajout menu PRK
     display.menuPRK();
-    // calcul des destinations possibles
     display.updateSliderValues();
-    calculDestinations();
-
-    // Appel initial de la fonction updateHistoriqueVille() pour afficher les résultats initiaux
-    display.updateHistoriqueVille();
-    
-    // Appel initial de la fonction updateTableauxFederation() pour afficher les résultats initiaux
-    display.updateSelectedIndemnityValue();
-
+    calculDestinations(); // Assurez-vous que cela ne dépend pas des données asynchrones
+    // Assurez-vous que toutes les données sont chargées avant de mettre à jour l'historique
     display.updatePrimeMontant();
-    updateCalculs();
-    display.tableauComparatif();
+    updateCalculs(); // Mettez à jour les calculs avant de les utiliser pour afficher l'historique
+    display.updateSelectedIndemnityValue();
+    display.updateHistoriqueVille();
 
-
+    display.tableauComparatif(resultats, prkVoiture);
 };
 
-
-
-// Programme principal
 var init = function() {
-    // iniatilisation des menus et des données
     initialize();
-    // prise en charge des évènements UI
     gereEvents();
-    // lance la représentation graphique avec charts.js
     graph();
 };
