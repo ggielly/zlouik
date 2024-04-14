@@ -242,7 +242,11 @@ var initialize = function() {
     display.updateSelectedIndemnityValue();
     display.updateHistoriqueVille();
 
-    display.tableauComparatif(resultats, prkVoiture);
+    // Prod ou dev ?
+    //display.tableauComparatif(resultats, prkVoiture);
+    display.tableauComparatifDev();
+
+
 };
 
 var init = function() {
