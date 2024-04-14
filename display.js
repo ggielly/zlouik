@@ -126,7 +126,7 @@ var display = {
     updateHistoriqueVille: function () {
         console.log("Mise à jour historique pour la ville: ", document.getElementById("villeDepart").value);
 
-        
+
         // Récupération de la ville de départ sélectionnée
         var selectElement = document.getElementById("villeDepart");
         if (!selectElement) {
@@ -177,6 +177,8 @@ var display = {
     // renvoie un tableau HTML, ne pas appeler directement
     // resultats : tableau de trajets
     // prkVoiture : PRK de la voiture
+
+    /*
     tableauComparatif: function (resultats, prkVoiture) {
         // Récupération des noms des colonnes du tableau comparatif
         //var tableauGlobalHtml = ""; // Chaîne pour accumuler les tableaux HTML générés        
@@ -276,36 +278,37 @@ var display = {
 
         return tableauHtml;
     },
+*/
 
 
-
-/*
-    _   _             _   _
-    __ _| |_| |_ ___ _ __ | |_(_) ___  _ __
-   / _` | __| __/ _ \ '_ \| __| |/ _ \| '_ \
-  | (_| | |_| ||  __/ | | | |_| | (_) | | | |
-   \__,_|\__|\__\___|_| |_|\__|_|\___/|_| |_|
-  
-DEV ! 
-  */
+    /*
+        _   _             _   _
+        __ _| |_| |_ ___ _ __ | |_(_) ___  _ __
+       / _` | __| __/ _ \ '_ \| __| |/ _ \| '_ \
+      | (_| | |_| ||  __/ | | | |_| | (_) | | | |
+       \__,_|\__|\__\___|_| |_|\__|_|\___/|_| |_|
+      
+    DEV ! 
+      */
     tableauComparatifDev: function (resultats, prkVoiture) {
         const etiquettes = ["Saison régulière", "Poule de relégation", "Phase finale"];
         const coutRepas = 17;  // Coût fixe pour les repas
         const coutHotel = 87;  // Coût fixe pour les hôtels
-    
+
         const tableauxHtml = etiquettes.map((etiquette, index) => {
-            const prime = document.getElementById(`prime_montant_0${index+1}`).value;
+            const prime = document.getElementById(`prime_montant_0${index + 1}`).value;
             const nbMatchs = resultats.length;
-    
-            let valeurIndemnite = document.querySelector('#indemniteChoisieDiv input[type="radio"]:checked') ? 
-                                  parseInt(document.querySelector('#indemniteChoisieDiv input[type="radio"]:checked').value) : 115;
-    
+
+            // Récupérer la valeur de l'indemnité choisie
+            let valeurIndemnite = document.querySelector('#indemniteChoisieDiv input[type="radio"]:checked') ?
+                parseInt(document.querySelector('#indemniteChoisieDiv input[type="radio"]:checked').value) : 115;
+
             let totalPRK = 0, totalKilometriques = 0, totalRepas = 0, totalHotels = 0;
             let totalGrandDeplacement = 0, totalDistance = 0, totalPeages = 0, totalTempsTrajet = 0;
             let totalPrimes = 0, totalFraisHistorique = 0, totalPreparation = 0;
-    
-            let htmlTableau = `<h3>${etiquette}</h3><table id="tableauComparatif" class="customTable" border='1'><thead><tr><th>Domicile / Départ</th><th>Destination</th><th>Distance</th><th>Péages</th><th>Temps de trajet</th><th>Grand déplacement</th><th>Indemnités kilométriques</th><th>Repas</th><th>Hôtel</th><th>Indemnité de préparation et d'équipement</th><th>Note de frais historique</th><th>Prime</th><th>Indemnités kilométriques - PRK</th></tr></thead><tbody>`;
-    
+
+            let htmlTableau = `<h3>${etiquette}</h3><table id="tableauComparatif" class="customTable" border='1'><thead><tr><th>Domicile / Départ</th><th>Destination</th><th>Distance</th><th>Péages</th><th>Temps de trajet</th><th>Grand déplacement</th><th>Indemnités kilométriques</th><th>Repas</th><th>Hôtel</th><th>Indemnité de préparation et d'équipement</th><th>Note de frais historique</th><th>Prime</th><th>PRK</th></tr></thead><tbody>`;
+
             resultats.forEach(trajet => {
                 let distance = parseFloat(trajet.Km);
                 let prk = distance * parseFloat(prkVoiture);
@@ -314,11 +317,11 @@ DEV !
                 let hotel = distance > 500 ? coutHotel : 0;
                 let indemnites = distance * 0.410;
                 let peages = parseFloat(trajet.Peages);
-    
+
                 let fraisHistorique = peages + grandDeplacement + indemnites + repas + hotel + valeurIndemnite;
-    
+
                 htmlTableau += `<tr><td>${trajet.VilleDepart}</td><td>${trajet.VilleDestination}</td><td>${trajet.Km} Km</td><td>${peages} €</td><td>${trajet.TempsTrajet}</td><td>${grandDeplacement} €</td><td>${indemnites.toFixed(2)} €</td><td>${repas.toFixed(2)} €</td><td>${hotel.toFixed(2)} €</td><td>${valeurIndemnite} €</td><td class="noteDeFrais">${fraisHistorique.toFixed(2)} €</td><td>${prime} €</td><td>${prk.toFixed(2)} €</td></tr>`;
-    
+
                 totalDistance += distance;
                 totalPeages += peages;
                 totalTempsTrajet += parseInt(trajet.TempsTrajet.split('h')[0]) * 60 + parseInt(trajet.TempsTrajet.split('h')[1]);
@@ -331,13 +334,13 @@ DEV !
                 totalPreparation += valeurIndemnite;  // Accumulation de l'indemnité de préparation
                 totalPRK += prk;
             });
-    
+
             htmlTableau += `</tbody><tfoot><tr class="totalRow"><th>Total</th><td>${nbMatchs} matchs</td><td>${totalDistance} km</td><td>${totalPeages.toFixed(2)} €</td><td>${Math.floor(totalTempsTrajet / 60)}h${totalTempsTrajet % 60}</td><td>${totalGrandDeplacement.toFixed(2)} €</td><td>${totalKilometriques.toFixed(2)} €</td><td>${totalRepas.toFixed(2)} €</td><td>${totalHotels.toFixed(2)} €</td><td>${totalPreparation.toFixed(2)} €</td><td class="noteDeFrais">${totalFraisHistorique.toFixed(2)} €</td><td>${totalPrimes.toFixed(2)} €</td><td>Total PRK: ${totalPRK.toFixed(2)} €</td></tr></tfoot>`;
             htmlTableau += `</table>`;
-    
+
             return htmlTableau;
         });
-    
+
         return tableauxHtml.join('<br>');
         // DEV DEV DEV DEVDEV DEVDEV DEVDEV DEVDEV DEVDEV DEVDEV DEVDEV DEVDEV DEV
     },

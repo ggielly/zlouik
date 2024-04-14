@@ -242,8 +242,6 @@ var initialize = function() {
     display.updateSelectedIndemnityValue();
     display.updateHistoriqueVille();
 
-    // Prod ou dev ?
-    //display.tableauComparatif(resultats, prkVoiture);
     display.tableauComparatifDev();
 
 
