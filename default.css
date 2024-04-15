@@ -22,7 +22,7 @@ output {
     }
 
 table { width: 100%;      border-collapse: collapse; }
-th, td { border: 1px solid black; padding: 8px; text-align: center; }
+th, td { border: 2px solid black; padding: 8px; text-align: center; }
 th { background-color: #f2f2f2;}
 
 table.Tableau01_AutoEntrepriseArray {
@@ -172,12 +172,12 @@ table.Tableau05_SASU_IS_Array tfoot td {
     
 h1 {
         text-align: center;
-        color: #4F7849;
+        color: #1a07e6;
       }
 
 p {
         text-align: center;
-        color: #4F7849;
+        color: #1a07e6;
       }
 
 #prime_montant_01 {
@@ -193,9 +193,19 @@ p {
   border-radius: 10px;
 }
 
+
+table.tableauDonneeGenerale {
+
+  border: 1px solid #ccc;
+  padding: 5px;
+  .right-align {
+    text-align: left;
+}
+}
+
 #tableauComparatif .noteDeFrais {
   font-weight: bold;
-  background-color: #aec6cf;  /* This is a light blue (pastel blue) color */
+  background-color: #aec6cf;  
 }
 
 
