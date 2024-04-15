@@ -9,7 +9,13 @@
 // bibliothèque d'affichage display
 var display = {
 
+    // 
+    updateOutput: function (sliderId, outputId) {
+        var value = document.getElementById(sliderId).value;
+        document.getElementById(outputId).textContent = value;
+    },
 
+    // Mise à jour de l'affichage du tableau des résultats
     updateSelectedIndemnityValue: function () {
         // Récupérer la valeur sélectionnée du bouton radio
         var selectedRadio = document.querySelector('#indemniteChoisieDiv input[type="radio"]:checked');
@@ -140,7 +146,7 @@ var display = {
     },
 
 
-    
+
 
 
     // Affichage des résultats du tableau historique en fonction de la ville de départ sélectionnée
@@ -191,110 +197,25 @@ var display = {
         }
     },
 
-/*
-    tableauComparatifOLD: function (resultats, prkVoiture) {
-        var etiquettes = ["Saison régulière", "Poule de relégation", "Phase finale"];
-        var coutRepas = 17;  // Coût fixé pour les repas
-        var coutHotel = 87;  // Coût fixé pour les hôtels
-    
-        const tableauxHtml = etiquettes.map((etiquette, index) => {
-            var prime = parseFloat(document.getElementById(`prime_montant_0${index + 1}`).value);
-            var frais = parseFloat(document.getElementById(`frais_par_match0${index + 1}`).value);
-            var formulePrk = document.getElementById("menuPRK").value; 
-            var nbMatchs = resultats.length;
-    
-            var colorPrimeBenefice = 0;
-            var colorBeneficeReel = 0;
-            var colorTotalBeneficeReel = 0;
-            var colorTotalPrimeBenefice = 0;
-
-            // Récupération de la valeur de l'indemnité choisie
-            var valeurIndemnite = document.querySelector('#indemniteChoisieDiv input[type="radio"]:checked') ?
-                parseInt(document.querySelector('#indemniteChoisieDiv input[type="radio"]:checked').value) : 115;
-    
-            var totalPRK = 0, totalKilometriques = 0, totalRepas = 0, totalHotels = 0, totalFrais = 0;
-            var totalGrandDeplacement = 0, totalDistance = 0, totalPeages = 0, totalTempsTrajet = 0;
-            var totalPrimes = 0, totalFraisHistorique = 0, totalPreparation = 0, totalBeneficeReel = 0, totalPrimeBenefice = 0;
-    
-            var htmlTableau = `<h3>${etiquette}</h3><table id="tableauComparatif" class="customTable" border='3'><thead><tr><th>Domicile / Départ</th><th>Destination</th><th>Distance<br>aller/retour</th><th>Péages</th><th>Temps de trajet A/R</th><th>Grand déplacement</th><th>Indemnités kilométriques</th><th>PRK</th><th>Repas</th><th>Hôtel</th><th>Indemnité de préparation <br> et d'équipement</th><th>Note de frais historique <br>Chiffre d'affaire</th><th>Note de frais historique<br>bénéfices rééls</th><th>Prime<br>(chiffre d'affaire)</th><th>Frais</th><th>PRIMES<br>bénéfices rééls<br>(prime - frais - PRK)</th></tr></thead><tbody>`;
-    
-            resultats.forEach(trajet => {
-                var d = parseFloat(trajet.Km * 2);
-                var prk = eval(formulePrk.replace('d', d));  // Calcul du PRK
-    
-                var grandDeplacement = d > 500 ? 80 : 0;
-                var repas = (d > 500 ? 2 : 1) * coutRepas;
-                var hotel = d > 500 ? coutHotel : 0;
-                var indemnites = d * 0.410;
-                var peages = parseFloat(trajet.Peages * 2);
-                var fraisHistorique = peages + grandDeplacement + indemnites + repas + hotel + valeurIndemnite;
-                var beneficeReel = fraisHistorique - (prk + repas + peages + hotel);
-                var primeBenefice = prime - frais - prk;
-
-                var TempsTrajetAllerRetour = parseInt((trajet.TempsTrajet.split('h')[0]) * 60 + parseInt(trajet.TempsTrajet.split('h')[1])) * 2;
-
-
-                // Si jamais le résultat est négatif, alors on le met en rouge
-                colorBeneficeReel = beneficeReel < 0 ? "color:red;" : "";
-                colorPrimeBenefice = primeBenefice < 0 ? "color:red;" : "";
-    
-                htmlTableau += `<tr><td>${trajet.VilleDepart}</td><td>${trajet.VilleDestination}</td><td>${d} Km</td><td>${peages} €</td><td>${Math.floor(TempsTrajetAllerRetour / 60)}h${TempsTrajetAllerRetour % 60}</td><td>${grandDeplacement} €</td><td>${indemnites.toFixed(2)} €</td><td>${prk.toFixed(2)} €</td><td>${repas.toFixed(2)} €</td><td>${hotel.toFixed(2)} €</td><td>${valeurIndemnite} €</td><td>${fraisHistorique.toFixed(2)} €</td><td style="${colorBeneficeReel}">${beneficeReel.toFixed(2)} €</td><td>${prime.toFixed(2)} €</td><td>${frais.toFixed(2)} €</td><td style="${colorPrimeBenefice}">${primeBenefice.toFixed(2)} €</td></tr>`;
-    
-                totalDistance += d;
-                totalPeages += peages;
-                totalTempsTrajet += parseInt((trajet.TempsTrajet.split('h')[0]) * 60 + parseInt(trajet.TempsTrajet.split('h')[1])) * 2;
-                totalKilometriques += indemnites;
-                totalRepas += repas;
-                totalHotels += hotel;
-                totalGrandDeplacement += grandDeplacement;
-                totalPrimes += prime;
-                totalFrais += frais;
-                totalFraisHistorique += fraisHistorique;
-                totalPreparation += valeurIndemnite;
-                totalBeneficeReel += beneficeReel;
-                totalPrimeBenefice += primeBenefice;
-                totalPRK += prk;
-            });
-
-            var totalHeuresTrajet = Math.floor(totalTempsTrajet / 60);
-            var tauxHoraireIndemnite = totalBeneficeReel / totalHeuresTrajet;
-            var tauxHorairePrime = totalPrimeBenefice / totalHeuresTrajet;
-
-
-            
-            // Si jamais le résultat est négatif, alors on le met en rouge
-            colorTotalBeneficeReel = totalBeneficeReel < 0 ? "color:red;" : "";
-            colorTotalPrimeBenefice = totalPrimeBenefice < 0 ? "color:red;" : "";
-
-            htmlTableau += `</tbody><tfoot><tr class="totalRow"><td>TOTAUX</td><td>${nbMatchs} matchs</td><td>${totalDistance} km</td><td>${totalPeages.toFixed(2)} €</td><td>${Math.floor(totalTempsTrajet / 60)}h${totalTempsTrajet % 60}</td><td>${totalGrandDeplacement.toFixed(2)} €</td><td>${totalKilometriques.toFixed(2)} €</td><td>${totalPRK.toFixed(2)} €</td><td>${totalRepas.toFixed(2)} €</td><td>${totalHotels.toFixed(2)} €</td><td>${totalPreparation.toFixed(2)} €</td><td>${totalFraisHistorique.toFixed(2)} €</td><td style ="${colorTotalBeneficeReel}">${totalBeneficeReel.toFixed(2)} €</td><td>${totalPrimes.toFixed(2)} €</td><td>${totalFrais.toFixed(2)} €</td><td style ="${colorTotalPrimeBenefice}">${totalPrimeBenefice.toFixed(2)} €</td></tr></tfoot></table>`;
-            htmlTableau += `<table><tr><td colspan='1'>Taux horaire moyen basé sur l'indemnité : ${tauxHoraireIndemnite.toFixed(2)} €/heure</td></tr>`;
-            htmlTableau += `<tr><td colspan='8'>Taux horaire moyen basé sur la prime : ${tauxHorairePrime.toFixed(2)} €/heure</td></tr>`;
-            htmlTableau += `</table>`;
-
-            return htmlTableau;
-        });
-    
-        return tableauxHtml.join('<br>');
-    },
-*/
-
 
 
     tableauComparatif: function (resultats, prkVoiture) {
         var etiquettes = ["Saison régulière", "Poule de relégation", "Phase finale"];
         var coutRepas = 17;  // Coût fixé pour les repas
         var coutHotel = 87;  // Coût fixé pour les hôtels
-        const sliders = ["nbre_matchs_01", "nbre_matchs_02", "nbre_matchs_03"];  // IDs of the sliders
-    
+
+        const nbMatches = [
+            parseInt(document.getElementById('nbre_matchs_01').value),
+            parseInt(document.getElementById('nbre_matchs_02').value),
+            parseInt(document.getElementById('nbre_matchs_03').value)
+        ];
+
+
         const tableauxHtml = etiquettes.map((etiquette, index) => {
             var prime = parseFloat(document.getElementById(`prime_montant_0${index + 1}`).value);
             var frais = parseFloat(document.getElementById(`frais_par_match0${index + 1}`).value);
-
-            // Récupération du nombre de matchs en provenance des sliders HTML
-            var nbMatchs = parseInt(document.getElementById(sliders[index]).value);
-
-            var formulePrk = document.getElementById("menuPRK").value; 
-    
+            var formulePrk = document.getElementById("menuPRK").value;
+            var nbMatchs = nbMatches[index];
             var colorPrimeBenefice = 0;
             var colorBeneficeReel = 0;
             var colorTotalBeneficeReel = 0;
@@ -303,21 +224,21 @@ var display = {
             // Récupération de la valeur de l'indemnité choisie
             var valeurIndemnite = document.querySelector('#indemniteChoisieDiv input[type="radio"]:checked') ?
                 parseInt(document.querySelector('#indemniteChoisieDiv input[type="radio"]:checked').value) : 115;
-    
+
             var totalPRK = 0, totalKilometriques = 0, totalRepas = 0, totalHotels = 0, totalFrais = 0;
             var totalGrandDeplacement = 0, totalDistance = 0, totalPeages = 0, totalTempsTrajet = 0;
             var totalPrimes = 0, totalFraisHistorique = 0, totalPreparation = 0, totalBeneficeReel = 0, totalPrimeBenefice = 0;
-    
+
             var htmlTableau = `<h3>${etiquette}</h3><table id="tableauComparatif" class="customTable" border='3'><thead><tr><th>Domicile / Départ</th><th>Destination</th><th>Distance<br>aller/retour</th><th>Péages</th><th>Temps de trajet A/R</th><th>Grand déplacement</th><th>Indemnités kilométriques</th><th>PRK</th><th>Repas</th><th>Hôtel</th><th>Indemnité de préparation <br> et d'équipement</th><th>Note de frais historique <br>Chiffre d'affaire</th><th>Note de frais historique<br>bénéfices rééls</th><th>Prime<br>(chiffre d'affaire)</th><th>Frais</th><th>PRIMES<br>bénéfices rééls<br>(prime - frais - PRK)</th></tr></thead><tbody>`;
-            
 
-            // Boucle sur le nombre de matchs en provenance des sliders HTML
-            for (let i = 0; i < nbMatchs; i++) {
-                var trajet = resultats[i % resultats.length]; 
+            // Itération sur les résultats pour les afficher dans le tableau
+            var processedCount = 0;
 
+            // Boucle sur les résultats pour les afficher dans le tableau
+            for (var i = 0; i < nbMatchs && processedCount < nbMatches[index]; i++) {
+                var trajet = resultats[i % resultats.length];
                 var d = parseFloat(trajet.Km * 2);
                 var prk = eval(formulePrk.replace('d', d));  // Calcul du PRK
-    
                 var grandDeplacement = d > 500 ? 80 : 0;
                 var repas = (d > 500 ? 2 : 1) * coutRepas;
                 var hotel = d > 500 ? coutHotel : 0;
@@ -329,13 +250,12 @@ var display = {
 
                 var TempsTrajetAllerRetour = parseInt((trajet.TempsTrajet.split('h')[0]) * 60 + parseInt(trajet.TempsTrajet.split('h')[1])) * 2;
 
-
                 // Si jamais le résultat est négatif, alors on le met en rouge
                 colorBeneficeReel = beneficeReel < 0 ? "color:red;" : "";
                 colorPrimeBenefice = primeBenefice < 0 ? "color:red;" : "";
-    
+
                 htmlTableau += `<tr><td>${trajet.VilleDepart}</td><td>${trajet.VilleDestination}</td><td>${d} Km</td><td>${peages} €</td><td>${Math.floor(TempsTrajetAllerRetour / 60)}h${TempsTrajetAllerRetour % 60}</td><td>${grandDeplacement} €</td><td>${indemnites.toFixed(2)} €</td><td>${prk.toFixed(2)} €</td><td>${repas.toFixed(2)} €</td><td>${hotel.toFixed(2)} €</td><td>${valeurIndemnite} €</td><td>${fraisHistorique.toFixed(2)} €</td><td style="${colorBeneficeReel}">${beneficeReel.toFixed(2)} €</td><td>${prime.toFixed(2)} €</td><td>${frais.toFixed(2)} €</td><td style="${colorPrimeBenefice}">${primeBenefice.toFixed(2)} €</td></tr>`;
-    
+
                 totalDistance += d;
                 totalPeages += peages;
                 totalTempsTrajet += parseInt((trajet.TempsTrajet.split('h')[0]) * 60 + parseInt(trajet.TempsTrajet.split('h')[1])) * 2;
@@ -350,12 +270,18 @@ var display = {
                 totalBeneficeReel += beneficeReel;
                 totalPrimeBenefice += primeBenefice;
                 totalPRK += prk;
-            };
+                processedCount++;  // Incrémentation du compteur de lignes traitées
+
+                console.log(`Processing entry ${processedCount}/${nbMatches[index]} for ${etiquette}`);
+
+            }; // Fin boucle for 
+
+            console.log(`Processing entry ${i + 1}/${nbMatches[index]} for ${etiquette}`);
 
             var totalHeuresTrajet = Math.floor(totalTempsTrajet / 60);
             var tauxHoraireIndemnite = totalBeneficeReel / totalHeuresTrajet;
             var tauxHorairePrime = totalPrimeBenefice / totalHeuresTrajet;
-            
+
             // Si jamais le résultat est négatif, alors on le met en rouge
             colorTotalBeneficeReel = totalBeneficeReel < 0 ? "color:red;" : "";
             colorTotalPrimeBenefice = totalPrimeBenefice < 0 ? "color:red;" : "";
@@ -366,12 +292,10 @@ var display = {
             htmlTableau += `</table>`;
 
             return htmlTableau;
-        });
-    
+        }); // fin de la boucle sur les étiquettes : tableauxHtml
+
         return tableauxHtml.join('<br>');
-    },
-
-
+    }, // Fin de la fonction
 
 
     // Mise à jour du tableau historique avec le PRKVoiture sélectionné
