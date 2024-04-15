@@ -234,21 +234,12 @@ var initialize = function() {
     display.createIndemniteChoisieDiv();
     display.menuVilles();
     display.menuPRK();
-<<<<<<< HEAD
-    // calcul des destinations possibles
-    calculDestinations();
-
-    // Calcul des valeurs initiales
-    updateCalculs(); // appel direct de la fonction pour calculer au moins une fois les données avant toute capture d'évènement UI 
-    // Appel initial de la fonction updateHistoriqueVille() pour afficher les résultats initiaux
-=======
     display.updateSliderValues();
     calculDestinations(); // Assurez-vous que cela ne dépend pas des données asynchrones
     // Assurez-vous que toutes les données sont chargées avant de mettre à jour l'historique
     display.updatePrimeMontant();
     updateCalculs(); // Mettez à jour les calculs avant de les utiliser pour afficher l'historique
     display.updateSelectedIndemnityValue();
->>>>>>> 31c99cfab08fd0070c683f7fc82b86f90491fb62
     display.updateHistoriqueVille();
 
     display.tableauComparatifDev();
