@@ -12,13 +12,13 @@ Sous licence GPL3.
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simulateur AAHG</title>
+    <title>Simulateur ZLOUIK</title>
 
     <link href="default.css" rel="stylesheet" />
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-chord/3.0.1/d3.chord.min.js"></script>
+  <!----  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-chord/3.0.1/d3.chord.min.js"></script> -->
 
     <script src="data.js"></script>
     <script src="display.js"></script>
@@ -29,25 +29,50 @@ Sous licence GPL3.
 <body>
 
     <h1>ZLOUIK</h1>
+    <img 
+    src="https://simu.aahg.fr/zlouik.jpg" 
+    alt="Gliss allzenight"
+    />
+
     Zone Logicielle Orientée Utilisation et Impositions Kafkaïennes, soit un générateur de simulation de primes et
     historique des rémunérations.<br>
     Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité des auteurs.<br>
     <hr>
-    <h1>Informations</h1>
-    Vous êtes agent public (fonctionnaire d'état, territorial, hospitalière ou contractuel) : seule la micro-entreprise est possible, une fois la demande de cumul acceptée.
-    <hr>
     <h1>Paramétrage</h1>
-    <form>
-        <label for="menuVillesDepart">Choisir une ville de départ pour générer les désignations : </label>
+    <form onchange="display.updatePrimeMontant()">
+        
+        
         <div id="menuVillesDepart">
-            <select id="villeDepart" title=""></select>
+             
+        Choisissez une ville de départ pour générer les désignations : <select id="villeDepart" title=" "></select>
         </div>
-        <label for="selectSaison">Choisir une saison : </label><select id="selectSaison"></select><br>
-
-        <div>
-            <select id="menuPRK"></select>
+        
+        Choisissez le Prix de Reviens Kilométrique (PRK) de votre véhicule : <select id="menuPRK" title=" "></select>
         </div><br>
-    
+
+        
+
+
+        <div id="indemniteChoisieDiv">
+            Montant des primes de préparation et d'équipement (historique):
+            <div>
+                <input type="radio" id="indemnite145" name="indemnite" value="145">
+                <label for="indemnite145">145</label>
+            </div>
+            <div>
+                <input type="radio" id="indemnite130" name="indemnite" value="130">
+                <label for="indemnite130">130</label>
+            </div>
+            <div>
+                <input type="radio" id="indemnite115" name="indemnite" value="115" checked>
+                <label for="indemnite115">115</label>
+            </div>
+            <div>
+                <input type="radio" id="indemnite100" name="indemnite" value="100">
+                <label for="indemnite100">100</label>
+            </div>
+        </div>
+        
         <br>
         <table class="affichageValeurs">
             <tr>
@@ -92,14 +117,15 @@ Sous licence GPL3.
                     <input type="range" id="nbre_matchs_01" name="nbre_matchs_01" min="0" max="60" value="25" step="1">
     
                     <label for="nbre_matchs_02"></label><output id="valeur_match_02"></output>
-                    <label for="nbre_matchs_02">Poule relegation</label>
+                    <label for="nbre_matchs_02">Poule de relégation</label>
                     <input type="range" id="nbre_matchs_02" name="nbre_matchs_02" min="0" max="60" value="40" step="1">
     
                     <label for="nbre_matchs_03"></label><output id="valeur_match_03"></output>
                     <label for="nbre_matchs_03">Phase finale</label>
                     <input type="range" id="nbre_matchs_03" name="nbre_matchs_03" min="0" max="60" value="7" step="1">
-                    <br>
-                    <label for="pourcentageGrandDeplacement">Pourcentage de match en semaine avec grands déplacements : </label><br>
+                    <br><br>
+                    
+                    <label for="pourcentageGrandDeplacement">Pourcentage de match en semaine avec grands déplacements:</label>
                     <input type="range" id="pourcentageGrandDeplacement" name="pourcentageGrandDeplacement" min="0" max="100" value="0" step="1" oninput="this.nextElementSibling.value = this.value">
                     <output>0</output>%
                 </td>
@@ -107,23 +133,11 @@ Sous licence GPL3.
         </table><br><br>
     </form>
     <hr>
-    <h1>Calcul historique basé sur un remboursement des frais + indemnités de préparation et d'équipement</h1>
-        
-    <form id="indemniteChoisieForm">
-    <p>Montant des primes de préparation et d'équipement :            
-        <input type="radio" id="indemnite145" name="indemnite" value="145">
-        <label for="indemnite145">145</label>
-        <input type="radio" id="indemnite130" name="indemnite" value="130">
-        <label for="indemnite130">130</label>
-        <input type="radio" id="indemnite115" name="indemnite" value="115">
-        <label for="indemnite115">115</label>
-        <input type="radio" id="indemnite100" name="indemnite" value="100" checked>
-        <label for="indemnite100">100</label>
-        </p>
-    </form>
+    <h1>Tableau comparatif des frais</h1>
+     
     <br>
-
-    <div id="tableauHistorique"></div><br>
+    <div id="tableauComparatifDiv"></div>
+    <br>
     
 
 <br><br><hr>
@@ -151,7 +165,7 @@ Seuil TVA d'un travailleur indépendant : 39 100e<br>
     </thead>
     <tbody>
         <tr>
-            <td>---</td>
+            <td>Saison régulière<td>
             <td id="cell2_1"></td>
             <td id="cell3_1"></td>
             <td id="cell4_1"></td>
@@ -165,8 +179,7 @@ Seuil TVA d'un travailleur indépendant : 39 100e<br>
             <td id="cell12_1"></td>
         </tr>
         <tr>
-            <td>---</td>
-            
+            <td>Poule de relégation</td>
             <td id="cell2_2"></td>
             <td id="cell3_2"></td>
             <td id="cell4_2"></td>
@@ -180,7 +193,7 @@ Seuil TVA d'un travailleur indépendant : 39 100e<br>
             <td id="cell12_2"></td>
         </tr>
         <tr>
-            <td>---</td>
+            <td>Phase finale</td>
             <td id="cell2_3"></td>
             <td id="cell3_3"></td>
             <td id="cell4_3"></td>
@@ -195,7 +208,6 @@ Seuil TVA d'un travailleur indépendant : 39 100e<br>
         </tr>
         <tr>
           <tfoot>
-
             <td><b>SOMMES ANNUELLES</b></td>
             <td id="cell2_4"></td>
             <td id="cell3_4">---</td>
@@ -242,7 +254,7 @@ Seuil TVA d'un travailleur indépendant : 36 800e<br>
     </thead>
     <tbody>
         <tr>
-            <td>---</td>
+            <td>Saison régulière</td>
             <td id="tns_ir_cell2_1"></td>
             <td id="tns_ir_cell3_1"></td>
             <td id="tns_ir_cell4_1"></td>
@@ -257,12 +269,9 @@ Seuil TVA d'un travailleur indépendant : 36 800e<br>
             <td id="tns_ir_cell13_1"></td>
             <td id="tns_ir_cell14_1">---</td>
             <td id="tns_ir_cell15_1"></td>
-            
-
-
         </tr>
         <tr>
-            <td>---</td>
+            <td>Poule de relégation</td>
             <td id="tns_ir_cell2_2"></td>
             <td id="tns_ir_cell3_2"></td>
             <td id="tns_ir_cell4_2"></td>
@@ -277,11 +286,9 @@ Seuil TVA d'un travailleur indépendant : 36 800e<br>
             <td id="tns_ir_cell13_2"></td>
             <td id="tns_ir_cell14_2">---</td>
             <td id="tns_ir_cell15_2"></td>
-            
-
         </tr>
         <tr>
-            <td>---</td>
+            <td>Phase finale</td>
             <td id="tns_ir_cell2_3"></td>
             <td id="tns_ir_cell3_3"></td>
             <td id="tns_ir_cell4_3"></td>
@@ -296,8 +303,6 @@ Seuil TVA d'un travailleur indépendant : 36 800e<br>
             <td id="tns_ir_cell13_3"></td>
             <td id="tns_ir_cell14_3">---</td>
             <td id="tns_ir_cell15_3"></td>
-            
-
         </tr>
         <tr>
           <tfoot>
@@ -350,7 +355,7 @@ Seuil TVA 36 800e
     </thead>
     <tbody>
         <tr>
-            <td>---</td>
+            <td>Saison régulière</td>
             <td id="tns_is_cell2_1"></td>
             <td id="tns_is_cell3_1"></td>
             <td id="tns_is_cell4_1"></td>
@@ -366,10 +371,9 @@ Seuil TVA 36 800e
             <td id="tns_is_cell14_1">---</td>
             <td id="tns_is_cell15_1">---</td>
             <td id="tns_is_cell16_1">Imposition barême</td>
-
         </tr>
         <tr>
-            <td>---</td>
+            <td>Poule de relégation</td>
             <td id="tns_is_cell2_2"></td>
             <td id="tns_is_cell3_2"></td>
             <td id="tns_is_cell4_2"></td>
@@ -388,7 +392,7 @@ Seuil TVA 36 800e
 
         </tr>
         <tr>
-            <td>---</td>
+            <td>Phase finale</td>
             <td id="tns_is_cell2_3"></td>
             <td id="tns_is_cell3_3"></td>
             <td id="tns_is_cell4_3"></td>
@@ -461,7 +465,7 @@ Seuil TVA 36 800e
     </thead>
     <tbody>
         <tr>
-            <td>---</td>
+            <td>Saison régulière</td>
             <td id="sasu_ir_cell2_1"></td>
             <td id="sasu_ir_cell3_1"></td>
             <td id="sasu_ir_cell4_1"></td>
@@ -480,7 +484,7 @@ Seuil TVA 36 800e
 
         </tr>
         <tr>
-            <td>---</td>
+            <td>Poule de relégation</td>
             <td id="sasu_ir_cell2_2"></td>
             <td id="sasu_ir_cell3_2"></td>
             <td id="sasu_ir_cell4_2"></td>
@@ -498,7 +502,7 @@ Seuil TVA 36 800e
             <td id="sasu_ir_cell16_2"></td>
         </tr>
         <tr>
-            <td>---</td>
+            <td>Phase finale</td>
             <td id="sasu_ir_cell2_3"></td>
             <td id="sasu_ir_cell3_3"></td>
             <td id="sasu_ir_cell4_3"></td>
@@ -566,7 +570,7 @@ Seuil TVA 36 800e.
     </thead>
     <tbody>
         <tr>
-            <td>---</td>
+            <td>Saison régulière</td>
             <td id="sasu_is_cell2_1"></td>
             <td id="sasu_is_cell3_1"></td>
             <td id="sasu_is_cell4_1"></td>
@@ -584,7 +588,7 @@ Seuil TVA 36 800e.
             <td id="sasu_is_cell16_1">---</td>
         </tr>
         <tr>
-            <td>---</td>
+            <td>Poule de relégation</td>
             <td id="sasu_is_cell2_2"></td>
             <td id="sasu_is_cell3_2"></td>
             <td id="sasu_is_cell4_2"></td>
@@ -602,7 +606,7 @@ Seuil TVA 36 800e.
             <td id="sasu_is_cell16_2"></td>        
         </tr>
         <tr>
-            <td>---</td>
+            <td>Phases finales</td>
             <td id="sasu_is_cell2_3"></td>
             <td id="sasu_is_cell3_3"></td>
             <td id="sasu_is_cell4_3"></td>
@@ -648,7 +652,8 @@ Seuil TVA 36 800e.
 
 <h2>Historique des tarifs</h2>
 <canvas id="myChart" width="800" height="400"></canvas>
-<table class="table table-bordered table-hover table-condensed" style="width: 60%">
+
+<table class="table table-bordered table-hover table-condensed custom-table">
 
     <thead>
         <tr>
@@ -679,10 +684,17 @@ Seuil TVA 36 800e.
 </table>
 
 <script>
-  window.onload = init;
+    //window.onload = init;
+    // Best practice pour le chargement de la page
+    document.addEventListener('DOMContentLoaded', function () {
+        init();
+    });
+
 </script>
 <br><br><br>
-En cas d'erreur ou de demande d'évolution, merci de me contacter à l'adresse suivante : <a href="mailto:guillaume ar0base rootshell.fr">guillaume at rootshell point fr</a><br>
+En cas d'erreur ou de demande d'évolution, merci de me contacter à l'adresse suivante : <a
+    href="mailto:guillaume ar0base rootshell.fr">guillaume at rootshell point fr</a><br>
 Pas de cookie, aucune donnée enregistrée côté serveur.
 </body>
+
 </html>

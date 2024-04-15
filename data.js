@@ -1,7 +1,12 @@
 // Ce fichier contient toutes les variables globales, les constantes et autres données
 
 // Déclaration des variables globales
+
+const nomHeaderTableauComparatif = ["Saison régulière", "Poule de relégation", "Phase finale"];
 var frais_banque = 240;
+
+var indemniteChoisie = 666; // DEBUG
+var totalIndemniteChoisie = 0; // DEBUG
 var frais_comptable = 400;
 var frais_urssaf = 1500;
 var repas = 15;
@@ -230,6 +235,7 @@ var data = [
     { VilleDepart: "Angers", VilleDestination: "Dunkerque", Km: "548", Peages: "58.1", TempsTrajet: "5h19" },
     { VilleDepart: "Angers", VilleDestination: "Lille", Km: "512", Peages: "51.7", TempsTrajet: "5h02" },
     { VilleDepart: "Angers", VilleDestination: "Lyon", Km: "597", Peages: "63", TempsTrajet: "5h33" },
+    { villeDepart: "Angers", villeDestination: "Nice", km: 939, peages: 89.1, tempsTrajet: "9h30" },
     { VilleDepart: "Strasbourg", VilleDestination: "Nice", Km: "787", Peages: "35.5", TempsTrajet: "8h13" },
     { VilleDepart: "Strasbourg", VilleDestination: "Gap", Km: "634", Peages: "21.1", TempsTrajet: "7h23" },
     { VilleDepart: "Strasbourg", VilleDestination: "Chamonix", Km: "405", Peages: "0", TempsTrajet: "4h38" },
@@ -379,4 +385,6 @@ var data = [
     { VilleDepart: "Lille", VilleDestination: "Rennes", Km: "598", Peages: "55", TempsTrajet: "5h45" },
     { VilleDepart: "Reims", VilleDestination: "Saint-Étienne", Km: "487", Peages: "50", TempsTrajet: "4h40" },
     { VilleDepart: "Le Havre", VilleDestination: "Toulon", Km: "890", Peages: "85", TempsTrajet: "8h35" }
+
 ];
+

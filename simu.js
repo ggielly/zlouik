@@ -1,10 +1,9 @@
-// Ce fichier contient le programme principal et la logique des calculs
-
-
+// Ce fichier contient le programme principal et la logique des calculs de la simulation de prévisionnel
 
 // fonction de calcul de données générales sur le prévisionnel fédé
 // les résultats sont stockés dans les variables globales déclarées dans data.js
 // Cette fonction appelle display.updateTableauxFederation() pour afficher les résultats des calculs
+
 var updateCalculs = function() { 
     // Colonne 5 => Calcul des cotisations URSSAF
     cotisations_urssaf_par_match_01 = prime_montant_01 * (pourcentage_urssaf / 100);
@@ -179,31 +178,51 @@ var calculDestinations = function() {
 };
 
 // enregistre toutes les fonctions à appeler selon les évènements UI
-var gereEvents = function() {
-    // Sliders Primes / Frais / Nb Match
-    document.getElementById("prime_montant_01").addEventListener("input", updateCalculs);
-    document.getElementById("prime_montant_02").addEventListener("input", updateCalculs);
-    document.getElementById("prime_montant_03").addEventListener("input", updateCalculs);
+var gereEvents = function () {
 
-    document.getElementById("frais_par_match01").addEventListener("input", updateCalculs);
-    document.getElementById("frais_par_match02").addEventListener("input", updateCalculs);
-    document.getElementById("frais_par_match03").addEventListener("input", updateCalculs);
+    var elementsIds = [
+        "prime_montant_01", "prime_montant_02", "prime_montant_03",
+        "frais_par_match01", "frais_par_match02", "frais_par_match03",
+        "nbre_matchs_01", "nbre_matchs_02", "nbre_matchs_03"
+    ];
 
-    document.getElementById("nbre_matchs_01").addEventListener("input", updateCalculs);
-    document.getElementById("nbre_matchs_02").addEventListener("input", updateCalculs);
-    document.getElementById("nbre_matchs_03").addEventListener("input", updateCalculs);
-
-    document.getElementById("indemniteChoisieForm").addEventListener("change", display.updateHistoriqueVille);
-
-    document.getElementById("villeDepart").addEventListener("input", display.updateHistoriqueVille);
-    document.getElementById("menuPRK").addEventListener("input", display.updateHistoriquePRK);
-
-    // Événement lorsqu'une saison est sélectionnée
-    const selectSaison = document.getElementById("selectSaison");
-    selectSaison.addEventListener("change", function() {
-        const selectedSaison = selectSaison.value;
-        console.log("La saison sélectionnée est :", selectedSaison);
+    elementsIds.forEach(function (id) {
+        var element = document.getElementById(id);
+        if (element) {
+            element.addEventListener("input", display.updateSliderValues);
+            element.addEventListener("change", updateCalculs);
+        } else {
+            console.error("Element not found: ", id);
+        }
     });
+
+
+    // Sliders Primes / Frais / Nb Match
+    document.getElementById("prime_montant_01").addEventListener("input", display.updateSliderValues);
+    document.getElementById("prime_montant_02").addEventListener("input", display.updateSliderValues);
+    document.getElementById("prime_montant_03").addEventListener("input", display.updateSliderValues);
+    document.getElementById("prime_montant_01").addEventListener("change", updateCalculs);
+    document.getElementById("prime_montant_02").addEventListener("change", updateCalculs);
+    document.getElementById("prime_montant_03").addEventListener("change", updateCalculs);
+
+    document.getElementById("frais_par_match01").addEventListener("input", display.updateSliderValues);
+    document.getElementById("frais_par_match02").addEventListener("input", display.updateSliderValues);
+    document.getElementById("frais_par_match03").addEventListener("input", display.updateSliderValues);
+    document.getElementById("frais_par_match01").addEventListener("change", updateCalculs);
+    document.getElementById("frais_par_match02").addEventListener("change", updateCalculs);
+    document.getElementById("frais_par_match03").addEventListener("change", updateCalculs);
+
+    document.getElementById("nbre_matchs_01").addEventListener("input", display.updateSliderValues);
+    document.getElementById("nbre_matchs_02").addEventListener("input", display.updateSliderValues);
+    document.getElementById("nbre_matchs_03").addEventListener("input", display.updateSliderValues);
+    document.getElementById("nbre_matchs_01").addEventListener("change", updateCalculs);
+    document.getElementById("nbre_matchs_02").addEventListener("change", updateCalculs);
+    document.getElementById("nbre_matchs_03").addEventListener("change", updateCalculs);
+
+    document.getElementById("indemniteChoisieForm").addEventListener("change", display.updateHistorique);
+    
+    document.getElementById("villeDepart").addEventListener("input", display.updateHistorique);
+    document.getElementById("menuPRK").addEventListener("input", display.updateHistorique);
 };
 
 
@@ -211,29 +230,34 @@ var gereEvents = function() {
 // ajout des menus calculés dynamiquement
 // appel des fonctions de calcul initial de certaines données basées sur  primes / frais / nb match
 var initialize = function() {
-    // ajout menu villes de départ
+    display.setupRadioChangeListeners();
+    display.createIndemniteChoisieDiv();
     display.menuVilles();
-    // ajout menu saisons
-    display.menuSaisons();
-    // ajout menu PRK
     display.menuPRK();
+<<<<<<< HEAD
     // calcul des destinations possibles
     calculDestinations();
 
     // Calcul des valeurs initiales
     updateCalculs(); // appel direct de la fonction pour calculer au moins une fois les données avant toute capture d'évènement UI 
     // Appel initial de la fonction updateHistoriqueVille() pour afficher les résultats initiaux
+=======
+    display.updateSliderValues();
+    calculDestinations(); // Assurez-vous que cela ne dépend pas des données asynchrones
+    // Assurez-vous que toutes les données sont chargées avant de mettre à jour l'historique
+    display.updatePrimeMontant();
+    updateCalculs(); // Mettez à jour les calculs avant de les utiliser pour afficher l'historique
+    display.updateSelectedIndemnityValue();
+>>>>>>> 31c99cfab08fd0070c683f7fc82b86f90491fb62
     display.updateHistoriqueVille();
+
+    display.tableauComparatifDev();
+
+
 };
 
-
-
-// Programme principal
 var init = function() {
-    // iniatilisation des menus et des données
     initialize();
-    // prise en charge des évènements UI
     gereEvents();
-    // lance la représentation graphique avec charts.js
     graph();
 };
