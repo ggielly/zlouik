@@ -222,7 +222,7 @@ var initialize = function() {
 
     // Calcul des valeurs initiales
     updateCalculs(); // appel direct de la fonction pour calculer au moins une fois les données avant toute capture d'évènement UI 
-    // Appel initial de la fonction updatePRK pour afficher les résultats initiaux
+    // Appel initial de la fonction updateHistoriqueVille() pour afficher les résultats initiaux
     display.updateHistoriqueVille();
 };
 
