@@ -138,18 +138,18 @@ var display = {
             var villeDepart = selectElement.value;
 
             // Filtrage des résultats pour la ville de départ sélectionnée
-            var resultats = data.filter(function (trajet) {
+            var resultats_filtres = data.filter(function (trajet) {
                 return trajet.VilleDepart === villeDepart;
             });
 
             // Génération du tableau des résultats si des résultats ont été trouvés
             var tableauHtml = "";
-            if (resultats.length > 0) {
+            if (resultats_filtres.length > 0) {
                 // Récupération du PRK de la voiture sélectionné
                 var prkVoiture = parseFloat(document.getElementById('menuPRK').value);
                 // Génération du tableau des résultats
 
-                var tableauHtml = display.tableauComparatifDev(resultats, prkVoiture);
+                var tableauHtml = display.tableauComparatifDev(resultats_filtres, prkVoiture);
                 //var tableauHtml = display.tableauComparatif(resultats, prkVoiture);
 
 
@@ -356,7 +356,7 @@ var display = {
         var tableauContainer = document.getElementById("tableauComparatifDiv");
         if (tableauContainer) {
             // Mettre à jour le contenu du tableau des résultats avec les données et le PRKVoiture sélectionné
-            tableauContainer.innerHTML = display.tableauComparatif(data, prkVoiture);
+            tableauContainer.innerHTML = display.tableauComparatifDev(resultats, prkVoiture);
         } else {
             console.error("L'élément conteneur pour le tableau historique des résultats n'existe pas dans le document.");
         }

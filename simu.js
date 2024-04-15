@@ -219,7 +219,7 @@ var gereEvents = function () {
     document.getElementById("nbre_matchs_02").addEventListener("change", updateCalculs);
     document.getElementById("nbre_matchs_03").addEventListener("change", updateCalculs);
 
-    document.getElementById("indemniteChoisieForm").addEventListener("change", display.updateHistorique);
+    document.getElementById("indemniteChoisieDiv").addEventListener("change", display.updateHistorique);
     
     document.getElementById("villeDepart").addEventListener("input", display.updateHistorique);
     document.getElementById("menuPRK").addEventListener("input", display.updateHistorique);
@@ -242,7 +242,7 @@ var initialize = function() {
     display.updateSelectedIndemnityValue();
     display.updateHistoriqueVille();
 
-    display.tableauComparatifDev();
+    //display.tableauComparatifDev();
 
 
 };

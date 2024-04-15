@@ -122,7 +122,7 @@ const saison = [2005, 2006, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018
 const prkVoiture = 0.01;
 
 // Tableau pour stocker les résultats
-const resultats = [];
+var resultats = [];
 
 
 
