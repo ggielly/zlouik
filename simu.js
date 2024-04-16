@@ -181,10 +181,35 @@ var calculDestinations = function() {
 var gereEvents = function () {
 
     var elementsIds = [
-        "prime_montant_01", "prime_montant_02", "prime_montant_03",
-        "frais_par_match01", "frais_par_match02", "frais_par_match03",
-        "nbre_matchs_01", "nbre_matchs_02", "nbre_matchs_03"
+        "prime_montant_01",
+        "prime_montant_02",
+        "prime_montant_03",
+        "frais_par_match01",
+        "frais_par_match02",
+        "frais_par_match03",
+        "nbre_matchs_01",
+        "nbre_matchs_02",
+        "nbre_matchs_03"
     ];
+
+    elementsIds.forEach(function (id) {
+        var element = document.getElementById(id);
+        if (element) {
+            element.addEventListener("input", function() {
+                display.updateSliderValues();
+                display.updateTableauxFederation();  // Appel à la fonction de mise à jour des tableaux
+            });
+            element.addEventListener("change", function() {
+                updateCalculs();
+                display.updateTableauxFederation();  // Mise à jour après le changement pour garantir la cohérence
+            });
+        } else {
+            console.error("Element not found: ", id);
+        }
+    });
+
+/*
+
 
     elementsIds.forEach(function (id) {
         var element = document.getElementById(id);
@@ -194,7 +219,7 @@ var gereEvents = function () {
         } else {
             console.error("Element not found: ", id);
         }
-    });
+    });*/
 
 
     // Sliders Primes / Frais / Nb Match
@@ -219,7 +244,11 @@ var gereEvents = function () {
     document.getElementById("nbre_matchs_02").addEventListener("change", updateCalculs);
     document.getElementById("nbre_matchs_03").addEventListener("change", updateCalculs);
 
-    document.getElementById("indemniteChoisieDiv").addEventListener("change", display.updateHistorique);
+    //document.getElementById("indemniteChoisieDiv").addEventListener("change", display.updateHistorique);
+    document.getElementById("indemniteChoisieDiv").addEventListener("change", function() {
+        display.updateHistorique();
+        display.updateTableauxFederation();  // Mise à jour des tableaux lorsque la prime change
+    });
     
     document.getElementById("VilleDepart").addEventListener("input", display.updateHistorique);
     document.getElementById("menuPRK").addEventListener("input", display.updateHistorique);

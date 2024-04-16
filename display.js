@@ -1,15 +1,77 @@
-// Ce fichier contient les fonctions de mise à jour de l'affichage dans le html.
+/**
+ * Fichier Display.js
+ * ------------------
+ * 
+ * Description :
+ * Ce fichier contient toutes les fonctions nécessaires pour mettre à jour les éléments d'affichage
+ * dans le HTML de l'application. Les fonctions sont regroupées sous un objet nommé `display`.
+ * 
+ * Utilisation :
+ * L'encapsulation des fonctions d'affichage dans l'objet `display` permet une organisation claire
+ * et une facilité d'appel des fonctions. Pour appeler une fonction, on utilise la syntaxe :
+ * `display.nom_fonction()` à partir de n'importe quel autre script dans le projet, notamment depuis
+ * la fonction `init()` qui sert à initialiser l'application.
+ * 
+ * Objectifs :
+ * - Centraliser toutes les fonctions d'affichage pour simplifier la maintenance et l'évolution du code.
+ * - Séparer clairement les responsabilités des fonctions d'affichage des autres logiques métier 
+ *   dans le projet, renforçant ainsi la structure modulaire du code.
+ * - Fournir une interface unique (`display`) pour l'accès aux fonctionnalités d'affichage, 
+ *   augmentant la lisibilité et la réutilisabilité du code.
+ * 
+ * Architecture :
+ * Le fichier `Display.js` agit comme une bibliothèque d'affichage, où chaque fonction membre de `display`
+ * peut être visualisée comme un service d'affichage autonome. Ce modèle contribue à une meilleure 
+ * organisation du code et facilite les tests unitaires des fonctions d'affichage indépendamment des 
+ * autres parties du système.
+ */
 
-// On encapsule toutes les fonctions dans un unique objet "var display" pour ensuite
-// pouvoir les appeler de la sorte : display.nom_fonction() depuis init()
-//
-// Ceci permet de savoir quelles fonctions ne servent qu'à l'affichage
-// et de les isoler dans ce fichier.
 
-// bibliothèque d'affichage display
+
+
 var display = {
 
-    // 
+
+
+    /**
+      * Récupère et retourne les résultats actuels filtrés selon les critères définis
+      * par les contrôles de l'interface utilisateur.
+      * 
+      * Cette fonction consulte le tableau global `data` qui doit contenir tous les trajets possibles
+      * avec leurs détails (ville de départ, destination, kilométrage, péages, temps de trajet, etc.).
+      * Elle applique un filtre basé sur la ville de départ sélectionnée dans le champ input correspondant
+      * et limite le nombre de trajets retournés à la valeur spécifiée par le slider pour le nombre de matchs.
+      *
+      * Prérequis :
+      * - Un élément input avec l'id "VilleDepart" doit exister dans le DOM, contenant la ville de départ souhaitée.
+      * - Un élément input de type slider avec l'id "nbre_matchs_01" doit exister dans le DOM pour indiquer
+      *   le nombre maximal de trajets à retourner.
+      * - Le tableau `data` doit être initialisé et accessible dans le contexte de cette fonction, contenant
+      *   les objets de trajet avec les propriétés nécessaires (VilleDepart, VilleDestination, Km, Peages, TempsTrajet).
+      *
+      * Sortie :
+      * - Un tableau d'objets où chaque objet représente un trajet qui correspond aux critères de filtrage.
+      *   Chaque objet contient des propriétés telles que VilleDepart, VilleDestination, Km, Peages, TempsTrajet.
+      *
+      * Exemple d'utilisation :
+      * var currentResults = display.getCurrentResults();
+      * console.log(currentResults); // Affiche les trajets filtrés selon les critères actuels.
+      */
+    getCurrentResults: function () {
+        // Récupération des résultats actuels
+        var villeDepart = document.getElementById("VilleDepart").value; // On suppose un champ input pour la ville de départ
+        var nbreMaxMatchs = parseInt(document.getElementById("nbre_matchs_01").value);
+
+        // Filtrage des données basé sur la ville de départ et un nombre maximum de résultats
+        var filteredResults = data.filter(function (trajet) {
+            return trajet.VilleDepart === villeDepart;
+        }).slice(0, nbreMaxMatchs); // Limitation du nombre de résultats au maximum spécifié par le slider
+
+        return filteredResults;
+    },
+
+
+    // Mise à jour de l'affichage du slider
     updateOutput: function (sliderId, outputId) {
         var value = document.getElementById(sliderId).value;
         document.getElementById(outputId).textContent = value;
@@ -146,9 +208,6 @@ var display = {
     },
 
 
-
-
-
     // Affichage des résultats du tableau historique en fonction de la ville de départ sélectionnée
     updateHistoriqueVille: function () {
         console.log("Mise à jour historique pour la ville: ", document.getElementById("VilleDepart").value);
@@ -198,7 +257,6 @@ var display = {
     },
 
 
-
     tableauComparatif: function (resultats) {
         var etiquettes = ["Saison régulière", "Poule de relégation", "Phase finale"];
         var coutRepas = 17;  // Coût fixé pour les repas
@@ -209,7 +267,7 @@ var display = {
             parseInt(document.getElementById('nbre_matchs_02').value),
             parseInt(document.getElementById('nbre_matchs_03').value)
         ];
-        
+
         const tableauxHtml = etiquettes.map((etiquette, index) => {
             var prime = parseFloat(document.getElementById(`prime_montant_0${index + 1}`).value);
             var frais = parseFloat(document.getElementById(`frais_par_match0${index + 1}`).value);
@@ -242,7 +300,7 @@ var display = {
 
             // Boucle sur les résultats pour les afficher dans le tableau
             for (var i = 0; i < nbMatchs && processedCount < nbMatches[index]; i++) {
-                
+
                 var trajet = resultats[i % resultats.length];
                 // Vérification des données pour le calcul
                 if (!trajet || !trajet.Km || !trajet.Peages) {
@@ -319,7 +377,7 @@ var display = {
             var prkVoiture = document.getElementById("menuPRK").value;
             // Récupérer l'élément conteneur du tableau des résultats
             var tableauContainer = document.getElementById("tableauComparatifDiv");
-            
+
             if (tableauContainer) {
                 // Mettre à jour le contenu du tableau des résultats avec les données et le PRKVoiture sélectionné
                 tableauContainer.innerHTML = display.tableauComparatif(resultats, prkVoiture);
@@ -328,6 +386,7 @@ var display = {
             }
         }
     },
+
 
     // Mise à jour de l'ensemble des tableaux prévisionnels de la fédération
     updateTableauxFederation: function () {
@@ -481,7 +540,6 @@ var display = {
         document.getElementById("tns_is_cell12_3").innerHTML = resultat_intermediaire_03.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
         document.getElementById("tns_is_cell13_3").innerHTML = frais_urssaf.toLocaleString('fr-FR') + " €"; // Frais annexes
 
-
         // Ligne 4 => Sommes annuelles
         document.getElementById("tns_is_cell2_4").innerHTML = totalmatch; // Nombre de matchs ANNUEL
         document.getElementById("tns_is_cell7_4").innerHTML = (brut_annuel_01 + brut_annuel_02 + brut_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des bruts sur la saison
@@ -627,7 +685,20 @@ var display = {
         const resultatPrelevementSociaux = calculerPrelevementSociaux(MontantRevenuImposable, tranches, taux);
         document.getElementById("sasu_is_cell16_3").innerHTML = "Prélèvement sur barême fiscal : " + resultatPrelevementSociaux.toLocaleString('fr-FR') + " €"; // Prélevement sur bareme fiscal ligne 3 - BUG !!
         document.getElementById("sasu_is_cell16_4").innerHTML = (ResultatApresIS_temp - (ResultatApresIS_temp * CSG_CR) - resultatPrelevementSociaux).toLocaleString('fr-FR') + " €"; // Total
+
+
+        // Mise à jour des tableaux prévisionnels de la fédération des paramètres modifiés par les sliders
+        var resultats = display.getCurrentResults();  // Vous devrez définir cette méthode pour récupérer les données actuelles
+        var prkVoiture = document.getElementById("menuPRK").value;
+        var tableauContainer = document.getElementById("tableauComparatifDiv");
+        if (tableauContainer) {
+            tableauContainer.innerHTML = display.tableauComparatif(resultats, prkVoiture);
+        } else {
+            console.error("Le conteneur du tableau n'existe pas.");
+        }
+
     },
+
 
     // Mise à jour dans les tableaux prévisionnels de la fédération des paramètres modifiés par les sliders
     updatePrimeMontant: function () {
@@ -700,6 +771,7 @@ var display = {
         cotisations_urssaf_par_match_03 = prime_montant_03 * (pourcentage_urssaf / 100);
     },
 
+
     // Mise à jour des valeurs affichées des sliders
     updateSliderValues: function () {
         document.getElementById("valeur_prime_01").textContent = document.getElementById("prime_montant_01").value;
@@ -715,11 +787,12 @@ var display = {
         document.getElementById("valeur_match_03").textContent = document.getElementById("nbre_matchs_03").value;
     },
 
+
     // Actualise le tableau historique de façon globable
     updateHistorique: function () {
         display.updateHistoriquePRK();
         display.updateHistoriqueVille();
     }
-};
+}; // EOF display
 
 
