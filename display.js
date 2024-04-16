@@ -304,6 +304,7 @@ var display = {
         var prkVoiture = document.getElementById("menuPRK").value;
         // Récupérer l'élément conteneur du tableau des résultats
         var tableauContainer = document.getElementById("tableauComparatifDiv");
+        
         if (tableauContainer) {
             // Mettre à jour le contenu du tableau des résultats avec les données et le PRKVoiture sélectionné
             tableauContainer.innerHTML = display.tableauComparatif(resultats, prkVoiture);
