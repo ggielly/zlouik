@@ -209,13 +209,11 @@ var display = {
             parseInt(document.getElementById('nbre_matchs_02').value),
             parseInt(document.getElementById('nbre_matchs_03').value)
         ];
-
-
+        
         const tableauxHtml = etiquettes.map((etiquette, index) => {
             var prime = parseFloat(document.getElementById(`prime_montant_0${index + 1}`).value);
             var frais = parseFloat(document.getElementById(`frais_par_match0${index + 1}`).value);
             var formulePrk = document.getElementById("menuPRK").value;
-            var nbMatchs = nbMatches[index];
             let colorPrimeBenefice = 0;
             let colorBeneficeReel = 0;
             let colorTotalBeneficeReel = 0;
@@ -234,9 +232,24 @@ var display = {
             // Itération sur les résultats pour les afficher dans le tableau
             var processedCount = 0;
 
+            // Récupération du nombre de matchs à traiter
+            var nbMatchs = nbMatches[index];
+            // Vérification si le nombre de matchs est supérieur au nombre de résultats
+            if (resultats.length === 0) {
+                console.error("Aucun résultat disponible pour le traitement.");
+                return `<h3>${etiquette} : Aucun résultat disponible.</h3>`;
+            }
+
             // Boucle sur les résultats pour les afficher dans le tableau
             for (var i = 0; i < nbMatchs && processedCount < nbMatches[index]; i++) {
+                
                 var trajet = resultats[i % resultats.length];
+                // Vérification des données pour le calcul
+                if (!trajet || !trajet.Km || !trajet.Peages) {
+                    console.error("Données incomplètes pour l'index", i);
+                    continue;
+                }
+
                 var distance = parseFloat(trajet.Km * 2);
                 var prk = eval(formulePrk.replace('d', distance));  // Calcul du PRK
                 var grandDeplacement = distance > 500 ? 80 : 0;
