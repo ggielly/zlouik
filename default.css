@@ -12,11 +12,12 @@ output {
     font-weight: bold;
     }
 
-table { width: 100%;      border-collapse: collapse; }
+table { width: 80%;      border-collapse: collapse; }
 th, td { border: 2px solid black; padding: 8px; text-align: center; }
 th { background-color: #f2f2f2;}
 
 .Tableau01_AutoEntrepriseArray th, .Tableau01_AutoEntrepriseArray td {
+   width: 80%;
   padding: 8px; /* Adds padding to all cells for spacing */
   text-align: center; /* Centers text in all cells */
   border-bottom: 1px solid #dee2e6; /* Adds a light border to the bottom of all cells for definition */
