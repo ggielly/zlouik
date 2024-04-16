@@ -208,20 +208,6 @@ var gereEvents = function () {
         }
     });
 
-/*
-
-
-    elementsIds.forEach(function (id) {
-        var element = document.getElementById(id);
-        if (element) {
-            element.addEventListener("input", display.updateSliderValues);
-            element.addEventListener("change", updateCalculs);
-        } else {
-            console.error("Element not found: ", id);
-        }
-    });*/
-
-
     // Sliders Primes / Frais / Nb Match
     document.getElementById("prime_montant_01").addEventListener("input", display.updateSliderValues);
     document.getElementById("prime_montant_02").addEventListener("input", display.updateSliderValues);
@@ -244,7 +230,6 @@ var gereEvents = function () {
     document.getElementById("nbre_matchs_02").addEventListener("change", updateCalculs);
     document.getElementById("nbre_matchs_03").addEventListener("change", updateCalculs);
 
-    //document.getElementById("indemniteChoisieDiv").addEventListener("change", display.updateHistorique);
     document.getElementById("indemniteChoisieDiv").addEventListener("change", function() {
         display.updateHistorique();
         display.updateTableauxFederation();  // Mise à jour des tableaux lorsque la prime change

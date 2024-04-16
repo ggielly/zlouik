@@ -13,15 +13,11 @@ Sous licence GPL3.
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simulateur ZLOUIK</title>
-
     <link href="default.css" rel="stylesheet" />
-
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <!----  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-chord/3.0.1/d3.chord.min.js"></script> -->
-
     <script src="data.js"></script>
     <script src="display.js"></script>
     <script src="simu.js"></script>
@@ -29,750 +25,786 @@ Sous licence GPL3.
 </head>
 
 <body>
-
-    <h1>ZLOUIK</h1>
-    <p>
-        <!----
+    <!----
     <img 
     src="https://simu.aahg.fr/zlouik.jpg" 
     alt="Gliss allzenight"
     />-->
-
-        <br>
-
-        <b>Zone Logicielle Orientée Utilisation et Impositions Kafkaïennes, soit un générateur de simulation de primes
-            et
-            historique des rémunérations.</b><br>
-    </p><br>
-    <hr>
-    <h1>Paramétrage</h1>
+    <div class="container">
+        <h1>ZLOUIK</h1>
+        <div class="intro-text">
+            <strong>Zone Logicielle Orientée Utilisation et Impositions Kafkaïennes</strong>, soit un générateur de
+            simulation de primes et historique des rémunérations.
+        </div>
+        <hr>
+ 
+    </div>
     <form onchange="display.updatePrimeMontant()">
 
+        <div id="menuVillesDepart"></div>
 
-        <div id="menuVillesDepart">
-
-        </div>
         <br>
-        <h3>Données générales</h3>
-        <table class="tableauDonneeGenerale">
 
-            <tr>
+        <div class="container mt-3">
+            <h2 class="mb-4">Données générales</h2>
+            <div class="row">
+                
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="menuPRK">Choix du Prix de Reviens Kilométrique (PRK) du véhicule:</label>
+                        <select id="menuPRK" class="form-control" title="Choose PRK">
 
-
-                <td>Choix du Prix de Reviens Kilométrique (PRK) du véhicule <select id="menuPRK" title=" "></select> [1]
-                </td>
-            </tr>
-            <tr>
-                <td>Choix du domicile pour la simulation des désignations <select id="VilleDepart" title=" "></select>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td>
-
-                    <!-- Saison régulière -->
-                    <label for="nbre_matchs_01">Saison régulière</label>
-                    <input type="range" id="nbre_matchs_01" name="nbre_matchs_01" min="0" max="60" value="25" step="1"
-                        oninput="updateOutput('nbre_matchs_01', 'valeur_match_01')">
-                    <output id="valeur_match_01">25</output><br>
-
-                    <!-- Poule de relégation -->
-                    <label for="nbre_matchs_02">Poule de relégation</label>
-                    <input type="range" id="nbre_matchs_02" name="nbre_matchs_02" min="0" max="60" value="40" step="1"
-                        oninput="updateOutput('nbre_matchs_02', 'valeur_match_02')">
-                    <output id="valeur_match_02">40</output><br>
-
-                    <!-- Phase finale -->
-                    <label for="nbre_matchs_03">Phase finale</label>
-                    <input type="range" id="nbre_matchs_03" name="nbre_matchs_03" min="0" max="60" value="7" step="1"
-                        oninput="updateOutput('nbre_matchs_03', 'valeur_match_03')">
-                    <output id="valeur_match_03">7</output><br><br>
-
-
-                    <label for="pourcentageGrandDeplacement">Pourcentage de match en semaine avec grands
-                        déplacements:</label>
-                    <input type="range" id="pourcentageGrandDeplacement" name="pourcentageGrandDeplacement" min="0"
-                        max="100" value="0" step="1" oninput="this.nextElementSibling.value = this.value">
-                    <output>0</output>%
-
-                </td>
-            </tr>
-        </table>
-        <br>
-        <h3>Données spécifique à l'ancien mode de calcul "préparation + équipement"</h3>
-        <table>
-            <tr>
-                <td>
-                    <div id="indemniteChoisieDiv">
-                        Montant des primes de préparation et d'équipement (historique):
-                        <div>
-                            <input type="radio" id="indemnite145" name="indemnite" value="145" checked>
-                            <label for="indemnite145">145e : Arbitre LM</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="indemnite130" name="indemnite" value="130">
-                            <label for="indemnite130">130e : HEAD LM amical</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="indemnite120" name="indemnite" value="120">
-                            <label for="indemnite120">120e : Arbitre D1</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="indemnite115" name="indemnite" value="115">
-                            <label for="indemnite115">115e : JDL SR</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="indemnite105" name="indemnite" value="105">
-                            <label for="indemnite105">105e : JDL amical</label>
-                        </div>
-
+                        </select>
+                        <small class="form-text text-muted">[1]</small>
                     </div>
-                </td>
-            </tr>
-        </table>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="VilleDepart">Choix du domicile pour la simulation des désignations:</label>
+                        <select id="VilleDepart" class="form-control" title="Choose Home City">
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="mb-4">Réglages des Matchs</h2>
+            <div class="row">
+                
+                <div class="col-md-6">
+                    <div class="slider-group">
+                    <label class="custom-range-label" for="nbre_matchs_01">Saison régulière</label>
+                    <input type="range" class="custom-range" id="nbre_matchs_01" name="nbre_matchs_01" min="0" max="60"
+                        value="25" step="1" oninput="updateOutput('nbre_matchs_01', 'valeur_match_01')">
+                    <output id="valeur_match_01" class="output">25</output></div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="slider-group">
+                    <label class="custom-range-label" for="nbre_matchs_02">Poule de relégation</label>
+                    <input type="range" class="custom-range" id="nbre_matchs_02" name="nbre_matchs_02" min="0" max="60"
+                        value="40" step="1" oninput="updateOutput('nbre_matchs_02', 'valeur_match_02')">
+                    <output id="valeur_match_02" class="output">40</output></div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="slider-group">
+                    <label class="custom-range-label" for="nbre_matchs_03">Phase finale</label>
+                    <input type="range" class="custom-range" id="nbre_matchs_03" name="nbre_matchs_03" min="0" max="60"
+                        value="7" step="1" oninput="updateOutput('nbre_matchs_03', 'valeur_match_03')">
+                    <output id="valeur_match_03" class="output">7</output></div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="slider-group">
+                    <label class="custom-range-label" for="pourcentageGrandDeplacement">Pourcentage de grands déplacements</label>
+                    <input type="range" class="custom-range" id="pourcentageGrandDeplacement" name="pourcentageGrandDeplacement" min="0"
+                        max="100" value="0" step="1" oninput="this.nextElementSibling.value = this.value">
+                    <output class="output">%</output></div>
+                </div>
+            </div>
+        </div>
 
 
+        
+        <div class="container">
+            <h2 class="md-4">Montant des primes de préparation et d'équipement (historique)</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div id="indemniteChoisieDiv">
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="indemnite145" name="indemnite" value="145"
+                                checked>
+                            <label class="form-check-label" for="indemnite145">145€ : Arbitre LM</label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="indemnite130" name="indemnite" value="130">
+                            <label class="form-check-label" for="indemnite130">130€ : HEAD LM amical</label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="indemnite120" name="indemnite" value="120">
+                            <label class="form-check-label" for="indemnite120">120€ : Arbitre D1</label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="indemnite115" name="indemnite" value="115">
+                            <label class="form-check-label" for="indemnite115">115€ : JDL SR</label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="indemnite105" name="indemnite" value="105">
+                            <label class="form-check-label" for="indemnite105">105€ : JDL amical</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        
+        <div class="container">
+            <h2 class="mb-4">Données spécifique au nouveau mode de calcul "prime" unique</h2>
+            <div class="row">
+                <div class="col-md-6">
+
+                    <h4>Montant des primes par match</h4><br>
+                    <div class="slider-group">
+                        <label for="prime_montant_01">Saison régulière</label>
+                        <input type="range" class="custom-range" id="prime_montant_01" name="prime_montant_01" min="100"
+                            max="2000" value="500" step="10"
+                            oninput="updateOutput('prime_montant_01', 'valeur_prime_01')">
+                        <output id="valeur_prime_01">500</output>€
+                    </div>
+                    
+                    <div class="slider-group">
+                        <label for="prime_montant_02">Poule de relégation</label>
+                        <input type="range" class="custom-range" id="prime_montant_02" name="prime_montant_02" min="100"
+                            max="2000" value="700" step="10"
+                            oninput="updateOutput('prime_montant_02', 'valeur_prime_02')">
+                        <output id="valeur_prime_02">700</output>€
+                    </div>
+                    
+                    <div class="slider-group">
+                        <label for="prime_montant_03">Phase finale</label>
+                        <input type="range" class="custom-range" id="prime_montant_03" name="prime_montant_03" min="100"
+                            max="2000" value="800" step="10"
+                            oninput="updateOutput('prime_montant_03', 'valeur_prime_03')">
+                        <output id="valeur_prime_03">800</output>€
+                    </div>
+                
+                </div>
+                
+                <div class="col-md-6">
+                    <h4>Montants des frais par match (autre que l'usure du véhicule calculé dans le PRK)</h4>
+                    <div class="slider-group">
+                        <label for="frais_par_match01">Saison régulière</label>
+                        <input type="range" class="custom-range" id="frais_par_match01" name="frais_par_match01"
+                            min="10" max="1200" value="130" step="10"
+                            oninput="updateOutput('frais_par_match01', 'valeur_frais_01')">
+                        <output id="valeur_frais_01">130</output>€
+                    </div>
+                    
+                    <div class="slider-group">
+                        <label for="frais_par_match02">Poule de relégation</label>
+                        <input type="range" class="custom-range" id="frais_par_match02" name="frais_par_match02"
+                            min="10" max="1200" value="260" step="10"
+                            oninput="updateOutput('frais_par_match02', 'valeur_frais_02')">
+                        <output id="valeur_frais_02">260</output>€
+                    </div>
+                    
+                    <div class="slider-group">
+                        <label for="frais_par_match03">Phase finale</label>
+                        <input type="range" class="custom-range" id="frais_par_match03" name="frais_par_match03"
+                            min="10" max="1200" value="260" step="10"
+                            oninput="updateOutput('frais_par_match03', 'valeur_frais_03')">
+                        <output id="valeur_frais_03">260</output>€
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <h1>SIMULATION : tableaux comparatifs des frais</h1>
 
         <br>
-        <h3>Données spécifique au nouveau mode de calcul "prime" unique</h3>
-        <table class="affichageValeurs">
-            <tr>
-                <th>Montant des primes par match</th>
-                <th>Montants des frais par match<br>(autre que l'usure du véhicule calculé dans le PRK)</th>
+        <div id="tableauComparatifDiv"></div>
+        <br>
+        <br>
 
+
+        <br><br>
+        <hr>
+        <h1>Calculs basés sur une prime de match (rémunération)</h1>
+        <h1>1 - Calcul des revenus d'un arbitre en statut de travailleur indépendant (auto entreprise)</h1>
+        <p>Ce code calcule le revenu net d'un travailleur indépendant en prenant en compte les primes, les frais et les
+            cotisations URSSAF.</p>
+        <br>
+        Seuil TVA d'un travailleur indépendant : 39 100e<br>
+        <table class="Tableau01_AutoEntrepriseArray">
+            <thead>
+                <tr>
+                    <th>Travailleur indépendant</th>
+                    <th>Nbre matchs</th>
+                    <th>Montant</th>
+                    <th>% URSSAF</th>
+                    <th>Cotisations / match</th>
+                    <th>Net</th>
+                    <th>Brut annuel</th>
+                    <th>Cotisations annuelles</th>
+                    <th>Net d'URSSAF annuel</th>
+                    <th>Frais par match</th>
+                    <th>Somme annuelle des frais</th>
+                    <th>RÉSULTAT NET</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Saison régulière
+                    <td>
+                    <td id="cell2_1"></td>
+                    <td id="cell3_1"></td>
+                    <td id="cell4_1"></td>
+                    <td id="cell5_1"></td>
+                    <td id="cell6_1"></td>
+                    <td id="cell7_1"></td>
+                    <td id="cell8_1"></td>
+                    <td id="cell9_1"></td>
+                    <td id="cell10_1"></td>
+                    <td id="cell11_1"></td>
+                    <td id="cell12_1"></td>
+                </tr>
+                <tr>
+                    <td>Poule de relégation</td>
+                    <td id="cell2_2"></td>
+                    <td id="cell3_2"></td>
+                    <td id="cell4_2"></td>
+                    <td id="cell5_2"></td>
+                    <td id="cell6_2"></td>
+                    <td id="cell7_2"></td>
+                    <td id="cell8_2"></td>
+                    <td id="cell9_2"></td>
+                    <td id="cell10_2"></td>
+                    <td id="cell11_2"></td>
+                    <td id="cell12_2"></td>
+                </tr>
+                <tr>
+                    <td>Phase finale</td>
+                    <td id="cell2_3"></td>
+                    <td id="cell3_3"></td>
+                    <td id="cell4_3"></td>
+                    <td id="cell5_3"></td>
+                    <td id="cell6_3"></td>
+                    <td id="cell7_3"></td>
+                    <td id="cell8_3"></td>
+                    <td id="cell9_3"></td>
+                    <td id="cell10_3"></td>
+                    <td id="cell11_3"></td>
+                    <td id="cell12_3"></td>
+                </tr>
+                <tr>
+            <tfoot>
+                <td><b>SOMMES ANNUELLES</b></td>
+                <td id="cell2_4"></td>
+                <td id="cell3_4">---</td>
+                <td id="cell4_4">---</td>
+                <td id="cell5_4">---</td>
+                <td id="cell6_4">---</td>
+                <td id="cell7_4"></td>
+                <td id="cell8_4"></td>
+                <td id="cell9_4"></td>
+                <td id="cell10_4">---</td>
+                <td id="cell11_4"></td>
+                <td id="cell12_4" class="gras-vert"></td>
+            </tfoot>
             </tr>
-            <tr>
-                <td>
+            </tbody>
+        </table>
+        <br>
+        <hr>
+        <h1>2 - Calcul des revenus d'un arbitre en statut de travailleur non salarié - EURL régime impot sur le revenu
+            (IR)
+        </h1>
+        <p>Ce code calcule le revenu net d'un TNS en prenant en compte les primes, les frais et les cotisations URSSAF
+            et
+            les tranches d'impositions.</p>
+        <br>
+        Seuil TVA d'un travailleur indépendant : 36 800e<br>
+        <table class="Tableau01_AutoEntrepriseArray">
+            <thead>
+                <tr>
+                    <th>Travailleur non salarié</th>
+                    <th>Nbre matchs</th>
+                    <th>Montant</th>
+                    <th>% URSSAF</th>
+                    <th>Cotisations / match</th>
+                    <th>Net</th>
+                    <th>Brut annuel</th>
+                    <th>Cotisations annuelles</th>
+                    <th>Net d'URSSAF annuel</th>
+                    <th>Frais par match</th>
+                    <th>Sommes annuelle des frais</th>
+                    <th>Résultat intermédiaire</th>
+                    <th>Frais annexes</th>
+                    <th>Résultats nets</th>
+                    <th>Régime IR</th>
+                    <th>Montant revenus<br> imposables</th>
 
-                    <label for="prime_montant_01">Saison régulière</label><label for="prime_montant_01"></label><output
-                        id="valeur_prime_01"></output>
-                    <input type="range" id="prime_montant_01" name="prime_montant_01" min="100" max="1000" value="500"
-                        step="10"><br>
-
-                    <label for="prime_montant_02">Poule de relégation</label><label
-                        for="prime_montant_02"></label><output id="valeur_prime_02"></output>
-                    <input type="range" id="prime_montant_02" name="prime_montant_02" min="100" max="1000" value="700"
-                        step="10"><br>
-
-                    <label for="prime_montant_03">Phase finale</label><label for="prime_montant_03"></label><output
-                        id="valeur_prime_03"></output>
-                    <input type="range" id="prime_montant_03" name="prime_montant_03" min="100" max="1000" value="800"
-                        step="10">
-                </td>
-
-                <td>
-                    <label for="frais_par_match01"></label><output id="valeur_frais_01"></output>
-                    <label for="frais_par_match01">Saison régulière</label>
-                    <input type="range" id="frais_par_match01" name="frais_par_match01" min="10" max="1200" value="130"
-                        step="10">
-
-                    <label for="frais_par_match02"></label><output id="valeur_frais_02"></output>
-                    <label for="frais_par_match02">Poule de relégation</label>
-                    <input type="range" id="frais_par_match02" name="frais_par_match02" min="10" max="1200" value="260"
-                        step="10">
-
-                    <label for="frais_par_match03"></label><output id="valeur_frais_03"></output>
-                    <label for="frais_par_match03">Phase finale</label>
-                    <input type="range" id="frais_par_match03" name="frais_par_match03" min="10" max="1200" value="260"
-                        step="10">
-                </td>
-
-
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Saison régulière</td>
+                    <td id="tns_ir_cell2_1"></td>
+                    <td id="tns_ir_cell3_1"></td>
+                    <td id="tns_ir_cell4_1"></td>
+                    <td id="tns_ir_cell5_1"></td>
+                    <td id="tns_ir_cell6_1"></td>
+                    <td id="tns_ir_cell7_1"></td>
+                    <td id="tns_ir_cell8_1"></td>
+                    <td id="tns_ir_cell9_1"></td>
+                    <td id="tns_ir_cell10_1"></td>
+                    <td id="tns_ir_cell11_1"></td>
+                    <td id="tns_ir_cell12_1"></td>
+                    <td id="tns_ir_cell13_1"></td>
+                    <td id="tns_ir_cell14_1">---</td>
+                    <td id="tns_ir_cell15_1"></td>
+                </tr>
+                <tr>
+                    <td>Poule de relégation</td>
+                    <td id="tns_ir_cell2_2"></td>
+                    <td id="tns_ir_cell3_2"></td>
+                    <td id="tns_ir_cell4_2"></td>
+                    <td id="tns_ir_cell5_2"></td>
+                    <td id="tns_ir_cell6_2"></td>
+                    <td id="tns_ir_cell7_2"></td>
+                    <td id="tns_ir_cell8_2"></td>
+                    <td id="tns_ir_cell9_2"></td>
+                    <td id="tns_ir_cell10_2"></td>
+                    <td id="tns_ir_cell11_2"></td>
+                    <td id="tns_ir_cell12_2"></td>
+                    <td id="tns_ir_cell13_2"></td>
+                    <td id="tns_ir_cell14_2">---</td>
+                    <td id="tns_ir_cell15_2"></td>
+                </tr>
+                <tr>
+                    <td>Phase finale</td>
+                    <td id="tns_ir_cell2_3"></td>
+                    <td id="tns_ir_cell3_3"></td>
+                    <td id="tns_ir_cell4_3"></td>
+                    <td id="tns_ir_cell5_3"></td>
+                    <td id="tns_ir_cell6_3"></td>
+                    <td id="tns_ir_cell7_3"></td>
+                    <td id="tns_ir_cell8_3"></td>
+                    <td id="tns_ir_cell9_3"></td>
+                    <td id="tns_ir_cell10_3"></td>
+                    <td id="tns_ir_cell11_3"></td>
+                    <td id="tns_ir_cell12_3"></td>
+                    <td id="tns_ir_cell13_3"></td>
+                    <td id="tns_ir_cell14_3">---</td>
+                    <td id="tns_ir_cell15_3"></td>
+                </tr>
+                <tr>
+            <tfoot>
+                <td>SOMMES ANNUELLES</td>
+                <td id="tns_ir_cell2_4"></td>
+                <td id="tns_ir_cell3_4">---</td>
+                <td id="tns_ir_cell4_4">---</td>
+                <td id="tns_ir_cell5_4">---</td>
+                <td id="tns_ir_cell6_4">---</td>
+                <td id="tns_ir_cell7_4"></td>
+                <td id="tns_ir_cell8_4"></td>
+                <td id="tns_ir_cell9_4"></td>
+                <td id="tns_ir_cell10_4">---</td>
+                <td id="tns_ir_cell11_4"></td>
+                <td id="tns_ir_cell12_4"></td>
+                <td id="tns_ir_cell13_4"></td>
+                <td id="tns_ir_cell14_4"></td>
+                <td id="tns_ir_cell15_4"></td>
+                <td id="tns_ir_cell16_4" class="gras-vert"></td>
+            </tfoot>
             </tr>
-        </table><br><br>
-    </form>
-    <hr>
-    <h1>SIMULATION : tableaux comparatifs des frais</h1>
 
-    <br>
-    <div id="tableauComparatifDiv"></div>
-    <br>
-    <br>
+            </tbody>
+        </table>
+        <br>
+        <hr>
+        <h1>3 - Calcul des revenus d'un arbitre en statut de travailleur non salarié - EURL régime impot sur les
+            sociétés
+            (IS)</h1>
+        <p>Ce code calcule le revenu net d'un TNS en prenant en compte les primes, les frais et les cotisations URSSAF
+            et
+            les tranches d'impositions.</p>
+        Seuil TVA 36 800e
+        <table class="Tableau01_AutoEntrepriseArray">
+            <thead>
+                <tr>
+                    <th>Travailleur non salarié</th>
+                    <th>Nbre matchs</th>
+                    <th>Montant</th>
+                    <th>% URSSAF</th>
+                    <th>Cotisations / match</th>
+                    <th>Net</th>
+                    <th>Brut annuel</th>
+                    <th>Cotisations annuelles</th>
+                    <th>Net d'URSSAF annuel</th>
+                    <th>Frais par match</th>
+                    <th>Sommes annuelle des frais</th>
+                    <th>Résultat intermédiaire</th>
+                    <th>Frais annexes</th>
+                    <th>Résultats nets</th>
+                    <th>Régime IS</th>
+                    <th>Versement dividendes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Saison régulière</td>
+                    <td id="tns_is_cell2_1"></td>
+                    <td id="tns_is_cell3_1"></td>
+                    <td id="tns_is_cell4_1"></td>
+                    <td id="tns_is_cell5_1"></td>
+                    <td id="tns_is_cell6_1"></td>
+                    <td id="tns_is_cell7_1"></td>
+                    <td id="tns_is_cell8_1"></td>
+                    <td id="tns_is_cell9_1"></td>
+                    <td id="tns_is_cell10_1"></td>
+                    <td id="tns_is_cell11_1"></td>
+                    <td id="tns_is_cell12_1"></td>
+                    <td id="tns_is_cell13_1"></td>
+                    <td id="tns_is_cell14_1">---</td>
+                    <td id="tns_is_cell15_1">---</td>
+                    <td id="tns_is_cell16_1">Imposition barême</td>
+                </tr>
+                <tr>
+                    <td>Poule de relégation</td>
+                    <td id="tns_is_cell2_2"></td>
+                    <td id="tns_is_cell3_2"></td>
+                    <td id="tns_is_cell4_2"></td>
+                    <td id="tns_is_cell5_2"></td>
+                    <td id="tns_is_cell6_2"></td>
+                    <td id="tns_is_cell7_2"></td>
+                    <td id="tns_is_cell8_2"></td>
+                    <td id="tns_is_cell9_2"></td>
+                    <td id="tns_is_cell10_2"></td>
+                    <td id="tns_is_cell11_2"></td>
+                    <td id="tns_is_cell12_2"></td>
+                    <td id="tns_is_cell13_2"></td>
+                    <td id="tns_is_cell14_2">---</td>
+                    <td id="tns_is_cell15_2"></td>
+                    <td id="tns_is_cell16_2"></td>
 
+                </tr>
+                <tr>
+                    <td>Phase finale</td>
+                    <td id="tns_is_cell2_3"></td>
+                    <td id="tns_is_cell3_3"></td>
+                    <td id="tns_is_cell4_3"></td>
+                    <td id="tns_is_cell5_3"></td>
+                    <td id="tns_is_cell6_3"></td>
+                    <td id="tns_is_cell7_3"></td>
+                    <td id="tns_is_cell8_3"></td>
+                    <td id="tns_is_cell9_3"></td>
+                    <td id="tns_is_cell10_3"></td>
+                    <td id="tns_is_cell11_3"></td>
+                    <td id="tns_is_cell12_3"></td>
+                    <td id="tns_is_cell13_3"></td>
+                    <td id="tns_is_cell14_3">---</td>
+                    <td id="tns_is_cell15_3">---</td>
+                    <td id="tns_is_cell16_3">Flat tax</td>
+                </tr>
+                <tr>
+            <tfoot>
+                <td>SOMMES ANNUELLES</td>
+                <td id="tns_is_cell2_4"></td>
+                <td id="tns_is_cell3_4">---</td>
+                <td id="tns_is_cell4_4">---</td>
+                <td id="tns_is_cell5_4">---</td>
+                <td id="tns_is_cell6_4">---</td>
+                <td id="tns_is_cell7_4"></td>
+                <td id="tns_is_cell8_4"></td>
+                <td id="tns_is_cell9_4"></td>
+                <td id="tns_is_cell10_4">---</td>
+                <td id="tns_is_cell11_4"></td>
+                <td id="tns_is_cell12_4"></td>
+                <td id="tns_is_cell13_4"></td>
+                <td id="tns_is_cell14_4"></td>
+                <td id="tns_is_cell15_4"></td>
+                <td id="tns_is_cell16_4" class="gras-vert"></td>
+            </tfoot>
+            </tr>
+            </tbody>
+        </table>
+        (*) : La flat tax (ou PFU) est composée d'un accompte de 12,8% d'impôt sur le revenu et de 17,2% de prélèvements
+        sociaux. Les dividendes sont soumis à un prélèvement forfaitaire unique (PFU) de 30%.<br>
+        Les 12,8% d'impots sont possiblement dispensés si le revenu fiscal de référence n-2 est inférieur à 50 000e pour
+        une
+        personne seule et 75 000e pour un couple.<br>
+        Les 17,2% de prélèvements sociaux sont obligatoires.<br>
+        Le PFU est payable le 15 du mois suivant le versement des dividendes.<br>
+        L'année suivante, le montant des dividendes est à déclarer dans la <a
+            href="https://www.impots.gouv.fr/sites/default/files/formulaires/2042/2023/2042_4384.pdf">déclaration de
+            revenus
+            2042 (IRPP)</a>.<br>
+        Il est possible d'opter pour le barême progressif de l'impôt sur le revenu.<br>
+        <hr>
+        <h1>4 - Calcul des revenus d'un arbitre en statut de SASU en régime impot sur le revenu (IR)</h1>
+        <p>Ce code calcule le revenu net SASU IR en prenant en compte les primes, les frais et les cotisations URSSAF et
+            les
+            tranches d'impositions.</p>
+        <br>
+        Seuil TVA 36 800e
+        <table class="Tableau01_AutoEntrepriseArray">
+            <thead>
+                <tr>
+                    <th>Travailleur indépendant</th>
+                    <th>Nbre matchs</th>
+                    <th>Montant</th>
+                    <th>% URSSAF</th>
+                    <th>Cotisations / match</th>
+                    <th>Net</th>
+                    <th>Brut annuel</th>
+                    <th>Cotisations annuelles</th>
+                    <th>Net d'URSSAF annuel</th>
+                    <th>Frais par match</th>
+                    <th>Sommes annuelle des frais</th>
+                    <th>Résultat intermédiaire</th>
+                    <th>Frais annexes</th>
+                    <th>Résultats nets</th>
+                    <th>Résultat après IS</th>
+                    <th>Versement de dividendes <br>Flat tax</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Saison régulière</td>
+                    <td id="sasu_ir_cell2_1"></td>
+                    <td id="sasu_ir_cell3_1"></td>
+                    <td id="sasu_ir_cell4_1"></td>
+                    <td id="sasu_ir_cell5_1"></td>
+                    <td id="sasu_ir_cell6_1"></td>
+                    <td id="sasu_ir_cell7_1"></td>
+                    <td id="sasu_ir_cell8_1"></td>
+                    <td id="sasu_ir_cell9_1"></td>
+                    <td id="sasu_ir_cell10_1"></td>
+                    <td id="sasu_ir_cell11_1"></td>
+                    <td id="sasu_ir_cell12_1"></td>
+                    <td id="sasu_ir_cell13_1"></td>
+                    <td id="sasu_ir_cell14_1">---</td>
+                    <td id="sasu_ir_cell15_1">---</td>
+                    <td id="sasu_ir_cell16_1">---</td>
 
-    <br><br>
-    <hr>
-    <h1>Calculs basés sur une prime de match (rémunération)</h1>
-    <h1>1 - Calcul des revenus d'un arbitre en statut de travailleur indépendant (auto entreprise)</h1>
-    <p>Ce code calcule le revenu net d'un travailleur indépendant en prenant en compte les primes, les frais et les
-        cotisations URSSAF.</p>
-    <br>
-    Seuil TVA d'un travailleur indépendant : 39 100e<br>
-    <table class="Tableau01_AutoEntrepriseArray">
-        <thead>
-            <tr>
-                <th>Travailleur indépendant</th>
-                <th>Nbre matchs</th>
-                <th>Montant</th>
-                <th>% URSSAF</th>
-                <th>Cotisations / match</th>
-                <th>Net</th>
-                <th>Brut annuel</th>
-                <th>Cotisations annuelles</th>
-                <th>Net d'URSSAF annuel</th>
-                <th>Frais par match</th>
-                <th>Somme annuelle des frais</th>
-                <th>RÉSULTAT NET</th>
+                </tr>
+                <tr>
+                    <td>Poule de relégation</td>
+                    <td id="sasu_ir_cell2_2"></td>
+                    <td id="sasu_ir_cell3_2"></td>
+                    <td id="sasu_ir_cell4_2"></td>
+                    <td id="sasu_ir_cell5_2"></td>
+                    <td id="sasu_ir_cell6_2"></td>
+                    <td id="sasu_ir_cell7_2"></td>
+                    <td id="sasu_ir_cell8_2"></td>
+                    <td id="sasu_ir_cell9_2"></td>
+                    <td id="sasu_ir_cell10_2"></td>
+                    <td id="sasu_ir_cell11_2"></td>
+                    <td id="sasu_ir_cell12_2"></td>
+                    <td id="sasu_ir_cell13_2"></td>
+                    <td id="sasu_ir_cell14_2">---</td>
+                    <td id="sasu_ir_cell15_2"></td>
+                    <td id="sasu_ir_cell16_2"></td>
+                </tr>
+                <tr>
+                    <td>Phase finale</td>
+                    <td id="sasu_ir_cell2_3"></td>
+                    <td id="sasu_ir_cell3_3"></td>
+                    <td id="sasu_ir_cell4_3"></td>
+                    <td id="sasu_ir_cell5_3"></td>
+                    <td id="sasu_ir_cell6_3"></td>
+                    <td id="sasu_ir_cell7_3"></td>
+                    <td id="sasu_ir_cell8_3"></td>
+                    <td id="sasu_ir_cell9_3"></td>
+                    <td id="sasu_ir_cell10_3"></td>
+                    <td id="sasu_ir_cell11_3"></td>
+                    <td id="sasu_ir_cell12_3"></td>
+                    <td id="sasu_ir_cell13_3">---</td>
+                    <td id="sasu_ir_cell14_3">---</td>
+                    <td id="sasu_ir_cell15_3">---</td>
+                    <td id="sasu_ir_cell16_3">---</td>
+                </tr>
+                <tr>
+            <tfoot>
+                <td>SOMMES ANNUELLES</td>
+                <td id="sasu_ir_cell2_4">---</td>
+                <td id="sasu_ir_cell3_4">---</td>
+                <td id="sasu_ir_cell4_4">---</td>
+                <td id="sasu_ir_cell5_4">---</td>
+                <td id="sasu_ir_cell6_4">---</td>
+                <td id="sasu_ir_cell7_4"></td>
+                <td id="sasu_ir_cell8_4"></td>
+                <td id="sasu_ir_cell9_4"></td>
+                <td id="sasu_ir_cell10_4">---</td>
+                <td id="sasu_ir_cell11_4"></td>
+                <td id="sasu_ir_cell12_4"></td>
+                <td id="sasu_ir_cell13_4"></td>
+                <td id="sasu_ir_cell14_4"></td>
+                <td id="sasu_ir_cell15_4"></td>
+                <td id="sasu_ir_cell16_4" class="gras-vert"></td>
+            </tfoot>
             </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Saison régulière
-                <td>
-                <td id="cell2_1"></td>
-                <td id="cell3_1"></td>
-                <td id="cell4_1"></td>
-                <td id="cell5_1"></td>
-                <td id="cell6_1"></td>
-                <td id="cell7_1"></td>
-                <td id="cell8_1"></td>
-                <td id="cell9_1"></td>
-                <td id="cell10_1"></td>
-                <td id="cell11_1"></td>
-                <td id="cell12_1"></td>
-            </tr>
-            <tr>
-                <td>Poule de relégation</td>
-                <td id="cell2_2"></td>
-                <td id="cell3_2"></td>
-                <td id="cell4_2"></td>
-                <td id="cell5_2"></td>
-                <td id="cell6_2"></td>
-                <td id="cell7_2"></td>
-                <td id="cell8_2"></td>
-                <td id="cell9_2"></td>
-                <td id="cell10_2"></td>
-                <td id="cell11_2"></td>
-                <td id="cell12_2"></td>
-            </tr>
-            <tr>
-                <td>Phase finale</td>
-                <td id="cell2_3"></td>
-                <td id="cell3_3"></td>
-                <td id="cell4_3"></td>
-                <td id="cell5_3"></td>
-                <td id="cell6_3"></td>
-                <td id="cell7_3"></td>
-                <td id="cell8_3"></td>
-                <td id="cell9_3"></td>
-                <td id="cell10_3"></td>
-                <td id="cell11_3"></td>
-                <td id="cell12_3"></td>
-            </tr>
-            <tr>
-        <tfoot>
-            <td><b>SOMMES ANNUELLES</b></td>
-            <td id="cell2_4"></td>
-            <td id="cell3_4">---</td>
-            <td id="cell4_4">---</td>
-            <td id="cell5_4">---</td>
-            <td id="cell6_4">---</td>
-            <td id="cell7_4"></td>
-            <td id="cell8_4"></td>
-            <td id="cell9_4"></td>
-            <td id="cell10_4">---</td>
-            <td id="cell11_4"></td>
-            <td id="cell12_4" class="gras-vert"></td>
-        </tfoot>
-        </tr>
-        </tbody>
-    </table>
-    <br>
-    <hr>
-    <h1>2 - Calcul des revenus d'un arbitre en statut de travailleur non salarié - EURL régime impot sur le revenu (IR)
-    </h1>
-    <p>Ce code calcule le revenu net d'un TNS en prenant en compte les primes, les frais et les cotisations URSSAF et
-        les tranches d'impositions.</p>
-    <br>
-    Seuil TVA d'un travailleur indépendant : 36 800e<br>
-    <table class="Tableau02_TNS_IR_Array">
-        <thead>
-            <tr>
-                <th>Travailleur non salarié</th>
-                <th>Nbre matchs</th>
-                <th>Montant</th>
-                <th>% URSSAF</th>
-                <th>Cotisations / match</th>
-                <th>Net</th>
-                <th>Brut annuel</th>
-                <th>Cotisations annuelles</th>
-                <th>Net d'URSSAF annuel</th>
-                <th>Frais par match</th>
-                <th>Sommes annuelle des frais</th>
-                <th>Résultat intermédiaire</th>
-                <th>Frais annexes</th>
-                <th>Résultats nets</th>
-                <th>Régime IR</th>
-                <th>Montant revenus<br> imposables</th>
+            </tbody>
+        </table>
+        <br>
+        <hr>
+        <h1>5 - Calcul des revenus d'un arbitre en SASU régime impot sur les sociétés (IS)</h1>
+        <p>Ce code calcule le revenu net d'un SASU en prenant en compte les primes, les frais et les cotisations URSSAF
+            et
+            les tranches d'impositions.</p>
+        <br>
+        Seuil TVA 36 800e.
+        <table class="Tableau01_AutoEntrepriseArray">
+            <thead>
+                <tr>
+                    <th>Travailleur indépendant</th>
+                    <th>Nbre matchs</th>
+                    <th>Montant</th>
+                    <th>% URSSAF</th>
+                    <th>Cotisations / match</th>
+                    <th>Net</th>
+                    <th>Brut annuel</th>
+                    <th>Cotisations annuelles</th>
+                    <th>Net d'URSSAF annuel</th>
+                    <th>Frais par match</th>
+                    <th>Sommes annuelle des frais</th>
+                    <th>Résultat intermédiaire</th>
+                    <th>Frais annexes</th>
+                    <th>Résultats nets</th>
+                    <th>Régime IS</th>
+                    <th>Versement de dividendes<br>Imposition barême</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Saison régulière</td>
+                    <td id="sasu_is_cell2_1"></td>
+                    <td id="sasu_is_cell3_1"></td>
+                    <td id="sasu_is_cell4_1"></td>
+                    <td id="sasu_is_cell5_1"></td>
+                    <td id="sasu_is_cell6_1"></td>
+                    <td id="sasu_is_cell7_1"></td>
+                    <td id="sasu_is_cell8_1"></td>
+                    <td id="sasu_is_cell9_1"></td>
+                    <td id="sasu_is_cell10_1"></td>
+                    <td id="sasu_is_cell11_1"></td>
+                    <td id="sasu_is_cell12_1"></td>
+                    <td id="sasu_is_cell13_1"></td>
+                    <td id="sasu_is_cell14_1">---</td>
+                    <td id="sasu_is_cell15_1">---</td>
+                    <td id="sasu_is_cell16_1">---</td>
+                </tr>
+                <tr>
+                    <td>Poule de relégation</td>
+                    <td id="sasu_is_cell2_2"></td>
+                    <td id="sasu_is_cell3_2"></td>
+                    <td id="sasu_is_cell4_2"></td>
+                    <td id="sasu_is_cell5_2"></td>
+                    <td id="sasu_is_cell6_2"></td>
+                    <td id="sasu_is_cell7_2"></td>
+                    <td id="sasu_is_cell8_2"></td>
+                    <td id="sasu_is_cell9_2"></td>
+                    <td id="sasu_is_cell10_2"></td>
+                    <td id="sasu_is_cell11_2"></td>
+                    <td id="sasu_is_cell12_2"></td>
+                    <td id="sasu_is_cell13_2"></td>
+                    <td id="sasu_is_cell14_2">---</td>
+                    <td id="sasu_is_cell15_2"></td>
+                    <td id="sasu_is_cell16_2"></td>
+                </tr>
+                <tr>
+                    <td>Phases finales</td>
+                    <td id="sasu_is_cell2_3"></td>
+                    <td id="sasu_is_cell3_3"></td>
+                    <td id="sasu_is_cell4_3"></td>
+                    <td id="sasu_is_cell5_3"></td>
+                    <td id="sasu_is_cell6_3"></td>
+                    <td id="sasu_is_cell7_3"></td>
+                    <td id="sasu_is_cell8_3"></td>
+                    <td id="sasu_is_cell9_3"></td>
+                    <td id="sasu_is_cell10_3"></td>
+                    <td id="sasu_is_cell11_3"></td>
+                    <td id="sasu_is_cell12_3"></td>
+                    <td id="sasu_is_cell13_3">---</td>
+                    <td id="sasu_is_cell14_3">---</td>
+                    <td id="sasu_is_cell15_3">---</td>
+                    <td id="sasu_is_cell16_3">---</td>
 
+                </tr>
+                <tr>
+            <tfoot>
+                <td>SOMMES ANNUELLES</td>
+                <td id="sasu_is_cell2_4"></td>
+                <td id="sasu_is_cell3_4">---</td>
+                <td id="sasu_is_cell4_4">---</td>
+                <td id="sasu_is_cell5_4">---</td>
+                <td id="sasu_is_cell6_4">---</td>
+                <td id="sasu_is_cell7_4"></td>
+                <td id="sasu_is_cell8_4"></td>
+                <td id="sasu_is_cell9_4"></td>
+                <td id="sasu_is_cell10_4">---</td>
+                <td id="sasu_is_cell11_4"></td>
+                <td id="sasu_is_cell12_4"></td>
+                <td id="sasu_is_cell13_4"></td>
+                <td id="sasu_is_cell14_4"></td>
+                <td id="sasu_is_cell15_4"></td>
+                <td id="sasu_is_cell16_4" class="gras-vert"></td>
+            </tfoot>
             </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Saison régulière</td>
-                <td id="tns_ir_cell2_1"></td>
-                <td id="tns_ir_cell3_1"></td>
-                <td id="tns_ir_cell4_1"></td>
-                <td id="tns_ir_cell5_1"></td>
-                <td id="tns_ir_cell6_1"></td>
-                <td id="tns_ir_cell7_1"></td>
-                <td id="tns_ir_cell8_1"></td>
-                <td id="tns_ir_cell9_1"></td>
-                <td id="tns_ir_cell10_1"></td>
-                <td id="tns_ir_cell11_1"></td>
-                <td id="tns_ir_cell12_1"></td>
-                <td id="tns_ir_cell13_1"></td>
-                <td id="tns_ir_cell14_1">---</td>
-                <td id="tns_ir_cell15_1"></td>
-            </tr>
-            <tr>
-                <td>Poule de relégation</td>
-                <td id="tns_ir_cell2_2"></td>
-                <td id="tns_ir_cell3_2"></td>
-                <td id="tns_ir_cell4_2"></td>
-                <td id="tns_ir_cell5_2"></td>
-                <td id="tns_ir_cell6_2"></td>
-                <td id="tns_ir_cell7_2"></td>
-                <td id="tns_ir_cell8_2"></td>
-                <td id="tns_ir_cell9_2"></td>
-                <td id="tns_ir_cell10_2"></td>
-                <td id="tns_ir_cell11_2"></td>
-                <td id="tns_ir_cell12_2"></td>
-                <td id="tns_ir_cell13_2"></td>
-                <td id="tns_ir_cell14_2">---</td>
-                <td id="tns_ir_cell15_2"></td>
-            </tr>
-            <tr>
-                <td>Phase finale</td>
-                <td id="tns_ir_cell2_3"></td>
-                <td id="tns_ir_cell3_3"></td>
-                <td id="tns_ir_cell4_3"></td>
-                <td id="tns_ir_cell5_3"></td>
-                <td id="tns_ir_cell6_3"></td>
-                <td id="tns_ir_cell7_3"></td>
-                <td id="tns_ir_cell8_3"></td>
-                <td id="tns_ir_cell9_3"></td>
-                <td id="tns_ir_cell10_3"></td>
-                <td id="tns_ir_cell11_3"></td>
-                <td id="tns_ir_cell12_3"></td>
-                <td id="tns_ir_cell13_3"></td>
-                <td id="tns_ir_cell14_3">---</td>
-                <td id="tns_ir_cell15_3"></td>
-            </tr>
-            <tr>
-        <tfoot>
-            <td>SOMMES ANNUELLES</td>
-            <td id="tns_ir_cell2_4"></td>
-            <td id="tns_ir_cell3_4">---</td>
-            <td id="tns_ir_cell4_4">---</td>
-            <td id="tns_ir_cell5_4">---</td>
-            <td id="tns_ir_cell6_4">---</td>
-            <td id="tns_ir_cell7_4"></td>
-            <td id="tns_ir_cell8_4"></td>
-            <td id="tns_ir_cell9_4"></td>
-            <td id="tns_ir_cell10_4">---</td>
-            <td id="tns_ir_cell11_4"></td>
-            <td id="tns_ir_cell12_4"></td>
-            <td id="tns_ir_cell13_4"></td>
-            <td id="tns_ir_cell14_4"></td>
-            <td id="tns_ir_cell15_4"></td>
-            <td id="tns_ir_cell16_4" class="gras-vert"></td>
-        </tfoot>
-        </tr>
-
-        </tbody>
-    </table>
-    <br>
-    <hr>
-    <h1>3 - Calcul des revenus d'un arbitre en statut de travailleur non salarié - EURL régime impot sur les sociétés
-        (IS)</h1>
-    <p>Ce code calcule le revenu net d'un TNS en prenant en compte les primes, les frais et les cotisations URSSAF et
-        les tranches d'impositions.</p>
-    Seuil TVA 36 800e
-    <table class="Tableau03_TNS_IS_Array">
-        <thead>
-            <tr>
-                <th>Travailleur non salarié</th>
-                <th>Nbre matchs</th>
-                <th>Montant</th>
-                <th>% URSSAF</th>
-                <th>Cotisations / match</th>
-                <th>Net</th>
-                <th>Brut annuel</th>
-                <th>Cotisations annuelles</th>
-                <th>Net d'URSSAF annuel</th>
-                <th>Frais par match</th>
-                <th>Sommes annuelle des frais</th>
-                <th>Résultat intermédiaire</th>
-                <th>Frais annexes</th>
-                <th>Résultats nets</th>
-                <th>Régime IS</th>
-                <th>Versement dividendes</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Saison régulière</td>
-                <td id="tns_is_cell2_1"></td>
-                <td id="tns_is_cell3_1"></td>
-                <td id="tns_is_cell4_1"></td>
-                <td id="tns_is_cell5_1"></td>
-                <td id="tns_is_cell6_1"></td>
-                <td id="tns_is_cell7_1"></td>
-                <td id="tns_is_cell8_1"></td>
-                <td id="tns_is_cell9_1"></td>
-                <td id="tns_is_cell10_1"></td>
-                <td id="tns_is_cell11_1"></td>
-                <td id="tns_is_cell12_1"></td>
-                <td id="tns_is_cell13_1"></td>
-                <td id="tns_is_cell14_1">---</td>
-                <td id="tns_is_cell15_1">---</td>
-                <td id="tns_is_cell16_1">Imposition barême</td>
-            </tr>
-            <tr>
-                <td>Poule de relégation</td>
-                <td id="tns_is_cell2_2"></td>
-                <td id="tns_is_cell3_2"></td>
-                <td id="tns_is_cell4_2"></td>
-                <td id="tns_is_cell5_2"></td>
-                <td id="tns_is_cell6_2"></td>
-                <td id="tns_is_cell7_2"></td>
-                <td id="tns_is_cell8_2"></td>
-                <td id="tns_is_cell9_2"></td>
-                <td id="tns_is_cell10_2"></td>
-                <td id="tns_is_cell11_2"></td>
-                <td id="tns_is_cell12_2"></td>
-                <td id="tns_is_cell13_2"></td>
-                <td id="tns_is_cell14_2">---</td>
-                <td id="tns_is_cell15_2"></td>
-                <td id="tns_is_cell16_2"></td>
-
-            </tr>
-            <tr>
-                <td>Phase finale</td>
-                <td id="tns_is_cell2_3"></td>
-                <td id="tns_is_cell3_3"></td>
-                <td id="tns_is_cell4_3"></td>
-                <td id="tns_is_cell5_3"></td>
-                <td id="tns_is_cell6_3"></td>
-                <td id="tns_is_cell7_3"></td>
-                <td id="tns_is_cell8_3"></td>
-                <td id="tns_is_cell9_3"></td>
-                <td id="tns_is_cell10_3"></td>
-                <td id="tns_is_cell11_3"></td>
-                <td id="tns_is_cell12_3"></td>
-                <td id="tns_is_cell13_3"></td>
-                <td id="tns_is_cell14_3">---</td>
-                <td id="tns_is_cell15_3">---</td>
-                <td id="tns_is_cell16_3">Flat tax</td>
-            </tr>
-            <tr>
-        <tfoot>
-            <td>SOMMES ANNUELLES</td>
-            <td id="tns_is_cell2_4"></td>
-            <td id="tns_is_cell3_4">---</td>
-            <td id="tns_is_cell4_4">---</td>
-            <td id="tns_is_cell5_4">---</td>
-            <td id="tns_is_cell6_4">---</td>
-            <td id="tns_is_cell7_4"></td>
-            <td id="tns_is_cell8_4"></td>
-            <td id="tns_is_cell9_4"></td>
-            <td id="tns_is_cell10_4">---</td>
-            <td id="tns_is_cell11_4"></td>
-            <td id="tns_is_cell12_4"></td>
-            <td id="tns_is_cell13_4"></td>
-            <td id="tns_is_cell14_4"></td>
-            <td id="tns_is_cell15_4"></td>
-            <td id="tns_is_cell16_4" class="gras-vert"></td>
-        </tfoot>
-        </tr>
-        </tbody>
-    </table>
-    (*) : La flat tax (ou PFU) est composée d'un accompte de 12,8% d'impôt sur le revenu et de 17,2% de prélèvements
-    sociaux. Les dividendes sont soumis à un prélèvement forfaitaire unique (PFU) de 30%.<br>
-    Les 12,8% d'impots sont possiblement dispensés si le revenu fiscal de référence n-2 est inférieur à 50 000e pour une
-    personne seule et 75 000e pour un couple.<br>
-    Les 17,2% de prélèvements sociaux sont obligatoires.<br>
-    Le PFU est payable le 15 du mois suivant le versement des dividendes.<br>
-    L'année suivante, le montant des dividendes est à déclarer dans la <a
-        href="https://www.impots.gouv.fr/sites/default/files/formulaires/2042/2023/2042_4384.pdf">déclaration de revenus
-        2042 (IRPP)</a>.<br>
-    Il est possible d'opter pour le barême progressif de l'impôt sur le revenu.<br>
-    <hr>
-    <h1>4 - Calcul des revenus d'un arbitre en statut de SASU en régime impot sur le revenu (IR)</h1>
-    <p>Ce code calcule le revenu net SASU IR en prenant en compte les primes, les frais et les cotisations URSSAF et les
-        tranches d'impositions.</p>
-    <br>
-    Seuil TVA 36 800e
-    <table class="Tableau04_SASU_IR_Array">
-        <thead>
-            <tr>
-                <th>Travailleur indépendant</th>
-                <th>Nbre matchs</th>
-                <th>Montant</th>
-                <th>% URSSAF</th>
-                <th>Cotisations / match</th>
-                <th>Net</th>
-                <th>Brut annuel</th>
-                <th>Cotisations annuelles</th>
-                <th>Net d'URSSAF annuel</th>
-                <th>Frais par match</th>
-                <th>Sommes annuelle des frais</th>
-                <th>Résultat intermédiaire</th>
-                <th>Frais annexes</th>
-                <th>Résultats nets</th>
-                <th>Résultat après IS</th>
-                <th>Versement de dividendes <br>Flat tax</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Saison régulière</td>
-                <td id="sasu_ir_cell2_1"></td>
-                <td id="sasu_ir_cell3_1"></td>
-                <td id="sasu_ir_cell4_1"></td>
-                <td id="sasu_ir_cell5_1"></td>
-                <td id="sasu_ir_cell6_1"></td>
-                <td id="sasu_ir_cell7_1"></td>
-                <td id="sasu_ir_cell8_1"></td>
-                <td id="sasu_ir_cell9_1"></td>
-                <td id="sasu_ir_cell10_1"></td>
-                <td id="sasu_ir_cell11_1"></td>
-                <td id="sasu_ir_cell12_1"></td>
-                <td id="sasu_ir_cell13_1"></td>
-                <td id="sasu_ir_cell14_1">---</td>
-                <td id="sasu_ir_cell15_1">---</td>
-                <td id="sasu_ir_cell16_1">---</td>
-
-            </tr>
-            <tr>
-                <td>Poule de relégation</td>
-                <td id="sasu_ir_cell2_2"></td>
-                <td id="sasu_ir_cell3_2"></td>
-                <td id="sasu_ir_cell4_2"></td>
-                <td id="sasu_ir_cell5_2"></td>
-                <td id="sasu_ir_cell6_2"></td>
-                <td id="sasu_ir_cell7_2"></td>
-                <td id="sasu_ir_cell8_2"></td>
-                <td id="sasu_ir_cell9_2"></td>
-                <td id="sasu_ir_cell10_2"></td>
-                <td id="sasu_ir_cell11_2"></td>
-                <td id="sasu_ir_cell12_2"></td>
-                <td id="sasu_ir_cell13_2"></td>
-                <td id="sasu_ir_cell14_2">---</td>
-                <td id="sasu_ir_cell15_2"></td>
-                <td id="sasu_ir_cell16_2"></td>
-            </tr>
-            <tr>
-                <td>Phase finale</td>
-                <td id="sasu_ir_cell2_3"></td>
-                <td id="sasu_ir_cell3_3"></td>
-                <td id="sasu_ir_cell4_3"></td>
-                <td id="sasu_ir_cell5_3"></td>
-                <td id="sasu_ir_cell6_3"></td>
-                <td id="sasu_ir_cell7_3"></td>
-                <td id="sasu_ir_cell8_3"></td>
-                <td id="sasu_ir_cell9_3"></td>
-                <td id="sasu_ir_cell10_3"></td>
-                <td id="sasu_ir_cell11_3"></td>
-                <td id="sasu_ir_cell12_3"></td>
-                <td id="sasu_ir_cell13_3">---</td>
-                <td id="sasu_ir_cell14_3">---</td>
-                <td id="sasu_ir_cell15_3">---</td>
-                <td id="sasu_ir_cell16_3">---</td>
-            </tr>
-            <tr>
-        <tfoot>
-            <td>SOMMES ANNUELLES</td>
-            <td id="sasu_ir_cell2_4">---</td>
-            <td id="sasu_ir_cell3_4">---</td>
-            <td id="sasu_ir_cell4_4">---</td>
-            <td id="sasu_ir_cell5_4">---</td>
-            <td id="sasu_ir_cell6_4">---</td>
-            <td id="sasu_ir_cell7_4"></td>
-            <td id="sasu_ir_cell8_4"></td>
-            <td id="sasu_ir_cell9_4"></td>
-            <td id="sasu_ir_cell10_4">---</td>
-            <td id="sasu_ir_cell11_4"></td>
-            <td id="sasu_ir_cell12_4"></td>
-            <td id="sasu_ir_cell13_4"></td>
-            <td id="sasu_ir_cell14_4"></td>
-            <td id="sasu_ir_cell15_4"></td>
-            <td id="sasu_ir_cell16_4" class="gras-vert"></td>
-        </tfoot>
-        </tr>
-        </tbody>
-    </table>
-    <br>
-    <hr>
-    <h1>5 - Calcul des revenus d'un arbitre en SASU régime impot sur les sociétés (IS)</h1>
-    <p>Ce code calcule le revenu net d'un SASU en prenant en compte les primes, les frais et les cotisations URSSAF et
-        les tranches d'impositions.</p>
-    <br>
-    Seuil TVA 36 800e.
-    <table class="Tableau05_SASU_IS_Array">
-        <thead>
-            <tr>
-                <th>Travailleur indépendant</th>
-                <th>Nbre matchs</th>
-                <th>Montant</th>
-                <th>% URSSAF</th>
-                <th>Cotisations / match</th>
-                <th>Net</th>
-                <th>Brut annuel</th>
-                <th>Cotisations annuelles</th>
-                <th>Net d'URSSAF annuel</th>
-                <th>Frais par match</th>
-                <th>Sommes annuelle des frais</th>
-                <th>Résultat intermédiaire</th>
-                <th>Frais annexes</th>
-                <th>Résultats nets</th>
-                <th>Régime IS</th>
-                <th>Versement de dividendes<br>Imposition barême</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Saison régulière</td>
-                <td id="sasu_is_cell2_1"></td>
-                <td id="sasu_is_cell3_1"></td>
-                <td id="sasu_is_cell4_1"></td>
-                <td id="sasu_is_cell5_1"></td>
-                <td id="sasu_is_cell6_1"></td>
-                <td id="sasu_is_cell7_1"></td>
-                <td id="sasu_is_cell8_1"></td>
-                <td id="sasu_is_cell9_1"></td>
-                <td id="sasu_is_cell10_1"></td>
-                <td id="sasu_is_cell11_1"></td>
-                <td id="sasu_is_cell12_1"></td>
-                <td id="sasu_is_cell13_1"></td>
-                <td id="sasu_is_cell14_1">---</td>
-                <td id="sasu_is_cell15_1">---</td>
-                <td id="sasu_is_cell16_1">---</td>
-            </tr>
-            <tr>
-                <td>Poule de relégation</td>
-                <td id="sasu_is_cell2_2"></td>
-                <td id="sasu_is_cell3_2"></td>
-                <td id="sasu_is_cell4_2"></td>
-                <td id="sasu_is_cell5_2"></td>
-                <td id="sasu_is_cell6_2"></td>
-                <td id="sasu_is_cell7_2"></td>
-                <td id="sasu_is_cell8_2"></td>
-                <td id="sasu_is_cell9_2"></td>
-                <td id="sasu_is_cell10_2"></td>
-                <td id="sasu_is_cell11_2"></td>
-                <td id="sasu_is_cell12_2"></td>
-                <td id="sasu_is_cell13_2"></td>
-                <td id="sasu_is_cell14_2">---</td>
-                <td id="sasu_is_cell15_2"></td>
-                <td id="sasu_is_cell16_2"></td>
-            </tr>
-            <tr>
-                <td>Phases finales</td>
-                <td id="sasu_is_cell2_3"></td>
-                <td id="sasu_is_cell3_3"></td>
-                <td id="sasu_is_cell4_3"></td>
-                <td id="sasu_is_cell5_3"></td>
-                <td id="sasu_is_cell6_3"></td>
-                <td id="sasu_is_cell7_3"></td>
-                <td id="sasu_is_cell8_3"></td>
-                <td id="sasu_is_cell9_3"></td>
-                <td id="sasu_is_cell10_3"></td>
-                <td id="sasu_is_cell11_3"></td>
-                <td id="sasu_is_cell12_3"></td>
-                <td id="sasu_is_cell13_3">---</td>
-                <td id="sasu_is_cell14_3">---</td>
-                <td id="sasu_is_cell15_3">---</td>
-                <td id="sasu_is_cell16_3">---</td>
-
-            </tr>
-            <tr>
-        <tfoot>
-            <td>SOMMES ANNUELLES</td>
-            <td id="sasu_is_cell2_4"></td>
-            <td id="sasu_is_cell3_4">---</td>
-            <td id="sasu_is_cell4_4">---</td>
-            <td id="sasu_is_cell5_4">---</td>
-            <td id="sasu_is_cell6_4">---</td>
-            <td id="sasu_is_cell7_4"></td>
-            <td id="sasu_is_cell8_4"></td>
-            <td id="sasu_is_cell9_4"></td>
-            <td id="sasu_is_cell10_4">---</td>
-            <td id="sasu_is_cell11_4"></td>
-            <td id="sasu_is_cell12_4"></td>
-            <td id="sasu_is_cell13_4"></td>
-            <td id="sasu_is_cell14_4"></td>
-            <td id="sasu_is_cell15_4"></td>
-            <td id="sasu_is_cell16_4" class="gras-vert"></td>
-        </tfoot>
-        </tr>
-        </tbody>
-    </table>
-    <br>
+            </tbody>
+        </table>
+        <br>
 
 
-    <script>
-        /*
-        <canvas id="myChart" width="800" height="400"></canvas>
-        <canvas id="mychart01" width="400" height="400"></canvas>
-        */
-    </script>
+        <script>
+            /*
+            <canvas id="myChart" width="800" height="400"></canvas>
+            <canvas id="mychart01" width="400" height="400"></canvas>
+            */
+        </script>
 
-    <hr>
-    <h2>Historique des tarifs</h2>
+        <hr>
+        <h2>Historique des tarifs</h2>
 
-    <table class="table table-bordered table-hover table-condensed custom-table">
-        <thead>
-            <tr>
-                <th>Saison</th>
-                <th>Head LM amicaux</th>
-                <th>Head LM SR</th>
-                <th>Head LM PO</th>
-                <th>Head D1 amicaux</th>
-                <th>Head D1 SR</th>
-                <th>Head D1 PO</th>
-                <th>JDL amicaux</th>
-                <th>JDL SR</th>
-                <th>JDL PO</th>
-                <th>JDL amicaux D1</th>
-                <th>JDL D1 SR</th>
-                <th>JDL D1 PO</th>
-                <th>Grand Déplacement</th>
-                <th>Hôtel</th>
-                <th>Km</th>
-                <th>Repas</th>
-                <th>Taux d'inflation</th>
-                <th>Gazole</th>
-                <th>Variation Km</th>
-            </tr>
-        </thead>
-        <tbody id="dataBody">
-        </tbody>
-    </table>
+        <table class="Tableau01_AutoEntrepriseArray">
+            <thead>
+                <tr>
+                    <th>Saison</th>
+                    <th>Head LM amicaux</th>
+                    <th>Head LM SR</th>
+                    <th>Head LM PO</th>
+                    <th>Head D1 amicaux</th>
+                    <th>Head D1 SR</th>
+                    <th>Head D1 PO</th>
+                    <th>JDL amicaux</th>
+                    <th>JDL SR</th>
+                    <th>JDL PO</th>
+                    <th>JDL amicaux D1</th>
+                    <th>JDL D1 SR</th>
+                    <th>JDL D1 PO</th>
+                    <th>Grand Déplacement</th>
+                    <th>Hôtel</th>
+                    <th>Km</th>
+                    <th>Repas</th>
+                    <th>Taux d'inflation</th>
+                    <th>Gazole</th>
+                    <th>Variation Km</th>
+                </tr>
+            </thead>
+            <tbody id="dataBody">
+            </tbody>
+        </table>
 
-    <script>
-        //window.onload = init;
-        // Best practice pour le chargement de la page
-        document.addEventListener('DOMContentLoaded', function () {
-            init();
-        });
+        <script>
+            //window.onload = init;
+            // Best practice pour le chargement de la page
+            document.addEventListener('DOMContentLoaded', function () {
+                init();
+            });
 
-    </script>
+        </script>
 
-    <br>
-    <hr>
+        <br>
+        <hr>
 
-    PRK : https://www.cartecarburant.leclerc/actualites/prix-revient-kilometrique<br>
-    <img src="https://simu.aahg.fr/tableau_prk.png" alt="Tableau PRK" />
-    <br>
-    <br>
-    Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité des auteurs.
-    En cas d'erreur ou de demande d'évolution, merci de me contacter à l'adresse suivante :
-    <a href="mailto:guillaume ar0base rootshell.fr">guillaume at rootshell point fr</a>
-    <br>
-    Pas de cookie, aucune donnée enregistrée côté serveur.
+        PRK : https://www.cartecarburant.leclerc/actualites/prix-revient-kilometrique<br>
+        <img src="https://simu.aahg.fr/tableau_prk.png" alt="Tableau PRK" />
+        <br>
+        <br>
+        Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité des auteurs.
+        En cas d'erreur ou de demande d'évolution, merci de me contacter à l'adresse suivante :
+        <a href="mailto:guillaume ar0base rootshell.fr">guillaume at rootshell point fr</a>
+        <br>
+        Pas de cookie, aucune donnée enregistrée côté serveur.
 </body>
 
 </html>

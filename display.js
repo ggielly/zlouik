@@ -83,7 +83,7 @@ var display = {
         var selectedRadio = document.querySelector('#indemniteChoisieDiv input[type="radio"]:checked');
         // Afficher la valeur sélectionnée dans la console
         if (selectedRadio) {
-            console.log('Valeur sélectionnée:', selectedRadio.value);
+            //console.log('Valeur sélectionnée:', selectedRadio.value);
         } else {
             console.error('Aucun bouton radio n’est sélectionné.');
         }
@@ -95,7 +95,7 @@ var display = {
         // Ajouter un écouteur d'événements pour chaque bouton radio
         radios.forEach(function (radio) {
             radio.addEventListener('change', function () {
-                console.log('Nouvelle valeur sélectionnée:', radio.value);
+                //console.log('Nouvelle valeur sélectionnée:', radio.value);
             });
         });
     },
@@ -210,7 +210,7 @@ var display = {
 
     // Affichage des résultats du tableau historique en fonction de la ville de départ sélectionnée
     updateHistoriqueVille: function () {
-        console.log("Mise à jour historique pour la ville: ", document.getElementById("VilleDepart").value);
+        //console.log("Mise à jour historique pour la ville: ", document.getElementById("VilleDepart").value);
 
 
         // Récupération de la ville de départ sélectionnée
@@ -284,14 +284,15 @@ var display = {
             var totalPRK = 0, totalKilometriques = 0, totalRepas = 0, totalHotels = 0, totalFrais = 0;
             var totalGrandDeplacement = 0, totalDistance = 0, totalPeages = 0, totalTempsTrajet = 0;
             var totalPrimes = 0, totalFraisHistorique = 0, totalPreparation = 0, totalBeneficeReel = 0, totalPrimeBenefice = 0;
-
-            var htmlTableau = `<h3>${etiquette} : ${nbMatchs} matchs.</h3><table id="tableauComparatif" class="customTable" border='3'><thead><tr><th>Domicile / Départ</th><th>Destination</th><th>Distance<br>aller/retour</th><th>Péages</th><th>Temps de trajet A/R</th><th>Grand déplacement</th><th>Indemnités kilométriques</th><th>PRK</th><th>Repas</th><th>Hôtel</th><th>Indemnité de préparation <br> et d'équipement</th><th>Note de frais historique <br>Chiffre d'affaire</th><th>Note de frais historique<br>bénéfices rééls</th><th>Prime<br>(chiffre d'affaire)</th><th>Frais</th><th>PRIMES<br>bénéfices rééls<br>(prime - frais - PRK)</th></tr></thead><tbody>`;
+            // Récupération du nombre de matchs à traiter
+            var nbMatchs = nbMatches[index];
+            var htmlTableau = `<h3>${etiquette} : ${nbMatchs} matchs.</h3><table id="tableauComparatif" class="Tableau01_AutoEntrepriseArray" border='3'><thead><tr><th>Domicile / Départ</th><th>Destination</th><th>Distance<br>aller/retour</th><th>Péages</th><th>Temps de trajet A/R</th><th>Grand déplacement</th><th>Indemnités kilométriques</th><th>PRK</th><th>Repas</th><th>Hôtel</th><th>Indemnité de préparation <br> et d'équipement</th><th>Note de frais historique <br>Chiffre d'affaire</th><th>Note de frais historique<br>bénéfices rééls</th><th>Prime<br>(chiffre d'affaire)</th><th>Frais</th><th>PRIMES<br>bénéfices rééls<br>(prime - frais - PRK)</th></tr></thead><tbody>`;
 
             // Itération sur les résultats pour les afficher dans le tableau
             var processedCount = 0;
 
-            // Récupération du nombre de matchs à traiter
-            var nbMatchs = nbMatches[index];
+
+            
             // Vérification si le nombre de matchs est supérieur au nombre de résultats
             if (resultats.length === 0) {
                 console.error("Aucun résultat disponible pour le traitement.");
@@ -343,11 +344,11 @@ var display = {
                 totalPRK += prk;
                 processedCount++;  // Incrémentation du compteur de lignes traitées
 
-                console.log(`Processing entry ${processedCount}/${nbMatches[index]} for ${etiquette}`);
+                //console.log(`Processing entry ${processedCount}/${nbMatches[index]} for ${etiquette}`);
 
             }; // Fin boucle for 
 
-            console.log(`Processing entry ${i + 1}/${nbMatches[index]} for ${etiquette}`);
+            //console.log(`Processing entry ${i + 1}/${nbMatches[index]} for ${etiquette}`);
 
             var totalHeuresTrajet = Math.floor(totalTempsTrajet / 60);
             var tauxHoraireIndemnite = totalBeneficeReel / totalHeuresTrajet;
