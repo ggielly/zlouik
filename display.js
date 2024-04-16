@@ -237,12 +237,12 @@ var display = {
             // Boucle sur les résultats pour les afficher dans le tableau
             for (var i = 0; i < nbMatchs && processedCount < nbMatches[index]; i++) {
                 var trajet = resultats[i % resultats.length];
-                var d = parseFloat(trajet.Km * 2);
-                var prk = eval(formulePrk.replace('d', d));  // Calcul du PRK
-                var grandDeplacement = d > 500 ? 80 : 0;
-                var repas = (d > 500 ? 2 : 1) * coutRepas;
-                var hotel = d > 500 ? coutHotel : 0;
-                var indemnites = d * 0.410;
+                var distance = parseFloat(trajet.Km * 2);
+                var prk = eval(formulePrk.replace('d', distance));  // Calcul du PRK
+                var grandDeplacement = distance > 500 ? 80 : 0;
+                var repas = (distance > 500 ? 2 : 1) * coutRepas;
+                var hotel = distance > 500 ? coutHotel : 0;
+                var indemnites = distance * 0.410;
                 var peages = parseFloat(trajet.Peages * 2);
                 var fraisHistorique = peages + grandDeplacement + indemnites + repas + hotel + valeurIndemnite;
                 var beneficeReel = fraisHistorique - (prk + repas + peages + hotel);
@@ -254,9 +254,9 @@ var display = {
                 colorBeneficeReel = beneficeReel < 0 ? "color:red;" : "";
                 colorPrimeBenefice = primeBenefice < 0 ? "color:red;" : "";
 
-                htmlTableau += `<tr><td>${trajet.VilleDepart}</td><td>${trajet.VilleDestination}</td><td>${d} Km</td><td>${peages} €</td><td>${Math.floor(TempsTrajetAllerRetour / 60)}h${TempsTrajetAllerRetour % 60}</td><td>${grandDeplacement} €</td><td>${indemnites.toFixed(2)} €</td><td>${prk.toFixed(2)} €</td><td>${repas.toFixed(2)} €</td><td>${hotel.toFixed(2)} €</td><td>${valeurIndemnite} €</td><td>${fraisHistorique.toFixed(2)} €</td><td style="${colorBeneficeReel}">${beneficeReel.toFixed(2)} €</td><td>${prime.toFixed(2)} €</td><td>${frais.toFixed(2)} €</td><td style="${colorPrimeBenefice}">${primeBenefice.toFixed(2)} €</td></tr>`;
+                htmlTableau += `<tr><td>${trajet.VilleDepart}</td><td>${trajet.VilleDestination}</td><td>${distance} Km</td><td>${peages} €</td><td>${Math.floor(TempsTrajetAllerRetour / 60)}h${TempsTrajetAllerRetour % 60}</td><td>${grandDeplacement} €</td><td>${indemnites.toFixed(2)} €</td><td>${prk.toFixed(2)} €</td><td>${repas.toFixed(2)} €</td><td>${hotel.toFixed(2)} €</td><td>${valeurIndemnite} €</td><td>${fraisHistorique.toFixed(2)} €</td><td style="${colorBeneficeReel}">${beneficeReel.toFixed(2)} €</td><td>${prime.toFixed(2)} €</td><td>${frais.toFixed(2)} €</td><td style="${colorPrimeBenefice}">${primeBenefice.toFixed(2)} €</td></tr>`;
 
-                totalDistance += d;
+                totalDistance += distance;
                 totalPeages += peages;
                 totalTempsTrajet += parseInt((trajet.TempsTrajet.split('h')[0]) * 60 + parseInt(trajet.TempsTrajet.split('h')[1])) * 2;
                 totalKilometriques += indemnites;
