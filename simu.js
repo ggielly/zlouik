@@ -148,21 +148,21 @@ var calculDestinations = function() {
     var nombreIterations = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03; 
 
     // Récupération de l'élément selectVilleDepart
-    var selectElement = document.getElementById("villeDepart");
+    var selectElement = document.getElementById("VilleDepart");
 
     // Vérification si l'élément selectVilleDepart existe
     if (selectElement) {
-        var villeDepart = selectElement.value;
+        var VilleDepart = selectElement.value;
         // Calcul des itérations
         for (let i = 0; i < nombreIterations; i++) {
             // Choix aléatoire d'une ville de destination parmi celles disponibles pour la ville de départ sélectionnée
             var VilleDestinationsPossibles = data.filter(function(trajet) {
-                return trajet.VilleDepart === villeDepart;
+                return trajet.VilleDepart === VilleDepart;
             });
 
             // Vérification si des villes de destination sont disponibles
             if (VilleDestinationsPossibles.length === 0) {
-                console.warn("Aucune ville de destination trouvée pour la ville de départ :", villeDepart);
+                console.warn("Aucune ville de destination trouvée pour la ville de départ :", VilleDepart);
                 continue; // Passer à l'itération suivante si aucune ville de destination n'est disponible
             }
 
@@ -173,7 +173,7 @@ var calculDestinations = function() {
             resultats.push(VilleDestination);
         }
     } else {
-        console.error("L'élément villeDepart n'existe pas dans le document.");
+        console.error("L'élément VilleDepart n'existe pas dans le document.");
     }
 };
 
@@ -221,7 +221,7 @@ var gereEvents = function () {
 
     document.getElementById("indemniteChoisieDiv").addEventListener("change", display.updateHistorique);
     
-    document.getElementById("villeDepart").addEventListener("input", display.updateHistorique);
+    document.getElementById("VilleDepart").addEventListener("input", display.updateHistorique);
     document.getElementById("menuPRK").addEventListener("input", display.updateHistorique);
 };
 

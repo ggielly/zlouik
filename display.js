@@ -87,7 +87,7 @@ var display = {
     // génération du menu des villes de départ
     menuVilles: function () {
         // Récupération de l'élément conteneur pour le menu déroulant des villes de départ
-        const selectContainer = document.getElementById("villeDepart");
+        const selectContainer = document.getElementById("VilleDepart");
         // Insertion du menu déroulant des villes de départ dans l'élément conteneur
         if (selectContainer) {
             var villesDepartSet = new Set();
@@ -101,13 +101,13 @@ var display = {
             var options = "";
             // Itération sur l'ensemble des villes de départ uniques
             var first = true;
-            villesDepartSet.forEach(function (villeDepart) {
+            villesDepartSet.forEach(function (VilleDepart) {
                 var sel = "";
                 if (first) {
                     sel = " selected";
                     first = false;
                 }
-                options += "<option value='" + villeDepart + "'" + sel + ">" + villeDepart + "</option>\n";
+                options += "<option value='" + VilleDepart + "'" + sel + ">" + VilleDepart + "</option>\n";
             });
             selectContainer.innerHTML = options;
         } else {
@@ -151,22 +151,22 @@ var display = {
 
     // Affichage des résultats du tableau historique en fonction de la ville de départ sélectionnée
     updateHistoriqueVille: function () {
-        console.log("Mise à jour historique pour la ville: ", document.getElementById("villeDepart").value);
+        console.log("Mise à jour historique pour la ville: ", document.getElementById("VilleDepart").value);
 
 
         // Récupération de la ville de départ sélectionnée
-        var selectElement = document.getElementById("villeDepart");
+        var selectElement = document.getElementById("VilleDepart");
         if (!selectElement) {
-            console.error("L'élément villeDepart n'existe pas dans le document.");
-            return; // Sortie de la fonction si l'élément villeDepart n'existe pas
+            console.error("L'élément VilleDepart n'existe pas dans le document.");
+            return; // Sortie de la fonction si l'élément VilleDepart n'existe pas
         }
 
         if (selectElement) {
-            var villeDepart = selectElement.value;
+            var VilleDepart = selectElement.value;
 
             // Filtrage des résultats pour la ville de départ sélectionnée
             var resultats_filtres = data.filter(function (trajet) {
-                return trajet.VilleDepart === villeDepart;
+                return trajet.VilleDepart === VilleDepart;
             });
 
             // Génération du tableau des résultats si des résultats ont été trouvés
@@ -189,11 +189,11 @@ var display = {
                 }
             } else {
                 // Aucun résultat trouvé pour la ville de départ sélectionnée
-                console.log("Aucun résultat trouvé pour la ville de départ sélectionnée :", villeDepart);
+                console.log("Aucun résultat trouvé pour la ville de départ sélectionnée :", VilleDepart);
             }
         }
         else {
-            console.error("L'élément villeDepart n'existe pas dans le document.");
+            console.error("L'élément VilleDepart n'existe pas dans le document.");
         }
     },
 
@@ -216,10 +216,10 @@ var display = {
             var frais = parseFloat(document.getElementById(`frais_par_match0${index + 1}`).value);
             var formulePrk = document.getElementById("menuPRK").value;
             var nbMatchs = nbMatches[index];
-            var colorPrimeBenefice = 0;
-            var colorBeneficeReel = 0;
-            var colorTotalBeneficeReel = 0;
-            var colorTotalPrimeBenefice = 0;
+            let colorPrimeBenefice = 0;
+            let colorBeneficeReel = 0;
+            let colorTotalBeneficeReel = 0;
+            let colorTotalPrimeBenefice = 0;
 
             // Récupération de la valeur de l'indemnité choisie
             var valeurIndemnite = document.querySelector('#indemniteChoisieDiv input[type="radio"]:checked') ?
@@ -229,7 +229,7 @@ var display = {
             var totalGrandDeplacement = 0, totalDistance = 0, totalPeages = 0, totalTempsTrajet = 0;
             var totalPrimes = 0, totalFraisHistorique = 0, totalPreparation = 0, totalBeneficeReel = 0, totalPrimeBenefice = 0;
 
-            var htmlTableau = `<h3>${etiquette}</h3><table id="tableauComparatif" class="customTable" border='3'><thead><tr><th>Domicile / Départ</th><th>Destination</th><th>Distance<br>aller/retour</th><th>Péages</th><th>Temps de trajet A/R</th><th>Grand déplacement</th><th>Indemnités kilométriques</th><th>PRK</th><th>Repas</th><th>Hôtel</th><th>Indemnité de préparation <br> et d'équipement</th><th>Note de frais historique <br>Chiffre d'affaire</th><th>Note de frais historique<br>bénéfices rééls</th><th>Prime<br>(chiffre d'affaire)</th><th>Frais</th><th>PRIMES<br>bénéfices rééls<br>(prime - frais - PRK)</th></tr></thead><tbody>`;
+            var htmlTableau = `<h3>${etiquette} : ${nbMatchs} matchs.</h3><table id="tableauComparatif" class="customTable" border='3'><thead><tr><th>Domicile / Départ</th><th>Destination</th><th>Distance<br>aller/retour</th><th>Péages</th><th>Temps de trajet A/R</th><th>Grand déplacement</th><th>Indemnités kilométriques</th><th>PRK</th><th>Repas</th><th>Hôtel</th><th>Indemnité de préparation <br> et d'équipement</th><th>Note de frais historique <br>Chiffre d'affaire</th><th>Note de frais historique<br>bénéfices rééls</th><th>Prime<br>(chiffre d'affaire)</th><th>Frais</th><th>PRIMES<br>bénéfices rééls<br>(prime - frais - PRK)</th></tr></thead><tbody>`;
 
             // Itération sur les résultats pour les afficher dans le tableau
             var processedCount = 0;
@@ -360,10 +360,10 @@ var display = {
         document.getElementById("cell8_4").innerHTML = (cotisations_annuelles_01 + cotisations_annuelles_02 + cotisations_annuelles_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des cotisations sur la saison
         document.getElementById("cell9_4").innerHTML = (net_urssaf_annuel_01 + net_urssaf_annuel_02 + net_urssaf_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des nets sur la saison
         document.getElementById("cell11_4").innerHTML = (frais_annuel_01 + frais_annuel_02 + frais_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais sur la saison
-        document.getElementById("cell12_4").innerHTML = (resultat_net_01 + resultat_net_02 + resultat_net_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des resultats sur la saison
+        document.getElementById("cell12_4").innerHTML = (resultat_net_01 + resultat_net_02 + resultat_net_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des résultats sur la saison
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Affichage des resultats dans le tableau 2 
+        // Affichage des résultats dans le tableau 2 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         document.getElementById("tns_ir_cell2_1").innerHTML = nbre_matchs_01; // Nombre de matchs (match 1)
         document.getElementById("tns_ir_cell4_1").innerHTML = urssaf_zero + " %"; // % URSSAF
@@ -412,14 +412,14 @@ var display = {
         document.getElementById("tns_ir_cell8_4").innerHTML = (urssaf_zero * nbre_matchs_01 + urssaf_zero * nbre_matchs_02 + urssaf_zero * nbre_matchs_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des cotisations URSSAF
         document.getElementById("tns_ir_cell9_4").innerHTML = (urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 + urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 + urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des nets d'URSSAF
         document.getElementById("tns_ir_cell11_4").innerHTML = (frais_annuel_01 + frais_annuel_02 + frais_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais sur la saison
-        document.getElementById("tns_ir_cell12_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des resultats sur la saison
+        document.getElementById("tns_ir_cell12_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des résultats sur la saison
         document.getElementById("tns_ir_cell13_4").innerHTML = (frais_banque + frais_comptable + frais_urssaf).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais annexes sur la saison
         document.getElementById("tns_ir_cell14_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf).toLocaleString('fr-FR') + " €"; // Résultat net
         document.getElementById("tns_ir_cell15_4").innerHTML = (AC16 - impotsSurLeRevenu).toLocaleString('fr-FR') + " €"; // impots sur le revenu
         document.getElementById("tns_ir_cell16_4").innerHTML = AC16.toLocaleString('fr-FR'); // impots sur le revenu
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Affichage des resultats dans le tableau 3 
+        // Affichage des résultats dans le tableau 3 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         document.getElementById("tns_is_cell2_1").innerHTML = nbre_matchs_01; // Nombre de matchs (match 1)
         document.getElementById("tns_is_cell4_1").innerHTML = urssaf_zero + " %"; // % URSSAF
@@ -471,7 +471,7 @@ var display = {
         document.getElementById("tns_is_cell8_4").innerHTML = (urssaf_zero * nbre_matchs_01 + urssaf_zero * nbre_matchs_02 + urssaf_zero * nbre_matchs_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des cotisations URSSAF
         document.getElementById("tns_is_cell9_4").innerHTML = (urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 + urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 + urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des nets d'URSSAF
         document.getElementById("tns_is_cell11_4").innerHTML = (frais_annuel_01 + frais_annuel_02 + frais_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais sur la saison
-        document.getElementById("tns_is_cell12_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des resultats sur la saison
+        document.getElementById("tns_is_cell12_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des résultats sur la saison
         document.getElementById("tns_is_cell13_4").innerHTML = (frais_banque + frais_comptable + frais_urssaf).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais annexes sur la saison
         document.getElementById("tns_is_cell14_4").innerHTML = resultat_net_is_TNS.toLocaleString('fr-FR') + " €"; // Résultat net
         // Résultat net - AC22
@@ -481,7 +481,7 @@ var display = {
         document.getElementById("tns_is_cell16_4").innerHTML = (AC24 * (1 - ((30 / 100)))).toLocaleString('fr-FR') + " €"; // impots sur le revenu
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Affichage des resultats dans le tableau 4 
+        // Affichage des résultats dans le tableau 4 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         document.getElementById("sasu_ir_cell2_1").innerHTML = nbre_matchs_01; // Nombre de matchs (match 1)
         document.getElementById("sasu_ir_cell4_1").innerHTML = urssaf_zero + " %"; // % URSSAF
@@ -525,7 +525,7 @@ var display = {
         document.getElementById("sasu_ir_cell8_4").innerHTML = (urssaf_zero * nbre_matchs_01 + urssaf_zero * nbre_matchs_02 + urssaf_zero * nbre_matchs_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des cotisations URSSAF
         document.getElementById("sasu_ir_cell9_4").innerHTML = (urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 + urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 + urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des nets d'URSSAF
         document.getElementById("sasu_ir_cell11_4").innerHTML = (frais_annuel_01 + frais_annuel_02 + frais_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais
-        document.getElementById("sasu_ir_cell12_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des resultats sur la saison
+        document.getElementById("sasu_ir_cell12_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des résultats sur la saison
 
         const resultat_intermediaire_total = resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03;
         document.getElementById("sasu_ir_cell13_1").innerHTML = frais_banque + " €"; // Frais annexes
@@ -544,7 +544,7 @@ var display = {
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Affichage des resultats dans le tableau 5 
+        // Affichage des résultats dans le tableau 5 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         document.getElementById("sasu_is_cell2_1").innerHTML = nbre_matchs_01; // Nombre de matchs (match 1)
         document.getElementById("sasu_is_cell4_1").innerHTML = urssaf_zero + " %"; // % URSSAF
@@ -583,7 +583,7 @@ var display = {
 
         document.getElementById("sasu_is_cell12_2").innerHTML = resultat_intermediaire_02.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
         document.getElementById("sasu_is_cell13_3").innerHTML = frais_urssaf.toLocaleString('fr-FR') + " €"; // Frais annexes
-        document.getElementById("sasu_is_cell12_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des resultats sur la saison
+        document.getElementById("sasu_is_cell12_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des résultats sur la saison
 
         //console.log(frais_banque);
         document.getElementById("sasu_is_cell13_1").innerHTML = frais_banque.toLocaleString('fr-FR') + " €"; // Frais annexes
@@ -596,7 +596,7 @@ var display = {
         document.getElementById("sasu_is_cell8_4").innerHTML = (urssaf_zero * nbre_matchs_01 + urssaf_zero * nbre_matchs_02 + urssaf_zero * nbre_matchs_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des cotisations URSSAF
         document.getElementById("sasu_is_cell9_4").innerHTML = (urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 + urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 + urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des nets d'URSSAF
         document.getElementById("sasu_is_cell11_4").innerHTML = (frais_annuel_01 + frais_annuel_02 + frais_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais sur la saison
-        document.getElementById("sasu_is_cell14_4").innerHTML = (resultat_intermediaire_total - frais_banque - frais_comptable).toLocaleString('fr-FR') + " €"; // Sommes annuelle des resultats sur la saison
+        document.getElementById("sasu_is_cell14_4").innerHTML = (resultat_intermediaire_total - frais_banque - frais_comptable).toLocaleString('fr-FR') + " €"; // Sommes annuelle des résultats sur la saison
         document.getElementById("sasu_is_cell15_2").innerHTML = ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais annexes sur la saison
 
         const ResultatApresIS_temp = ((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15)).toFixed(2);
