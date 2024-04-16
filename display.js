@@ -199,7 +199,7 @@ var display = {
 
 
 
-    tableauComparatif: function (resultats, prkVoiture) {
+    tableauComparatif: function (resultats) {
         var etiquettes = ["Saison régulière", "Poule de relégation", "Phase finale"];
         var coutRepas = 17;  // Coût fixé pour les repas
         var coutHotel = 87;  // Coût fixé pour les hôtels
@@ -300,16 +300,19 @@ var display = {
 
     // Mise à jour du tableau historique avec le PRKVoiture sélectionné
     updateHistoriquePRK: function () {
-        // Récupérer la valeur sélectionnée du PRKVoiture dans le menu déroulant
-        var prkVoiture = document.getElementById("menuPRK").value;
-        // Récupérer l'élément conteneur du tableau des résultats
-        var tableauContainer = document.getElementById("tableauComparatifDiv");
-        
-        if (tableauContainer) {
-            // Mettre à jour le contenu du tableau des résultats avec les données et le PRKVoiture sélectionné
-            tableauContainer.innerHTML = display.tableauComparatif(resultats, prkVoiture);
-        } else {
-            console.error("L'élément conteneur pour le tableau historique des résultats n'existe pas dans le document.");
+        // Test si le menu déroulant pour le PRKVoiture existe dans le document
+        if (document.getElementById("menuPRK")) {
+            // Récupérer la valeur sélectionnée du PRKVoiture dans le menu déroulant
+            var prkVoiture = document.getElementById("menuPRK").value;
+            // Récupérer l'élément conteneur du tableau des résultats
+            var tableauContainer = document.getElementById("tableauComparatifDiv");
+            
+            if (tableauContainer) {
+                // Mettre à jour le contenu du tableau des résultats avec les données et le PRKVoiture sélectionné
+                tableauContainer.innerHTML = display.tableauComparatif(resultats, prkVoiture);
+            } else {
+                console.error("L'élément conteneur pour le tableau historique des résultats n'existe pas dans le document.");
+            }
         }
     },
 
