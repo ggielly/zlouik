@@ -1,79 +1,138 @@
-.axis {  font-family: sans-serif;  font-size: 10px;  stroke: #ccc;}
-.axis path {  fill: none;  stroke-width: 1;}
-.axis line {  stroke: #ddd;  stroke-width: 1;}
-.tick {  stroke: #ddd;  stroke-width: 1;}
-.tick text {  fill: #000;}
-.gras-vert {  color: green;  font-weight: bold;}
-.gras-rouge {  color: red; font-weight: bold;}
+.axis {
+  font-family: sans-serif;
+  font-size: 10px;
+  stroke: #ccc;
+}
+
+.axis path {
+  fill: none;
+  stroke-width: 1;
+}
+
+.axis line {
+  stroke: #ddd;
+  stroke-width: 1;
+}
+
+.tick {
+  stroke: #ddd;
+  stroke-width: 1;
+}
+
+.tick text {
+  fill: #000;
+}
+
+.gras-vert {
+  color: green;
+  font-weight: bold;
+}
+
+.gras-rouge {
+  color: red;
+  font-weight: bold;
+}
 
 output {
-    display: block;
-    margin-top: 5px;
-    font-weight: bold;
-    }
+  display: block;
+  margin-top: 5px;
+  font-weight: bold;
+}
 
-table { width: 80%;      border-collapse: collapse; }
-th, td { border: 2px solid black; padding: 8px; text-align: center; }
-th { background-color: #f2f2f2;}
+table {
+  width: 80%;
+  border-collapse: collapse;
+}
 
-.Tableau01_AutoEntrepriseArray th, .Tableau01_AutoEntrepriseArray td {
-   width: 80%;
-  padding: 8px; /* Adds padding to all cells for spacing */
-  text-align: center; /* Centers text in all cells */
-  border-bottom: 1px solid #dee2e6; /* Adds a light border to the bottom of all cells for definition */
+th,
+td {
+  border: 2px solid black;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.Tableau01_AutoEntrepriseArray th,
+.Tableau01_AutoEntrepriseArray td {
+  width: 80%;
+  padding: 8px;
+  /* Adds padding to all cells for spacing */
+  text-align: center;
+  /* Centers text in all cells */
+  border-bottom: 1px solid #dee2e6;
+  /* Adds a light border to the bottom of all cells for definition */
 }
 
 .Tableau01_AutoEntrepriseArray tr:nth-child(even) {
-  background-color: #f2f2f2; /* Sets a light grey background for even rows */
+  background-color: #f2f2f2;
+  /* Sets a light grey background for even rows */
 }
 
 .Tableau01_AutoEntrepriseArray tr:hover {
-  background-color: #ddd; /* Changes background to a darker grey when hovering over a row */
+  background-color: #ddd;
+  /* Changes background to a darker grey when hovering over a row */
 }
 
 .Tableau01_AutoEntrepriseArray tfoot td {
-  font-weight: bold; /* Makes footer text bold */
-  background-color: #c8e1fb; /* Sets a distinct background for the footer for emphasis */
+  font-weight: bold;
+  /* Makes footer text bold */
+  background-color: #c8e1fb;
+  /* Sets a distinct background for the footer for emphasis */
 }
 
 .Tableau01_AutoEntrepriseArray .gras-vert {
-  color: green; /* Sets text color to green for specific cells to highlight key data */
+  color: green;
+  /* Sets text color to green for specific cells to highlight key data */
 }
 
 .Tableau01_AutoEntrepriseArray thead {
-  font-weight: bold; /* Makes footer text bold */
-  background-color: #78d8fa; /* Sets a distinct background for the footer for emphasis */
+  font-weight: bold;
+  /* Makes footer text bold */
+  background-color: #78d8fa;
+  /* Sets a distinct background for the footer for emphasis */
 }
 
 
 
 
-.tableauComparatif th, .tableauComparatif td {
-  padding: 8px; /* Adds padding to all cells for spacing */
-  text-align: center; /* Centers text in all cells */
-  border-bottom: 1px solid #dee2e6; /* Adds a light border to the bottom of all cells for definition */
+.tableauComparatif th,
+.tableauComparatif td {
+  padding: 8px;
+  /* Adds padding to all cells for spacing */
+  text-align: center;
+  /* Centers text in all cells */
+  border-bottom: 1px solid #dee2e6;
+  /* Adds a light border to the bottom of all cells for definition */
 }
 
 .tableauComparatif tr:nth-child(even) {
-  background-color: #f2f2f2; /* Sets a light grey background for even rows */
+  background-color: #f2f2f2;
+  /* Sets a light grey background for even rows */
 }
 
 .tableauComparatif tr:hover {
-  background-color: #ddd; /* Changes background to a darker grey when hovering over a row */
+  background-color: #ddd;
+  /* Changes background to a darker grey when hovering over a row */
 }
 
 .tableauComparatif tfoot td {
-  font-weight: bold; /* Makes footer text bold */
-  background-color: #e9ecef; /* Sets a distinct background for the footer for emphasis */
+  font-weight: bold;
+  /* Makes footer text bold */
+  background-color: #e9ecef;
+  /* Sets a distinct background for the footer for emphasis */
 }
 
 
 table.tableauDonneeGenerale {
   border: 1px solid #ccc;
   padding: 5px;
+
   .right-align {
     text-align: left;
-}
+  }
 }
 
 
@@ -86,116 +145,172 @@ table.tableauDonneeGenerale {
 .slider-group {
   display: flex;
   align-items: center;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 }
+
 .slider-group label {
-  flex: 1; 
-  margin-right: 10px; 
+  flex: 1;
+  margin-right: 10px;
 }
+
 .slider-group output {
-  margin-left: 10px; 
+  margin-left: 10px;
 }
 
 #indemniteChoisieDiv {
-  background-color: #f8f9fa; /* Light grey background for better contrast */
-  border-radius: 8px; /* Rounded corners for modern look */
-  padding: 20px; /* Spacing inside the div for better layout */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for 3D effect */
-  margin-top: 20px; /* Space above the div */
+  background-color: #f8f9fa;
+  /* Light grey background for better contrast */
+  border-radius: 8px;
+  /* Rounded corners for modern look */
+  padding: 20px;
+  /* Spacing inside the div for better layout */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow for 3D effect */
+  margin-top: 20px;
+  /* Space above the div */
 }
+
 .form-check-label {
-  font-size: 16px; /* Larger font for better readability */
-  color: #495057; /* Dark grey color for text */
+  font-size: 16px;
+  /* Larger font for better readability */
+  color: #495057;
+  /* Dark grey color for text */
 }
+
 .form-check-input {
-  width: 20px; /* Bigger radio button */
-  height: 20px; /* Bigger radio button */
-  margin-top: 0; /* Align better with the label text */
-  margin-right: 10px; /* Space between radio button and label */
+  width: 20px;
+  /* Bigger radio button */
+  height: 20px;
+  /* Bigger radio button */
+  margin-top: 0;
+  /* Align better with the label text */
+  margin-right: 10px;
+  /* Space between radio button and label */
 }
 
 body {
-  font-family: 'Arial', sans-serif; /* Sets a readable typeface */
-  background: #f5f5f5; /* Light grey background for a softer look */
-  padding: 20px; /* Adds padding around the content for better spacing */
+  font-family: 'Arial', sans-serif;
+  /* Sets a readable typeface */
+  background: #f5f5f5;
+  /* Light grey background for a softer look */
+  padding: 20px;
+  /* Adds padding around the content for better spacing */
 }
 
 h1 {
-  color: #343a40; /* Dark shade for headers for better visibility */
-  margin-bottom: 0.5em; /* Reduces space below the header */
+  color: #343a40;
+  /* Dark shade for headers for better visibility */
+  margin-bottom: 0.5em;
+  /* Reduces space below the header */
 }
 
 p {
-  color: #666; /* Dark gray color for paragraph text for readability */
-  font-size: 16px; /* Increases the font size for ease of reading */
+  color: #666;
+  /* Dark gray color for paragraph text for readability */
+  font-size: 16px;
+  /* Increases the font size for ease of reading */
 }
 
 .intro-text {
-  background-color: #fff; /* White background for the text box */
-  border-left: 5px solid #007bff; /* Blue border on the left for a pop of color */
-  padding: 15px; /* Padding inside the text box */
-  margin-bottom: 20px; /* Space below the text box */
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+  background-color: #fff;
+  /* White background for the text box */
+  border-left: 5px solid #007bff;
+  /* Blue border on the left for a pop of color */
+  padding: 15px;
+  /* Padding inside the text box */
+  margin-bottom: 20px;
+  /* Space below the text box */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow for depth */
 }
 
 hr {
-  margin-top: 20px; /* Space above the horizontal rule */
-  margin-bottom: 20px; /* Space below the horizontal rule */
+  margin-top: 20px;
+  /* Space above the horizontal rule */
+  margin-bottom: 20px;
+  /* Space below the horizontal rule */
 }
 
 .custom-container {
-  background-color: #ffffff; /* Adds a white background */
-  padding: 20px; /* Adds padding inside the container */
-  border-radius: 8px; /* Rounds the corners for a softer look */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* Subtle shadow for depth */
-  margin-top: 20px; /* Space above the container */
-  margin-bottom: 20px; /* Space below the container */
+  background-color: #ffffff;
+  /* Adds a white background */
+  padding: 20px;
+  /* Adds padding inside the container */
+  border-radius: 8px;
+  /* Rounds the corners for a softer look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  /* Subtle shadow for depth */
+  margin-top: 20px;
+  /* Space above the container */
+  margin-bottom: 20px;
+  /* Space below the container */
 }
 
 
 h3 {
-  margin-top: 20px; /* Adds space above each header */
+  margin-top: 20px;
+  /* Adds space above each header */
 }
 
 
 .container {
-  background-color: #fff; /* White background for clarity */
-  padding: 20px; /* Padding for some breathing room */
-  border-radius: 8px; /* Rounded corners for a modern look */
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);  /* Soft shadow for depth */
-  margin-top: 20px; /* Space above the container */
+  background-color: #fff;
+  /* White background for clarity */
+  padding: 20px;
+  /* Padding for some breathing room */
+  border-radius: 8px;
+  /* Rounded corners for a modern look */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Soft shadow for depth */
+  margin-top: 20px;
+  /* Space above the container */
 }
 
 .slider-group {
-  background-color: #f9f9f9; /* Slightly off-white background for the slider area */
-  border: 1px solid #ddd; /* Light border for the slider group */
-  padding: 10px; /* Padding inside the slider group */
-  border-radius: 5px; /* Rounded corners inside the slider groups */
-  margin-bottom: 10px; /* Space between slider groups */
+  background-color: #f9f9f9;
+  /* Slightly off-white background for the slider area */
+  border: 1px solid #ddd;
+  /* Light border for the slider group */
+  padding: 10px;
+  /* Padding inside the slider group */
+  border-radius: 5px;
+  /* Rounded corners inside the slider groups */
+  margin-bottom: 10px;
+  /* Space between slider groups */
 }
 
 h4 {
-  color: #007bff; /* Bootstrap primary color for headings */
+  color: #007bff;
+  /* Bootstrap primary color for headings */
 }
 
 label {
-  font-weight: bold; /* Bold font for labels */
-  display: block; /* Ensure labels are on their own line */
-  margin-bottom: 5px; /* Space below labels */
+  font-weight: bold;
+  /* Bold font for labels */
+  display: block;
+  /* Ensure labels are on their own line */
+  margin-bottom: 5px;
+  /* Space below labels */
 }
 
 output {
-  font-size: 16px; /* Larger font size for outputs */
-  color: #007bff; /* Blue color to match headings */
-  font-weight: bold; /* Bold font for emphasis */
-  float: right; /* Align output to the right of the slider */
+  font-size: 16px;
+  /* Larger font size for outputs */
+  color: #007bff;
+  /* Blue color to match headings */
+  font-weight: bold;
+  /* Bold font for emphasis */
+  float: right;
+  /* Align output to the right of the slider */
   display: block;
 
 }
 
 .custom-range {
-  width: 100%; /* Full width sliders */
-  margin-top: 10px; /* Space above the slider */
+  width: 100%;
+  /* Full width sliders */
+  margin-top: 10px;
+  /* Space above the slider */
 }
 
 .card-header {
