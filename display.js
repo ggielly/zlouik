@@ -77,6 +77,12 @@ var display = {
         document.getElementById(outputId).textContent = value;
     },
 
+    // On affiche le slider joli
+    updateOutputPourcent: function(val) {
+        document.getElementById('rangeOutput').value = val + ' %';  // Met à jour le contenu de l'output
+        document.getElementById('rangeOutput').textContent = val + ' %';  // Ajoute aussi pour garantir l'affichage
+    },
+
     // Mise à jour de l'affichage du tableau des résultats
     updateSelectedIndemnityValue: function () {
         // Récupérer la valeur sélectionnée du bouton radio
@@ -359,23 +365,10 @@ var display = {
             htmlTableau += `<tr><td colspan='8'>Taux horaire moyen basé sur la prime : ${tauxHorairePrime.toFixed(2)} €/heure</td></tr>`;
             htmlTableau += `</table>`;
 
-/*
-            etiquettes.forEach((categorie, index) => {
-                // Création de l'entrée de données pour le graphique
-                var dataEntry = {
-                    Phase: categorie,
-                    'Indemnité de préparation': resultats[index].totalFraisHistorique,
-                    'Note de frais historique': resultats[index].totalBeneficeReel,
-                    'Prime': resultats[index].totalPrimes,
-                    'Bénéfice net': resultats[index].totalPrimeBenefice
-                };
-                globalMatchData.push(dataEntry);
-            });*/
-
             return htmlTableau;
         }); // fin de la boucle sur les étiquettes : tableauxHtml
 
-        //updateD3Chart(globalMatchData);  //
+
 
        return tableauxHtml.join('<br>');
     }, // Fin de la fonction
