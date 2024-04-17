@@ -262,13 +262,13 @@ var display = {
         var coutRepas = 17;  // Coût fixé pour les repas
         var coutHotel = 87;  // Coût fixé pour les hôtels
 
-        const nbMatches = [
+        var nbMatches = [
             parseInt(document.getElementById('nbre_matchs_01').value),
             parseInt(document.getElementById('nbre_matchs_02').value),
             parseInt(document.getElementById('nbre_matchs_03').value)
         ];
 
-        const tableauxHtml = etiquettes.map((etiquette, index) => {
+        var tableauxHtml = etiquettes.map((etiquette, index) => {
             var prime = parseFloat(document.getElementById(`prime_montant_0${index + 1}`).value);
             var frais = parseFloat(document.getElementById(`frais_par_match0${index + 1}`).value);
             var formulePrk = document.getElementById("menuPRK").value;
@@ -290,8 +290,6 @@ var display = {
 
             // Itération sur les résultats pour les afficher dans le tableau
             var processedCount = 0;
-
-
             
             // Vérification si le nombre de matchs est supérieur au nombre de résultats
             if (resultats.length === 0) {
@@ -344,8 +342,6 @@ var display = {
                 totalPRK += prk;
                 processedCount++;  // Incrémentation du compteur de lignes traitées
 
-                //console.log(`Processing entry ${processedCount}/${nbMatches[index]} for ${etiquette}`);
-
             }; // Fin boucle for 
 
             //console.log(`Processing entry ${i + 1}/${nbMatches[index]} for ${etiquette}`);
@@ -363,10 +359,25 @@ var display = {
             htmlTableau += `<tr><td colspan='8'>Taux horaire moyen basé sur la prime : ${tauxHorairePrime.toFixed(2)} €/heure</td></tr>`;
             htmlTableau += `</table>`;
 
+/*
+            etiquettes.forEach((categorie, index) => {
+                // Création de l'entrée de données pour le graphique
+                var dataEntry = {
+                    Phase: categorie,
+                    'Indemnité de préparation': resultats[index].totalFraisHistorique,
+                    'Note de frais historique': resultats[index].totalBeneficeReel,
+                    'Prime': resultats[index].totalPrimes,
+                    'Bénéfice net': resultats[index].totalPrimeBenefice
+                };
+                globalMatchData.push(dataEntry);
+            });*/
+
             return htmlTableau;
         }); // fin de la boucle sur les étiquettes : tableauxHtml
 
-        return tableauxHtml.join('<br>');
+        //updateD3Chart(globalMatchData);  //
+
+       return tableauxHtml.join('<br>');
     }, // Fin de la fonction
 
 
@@ -391,6 +402,8 @@ var display = {
 
     // Mise à jour de l'ensemble des tableaux prévisionnels de la fédération
     updateTableauxFederation: function () {
+
+
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Affichage des résultats dans le tableau 1 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

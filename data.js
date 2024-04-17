@@ -7,6 +7,9 @@ const totalmatch = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseIn
 
 var frais_banque = 240;
 
+var globalMatchData = []; // Pour le graphique
+
+
 var indemniteChoisie = 666; // DEBUG
 var totalIndemniteChoisie = 0; // DEBUG
 var frais_comptable = 400;
