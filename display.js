@@ -274,6 +274,19 @@ var display = {
             parseInt(document.getElementById('nbre_matchs_03').value)
         ];
 
+        // Récupération des grands déplacements
+        var pourcentageGrandDeplacement = parseInt(document.getElementById('pourcentageGrandDeplacement').value);
+
+
+        // onction de mélange aléatoire d'un tableau Fisher-Yates
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+
         var tableauxHtml = etiquettes.map((etiquette, index) => {
             var prime = parseFloat(document.getElementById(`prime_montant_0${index + 1}`).value);
             var frais = parseFloat(document.getElementById(`frais_par_match0${index + 1}`).value);
@@ -296,15 +309,27 @@ var display = {
 
             // Itération sur les résultats pour les afficher dans le tableau
             var processedCount = 0;
-            
+
+           
             // Vérification si le nombre de matchs est supérieur au nombre de résultats
             if (resultats.length === 0) {
                 console.error("Aucun résultat disponible pour le traitement.");
                 return `<h3>${etiquette} : Aucun résultat disponible.</h3>`;
             }
 
+            // Calcul du nombre de grands déplacements et de petits déplacements
+            var nbGrandDeplacement = Math.round(nbMatches[index] * pourcentageGrandDeplacement);
+            var matchTypes = new Array(nbMatches[index]).fill(0).map((_, idx) => idx < nbGrandDeplacement);
+    
+            // Mélange aléatoire des types de matchs
+            shuffleArray(matchTypes);
+
+
             // Boucle sur les résultats pour les afficher dans le tableau
             for (var i = 0; i < nbMatchs && processedCount < nbMatches[index]; i++) {
+                var distance = matchTypes[i] ? 600 : 300; // Using the shuffled match types to assign distances
+                var hotel = matchTypes[i] ? coutHotel : 0;
+                var repas = matchTypes[i] ? 2 * coutRepas : coutRepas;
 
                 var trajet = resultats[i % resultats.length];
                 // Vérification des données pour le calcul
