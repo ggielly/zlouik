@@ -310,6 +310,9 @@ Sous licence GPL3.
                 <br>
                 <br>
 
+                ici
+                <canvas id="datGraf" width="800" height="400"></canvas>
+
 
                 <br><br>
                 <hr>
@@ -850,13 +853,6 @@ Sous licence GPL3.
                 <br>
 
 
-                <script>
-                    /*
-                    <canvas id="myChart" width="800" height="400"></canvas>
-                    <canvas id="mychart01" width="400" height="400"></canvas>
-                    */
-                </script>
-
                 <hr>
                 <h2>Historique des tarifs</h2>
 
@@ -888,25 +884,6 @@ Sous licence GPL3.
                     <tbody id="dataBody">
                     </tbody>
                 </table>
-
-
-
-                <div style="display:none;">
-                    <div id="cell3_1">12000</div> <!-- Exemple pour Note de frais historique Chiffre d'affaire -->
-                    <div id="cell3_2">14000</div> <!-- Autres données... -->
-                    <div id="cell3_3">15000</div>
-                    <div id="cell3_4">35000</div>
-                
-                    <!-- Ajoutez autant de divs que nécessaire pour toutes vos données -->
-                </div>
-                
-                <div>
-                    <canvas id="revenueChart"></canvas>
-                </div>
-
-
-                <canvas id="chart"></canvas>
-
                 <script>
                     //window.onload = init;
                     // Best practice pour le chargement de la page
@@ -915,84 +892,13 @@ Sous licence GPL3.
                     });
 
                 </script>
-
-<script>
-   document.addEventListener('DOMContentLoaded', function () {
-    const data = [
-        // Example data - this should be dynamically generated from your application logic
-        {Phase: 'Saison régulière', 'Indemnité de préparation': 300, 'Note de frais historique': 1200, 'Prime': 500, 'Bénéfice net': 200},
-        {Phase: 'Poule de relégation', 'Indemnité de préparation': 200, 'Note de frais historique': 800, 'Prime': 300, 'Bénéfice net': 150},
-        {Phase: 'Phase finale', 'Indemnité de préparation': 250, 'Note de frais historique': 950, 'Prime': 450, 'Bénéfice net': 180}
-    ];
-
-    const svgWidth = 800, svgHeight = 400;
-    const svg = d3.select('body').append('svg').attr('width', svgWidth).attr('height', svgHeight);
-
-    const margin = {top: 20, right: 20, bottom: 30, left: 40};
-    const width = svgWidth - margin.left - margin.right;
-    const height = svgHeight - margin.top - margin.bottom;
-
-    const x = d3.scaleBand()
-        .range([0, width])
-        .padding(0.1)
-        .domain(data.map(d => d.Phase));
-
-    const y = d3.scaleLinear()
-        .range([height, 0])
-        .domain([0, d3.max(data, d => d['Indemnité de préparation'] + d['Note de frais historique'] + d['Prime'] + d['Bénéfice net'])]);
-
-    const color = d3.scaleOrdinal()
-        .domain(['Indemnité de préparation', 'Note de frais historique', 'Prime', 'Bénéfice net'])
-        .range(['#FF9999', '#66CCFF', '#99FF99', '#C2C2F0']);
-
-    const xAxis = d3.axisBottom(x);
-    const yAxis = d3.axisLeft(y);
-
-    const chart = svg.append('g')
-        .attr('transform', `translate(${margin.left},${margin.top})`);
-
-    chart.append('g')
-        .attr('class', 'x axis')
-        .attr('transform', `translate(0,${height})`)
-        .call(xAxis);
-
-    chart.append('g')
-        .attr('class', 'y axis')
-        .call(yAxis);
-
-    const stack = d3.stack()
-        .keys(['Indemnité de préparation', 'Note de frais historique', 'Prime', 'Bénéfice net'])
-        .order(d3.stackOrderNone)
-        .offset(d3.stackOffsetNone);
-
-    const layers = stack(data);
-
-    const layer = chart.selectAll('.layer')
-        .data(layers)
-        .enter().append('g')
-        .attr('class', 'layer')
-        .style('fill', (d, i) => color(d.key));
-
-    layer.selectAll('rect')
-        .data(d => d)
-        .enter().append('rect')
-        .attr('x', d => x(d.data.Phase))
-        .attr('y', d => y(d[1]))
-        .attr('height', d => y(d[0]) - y(d[1]))
-        .attr('width', x.bandwidth());
-});
-    </script>
-
-
-
-
                 <br>
                 <hr>
 
                 PRK : https://www.cartecarburant.leclerc/actualites/prix-revient-kilometrique<br>
                 <img src="https://simu.aahg.fr/tableau_prk.png" alt="Tableau PRK" />
                 <br>
-                <br>
+
 
                 <footer class="text-center text-muted">
                     © 2024 ZLOUIK! par Guillaume Gielly. Code source sous licence WTFPLv2 ou LPRAB en France. <br>
@@ -1005,5 +911,4 @@ Sous licence GPL3.
                 </footer>
 
 </body>
-
 </html>

@@ -185,7 +185,7 @@ var display = {
         return indemniteChoisieDiv;
     },
 
-    
+
     // Créé le menu déroulant avec l'ensemble des villes disponibles lu dans le tableau data
     // Avec un tri par ordre croissant
     menuVilles: function () {
@@ -427,6 +427,7 @@ var display = {
             htmlTableau += `<tr><td colspan='8'>Taux horaire moyen basé sur la prime : ${tauxHorairePrime.toFixed(2)} €/heure</td></tr>`;
             htmlTableau += `</table>`;
 
+           
             return htmlTableau;
         }); // fin de la boucle sur les étiquettes : tableauxHtml
 
@@ -861,6 +862,7 @@ var display = {
     updateHistorique: function () {
         display.updateHistoriquePRK();
         display.updateHistoriqueVille();
+        generateGraphs(resultats);
     }
 }; // EOF display
 

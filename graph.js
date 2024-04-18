@@ -2,42 +2,41 @@
 // Représentation graphique
 
 
-function updateD3Chart() {
-    const svgWidth = 800, svgHeight = 400;
-    //console.log(globalMatchData);
-    const svg = d3.select('body').selectAll('svg').data([globalMatchData]).join('svg').attr('width', svgWidth).attr('height', svgHeight);
+var currentChart = null;
+function generateGraphs(resultats) {
+    // Préparer les datasets pour chaque type de point nécessaire
+    var datasets = [
+        { label: "Note de frais historique - Chiffre d'affaire", data: [], borderColor: 'rgb(255, 99, 132)', fill: false },
+        { label: "Note de frais historique - bénéfices réels", data: [], borderColor: 'rgb(54, 162, 235)', fill: false },
+        { label: "Prime", data: [], borderColor: 'rgb(75, 192, 192)', fill: false },
+        { label: "PRIMES - bénéfices réels", data: [], borderColor: 'rgb(153, 102, 255)', fill: false }
+    ];
 
-    const margin = {top: 20, right: 20, bottom: 30, left: 40};
-    const width = svgWidth - margin.left - margin.right;
-    const height = svgHeight - margin.top - margin.bottom;
+    resultats.forEach((res, index) => {
+        // Supposer res est un objet contenant toutes les données nécessaires
+        datasets[0].data.push({ x: index + 1, y: res.fraisHistoriqueChiffre });
+        datasets[1].data.push({ x: index + 1, y: res.fraisHistoriqueBenefices });
+        datasets[2].data.push({ x: index + 1, y: res.prime });
+        datasets[3].data.push({ x: index + 1, y: res.primeBenefices });
+    });
 
-    const x = d3.scaleBand()
-        .range([0, width])
-        .padding(0.1)
-        .domain(globalMatchData.map(d => d.Phase));
-
-    const y = d3.scaleLinear()
-        .range([height, 0])
-        .domain([0, d3.max(globalMatchData, d => d['Indemnité de préparation'] + d['Note de frais historique'] + d['Prime'] + d['Bénéfice net'])]);
-
-    const color = d3.scaleOrdinal()
-        .domain(['Indemnité de préparation', 'Note de frais historique', 'Prime', 'Bénéfice net'])
-        .range(['#FF9999', '#66CCFF', '#99FF99', '#C2C2F0']);
-
-    const chart = svg.append('g')
-        .attr('transform', `translate(${margin.left},${margin.top})`);
-
-    chart.selectAll('.axis').remove(); // Nettoyer les axes avant de les redessiner
-    chart.append('g').attr('class', 'x axis').attr('transform', `translate(0,${height})`).call(d3.axisBottom(x));
-    chart.append('g').attr('class', 'y axis').call(d3.axisLeft(y));
-
-    const stack = d3.stack().keys(['Indemnité de préparation', 'Note de frais historique', 'Prime', 'Bénéfice net']);
-    const layers = stack(globalMatchData);
-
-    const layer = chart.selectAll('.layer').data(layers).join('g').attr('class', 'layer').style('fill', d => color(d.key));
-    layer.selectAll('rect').data(d => d).join('rect').attr('x', d => x(d.data.Phase)).attr('y', d => y(d[1])).attr('height', d => y(d[0]) - y(d[1])).attr('width', x.bandwidth());
+    // Configuration des graphiques
+    var ctx = document.getElementById('datGraf').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            datasets: datasets
+        },
+        options: {
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom'
+                }
+            }
+        }
+    });
 }
-
 
 
 function graph() {
