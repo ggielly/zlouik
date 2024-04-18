@@ -57,7 +57,7 @@ var display = {
       * var currentResults = display.getCurrentResults();
       * console.log(currentResults); // Affiche les trajets filtrés selon les critères actuels.
       */
-    getCurrentResults: function () {
+    getCurrentResultsold: function () {
         // Récupération des résultats actuels
         var villeDepart = document.getElementById("VilleDepart").value; // On suppose un champ input pour la ville de départ
         var nbreMaxMatchs = parseInt(document.getElementById("nbre_matchs_01").value);
@@ -70,6 +70,37 @@ var display = {
         return filteredResults;
     },
 
+    getCurrentResults: function () {
+        // Récupération de la ville de départ depuis l'input utilisateur
+        var villeDepart = document.getElementById("VilleDepart").value;
+        var nbreMaxMatchs = parseInt(document.getElementById("nbre_matchs_01").value);
+    
+        // Filtrer les données pour obtenir uniquement les trajets démarrant de la ville sélectionnée
+        var departures = data.filter(trajet => trajet.VilleDepart === villeDepart);
+    
+        // Créer un tableau temporaire pour stocker les destinations
+        var tempArray = [];
+    
+        // Collecter toutes les destinations correspondant aux villes de départ sélectionnées
+        departures.forEach(trajet => {
+            tempArray.push({destination: trajet.VilleDestination, details: trajet});
+        });
+    
+        // Mélanger aléatoirement la liste des destinations pour garantir un ordre différent à chaque appel
+        this.shuffleArray(tempArray);
+    
+        // Construire les résultats finaux à partir des destinations mélangées
+        var randomResults = [];
+        for (let i = 0; i < Math.min(nbreMaxMatchs, tempArray.length); i++) {
+            randomResults.push(tempArray[i].details);
+        }
+    
+        return randomResults;
+    },
+    
+    
+
+    
 
     // Mise à jour de l'affichage du slider
     updateOutput: function (sliderId, outputId) {
@@ -77,11 +108,13 @@ var display = {
         document.getElementById(outputId).textContent = value;
     },
 
+
     // On affiche le slider joli
     updateOutputPourcent: function(val) {
         document.getElementById('rangeOutput').value = val + ' %';  // Met à jour le contenu de l'output
         document.getElementById('rangeOutput').textContent = val + ' %';  // Ajoute aussi pour garantir l'affichage
     },
+
 
     // Mise à jour de l'affichage du tableau des résultats
     updateSelectedIndemnityValue: function () {
@@ -94,6 +127,7 @@ var display = {
             console.error('Aucun bouton radio n’est sélectionné.');
         }
     },
+
 
     setupRadioChangeListeners: function () {
         // Récupérer tous les boutons radio dans le div
@@ -151,7 +185,9 @@ var display = {
         return indemniteChoisieDiv;
     },
 
-
+    
+    // Créé le menu déroulant avec l'ensemble des villes disponibles lu dans le tableau data
+    // Avec un tri par ordre croissant
     menuVilles: function () {
         // Récupération de l'élément conteneur pour le menu déroulant des villes de départ
         const selectContainer = document.getElementById("VilleDepart");
@@ -225,7 +261,6 @@ var display = {
 
     // Affichage des résultats du tableau historique en fonction de la ville de départ sélectionnée
     updateHistoriqueVille: function () {
-        //console.log("Mise à jour historique pour la ville: ", document.getElementById("VilleDepart").value);
 
 
         // Récupération de la ville de départ sélectionnée
@@ -272,6 +307,15 @@ var display = {
     },
 
 
+    // fonction de mélange aléatoire d'un tableau Fisher-Yates
+    shuffleArray: function (array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    },
+
+
     tableauComparatif: function (resultats) {
         var etiquettes = ["Saison régulière", "Poule de relégation", "Phase finale"];
         var coutRepas = 17;  // Coût fixé pour les repas
@@ -285,16 +329,6 @@ var display = {
 
         // Récupération des grands déplacements
         var pourcentageGrandDeplacement = parseInt(document.getElementById('pourcentageGrandDeplacement').value);
-
-
-        // onction de mélange aléatoire d'un tableau Fisher-Yates
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
-
 
         var tableauxHtml = etiquettes.map((etiquette, index) => {
             var prime = parseFloat(document.getElementById(`prime_montant_0${index + 1}`).value);
@@ -330,10 +364,6 @@ var display = {
             var nbGrandDeplacement = Math.round(nbMatches[index] * pourcentageGrandDeplacement);
             var matchTypes = new Array(nbMatches[index]).fill(0).map((_, idx) => idx < nbGrandDeplacement);
     
-            // Mélange aléatoire des types de matchs
-            shuffleArray(matchTypes);
-
-
             // Boucle sur les résultats pour les afficher dans le tableau
             for (var i = 0; i < nbMatchs && processedCount < nbMatches[index]; i++) {
                 var distance = matchTypes[i] ? 600 : 300; // Using the shuffled match types to assign distances
@@ -383,8 +413,6 @@ var display = {
                 processedCount++;  // Incrémentation du compteur de lignes traitées
 
             }; // Fin boucle for 
-
-            //console.log(`Processing entry ${i + 1}/${nbMatches[index]} for ${etiquette}`);
 
             var totalHeuresTrajet = Math.floor(totalTempsTrajet / 60);
             var tauxHoraireIndemnite = totalBeneficeReel / totalHeuresTrajet;
