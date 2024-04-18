@@ -317,3 +317,48 @@ output {
   background-color: #007bff;
   color: white;
 }
+
+
+/* MENU DEROULANT */
+/* Styles de base pour le conteneur du menu déroulant */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 300px; /* Largeur fixe pour le menu déroulant */
+}
+
+/* Styles pour le menu déroulant */
+.dropdown select {
+  width: 100%; /* Utiliser toute la largeur du conteneur */
+  padding: 8px 16px;
+  border: 1px solid #007BFF; /* Bordure bleue */
+  border-radius: 8px; /* Bords arrondis */
+  background-color: white;
+  font-size: 16px; /* Taille de texte accrue pour une meilleure lisibilité */
+  color: #333; /* Couleur du texte sombre pour un meilleur contraste */
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2); /* Ombre subtile pour un effet 3D */
+  cursor: pointer; /* Indique que l'élément est cliquable */
+}
+
+/* Effet de survol pour le menu déroulant */
+.dropdown select:hover {
+  background-color: #f8f9fa; /* Changement de fond au survol */
+}
+
+/* Styles pour les options du menu déroulant */
+.dropdown option {
+  padding: 10px; /* Espacement pour rendre les options plus accessibles */
+  font-weight: normal; /* Poids de la fonte normal */
+}
+
+/* Style appliqué à l'option sélectionnée */
+.dropdown option:checked {
+  background-color: #007BFF; /* Fond bleu pour l'option sélectionnée */
+  color: white; /* Texte blanc pour l'option sélectionnée */
+}
+
+/* Style pour le focus sur le menu */
+.dropdown select:focus {
+  outline: none; /* Supprime le contour par défaut pour un look plus net */
+  border-color: #0056b3; /* Couleur de la bordure plus foncée lors du focus */
+}
