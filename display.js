@@ -152,37 +152,46 @@ var display = {
     },
 
 
-    // génération du menu des villes de départ
     menuVilles: function () {
         // Récupération de l'élément conteneur pour le menu déroulant des villes de départ
         const selectContainer = document.getElementById("VilleDepart");
         // Insertion du menu déroulant des villes de départ dans l'élément conteneur
         if (selectContainer) {
-            var villesDepartSet = new Set();
+            var villesDepartCount = {};
 
-            // Ajout des villes de départ à l'ensemble
+            // Compter les occurrences de chaque ville de départ
             data.forEach(function (trajet) {
-                villesDepartSet.add(trajet.VilleDepart);
+                if (villesDepartCount[trajet.VilleDepart]) {
+                    villesDepartCount[trajet.VilleDepart]++;
+                } else {
+                    villesDepartCount[trajet.VilleDepart] = 1;
+                }
             });
 
-            // Création du menu déroulant des villes de départ
+            // Convertir l'objet en un tableau de tuples [ville, compteur], puis trier ce tableau
+            var sortedVilles = Object.entries(villesDepartCount).sort(function (a, b) {
+                return a[1] - b[1];  // Tri basé sur le compteur de manière ascendante
+            });
+
+            // Générer les options du menu déroulant en utilisant le tableau trié
             var options = "";
-            // Itération sur l'ensemble des villes de départ uniques
             var first = true;
-            villesDepartSet.forEach(function (VilleDepart) {
+            sortedVilles.forEach(function (item) {
+                var ville = item[0];
+                var count = item[1];
                 var sel = "";
                 if (first) {
                     sel = " selected";
                     first = false;
                 }
-                options += "<option value='" + VilleDepart + "'" + sel + ">" + VilleDepart + "</option>\n";
+                options += `<option value="${ville}"${sel}>${ville} (${count})</option>\n`;
             });
             selectContainer.innerHTML = options;
         } else {
             console.error("L'élément conteneur pour le menu des villes de départ n'existe pas dans le document.");
         }
     },
-
+   
 
     // génération du menu du PRK avec des formules calculées selon la distance
     menuPRK: function () {
