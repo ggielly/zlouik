@@ -366,7 +366,7 @@ var data = [
     { VilleDepart: "Montpellier", VilleDestination: "Angers", Km: "774", Peages: "57.6", TempsTrajet: "7h31" },
     { VilleDepart: "Montpellier", VilleDestination: "Strasbourg", Km: "793", Peages: "66.8", TempsTrajet: "7h28" },
     { VilleDepart: "Montpellier", VilleDestination: "Nantes", Km: "793", Peages: "78.3", TempsTrajet: "7h48" },
-    { VilleDepart: "Montpellier", VilleDestination: "Brest", Km: "1087", Peages: "78.3", TempsTrajet: "11h" },
+    { VilleDepart: "Montpellier", VilleDestination: "Brest", Km: "1087", Peages: "78.3", TempsTrajet: "11h00" },
     { VilleDepart: "Montpellier", VilleDestination: "Epinal", Km: "681", Peages: "62.6", TempsTrajet: "6h33" },
     { VilleDepart: "Montpellier", VilleDestination: "Rennes", Km: "897", Peages: "57.6", TempsTrajet: "8h57" },
 ];

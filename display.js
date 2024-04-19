@@ -422,8 +422,7 @@ var display = {
                 totalPrimeBenefice += primeBenefice;
                 totalPRK += prk;
                 processedCount++;
-
-            };
+            }; // Fin de la boucle for
 
             var totalHeuresTrajet = Math.floor(totalTempsTrajet / 60);
             var tauxHoraireIndemnite = totalBeneficeReel / totalHeuresTrajet;
@@ -437,20 +436,11 @@ var display = {
             htmlTableau += `<table><tr><td colspan='1'>Taux horaire moyen basé sur l'indemnité : ${tauxHoraireIndemnite.toFixed(2)} €/heure</td></tr>`;
             htmlTableau += `<tr><td colspan='8'>Taux horaire moyen basé sur la prime : ${tauxHorairePrime.toFixed(2)} €/heure</td></tr>`;
             htmlTableau += `</table>`;
-
-            console.log("DISPLAY : données pour le graphique " + index + ": ", graphData);
-            //generateGraphs(graphData, `canvasId-${index}`);  // Ensure unique canvas ID for each graph
-            generateGraphsPlot(graphData, "canvas01");
             
+            generateGraphsPlot(graphData, index);            
 
             return htmlTableau;
         }); // fin de la boucle sur les étiquettes : tableauxHtml
-
-
-
-
-
-
         return tableauxHtml.join('<br>');
     }, // Fin de la fonction
 
@@ -467,8 +457,6 @@ var display = {
             if (tableauContainer) {
                 // Mettre à jour le contenu du tableau des résultats avec les données et le PRKVoiture sélectionné
                 tableauContainer.innerHTML = display.tableauComparatif(resultats, prkVoiture);
-
-
             } else {
                 console.error("L'élément conteneur pour le tableau historique des résultats n'existe pas dans le document.");
             }

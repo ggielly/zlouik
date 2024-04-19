@@ -1,7 +1,8 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Représentation graphique
 
-function generateGraphsPlot(graphData, canvasId) {
+function generateGraphsPlot(graphData, index) {
+    var canvasId = index;
     if (!Array.isArray(graphData) || graphData.length === 0) {
         console.error("Données invalides ou tableau vide fourni à generateGraphs; un tableau non vide est attendu:", graphData);
         return;
@@ -9,14 +10,13 @@ function generateGraphsPlot(graphData, canvasId) {
 
     var datasets = [
         // { label: "Processed Count", data: [], borderColor: 'rgb(255, 99, 132)', fill: false },
-        // { label: "Note de frais historique - Chiffre d'affaire", data: [], borderColor: 'rgb(54, 162, 235)', fill: false },
+        //{ label: "Note de frais historique - Chiffre d'affaire", data: [], borderColor: 'rgb(54, 162, 235)', fill: false },
+
         // { label: "Prime", data: [], borderColor: 'rgb(153, 102, 255)', fill: false },
         { label: "NdF : bénéfices réels", data: [], borderColor: 'rgb(75, 192, 192)', fill: false },
         { label: "Primes :bénéfices réels", data: [], borderColor: 'rgb(98, 0, 234)', fill: false }
         
     ];
-
- 
 
     graphData.forEach((item, index) => {
         let xValue = parseFloat(item.processedCount); // On utilise processedCount comme valeur x
