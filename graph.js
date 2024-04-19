@@ -1,42 +1,67 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Représentation graphique
 
+//var globalChart = null; // Variable globale pour conserver la référence du graphique
 
-var currentChart = null;
-function generateGraphs(resultats) {
-    // Préparer les datasets pour chaque type de point nécessaire
+function generateGraphs(graphData, canvasId) {
+    if (!Array.isArray(graphData) || graphData.length === 0) {
+        console.error("Données invalides ou tableau vide fourni à generateGraphs; un tableau non vide est attendu:", graphData);
+        return;
+    }
+
     var datasets = [
-        { label: "Note de frais historique - Chiffre d'affaire", data: [], borderColor: 'rgb(255, 99, 132)', fill: false },
-        { label: "Note de frais historique - bénéfices réels", data: [], borderColor: 'rgb(54, 162, 235)', fill: false },
-        { label: "Prime", data: [], borderColor: 'rgb(75, 192, 192)', fill: false },
-        { label: "PRIMES - bénéfices réels", data: [], borderColor: 'rgb(153, 102, 255)', fill: false }
+       // { label: "Processed Count", data: [], borderColor: 'rgb(255, 99, 132)', fill: false },
+        //{ label: "Note de frais historique - Chiffre d'affaire", data: [], borderColor: 'rgb(54, 162, 235)', fill: false },
+        { label: "NdF : bénéfices réels", data: [], borderColor: 'rgb(75, 192, 192)', fill: false },
+       // { label: "Prime", data: [], borderColor: 'rgb(153, 102, 255)', fill: false },
+        { label: "Primes :bénéfices réels", data: [], borderColor: 'rgb(98, 0, 234)', fill: false }
     ];
 
-    resultats.forEach((res, index) => {
-        // Supposer res est un objet contenant toutes les données nécessaires
-        datasets[0].data.push({ x: index + 1, y: res.fraisHistoriqueChiffre });
-        datasets[1].data.push({ x: index + 1, y: res.fraisHistoriqueBenefices });
-        datasets[2].data.push({ x: index + 1, y: res.prime });
-        datasets[3].data.push({ x: index + 1, y: res.primeBenefices });
+    // Remplissage des datasets avec les valeurs réelles
+    graphData.forEach((item, index) => {
+        let xValue = parseFloat(item.processedCount); // On utilise processedCount comme valeur x
+        //datasets[0].data.push({ x: xValue, y: xValue }); // Ici on affiche processedCount sur le graphique pour le visualiser
+        //datasets[1].data.push({ x: xValue, y: parseFloat(item.fraisHistorique) });
+        datasets[0].data.push({ x: xValue, y: parseFloat(item.beneficeReel) });
+        //datasets[3].data.push({ x: xValue, y: parseFloat(item.prime) });
+        datasets[1].data.push({ x: xValue, y: parseFloat(item.primeBenefice) });
     });
 
-    // Configuration des graphiques
-    var ctx = document.getElementById('datGraf').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
+    var canvas = document.getElementById(canvasId);
+    if (!canvas) {
+        canvas = document.createElement('canvas');
+        canvas.id = canvasId;
+        document.body.appendChild(canvas);
+    }
+
+    var ctx = canvas.getContext('2d');
+
+    // Destruction du graphique existant s'il existe
+    if (window[canvasId + 'Chart']) {
+        window[canvasId + 'Chart'].destroy();
+    }
+
+    // Création d'un nouveau graphique
+    window[canvasId + 'Chart'] = new Chart(ctx, {
+        type: 'line',  // Changed to line to better visualize processedCount as a time series
         data: {
+            labels: graphData.map(item => parseFloat(item.processedCount)),
             datasets: datasets
         },
         options: {
             scales: {
                 x: {
-                    type: 'linear',
+                    type: 'linear',  // Changed to linear to handle numeric labels on x-axis
                     position: 'bottom'
+                },
+                y: {
+                    beginAtZero: true
                 }
             }
         }
     });
 }
+
 
 
 function graph() {
@@ -188,4 +213,3 @@ function graph() {
     // }
     // }
     }); */
-  

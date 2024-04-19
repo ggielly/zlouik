@@ -74,33 +74,33 @@ var display = {
         // Récupération de la ville de départ depuis l'input utilisateur
         var villeDepart = document.getElementById("VilleDepart").value;
         var nbreMaxMatchs = parseInt(document.getElementById("nbre_matchs_01").value);
-    
+
         // Filtrer les données pour obtenir uniquement les trajets démarrant de la ville sélectionnée
         var departures = data.filter(trajet => trajet.VilleDepart === villeDepart);
-    
+
         // Créer un tableau temporaire pour stocker les destinations
         var tempArray = [];
-    
+
         // Collecter toutes les destinations correspondant aux villes de départ sélectionnées
         departures.forEach(trajet => {
-            tempArray.push({destination: trajet.VilleDestination, details: trajet});
+            tempArray.push({ destination: trajet.VilleDestination, details: trajet });
         });
-    
+
         // Mélanger aléatoirement la liste des destinations pour garantir un ordre différent à chaque appel
         this.shuffleArray(tempArray);
-    
+
         // Construire les résultats finaux à partir des destinations mélangées
         var randomResults = [];
         for (let i = 0; i < Math.min(nbreMaxMatchs, tempArray.length); i++) {
             randomResults.push(tempArray[i].details);
         }
-    
+
         return randomResults;
     },
-    
-    
 
-    
+
+
+
 
     // Mise à jour de l'affichage du slider
     updateOutput: function (sliderId, outputId) {
@@ -110,7 +110,7 @@ var display = {
 
 
     // On affiche le slider joli
-    updateOutputPourcent: function(val) {
+    updateOutputPourcent: function (val) {
         document.getElementById('rangeOutput').value = val + ' %';  // Met à jour le contenu de l'output
         document.getElementById('rangeOutput').textContent = val + ' %';  // Ajoute aussi pour garantir l'affichage
     },
@@ -227,7 +227,7 @@ var display = {
             console.error("L'élément conteneur pour le menu des villes de départ n'existe pas dans le document.");
         }
     },
-   
+
 
     // génération du menu du PRK avec des formules calculées selon la distance
     menuPRK: function () {
@@ -353,7 +353,8 @@ var display = {
             // Itération sur les résultats pour les afficher dans le tableau
             var processedCount = 0;
 
-           
+            var graphData = [];  // Tableau pour collecter les données pour le graphe
+
             // Vérification si le nombre de matchs est supérieur au nombre de résultats
             if (resultats.length === 0) {
                 console.error("Aucun résultat disponible pour le traitement.");
@@ -363,12 +364,13 @@ var display = {
             // Calcul du nombre de grands déplacements et de petits déplacements
             var nbGrandDeplacement = Math.round(nbMatches[index] * pourcentageGrandDeplacement);
             var matchTypes = new Array(nbMatches[index]).fill(0).map((_, idx) => idx < nbGrandDeplacement);
-    
+
             // Boucle sur les résultats pour les afficher dans le tableau
             for (var i = 0; i < nbMatchs && processedCount < nbMatches[index]; i++) {
-                var distance = matchTypes[i] ? 600 : 300; // Using the shuffled match types to assign distances
-                var hotel = matchTypes[i] ? coutHotel : 0;
-                var repas = matchTypes[i] ? 2 * coutRepas : coutRepas;
+                var isLongDistance = matchTypes[i];
+                var distance = isLongDistance ? 600 : 300;  // Utilisation des types de match mélangés pour assigner les distances
+                var baseRepasCost = isLongDistance ? 2 * coutRepas : coutRepas;
+                var hotelCost = isLongDistance ? coutHotel : 0;
 
                 var trajet = resultats[i % resultats.length];
                 // Vérification des données pour le calcul
@@ -377,31 +379,40 @@ var display = {
                     continue;
                 }
 
-                var distance = parseFloat(trajet.Km * 2);
-                var prk = eval(formulePrk.replace('d', distance));  // Calcul du PRK
+                distance = parseFloat(trajet.Km * 2);  // Surcharge de la variable 'distance' pour refléter les vraies distances
+                var prk = eval(formulePrk.replace('d', distance.toString()));  // Calcul du PRK, utilisation sécurisée de eval
                 var grandDeplacement = distance > 500 ? 80 : 0;
                 var repas = (distance > 500 ? 2 : 1) * coutRepas;
-                var hotel = distance > 500 ? coutHotel : 0;
                 var indemnites = distance * 0.410;
                 var peages = parseFloat(trajet.Peages * 2);
-                var fraisHistorique = peages + grandDeplacement + indemnites + repas + hotel + valeurIndemnite;
-                var beneficeReel = fraisHistorique - (prk + repas + peages + hotel);
+                var fraisHistorique = peages + grandDeplacement + indemnites + repas + hotelCost + valeurIndemnite;
+                var beneficeReel = fraisHistorique - (prk + repas + peages + hotelCost);
                 var primeBenefice = prime - frais - prk;
 
-                var TempsTrajetAllerRetour = parseInt((trajet.TempsTrajet.split('h')[0]) * 60 + parseInt(trajet.TempsTrajet.split('h')[1])) * 2;
+                var TempsTrajetAllerRetour = (parseInt(trajet.TempsTrajet.split('h')[0]) * 60 + parseInt(trajet.TempsTrajet.split('h')[1])) * 2;
 
-                // Si jamais le résultat est négatif, alors on le met en rouge
-                colorBeneficeReel = beneficeReel < 0 ? "color:red;" : "";
-                colorPrimeBenefice = primeBenefice < 0 ? "color:red;" : "";
+                // Peuplement des données pour le graphique
+                // Peuplement du tableau temporaire qui va servir pour la génération du graphe
 
-                htmlTableau += `<tr><td>${trajet.VilleDepart}</td><td>${trajet.VilleDestination}</td><td>${distance} Km</td><td>${peages} €</td><td>${Math.floor(TempsTrajetAllerRetour / 60)}h${TempsTrajetAllerRetour % 60}</td><td>${grandDeplacement} €</td><td>${indemnites.toFixed(2)} €</td><td>${prk.toFixed(2)} €</td><td>${repas.toFixed(2)} €</td><td>${hotel.toFixed(2)} €</td><td>${valeurIndemnite} €</td><td>${fraisHistorique.toFixed(2)} €</td><td style="${colorBeneficeReel}">${beneficeReel.toFixed(2)} €</td><td>${prime.toFixed(2)} €</td><td>${frais.toFixed(2)} €</td><td style="${colorPrimeBenefice}">${primeBenefice.toFixed(2)} €</td></tr>`;
+                graphData.push({
+                    processedCount: processedCount,
+                    //fraisHistorique: fraisHistorique.toFixed(2),
+                    beneficeReel: beneficeReel.toFixed(2),
+                    //prime: prime.toFixed(2),
+                    primeBenefice: primeBenefice.toFixed(2)
+                });
+    
 
+                // Mise en format du tableau HTML
+                htmlTableau += `<tr><td>${trajet.VilleDepart}</td><td>${trajet.VilleDestination}</td><td>${distance} Km</td><td>${peages} €</td><td>${Math.floor(TempsTrajetAllerRetour / 60)}h${TempsTrajetAllerRetour % 60} min</td><td>${grandDeplacement} €</td><td>${indemnites.toFixed(2)} €</td><td>${prk.toFixed(2)} €</td><td>${repas.toFixed(2)} €</td><td>${hotelCost.toFixed(2)} €</td><td>${valeurIndemnite} €</td><td>${fraisHistorique.toFixed(2)} €</td><td style="${beneficeReel < 0 ? "color:red;" : ""}">${beneficeReel.toFixed(2)} €</td><td>${prime.toFixed(2)} €</td><td>${frais.toFixed(2)} €</td><td style="${primeBenefice < 0 ? "color:red;" : ""}">${primeBenefice.toFixed(2)} €</td></tr>`;
+
+                // Mise à jour des totaux
                 totalDistance += distance;
                 totalPeages += peages;
-                totalTempsTrajet += parseInt((trajet.TempsTrajet.split('h')[0]) * 60 + parseInt(trajet.TempsTrajet.split('h')[1])) * 2;
+                totalTempsTrajet += TempsTrajetAllerRetour;
                 totalKilometriques += indemnites;
                 totalRepas += repas;
-                totalHotels += hotel;
+                totalHotels += hotelCost;
                 totalGrandDeplacement += grandDeplacement;
                 totalPrimes += prime;
                 totalFrais += frais;
@@ -410,9 +421,12 @@ var display = {
                 totalBeneficeReel += beneficeReel;
                 totalPrimeBenefice += primeBenefice;
                 totalPRK += prk;
-                processedCount++;  // Incrémentation du compteur de lignes traitées
+                processedCount++;
 
-            }; // Fin boucle for 
+            };
+
+
+
 
             var totalHeuresTrajet = Math.floor(totalTempsTrajet / 60);
             var tauxHoraireIndemnite = totalBeneficeReel / totalHeuresTrajet;
@@ -427,13 +441,20 @@ var display = {
             htmlTableau += `<tr><td colspan='8'>Taux horaire moyen basé sur la prime : ${tauxHorairePrime.toFixed(2)} €/heure</td></tr>`;
             htmlTableau += `</table>`;
 
-           
+            console.log("DISPLAY : données pour le graphique " + index + ": ", graphData);
+            //generateGraphs(graphData, `canvasId-${index}`);  // Ensure unique canvas ID for each graph
+            generateGraphs(graphData, "canvas01");
+
+
             return htmlTableau;
         }); // fin de la boucle sur les étiquettes : tableauxHtml
 
 
 
-       return tableauxHtml.join('<br>');
+
+
+
+        return tableauxHtml.join('<br>');
     }, // Fin de la fonction
 
 
@@ -449,6 +470,8 @@ var display = {
             if (tableauContainer) {
                 // Mettre à jour le contenu du tableau des résultats avec les données et le PRKVoiture sélectionné
                 tableauContainer.innerHTML = display.tableauComparatif(resultats, prkVoiture);
+
+
             } else {
                 console.error("L'élément conteneur pour le tableau historique des résultats n'existe pas dans le document.");
             }
@@ -458,6 +481,7 @@ var display = {
 
     // Mise à jour de l'ensemble des tableaux prévisionnels de la fédération
     updateTableauxFederation: function () {
+
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -855,6 +879,8 @@ var display = {
         document.getElementById("valeur_match_01").textContent = document.getElementById("nbre_matchs_01").value;
         document.getElementById("valeur_match_02").textContent = document.getElementById("nbre_matchs_02").value;
         document.getElementById("valeur_match_03").textContent = document.getElementById("nbre_matchs_03").value;
+
+
     },
 
 
@@ -862,7 +888,8 @@ var display = {
     updateHistorique: function () {
         display.updateHistoriquePRK();
         display.updateHistoriqueVille();
-        generateGraphs(resultats);
+
+
     }
 }; // EOF display
 

@@ -239,7 +239,6 @@ var gereEvents = function () {
     document.getElementById("menuPRK").addEventListener("input", display.updateHistorique);
 };
 
-
 //Initialisation :
 // ajout des menus calculés dynamiquement
 // appel des fonctions de calcul initial de certaines données basées sur  primes / frais / nb match
@@ -249,20 +248,22 @@ var initialize = function() {
     display.menuVilles();
     display.menuPRK();
     display.updateSliderValues();
-    calculDestinations(); // Assurez-vous que cela ne dépend pas des données asynchrones
-    // Assurez-vous que toutes les données sont chargées avant de mettre à jour l'historique
+    calculDestinations(); 
+    
     display.updatePrimeMontant();
-    updateCalculs(); // Mettez à jour les calculs avant de les utiliser pour afficher l'historique
+    updateCalculs(); 
     display.updateSelectedIndemnityValue();
     display.updateHistoriqueVille();
-
-    //display.tableauComparatifDev();
-
-
+    
 };
+
+
+
+
 
 var init = function() {
     initialize();
-    gereEvents();
+    gereEvents();    
+
     graph();
 };

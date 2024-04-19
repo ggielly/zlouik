@@ -19,6 +19,7 @@ Sous licence GPL3.
     <script src="https://d3js.org/d3.v6.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
 
 
     <script src="data.js"></script>
@@ -136,12 +137,12 @@ Sous licence GPL3.
                                 <div class="dropdown">
                                     <label for="menuPRK">Choix du Prix de Reviens Kilométrique (PRK) du véhicule:</label>
                                     <select id="menuPRK" class="form-control" title="PRK"></select>
-                                </div>    
-                                
+                                </div>
+                        
                                 <small class="form-text text-muted">[1]</small>
                             </div>
                         </div>
-
+                        
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="dropdown">
@@ -149,38 +150,42 @@ Sous licence GPL3.
                                     <select id="VilleDepart" class="form-control" title="Maison"></select>
                                 </div>
                             </div>
-                        </div>
-                        </div>
-
-                    <h2 class="mb-4">Réglages des Matchs</h2>
-                    <div class="row">
-
-                        <div class="col-md-6">
-                            <div class="slider-group">
-                                <label class="custom-range-label" for="nbre_matchs_01">Saison régulière</label>
-                                <input type="range" class="custom-range" id="nbre_matchs_01" name="nbre_matchs_01"
-                                    min="0" max="60" value="25" step="1"
-                                    oninput="updateOutput('nbre_matchs_01', 'valeur_match_01')">
-                                <output id="valeur_match_01" class="output">25</output>
+                        
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+                                <label class="form-check-label" for="flexCheckCheckedDisabled">
+                                    Générer des désignations de façon aléatoire.
+                                </label>
                             </div>
+                                                
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="slider-group">
-                                <label class="custom-range-label" for="nbre_matchs_02">Poule de relégation</label>
-                                <input type="range" class="custom-range" id="nbre_matchs_02" name="nbre_matchs_02"
-                                    min="0" max="60" value="40" step="1"
-                                    oninput="updateOutput('nbre_matchs_02', 'valeur_match_02')">
-                                <output id="valeur_match_02" class="output">40</output>
+                        <h2 class="mb-4">Réglages des Matchs</h2>
+                        <div class="row">
+                        
+                            <div class="col-md-6">
+                                <div class="slider-group">
+                                    <label class="custom-range-label" for="nbre_matchs_01">Saison régulière</label>
+                                    <input type="range" class="custom-range" id="nbre_matchs_01" name="nbre_matchs_01" min="0" max="60"
+                                        value="25" step="1" oninput="updateOutput('nbre_matchs_01', 'valeur_match_01')">
+                                    <output id="valeur_match_01" class="output">25</output>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="slider-group">
-                                <label class="custom-range-label" for="nbre_matchs_03">Phase finale</label>
-                                <input type="range" class="custom-range" id="nbre_matchs_03" name="nbre_matchs_03"
-                                    min="0" max="60" value="7" step="1"
-                                    oninput="updateOutput('nbre_matchs_03', 'valeur_match_03')">
+                        
+                            <div class="col-md-6">
+                                <div class="slider-group">
+                                    <label class="custom-range-label" for="nbre_matchs_02">Poule de relégation</label>
+                                    <input type="range" class="custom-range" id="nbre_matchs_02" name="nbre_matchs_02" min="0" max="60"
+                                        value="40" step="1" oninput="updateOutput('nbre_matchs_02', 'valeur_match_02')">
+                                    <output id="valeur_match_02" class="output">40</output>
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-6">
+                                <div class="slider-group">
+                                    <label class="custom-range-label" for="nbre_matchs_03">Phase finale</label>
+                                    <input type="range" class="custom-range" id="nbre_matchs_03" name="nbre_matchs_03" min="0" max="60"
+                                        value="7" step="1" oninput="updateOutput('nbre_matchs_03', 'valeur_match_03')">
                                 <output id="valeur_match_03" class="output">7</output>
                             </div>
                         </div>
@@ -197,8 +202,6 @@ Sous licence GPL3.
                         </div>
                     </div>
                 </div>
-
-
 
                 <div class="container">
                     <h2 class="md-4">Montant des primes de préparation et d'équipement (historique)</h2>
@@ -239,9 +242,6 @@ Sous licence GPL3.
                         </div>
                     </div>
                 </div>
-
-
-
                 <div class="container">
                     <h2 class="mb-4">Données spécifiques au nouveau mode de calcul <i>"prime"</i> unique</h2>
                     <div class="row">
@@ -302,18 +302,19 @@ Sous licence GPL3.
                         </div>
                     </div>
                 </div>
-                <br><br>
+                <br>haut
+
+                <canvas id="canvas01" width="600" height="400"></canvas>
+
+                
+                
+                <br>bas
                 <h1>SIMULATION : tableaux comparatifs des frais</h1>
 
                 <br>
                 <div id="tableauComparatifDiv"></div>
                 <br>
                 <br>
-
-                ici
-                <canvas id="datGraf" width="800" height="400"></canvas>
-
-
                 <br><br>
                 <hr>
                 <h1>Calculs basés sur une prime de match (rémunération)</h1>
