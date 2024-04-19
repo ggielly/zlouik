@@ -49,16 +49,55 @@ function generateGraphs(graphData, canvasId) {
             datasets: datasets
         },
         options: {
+            animation: {
+                duration: 1000,  // Durée de l'animation en ms
+                easing: 'easeOutBounce'  // Type d'animation
+            },
+            legend: {
+                labels: {
+                    fontColor: 'blue',  // Couleur des étiquettes de légende
+                    fontSize: 14,
+                    fontStyle: 'bold'
+                }
+            },
+            layout: {
+                padding: {
+                    left: 10,
+                    right: 30,
+                    top: 30,
+                    bottom: 10
+                }
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                        if (label) {
+                            label += ': ';
+                        }
+                        label += parseFloat(tooltipItem.yLabel).toFixed(2);
+                        return label;
+                    }
+                }
+            },
+
             scales: {
                 x: {
-                    type: 'linear',  // Changed to linear to handle numeric labels on x-axis
-                    position: 'bottom'
+                    type: 'linear',  // Assure que l'axe des x est traité comme des valeurs numériques
+                    position: 'bottom',
+                    ticks: {
+                        callback: function(value, index, values) {
+                            // Cette fonction transforme les indices en étiquettes plus lisibles
+                            return 'Match ' + (index + 1);
+                        }
+                    }
                 },
                 y: {
                     beginAtZero: true
                 }
             }
         }
+        
     });
 }
 
