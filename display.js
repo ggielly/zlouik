@@ -425,9 +425,6 @@ var display = {
 
             };
 
-
-
-
             var totalHeuresTrajet = Math.floor(totalTempsTrajet / 60);
             var tauxHoraireIndemnite = totalBeneficeReel / totalHeuresTrajet;
             var tauxHorairePrime = totalPrimeBenefice / totalHeuresTrajet;
@@ -443,8 +440,8 @@ var display = {
 
             console.log("DISPLAY : données pour le graphique " + index + ": ", graphData);
             //generateGraphs(graphData, `canvasId-${index}`);  // Ensure unique canvas ID for each graph
-            generateGraphs(graphData, "canvas01");
-
+            generateGraphsPlot(graphData, "canvas01");
+            
 
             return htmlTableau;
         }); // fin de la boucle sur les étiquettes : tableauxHtml
