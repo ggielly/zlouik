@@ -3,7 +3,110 @@
 
 //var globalChart = null; // Variable globale pour conserver la référence du graphique
 
-function generateGraphs(graphData, canvasId) {
+
+
+function generateGraphs(graphData, elementId) {
+    if (!Array.isArray(graphData) || graphData.length === 0) {
+        console.error("Invalid data provided to generateGraphs; a non-empty array is expected:", graphData);
+        return;
+    }
+
+    // Set the dimensions and margins of the graph
+    var margin = { top: 30, right: 30, bottom: 70, left: 60 },
+        width = 800 - margin.left - margin.right,
+        height = 600 - margin.top - margin.bottom;
+
+    // Append the svg object to the body of the page graphContainer
+    //var svg = d3.select("#" + elementId)
+    var svg = d3.select("#graphContainer")
+        .html("") // Clear any existing content
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+ // Add X axis
+var x = d3.scaleLinear()
+.domain(d3.extent(graphData, function(d) { return d.processedCount; }))
+.range([0, width]);
+svg.append("g")
+.attr("transform", "translate(0," + height + ")")
+.call(d3.axisBottom(x))
+.attr("color", "black");  // Set axis color to black
+
+// Add Y axis
+var y = d3.scaleLinear()
+.domain([
+    d3.min(graphData, function(d) { return Math.min(d.beneficeReel, d.primeBenefice); }),  // Include negative values
+    d3.max(graphData, function(d) { return Math.max(d.beneficeReel, d.primeBenefice); })
+])
+.range([height, 0]);
+svg.append("g")
+.call(d3.axisLeft(y))
+.attr("color", "black");  // Set axis color to black
+
+// Draw a horizontal line at zero
+svg.append("line")
+   .style("stroke", "black")  // color the line black
+   .style("stroke-width", "2px")  // thicker line for visibility
+   .attr("x1", 0)  // start at the left of the graph
+   .attr("y1", y(0))  // position at zero on the y-axis
+   .attr("x2", width)  // end at the right of the graph
+   .attr("y2", y(0));  // position at zero on the y-axis
+
+
+
+    // Add the line for Benefice Reel
+// Check the line generation code
+svg.append("path")
+    .datum(graphData)
+    .attr("fill", "none")
+    .attr("stroke", "green")
+    .attr("stroke-width", 1.5)
+    .attr("d", d3.line()
+        .x(function(d) { return x(d.processedCount); })
+        .y(function(d) { return y(d.beneficeReel); })
+    );
+
+svg.append("path")
+    .datum(graphData)
+    .attr("fill", "none")
+    .attr("stroke", "purple")
+    .attr("stroke-width", 1.5)
+    .attr("d", d3.line()
+        .x(function(d) { return x(d.processedCount); })
+        .y(function(d) { return y(d.primeBenefice); })
+    );
+
+
+    // Add circles at each data point for clarity
+    svg.selectAll(".dot")
+        .data(graphData)
+        .enter().append("circle") // Uses the enter().append() method
+        .attr("class", "dot") // Assign a class for styling
+        .attr("cx", function (d, i) { return x(d.processedCount) })
+        .attr("cy", function (d) { return y(d.beneficeReel); })
+        .attr("r", 5)
+        .style("fill", function (d) { return d.beneficeReel < 0 ? "red" : "green"; });
+
+    svg.selectAll(".dot")
+        .data(graphData)
+        .enter().append("circle") // Uses the enter().append() method
+        .attr("class", "dot") // Assign a class for styling
+        .attr("cx", function (d, i) { return x(d.processedCount) })
+        .attr("cy", function (d) { return y(d.primeBenefice); })
+        .attr("r", 5)
+        .style("fill", function (d) { return d.primeBenefice < 0 ? "red" : "purple"; });
+
+
+}
+
+
+/*
+
+function generateGraphsPlot(graphData, canvasId) {
     if (!Array.isArray(graphData) || graphData.length === 0) {
         console.error("Données invalides ou tableau vide fourni à generateGraphs; un tableau non vide est attendu:", graphData);
         return;
@@ -100,7 +203,7 @@ function generateGraphs(graphData, canvasId) {
         
     });
 }
-
+*/
 
 
 function graph() {
