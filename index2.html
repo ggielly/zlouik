@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<!--
+Générateur de simulation de primes et historique des rémunérations
+Guillaume G. pour l'AAHG - 2024
+
+guillaume ar0base rootshell.fr.
+Sous licence GPL3.
+
+-->
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulateur ZLOUIK</title>
+    <link href="default.css" rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+    <script src="data.js"></script>
+    <script src="display.js"></script>
+    <script src="simu.js"></script>
+    <script src="graph.js"></script>
+
+
+<!-- Google Fonts -->
+<link href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+<!-- Vendor CSS Files -->
+<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+<link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+<link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+<link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+<link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+<!-- Template Main CSS File -->
+<link href="assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+    <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="index.html">
+          <i class="bi bi-grid"></i>
+          <span>Tableau</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Désignations</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="components-alerts.html">
+              <i class="bi bi-circle"></i><span>Alerts</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-accordion.html">
+              <i class="bi bi-circle"></i><span>Accordion</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-badges.html">
+              <i class="bi bi-circle"></i><span>Badges</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-breadcrumbs.html">
+              <i class="bi bi-circle"></i><span>Breadcrumbs</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-buttons.html">
+              <i class="bi bi-circle"></i><span>Buttons</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-cards.html">
+              <i class="bi bi-circle"></i><span>Cards</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-carousel.html">
+              <i class="bi bi-circle"></i><span>Carousel</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-list-group.html">
+              <i class="bi bi-circle"></i><span>List group</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-modal.html">
+              <i class="bi bi-circle"></i><span>Modal</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-tabs.html">
+              <i class="bi bi-circle"></i><span>Tabs</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-pagination.html">
+              <i class="bi bi-circle"></i><span>Pagination</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-progress.html">
+              <i class="bi bi-circle"></i><span>Progress</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-spinners.html">
+              <i class="bi bi-circle"></i><span>Spinners</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-tooltips.html">
+              <i class="bi bi-circle"></i><span>Tooltips</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Components Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Impots</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="forms-elements.html">
+              <i class="bi bi-circle"></i><span>Form Elements</span>
+            </a>
+          </li>
+          <li>
+            <a href="forms-layouts.html">
+              <i class="bi bi-circle"></i><span>Form Layouts</span>
+            </a>
+          </li>
+          <li>
+            <a href="forms-editors.html">
+              <i class="bi bi-circle"></i><span>Form Editors</span>
+            </a>
+          </li>
+          <li>
+            <a href="forms-validation.html">
+              <i class="bi bi-circle"></i><span>Form Validation</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Forms Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="tables-general.html">
+              <i class="bi bi-circle"></i><span>General Tables</span>
+            </a>
+          </li>
+          <li>
+            <a href="tables-data.html">
+              <i class="bi bi-circle"></i><span>Data Tables</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Tables Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="charts-chartjs.html">
+              <i class="bi bi-circle"></i><span>Chart.js</span>
+            </a>
+          </li>
+          <li>
+            <a href="charts-apexcharts.html">
+              <i class="bi bi-circle"></i><span>ApexCharts</span>
+            </a>
+          </li>
+          <li>
+            <a href="charts-echarts.html">
+              <i class="bi bi-circle"></i><span>ECharts</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Charts Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="icons-bootstrap.html">
+              <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
+            </a>
+          </li>
+          <li>
+            <a href="icons-remix.html">
+              <i class="bi bi-circle"></i><span>Remix Icons</span>
+            </a>
+          </li>
+          <li>
+            <a href="icons-boxicons.html">
+              <i class="bi bi-circle"></i><span>Boxicons</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Icons Nav -->
+
+      <li class="nav-heading">Pages</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="users-profile.html">
+          <i class="bi bi-person"></i>
+          <span>Profile</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-faq.html">
+          <i class="bi bi-question-circle"></i>
+          <span>F.A.Q</span>
+        </a>
+      </li><!-- End F.A.Q Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-contact.html">
+          <i class="bi bi-envelope"></i>
+          <span>Contact</span>
+        </a>
+      </li><!-- End Contact Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-register.html">
+          <i class="bi bi-card-list"></i>
+          <span>Register</span>
+        </a>
+      </li><!-- End Register Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-login.html">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Login</span>
+        </a>
+      </li><!-- End Login Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-error-404.html">
+          <i class="bi bi-dash-circle"></i>
+          <span>Error 404</span>
+        </a>
+      </li><!-- End Error 404 Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-blank.html">
+          <i class="bi bi-file-earmark"></i>
+          <span>Blank</span>
+        </a>
+      </li><!-- End Blank Page Nav -->
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+
+
+    <section class="section dashboard">
+        <div class="row">
+  
+          <!-- Left side columns -->
+          <div class="col-lg-8">
+            <div class="row">
+  
+              <!-- Sales Card -->
+              <div class="col-xxl-4 col-md-6">
+                <div class="card info-card sales-card">
+  
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+  
+                      <li><a class="dropdown-item" href="#">Today</a></li>
+                      <li><a class="dropdown-item" href="#">This Month</a></li>
+                      <li><a class="dropdown-item" href="#">This Year</a></li>
+                    </ul>
+                  </div>
+  
+                  <div class="card-body">
+                    <h5 class="card-title">Sales <span>| Today</span></h5>
+  
+                    <div class="d-flex align-items-center">
+                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i class="bi bi-cart"></i>
+                      </div>
+                      <div class="ps-3">
+                        <h6>145</h6>
+                        <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+  
+                      </div>
+                    </div>
+                  </div>
+  
+                </div>
+              </div><!-- End Sales Card -->
+  
+              <!-- Revenue Card -->
+              <div class="col-xxl-4 col-md-6">
+                <div class="card info-card revenue-card">
+  
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+  
+                      <li><a class="dropdown-item" href="#">Today</a></li>
+                      <li><a class="dropdown-item" href="#">This Month</a></li>
+                      <li><a class="dropdown-item" href="#">This Year</a></li>
+                    </ul>
+                  </div>
+  
+                  <div class="card-body">
+                    <h5 class="card-title">Revenue <span>| This Month</span></h5>
+  
+                    <div class="d-flex align-items-center">
+                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i class="bi bi-currency-dollar"></i>
+                      </div>
+                      <div class="ps-3">
+                        <h6>$3,264</h6>
+                        <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+  
+                      </div>
+                    </div>
+                  </div>
+  
+                </div>
+              </div><!-- End Revenue Card -->
+  
+              <!-- Customers Card -->
+              <div class="col-xxl-4 col-xl-12">
+  
+                <div class="card info-card customers-card">
+  
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+  
+                      <li><a class="dropdown-item" href="#">Today</a></li>
+                      <li><a class="dropdown-item" href="#">This Month</a></li>
+                      <li><a class="dropdown-item" href="#">This Year</a></li>
+                    </ul>
+                  </div>
+  
+                  <div class="card-body">
+                    <h5 class="card-title">Customers <span>| This Year</span></h5>
+  
+                    <div class="d-flex align-items-center">
+                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i class="bi bi-people"></i>
+                      </div>
+                      <div class="ps-3">
+                        <h6>1244</h6>
+                        <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+  
+                      </div>
+                    </div>
+  
+                  </div>
+                </div>
+  
+              </div><!-- End Customers Card -->
+  
+              <!-- Reports -->
+              <div class="col-12">
+                <div class="card">
+  
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+  
+                      <li><a class="dropdown-item" href="#">Today</a></li>
+                      <li><a class="dropdown-item" href="#">This Month</a></li>
+                      <li><a class="dropdown-item" href="#">This Year</a></li>
+                    </ul>
+                  </div>
+  
+                  <div class="card-body">
+                    <h5 class="card-title">Reports <span>/Today</span></h5>
+  
+                    <!-- Line Chart -->
+                    <div id="reportsChart"></div>
+  
+                    <script>
+                      document.addEventListener("DOMContentLoaded", () => {
+                        new ApexCharts(document.querySelector("#reportsChart"), {
+                          series: [{
+                            name: 'Sales',
+                            data: [31, 40, 28, 51, 42, 82, 56],
+                          }, {
+                            name: 'Revenue',
+                            data: [11, 32, 45, 32, 34, 52, 41]
+                          }, {
+                            name: 'Customers',
+                            data: [15, 11, 32, 18, 9, 24, 11]
+                          }],
+                          chart: {
+                            height: 350,
+                            type: 'area',
+                            toolbar: {
+                              show: false
+                            },
+                          },
+                          markers: {
+                            size: 4
+                          },
+                          colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                          fill: {
+                            type: "gradient",
+                            gradient: {
+                              shadeIntensity: 1,
+                              opacityFrom: 0.3,
+                              opacityTo: 0.4,
+                              stops: [0, 90, 100]
+                            }
+                          },
+                          dataLabels: {
+                            enabled: false
+                          },
+                          stroke: {
+                            curve: 'smooth',
+                            width: 2
+                          },
+                          xaxis: {
+                            type: 'datetime',
+                            categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+                          },
+                          tooltip: {
+                            x: {
+                              format: 'dd/MM/yy HH:mm'
+                            },
+                          }
+                        }).render();
+                      });
+                    </script>
+                    <!-- End Line Chart -->
+  
+                  </div>
+  
+                </div>
+              </div><!-- End Reports ----------------------------------------->
+  
+              <!-- Recent Sales -->
+              <div class="col-12">
+                <div class="card recent-sales overflow-auto">
+  
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+  
+                      <li><a class="dropdown-item" href="#">Today</a></li>
+                      <li><a class="dropdown-item" href="#">This Month</a></li>
+                      <li><a class="dropdown-item" href="#">This Year</a></li>
+                    </ul>
+                  </div>
+  
+                  <div class="card-body">
+                    <h5 class="card-title">Recent Sales <span>| Today</span></h5>
+  
+                    <table class="table table-borderless datatable">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Customer</th>
+                          <th scope="col">Product</th>
+                          <th scope="col">Price</th>
+                          <th scope="col">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row"><a href="#">#2457</a></th>
+                          <td>Brandon Jacob</td>
+                          <td><a href="#" class="text-primary">At praesentium minu</a></td>
+                          <td>$64</td>
+                          <td><span class="badge bg-success">Approved</span></td>
+                        </tr>
+                        <tr>
+                          <th scope="row"><a href="#">#2147</a></th>
+                          <td>Bridie Kessler</td>
+                          <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
+                          <td>$47</td>
+                          <td><span class="badge bg-warning">Pending</span></td>
+                        </tr>
+                        <tr>
+                          <th scope="row"><a href="#">#2049</a></th>
+                          <td>Ashleigh Langosh</td>
+                          <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
+                          <td>$147</td>
+                          <td><span class="badge bg-success">Approved</span></td>
+                        </tr>
+                        <tr>
+                          <th scope="row"><a href="#">#2644</a></th>
+                          <td>Angus Grady</td>
+                          <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
+                          <td>$67</td>
+                          <td><span class="badge bg-danger">Rejected</span></td>
+                        </tr>
+                        <tr>
+                          <th scope="row"><a href="#">#2644</a></th>
+                          <td>Raheem Lehner</td>
+                          <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                          <td>$165</td>
+                          <td><span class="badge bg-success">Approved</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+  
+                  </div>
+  
+                </div>
+              </div><!-- End Recent Sales -->
+  
+              <!-- Top Selling -->
+              <div class="col-12">
+                <div class="card top-selling overflow-auto">
+  
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+  
+                      <li><a class="dropdown-item" href="#">Today</a></li>
+                      <li><a class="dropdown-item" href="#">This Month</a></li>
+                      <li><a class="dropdown-item" href="#">This Year</a></li>
+                    </ul>
+                  </div>
+  
+                  <div class="card-body pb-0">
+                    <h5 class="card-title">Top Selling <span>| Today</span></h5>
+  
+                    <table class="table table-borderless">
+                      <thead>
+                        <tr>
+                          <th scope="col">Preview</th>
+                          <th scope="col">Product</th>
+                          <th scope="col">Price</th>
+                          <th scope="col">Sold</th>
+                          <th scope="col">Revenue</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row"><a href="#"><img src="assets/img/product-1.jpg" alt=""></a></th>
+                          <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa voluptas nulla</a></td>
+                          <td>$64</td>
+                          <td class="fw-bold">124</td>
+                          <td>$5,828</td>
+                        </tr>
+                        <tr>
+                          <th scope="row"><a href="#"><img src="assets/img/product-2.jpg" alt=""></a></th>
+                          <td><a href="#" class="text-primary fw-bold">Exercitationem similique doloremque</a></td>
+                          <td>$46</td>
+                          <td class="fw-bold">98</td>
+                          <td>$4,508</td>
+                        </tr>
+                        <tr>
+                          <th scope="row"><a href="#"><img src="assets/img/product-3.jpg" alt=""></a></th>
+                          <td><a href="#" class="text-primary fw-bold">Doloribus nisi exercitationem</a></td>
+                          <td>$59</td>
+                          <td class="fw-bold">74</td>
+                          <td>$4,366</td>
+                        </tr>
+                        <tr>
+                          <th scope="row"><a href="#"><img src="assets/img/product-4.jpg" alt=""></a></th>
+                          <td><a href="#" class="text-primary fw-bold">Officiis quaerat sint rerum error</a></td>
+                          <td>$32</td>
+                          <td class="fw-bold">63</td>
+                          <td>$2,016</td>
+                        </tr>
+                        <tr>
+                          <th scope="row"><a href="#"><img src="assets/img/product-5.jpg" alt=""></a></th>
+                          <td><a href="#" class="text-primary fw-bold">Sit unde debitis delectus repellendus</a></td>
+                          <td>$79</td>
+                          <td class="fw-bold">41</td>
+                          <td>$3,239</td>
+                        </tr>
+                      </tbody>
+                    </table>
+  
+                  </div>
+  
+                </div>
+              </div><!-- End Top Selling -->
+  
+            </div>
+          </div><!-- End Left side columns -->
+  
+          <!-- Right side columns -->
+          <div class="col-lg-4">
+  
+            <!-- Recent Activity -->
+            <div class="card">
+              <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <li class="dropdown-header text-start">
+                    <h6>Filter</h6>
+                  </li>
+  
+                  <li><a class="dropdown-item" href="#">Today</a></li>
+                  <li><a class="dropdown-item" href="#">This Month</a></li>
+                  <li><a class="dropdown-item" href="#">This Year</a></li>
+                </ul>
+              </div>
+  
+              <div class="card-body">
+                <h5 class="card-title">Recent Activity <span>| Today</span></h5>
+  
+                <div class="activity">
+  
+                  <div class="activity-item d-flex">
+                    <div class="activite-label">32 min</div>
+                    <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                    <div class="activity-content">
+                      Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
+                    </div>
+                  </div><!-- End activity item-->
+  
+                  <div class="activity-item d-flex">
+                    <div class="activite-label">56 min</div>
+                    <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                    <div class="activity-content">
+                      Voluptatem blanditiis blanditiis eveniet
+                    </div>
+                  </div><!-- End activity item-->
+  
+                  <div class="activity-item d-flex">
+                    <div class="activite-label">2 hrs</div>
+                    <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
+                    <div class="activity-content">
+                      Voluptates corrupti molestias voluptatem
+                    </div>
+                  </div><!-- End activity item-->
+  
+                  <div class="activity-item d-flex">
+                    <div class="activite-label">1 day</div>
+                    <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
+                    <div class="activity-content">
+                      Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
+                    </div>
+                  </div><!-- End activity item-->
+  
+                  <div class="activity-item d-flex">
+                    <div class="activite-label">2 days</div>
+                    <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
+                    <div class="activity-content">
+                      Est sit eum reiciendis exercitationem
+                    </div>
+                  </div><!-- End activity item-->
+  
+                  <div class="activity-item d-flex">
+                    <div class="activite-label">4 weeks</div>
+                    <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
+                    <div class="activity-content">
+                      Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
+                    </div>
+                  </div><!-- End activity item-->
+  
+                </div>
+  
+              </div>
+            </div><!-- End Recent Activity -->
+  
+            <!-- Budget Report -->
+            <div class="card">
+              <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <li class="dropdown-header text-start">
+                    <h6>Filter</h6>
+                  </li>
+  
+                  <li><a class="dropdown-item" href="#">Today</a></li>
+                  <li><a class="dropdown-item" href="#">This Month</a></li>
+                  <li><a class="dropdown-item" href="#">This Year</a></li>
+                </ul>
+              </div>
+  
+              <div class="card-body pb-0">
+                <h5 class="card-title">Budget Report <span>| This Month</span></h5>
+  
+                <div id="budgetChart" style="min-height: 400px;" class="echart"></div>
+  
+                <script>
+                  document.addEventListener("DOMContentLoaded", () => {
+                    var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
+                      legend: {
+                        data: ['Allocated Budget', 'Actual Spending']
+                      },
+                      radar: {
+                        // shape: 'circle',
+                        indicator: [{
+                            name: 'Sales',
+                            max: 6500
+                          },
+                          {
+                            name: 'Administration',
+                            max: 16000
+                          },
+                          {
+                            name: 'Information Technology',
+                            max: 30000
+                          },
+                          {
+                            name: 'Customer Support',
+                            max: 38000
+                          },
+                          {
+                            name: 'Development',
+                            max: 52000
+                          },
+                          {
+                            name: 'Marketing',
+                            max: 25000
+                          }
+                        ]
+                      },
+                      series: [{
+                        name: 'Budget vs spending',
+                        type: 'radar',
+                        data: [{
+                            value: [4200, 3000, 20000, 35000, 50000, 18000],
+                            name: 'Allocated Budget'
+                          },
+                          {
+                            value: [5000, 14000, 28000, 26000, 42000, 21000],
+                            name: 'Actual Spending'
+                          }
+                        ]
+                      }]
+                    });
+                  });
+                </script>
+  
+              </div>
+            </div><!-- End Budget Report -->
+  
+            <!-- Website Traffic -->
+            <div class="card">
+              <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <li class="dropdown-header text-start">
+                    <h6>Filter</h6>
+                  </li>
+  
+                  <li><a class="dropdown-item" href="#">Today</a></li>
+                  <li><a class="dropdown-item" href="#">This Month</a></li>
+                  <li><a class="dropdown-item" href="#">This Year</a></li>
+                </ul>
+              </div>
+  
+              <div class="card-body pb-0">
+                <h5 class="card-title">Website Traffic <span>| Today</span></h5>
+  
+                <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
+  
+                <script>
+                  document.addEventListener("DOMContentLoaded", () => {
+                    echarts.init(document.querySelector("#trafficChart")).setOption({
+                      tooltip: {
+                        trigger: 'item'
+                      },
+                      legend: {
+                        top: '5%',
+                        left: 'center'
+                      },
+                      series: [{
+                        name: 'Access From',
+                        type: 'pie',
+                        radius: ['40%', '70%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                          show: false,
+                          position: 'center'
+                        },
+                        emphasis: {
+                          label: {
+                            show: true,
+                            fontSize: '18',
+                            fontWeight: 'bold'
+                          }
+                        },
+                        labelLine: {
+                          show: false
+                        },
+                        data: [{
+                            value: 1048,
+                            name: 'Search Engine'
+                          },
+                          {
+                            value: 735,
+                            name: 'Direct'
+                          },
+                          {
+                            value: 580,
+                            name: 'Email'
+                          },
+                          {
+                            value: 484,
+                            name: 'Union Ads'
+                          },
+                          {
+                            value: 300,
+                            name: 'Video Ads'
+                          }
+                        ]
+                      }]
+                    });
+                  });
+                </script>
+  
+              </div>
+            </div><!-- End Website Traffic -->
+  
+            <!-- News & Updates Traffic -->
+            <div class="card">
+              <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <li class="dropdown-header text-start">
+                    <h6>Filter</h6>
+                  </li>
+  
+                  <li><a class="dropdown-item" href="#">Today</a></li>
+                  <li><a class="dropdown-item" href="#">This Month</a></li>
+                  <li><a class="dropdown-item" href="#">This Year</a></li>
+                </ul>
+              </div>
+  
+              <div class="card-body pb-0">
+                <h5 class="card-title">News ici<span>| Today</span></h5>
+  
+                <div class="news">
+                  <div class="post-item clearfix">
+                    <img src="assets/img/news-1.jpg" alt="">
+                    <h4><a href="#">Nihil blanditiis at in nihil autem</a></h4>
+                    <p>Sit recusandae non aspernatur laboriosam. Quia enim eligendi sed ut harum...</p>
+                  </div>
+  
+                  <div class="post-item clearfix">
+                    <img src="assets/img/news-2.jpg" alt="">
+                    <h4><a href="#">Quidem autem et impedit</a></h4>
+                    <p>Illo nemo neque maiores vitae officiis cum eum turos elan dries werona nande...</p>
+                  </div>
+  
+                  <div class="post-item clearfix">
+                    <img src="assets/img/news-3.jpg" alt="">
+                    <h4><a href="#">Id quia et et ut maxime similique occaecati ut</a></h4>
+                    <p>Fugiat voluptas vero eaque accusantium eos. Consequuntur sed ipsam et totam...</p>
+                  </div>
+  
+                  <div class="post-item clearfix">
+                    <img src="assets/img/news-4.jpg" alt="">
+                    <h4><a href="#">Laborum corporis quo dara net para</a></h4>
+                    <p>Qui enim quia optio. Eligendi aut asperiores enim repellendusvel rerum cuder...</p>
+                  </div>
+  
+                  <div class="post-item clearfix">
+                    <img src="assets/img/news-5.jpg" alt="">
+                    <h4><a href="#">Et dolores corrupti quae illo quod dolor</a></h4>
+                    <p>Odit ut eveniet modi reiciendis. Atque cupiditate libero beatae dignissimos eius...</p>
+                  </div>
+  
+                </div><!-- End sidebar recent posts-->
+  
+              </div>
+            </div><!-- End News & Updates -->
+  
+          </div><!-- End Right side columns -->
+  
+        </div>
+      </section>
+
+
+
+
+
+
+    
+    <div class="container-xxl">
+        <div class="jumbotron">
+            <p class="lead">
+                <div class="container mt-4">
+                    <h1 class="text-center mb-4">Bienvenue sur ZLOUIK</h1>
+                    <div class="card">
+
+                    <div class="card-body">
+                        <p class="card-text">
+                            <strong>Bienvenue sur ZLOUIK!</strong>, Zone Logicielle Orientée Utilisation et Impositions
+                            Kafkaïennes !<br>
+                            ZLOUIK! est conçue pour simplifier la vie des arbitres et autres professionnels
+                            indépendants en leur permettant de calculer efficacement
+                            leurs revenus nets, tout en prenant en compte divers facteurs tels que les primes, les frais
+                            divers et les cotisations URSSAF digne de la NASA.<br>
+                            <br>
+                            ZLOUIK! est idéale pour ceux qui cherchent à avoir une estimation claire et précise de leurs
+                            revenus annuels à partir de simulations basées sur des données réelles ou hypothétiques de
+                            matchs arbitré.
+                        </p>
+                    </div>
+                </div>
+
+
+
+
+                <div class="card mt-3">
+                    <div class="intro-text">
+                        Mode d'Emploi
+                    </div>
+                    <div class="card-body">
+                        <h5>Configuration Initiale</h5>
+                        <ol>
+                            <li><strong>Accès aux Paramètres :</strong></li> <br>
+                            Configurez vos informations de base sous l'onglet
+                            "Paramétrage".<br>
+                            Commencez par accéder à l'onglet "Paramétrage" où vous pouvez entrer les différentes
+                            configurations liées à votre activité :
+
+                            <ul> PRK (Prix de Reviens Kilométrique) : choisissez le PRK applicable à votre véhicule pour
+                                le
+                                calcul des indemnisations kilométriques.</ul>
+
+                            <ul>Domicile : sélectionnez votre ville de domicile pour la simulation des déplacements.
+                            </ul>
+
+                            <ul>Matchs : réglez le nombre de matchs prévus pour chaque phase (saison régulière, poule de
+                                relégation, etc.) ainsi que le pourcentage de grands déplacements.</ul>
+
+                            <li><strong>Entrée des Données :</strong></li>
+                            Sur la même page, vous trouverez des sliders vous
+                            permettant de définir le montant des primes par match et les frais associés à chaque type de
+                            match.
+                        </ol>
+
+                        <h5>Utilisation des Calculatrices</h5>
+                        <ol>
+                            <li><strong>Calculateur de Revenus pour Auto-Entrepreneurs :</strong></li>
+                            Cette section calcule votre revenu net en prenant en compte les primes, les frais et les
+                            cotisations URSSAF. Vous verrez des tables pré-remplies où vous pouvez simplement entrer vos
+                            données pour chaque match.
+                            Les résultats incluront votre brut annuel, les cotisations annuelles, les frais par match et
+                            le résultat net annuel.
+
+                            <li><strong>Visualisation et Interaction :</strong></li>
+                            Les lignes des tableaux sont interactives—survolez une ligne avec votre souris pour la
+                            mettre en évidence, facilitant la lecture des données spécifiques.
+                            Les couleurs des lignes alternent pour une meilleure lisibilité : une facilité visuelle pour
+                            suivre les données sans se perdre.</p>
+                        </ol>
+
+                        <div class="card mt-3">
+                            <div class="intro-text">A propos</div>
+                            <p>N’hésitez pas à me contacter par email ou dans le vrai monde pour toute question ou si
+                                vous avez
+                                besoin d’aide avec les configurations ou les calculs (NB: je ne suis pas comptable).<br>
+                                Si vous voyez un bug ou vous pensez qu'une fonctionnalité pourrait être améliorée,
+                                n'hésitez pas à me le signaler. Je suis toujours ouvert aux suggestions et aux retours
+                                d'expérience pour améliorer ZLOUIK!.</p>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <form onchange="display.updatePrimeMontant()">
+
+                <div id="menuVillesDepart"></div>
+
+                <br>
+
+                <div class="container mt-3">
+                    <h2 class="mb-4">Données générales</h2>
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="dropdown">
+                                    <label for="menuPRK">Choix du Prix de Reviens Kilométrique (PRK) du véhicule:</label>
+                                    <select id="menuPRK" class="form-control" title="PRK"></select>
+                                </div>
+                        
+                                <small class="form-text text-muted">[1]</small>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="dropdown">
+                                    <label for="VilleDepart">Choix du domicile pour la simulation des désignations:</label>
+                                    <select id="VilleDepart" class="form-control" title="Maison"></select>
+                                </div>
+                            </div>
+                        
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+                                <label class="form-check-label" for="flexCheckCheckedDisabled">
+                                    Générer des désignations de façon aléatoire.
+                                </label>
+                            </div>
+                                                
+                        </div>
+
+                        <h2 class="mb-4">Nombre de matchs</h2>
+                        <div class="row">
+                        
+                            <div class="col-md-6">
+                                <div class="slider-group">
+                                    <label class="custom-range-label" for="nbre_matchs_01">Saison régulière</label>
+                                    <input type="range" class="custom-range" id="nbre_matchs_01" name="nbre_matchs_01" min="0" max="60"
+                                        value="25" step="1" oninput="updateOutput('nbre_matchs_01', 'valeur_match_01')">
+                                    <output id="valeur_match_01" class="output">25</output>
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-6">
+                                <div class="slider-group">
+                                    <label class="custom-range-label" for="nbre_matchs_02">Poule de relégation</label>
+                                    <input type="range" class="custom-range" id="nbre_matchs_02" name="nbre_matchs_02" min="0" max="60"
+                                        value="40" step="1" oninput="updateOutput('nbre_matchs_02', 'valeur_match_02')">
+                                    <output id="valeur_match_02" class="output">40</output>
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-6">
+                                <div class="slider-group">
+                                    <label class="custom-range-label" for="nbre_matchs_03">Phase finale</label>
+                                    <input type="range" class="custom-range" id="nbre_matchs_03" name="nbre_matchs_03" min="0" max="60"
+                                        value="7" step="1" oninput="updateOutput('nbre_matchs_03', 'valeur_match_03')">
+                                <output id="valeur_match_03" class="output">7</output>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="slider-group">
+                                <label class="custom-range-label" for="pourcentageGrandDeplacement">Pourcentage de
+                                    grands déplacements</label>
+                                <input type="range" class="custom-range" id="pourcentageGrandDeplacement"
+                                    name="pourcentageGrandDeplacement" min="0" max="100" value="0" step="1"
+                                    oninput="this.nextElementSibling.value = this.value">
+                                <output class="output">%</output>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <h2 class="md-4">Montant des primes de préparation et d'équipement (historique)</h2>
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div id="indemniteChoisieDiv">
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="indemnite145" name="indemnite"
+                                        value="145" checked>
+                                    <label class="form-check-label" for="indemnite145">145€ : Arbitre LM</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="indemnite130" name="indemnite"
+                                        value="130">
+                                    <label class="form-check-label" for="indemnite130">130€ : Arbitre LM amical</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="indemnite120" name="indemnite"
+                                        value="120">
+                                    <label class="form-check-label" for="indemnite120">120€ : Arbitre D1</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="indemnite115" name="indemnite"
+                                        value="115">
+                                    <label class="form-check-label" for="indemnite115">115€ : Juge de lignes SR</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="indemnite105" name="indemnite"
+                                        value="105">
+                                    <label class="form-check-label" for="indemnite105">105€ : Juge de lignes amical</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <h2 class="mb-4">Données spécifiques au nouveau mode de calcul <i>"prime"</i> unique</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <h4>Montant des primes par match</h4><br>
+                            <div class="slider-group">
+                                <label for="prime_montant_01">Saison régulière</label>
+                                <input type="range" class="custom-range" id="prime_montant_01" name="prime_montant_01"
+                                    min="100" max="2000" value="500" step="10"
+                                    oninput="updateOutput('prime_montant_01', 'valeur_prime_01')">
+                                <output id="valeur_prime_01">500</output>€
+                            </div>
+
+                            <div class="slider-group">
+                                <label for="prime_montant_02">Poule de relégation</label>
+                                <input type="range" class="custom-range" id="prime_montant_02" name="prime_montant_02"
+                                    min="100" max="2000" value="700" step="10"
+                                    oninput="updateOutput('prime_montant_02', 'valeur_prime_02')">
+                                <output id="valeur_prime_02">700</output>€
+                            </div>
+
+                            <div class="slider-group">
+                                <label for="prime_montant_03">Phase finale</label>
+                                <input type="range" class="custom-range" id="prime_montant_03" name="prime_montant_03"
+                                    min="100" max="2000" value="800" step="10"
+                                    oninput="updateOutput('prime_montant_03', 'valeur_prime_03')">
+                                <output id="valeur_prime_03">800</output>€
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <h4>Montants des frais par match (autre que l'usure du véhicule calculé dans le PRK)</h4>
+                            <div class="slider-group">
+                                <label for="frais_par_match01">Saison régulière</label>
+                                <input type="range" class="custom-range" id="frais_par_match01" name="frais_par_match01"
+                                    min="10" max="1200" value="130" step="10"
+                                    oninput="updateOutput('frais_par_match01', 'valeur_frais_01')">
+                                <output id="valeur_frais_01">130</output>€
+                            </div>
+
+                            <div class="slider-group">
+                                <label for="frais_par_match02">Poule de relégation</label>
+                                <input type="range" class="custom-range" id="frais_par_match02" name="frais_par_match02"
+                                    min="10" max="1200" value="260" step="10"
+                                    oninput="updateOutput('frais_par_match02', 'valeur_frais_02')">
+                                <output id="valeur_frais_02">260</output>€
+                            </div>
+
+                            <div class="slider-group">
+                                <label for="frais_par_match03">Phase finale</label>
+                                <input type="range" class="custom-range" id="frais_par_match03" name="frais_par_match03"
+                                    min="10" max="1200" value="260" step="10"
+                                    oninput="updateOutput('frais_par_match03', 'valeur_frais_03')">
+                                <output id="valeur_frais_03">260</output>€
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <h1>SIMULATION : tableaux comparatifs des frais</h1>
+
+                <br>
+                <div id="tableauComparatifDiv"></div>
+                <br>
+                <br>
+                <br><br>
+                <hr>
+                <h1>Calculs basés sur une prime de match (rémunération)</h1>
+                <h1>1 - Calcul des revenus d'un arbitre en statut de travailleur indépendant (auto entreprise)</h1>
+                <p>Ce code calcule le revenu net d'un travailleur indépendant en prenant en compte les primes, les frais
+                    et les
+                    cotisations URSSAF.</p>
+                <br>
+                Seuil TVA d'un travailleur indépendant : 39 100e<br>
+                <table class="Tableau01_AutoEntrepriseArray">
+                    <thead>
+                        <tr>
+                            <th>Travailleur indépendant</th>
+                            <th>Nbre matchs</th>
+                            <th>Montant</th>
+                            <th>% URSSAF</th>
+                            <th>Cotisations / match</th>
+                            <th>Net</th>
+                            <th>Brut annuel</th>
+                            <th>Cotisations annuelles</th>
+                            <th>Net d'URSSAF annuel</th>
+                            <th>Frais par match</th>
+                            <th>Somme annuelle des frais</th>
+                            <th>RÉSULTAT NET</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Saison régulière
+                            <td>
+                            <td id="cell2_1"></td>
+                            <td id="cell3_1"></td>
+                            <td id="cell4_1"></td>
+                            <td id="cell5_1"></td>
+                            <td id="cell6_1"></td>
+                            <td id="cell7_1"></td>
+                            <td id="cell8_1"></td>
+                            <td id="cell9_1"></td>
+                            <td id="cell10_1"></td>
+                            <td id="cell11_1"></td>
+                            <td id="cell12_1"></td>
+                        </tr>
+                        <tr>
+                            <td>Poule de relégation</td>
+                            <td id="cell2_2"></td>
+                            <td id="cell3_2"></td>
+                            <td id="cell4_2"></td>
+                            <td id="cell5_2"></td>
+                            <td id="cell6_2"></td>
+                            <td id="cell7_2"></td>
+                            <td id="cell8_2"></td>
+                            <td id="cell9_2"></td>
+                            <td id="cell10_2"></td>
+                            <td id="cell11_2"></td>
+                            <td id="cell12_2"></td>
+                        </tr>
+                        <tr>
+                            <td>Phase finale</td>
+                            <td id="cell2_3"></td>
+                            <td id="cell3_3"></td>
+                            <td id="cell4_3"></td>
+                            <td id="cell5_3"></td>
+                            <td id="cell6_3"></td>
+                            <td id="cell7_3"></td>
+                            <td id="cell8_3"></td>
+                            <td id="cell9_3"></td>
+                            <td id="cell10_3"></td>
+                            <td id="cell11_3"></td>
+                            <td id="cell12_3"></td>
+                        </tr>
+                        <tr>
+                    <tfoot>
+                        <td><b>SOMMES ANNUELLES</b></td>
+                        <td id="cell2_4"></td>
+                        <td id="cell3_4">---</td>
+                        <td id="cell4_4">---</td>
+                        <td id="cell5_4">---</td>
+                        <td id="cell6_4">---</td>
+                        <td id="cell7_4"></td>
+                        <td id="cell8_4"></td>
+                        <td id="cell9_4"></td>
+                        <td id="cell10_4">---</td>
+                        <td id="cell11_4"></td>
+                        <td id="cell12_4" class="gras-vert"></td>
+                    </tfoot>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                <hr>
+                <h1>2 - Calcul des revenus d'un arbitre en statut de travailleur non salarié - EURL régime impot sur le
+                    revenu
+                    (IR)
+                </h1>
+                <p>Ce code calcule le revenu net d'un TNS en prenant en compte les primes, les frais et les cotisations
+                    URSSAF
+                    et
+                    les tranches d'impositions.</p>
+                <br>
+                Seuil TVA d'un travailleur indépendant : 36 800e<br>
+                <table class="Tableau01_AutoEntrepriseArray">
+                    <thead>
+                        <tr>
+                            <th>Travailleur non salarié</th>
+                            <th>Nbre matchs</th>
+                            <th>Montant</th>
+                            <th>% URSSAF</th>
+                            <th>Cotisations / match</th>
+                            <th>Net</th>
+                            <th>Brut annuel</th>
+                            <th>Cotisations annuelles</th>
+                            <th>Net d'URSSAF annuel</th>
+                            <th>Frais par match</th>
+                            <th>Sommes annuelle des frais</th>
+                            <th>Résultat intermédiaire</th>
+                            <th>Frais annexes</th>
+                            <th>Résultats nets</th>
+                            <th>Régime IR</th>
+                            <th>Montant revenus<br> imposables</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Saison régulière</td>
+                            <td id="tns_ir_cell2_1"></td>
+                            <td id="tns_ir_cell3_1"></td>
+                            <td id="tns_ir_cell4_1"></td>
+                            <td id="tns_ir_cell5_1"></td>
+                            <td id="tns_ir_cell6_1"></td>
+                            <td id="tns_ir_cell7_1"></td>
+                            <td id="tns_ir_cell8_1"></td>
+                            <td id="tns_ir_cell9_1"></td>
+                            <td id="tns_ir_cell10_1"></td>
+                            <td id="tns_ir_cell11_1"></td>
+                            <td id="tns_ir_cell12_1"></td>
+                            <td id="tns_ir_cell13_1"></td>
+                            <td id="tns_ir_cell14_1">---</td>
+                            <td id="tns_ir_cell15_1"></td>
+                        </tr>
+                        <tr>
+                            <td>Poule de relégation</td>
+                            <td id="tns_ir_cell2_2"></td>
+                            <td id="tns_ir_cell3_2"></td>
+                            <td id="tns_ir_cell4_2"></td>
+                            <td id="tns_ir_cell5_2"></td>
+                            <td id="tns_ir_cell6_2"></td>
+                            <td id="tns_ir_cell7_2"></td>
+                            <td id="tns_ir_cell8_2"></td>
+                            <td id="tns_ir_cell9_2"></td>
+                            <td id="tns_ir_cell10_2"></td>
+                            <td id="tns_ir_cell11_2"></td>
+                            <td id="tns_ir_cell12_2"></td>
+                            <td id="tns_ir_cell13_2"></td>
+                            <td id="tns_ir_cell14_2">---</td>
+                            <td id="tns_ir_cell15_2"></td>
+                        </tr>
+                        <tr>
+                            <td>Phase finale</td>
+                            <td id="tns_ir_cell2_3"></td>
+                            <td id="tns_ir_cell3_3"></td>
+                            <td id="tns_ir_cell4_3"></td>
+                            <td id="tns_ir_cell5_3"></td>
+                            <td id="tns_ir_cell6_3"></td>
+                            <td id="tns_ir_cell7_3"></td>
+                            <td id="tns_ir_cell8_3"></td>
+                            <td id="tns_ir_cell9_3"></td>
+                            <td id="tns_ir_cell10_3"></td>
+                            <td id="tns_ir_cell11_3"></td>
+                            <td id="tns_ir_cell12_3"></td>
+                            <td id="tns_ir_cell13_3"></td>
+                            <td id="tns_ir_cell14_3">---</td>
+                            <td id="tns_ir_cell15_3"></td>
+                        </tr>
+                        <tr>
+                    <tfoot>
+                        <td>SOMMES ANNUELLES</td>
+                        <td id="tns_ir_cell2_4"></td>
+                        <td id="tns_ir_cell3_4">---</td>
+                        <td id="tns_ir_cell4_4">---</td>
+                        <td id="tns_ir_cell5_4">---</td>
+                        <td id="tns_ir_cell6_4">---</td>
+                        <td id="tns_ir_cell7_4"></td>
+                        <td id="tns_ir_cell8_4"></td>
+                        <td id="tns_ir_cell9_4"></td>
+                        <td id="tns_ir_cell10_4">---</td>
+                        <td id="tns_ir_cell11_4"></td>
+                        <td id="tns_ir_cell12_4"></td>
+                        <td id="tns_ir_cell13_4"></td>
+                        <td id="tns_ir_cell14_4"></td>
+                        <td id="tns_ir_cell15_4"></td>
+                        <td id="tns_ir_cell16_4" class="gras-vert"></td>
+                    </tfoot>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <br>
+                <hr>
+                <h1>3 - Calcul des revenus d'un arbitre en statut de travailleur non salarié - EURL régime impot sur les
+                    sociétés
+                    (IS)</h1>
+                <p>Ce code calcule le revenu net d'un TNS en prenant en compte les primes, les frais et les cotisations
+                    URSSAF
+                    et
+                    les tranches d'impositions.</p>
+                Seuil TVA 36 800e
+                <table class="Tableau01_AutoEntrepriseArray">
+                    <thead>
+                        <tr>
+                            <th>Travailleur non salarié</th>
+                            <th>Nbre matchs</th>
+                            <th>Montant</th>
+                            <th>% URSSAF</th>
+                            <th>Cotisations / match</th>
+                            <th>Net</th>
+                            <th>Brut annuel</th>
+                            <th>Cotisations annuelles</th>
+                            <th>Net d'URSSAF annuel</th>
+                            <th>Frais par match</th>
+                            <th>Sommes annuelle des frais</th>
+                            <th>Résultat intermédiaire</th>
+                            <th>Frais annexes</th>
+                            <th>Résultats nets</th>
+                            <th>Régime IS</th>
+                            <th>Versement dividendes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Saison régulière</td>
+                            <td id="tns_is_cell2_1"></td>
+                            <td id="tns_is_cell3_1"></td>
+                            <td id="tns_is_cell4_1"></td>
+                            <td id="tns_is_cell5_1"></td>
+                            <td id="tns_is_cell6_1"></td>
+                            <td id="tns_is_cell7_1"></td>
+                            <td id="tns_is_cell8_1"></td>
+                            <td id="tns_is_cell9_1"></td>
+                            <td id="tns_is_cell10_1"></td>
+                            <td id="tns_is_cell11_1"></td>
+                            <td id="tns_is_cell12_1"></td>
+                            <td id="tns_is_cell13_1"></td>
+                            <td id="tns_is_cell14_1">---</td>
+                            <td id="tns_is_cell15_1">---</td>
+                            <td id="tns_is_cell16_1">Imposition barême</td>
+                        </tr>
+                        <tr>
+                            <td>Poule de relégation</td>
+                            <td id="tns_is_cell2_2"></td>
+                            <td id="tns_is_cell3_2"></td>
+                            <td id="tns_is_cell4_2"></td>
+                            <td id="tns_is_cell5_2"></td>
+                            <td id="tns_is_cell6_2"></td>
+                            <td id="tns_is_cell7_2"></td>
+                            <td id="tns_is_cell8_2"></td>
+                            <td id="tns_is_cell9_2"></td>
+                            <td id="tns_is_cell10_2"></td>
+                            <td id="tns_is_cell11_2"></td>
+                            <td id="tns_is_cell12_2"></td>
+                            <td id="tns_is_cell13_2"></td>
+                            <td id="tns_is_cell14_2">---</td>
+                            <td id="tns_is_cell15_2"></td>
+                            <td id="tns_is_cell16_2"></td>
+
+                        </tr>
+                        <tr>
+                            <td>Phase finale</td>
+                            <td id="tns_is_cell2_3"></td>
+                            <td id="tns_is_cell3_3"></td>
+                            <td id="tns_is_cell4_3"></td>
+                            <td id="tns_is_cell5_3"></td>
+                            <td id="tns_is_cell6_3"></td>
+                            <td id="tns_is_cell7_3"></td>
+                            <td id="tns_is_cell8_3"></td>
+                            <td id="tns_is_cell9_3"></td>
+                            <td id="tns_is_cell10_3"></td>
+                            <td id="tns_is_cell11_3"></td>
+                            <td id="tns_is_cell12_3"></td>
+                            <td id="tns_is_cell13_3"></td>
+                            <td id="tns_is_cell14_3">---</td>
+                            <td id="tns_is_cell15_3">---</td>
+                            <td id="tns_is_cell16_3">Flat tax</td>
+                        </tr>
+                        <tr>
+                    <tfoot>
+                        <td>SOMMES ANNUELLES</td>
+                        <td id="tns_is_cell2_4"></td>
+                        <td id="tns_is_cell3_4">---</td>
+                        <td id="tns_is_cell4_4">---</td>
+                        <td id="tns_is_cell5_4">---</td>
+                        <td id="tns_is_cell6_4">---</td>
+                        <td id="tns_is_cell7_4"></td>
+                        <td id="tns_is_cell8_4"></td>
+                        <td id="tns_is_cell9_4"></td>
+                        <td id="tns_is_cell10_4">---</td>
+                        <td id="tns_is_cell11_4"></td>
+                        <td id="tns_is_cell12_4"></td>
+                        <td id="tns_is_cell13_4"></td>
+                        <td id="tns_is_cell14_4"></td>
+                        <td id="tns_is_cell15_4"></td>
+                        <td id="tns_is_cell16_4" class="gras-vert"></td>
+                    </tfoot>
+                    </tr>
+                    </tbody>
+                </table>
+                (*) : La flat tax (ou PFU) est composée d'un accompte de 12,8% d'impôt sur le revenu et de 17,2% de
+                prélèvements
+                sociaux. Les dividendes sont soumis à un prélèvement forfaitaire unique (PFU) de 30%.<br>
+                Les 12,8% d'impots sont possiblement dispensés si le revenu fiscal de référence n-2 est inférieur à 50
+                000e pour
+                une
+                personne seule et 75 000e pour un couple.<br>
+                Les 17,2% de prélèvements sociaux sont obligatoires.<br>
+                Le PFU est payable le 15 du mois suivant le versement des dividendes.<br>
+                L'année suivante, le montant des dividendes est à déclarer dans la <a
+                    href="https://www.impots.gouv.fr/sites/default/files/formulaires/2042/2023/2042_4384.pdf">déclaration
+                    de
+                    revenus
+                    2042 (IRPP)</a>.<br>
+                Il est possible d'opter pour le barême progressif de l'impôt sur le revenu.<br>
+                <hr>
+                <h1>4 - Calcul des revenus d'un arbitre en statut de SASU en régime impot sur le revenu (IR)</h1>
+                <p>Ce code calcule le revenu net SASU IR en prenant en compte les primes, les frais et les cotisations
+                    URSSAF et
+                    les
+                    tranches d'impositions.</p>
+                <br>
+                Seuil TVA 36 800e
+                <table class="Tableau01_AutoEntrepriseArray">
+                    <thead>
+                        <tr>
+                            <th>Travailleur indépendant</th>
+                            <th>Nbre matchs</th>
+                            <th>Montant</th>
+                            <th>% URSSAF</th>
+                            <th>Cotisations / match</th>
+                            <th>Net</th>
+                            <th>Brut annuel</th>
+                            <th>Cotisations annuelles</th>
+                            <th>Net d'URSSAF annuel</th>
+                            <th>Frais par match</th>
+                            <th>Sommes annuelle des frais</th>
+                            <th>Résultat intermédiaire</th>
+                            <th>Frais annexes</th>
+                            <th>Résultats nets</th>
+                            <th>Résultat après IS</th>
+                            <th>Versement de dividendes <br>Flat tax</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Saison régulière</td>
+                            <td id="sasu_ir_cell2_1"></td>
+                            <td id="sasu_ir_cell3_1"></td>
+                            <td id="sasu_ir_cell4_1"></td>
+                            <td id="sasu_ir_cell5_1"></td>
+                            <td id="sasu_ir_cell6_1"></td>
+                            <td id="sasu_ir_cell7_1"></td>
+                            <td id="sasu_ir_cell8_1"></td>
+                            <td id="sasu_ir_cell9_1"></td>
+                            <td id="sasu_ir_cell10_1"></td>
+                            <td id="sasu_ir_cell11_1"></td>
+                            <td id="sasu_ir_cell12_1"></td>
+                            <td id="sasu_ir_cell13_1"></td>
+                            <td id="sasu_ir_cell14_1">---</td>
+                            <td id="sasu_ir_cell15_1">---</td>
+                            <td id="sasu_ir_cell16_1">---</td>
+
+                        </tr>
+                        <tr>
+                            <td>Poule de relégation</td>
+                            <td id="sasu_ir_cell2_2"></td>
+                            <td id="sasu_ir_cell3_2"></td>
+                            <td id="sasu_ir_cell4_2"></td>
+                            <td id="sasu_ir_cell5_2"></td>
+                            <td id="sasu_ir_cell6_2"></td>
+                            <td id="sasu_ir_cell7_2"></td>
+                            <td id="sasu_ir_cell8_2"></td>
+                            <td id="sasu_ir_cell9_2"></td>
+                            <td id="sasu_ir_cell10_2"></td>
+                            <td id="sasu_ir_cell11_2"></td>
+                            <td id="sasu_ir_cell12_2"></td>
+                            <td id="sasu_ir_cell13_2"></td>
+                            <td id="sasu_ir_cell14_2">---</td>
+                            <td id="sasu_ir_cell15_2"></td>
+                            <td id="sasu_ir_cell16_2"></td>
+                        </tr>
+                        <tr>
+                            <td>Phase finale</td>
+                            <td id="sasu_ir_cell2_3"></td>
+                            <td id="sasu_ir_cell3_3"></td>
+                            <td id="sasu_ir_cell4_3"></td>
+                            <td id="sasu_ir_cell5_3"></td>
+                            <td id="sasu_ir_cell6_3"></td>
+                            <td id="sasu_ir_cell7_3"></td>
+                            <td id="sasu_ir_cell8_3"></td>
+                            <td id="sasu_ir_cell9_3"></td>
+                            <td id="sasu_ir_cell10_3"></td>
+                            <td id="sasu_ir_cell11_3"></td>
+                            <td id="sasu_ir_cell12_3"></td>
+                            <td id="sasu_ir_cell13_3">---</td>
+                            <td id="sasu_ir_cell14_3">---</td>
+                            <td id="sasu_ir_cell15_3">---</td>
+                            <td id="sasu_ir_cell16_3">---</td>
+                        </tr>
+                        <tr>
+                    <tfoot>
+                        <td>SOMMES ANNUELLES</td>
+                        <td id="sasu_ir_cell2_4">---</td>
+                        <td id="sasu_ir_cell3_4">---</td>
+                        <td id="sasu_ir_cell4_4">---</td>
+                        <td id="sasu_ir_cell5_4">---</td>
+                        <td id="sasu_ir_cell6_4">---</td>
+                        <td id="sasu_ir_cell7_4"></td>
+                        <td id="sasu_ir_cell8_4"></td>
+                        <td id="sasu_ir_cell9_4"></td>
+                        <td id="sasu_ir_cell10_4">---</td>
+                        <td id="sasu_ir_cell11_4"></td>
+                        <td id="sasu_ir_cell12_4"></td>
+                        <td id="sasu_ir_cell13_4"></td>
+                        <td id="sasu_ir_cell14_4"></td>
+                        <td id="sasu_ir_cell15_4"></td>
+                        <td id="sasu_ir_cell16_4" class="gras-vert"></td>
+                    </tfoot>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                <hr>
+                <h1>5 - Calcul des revenus d'un arbitre en SASU régime impot sur les sociétés (IS)</h1>
+                <p>Ce code calcule le revenu net d'un SASU en prenant en compte les primes, les frais et les cotisations
+                    URSSAF
+                    et
+                    les tranches d'impositions.</p>
+                <br>
+                Seuil TVA 36 800e.
+                <table class="Tableau01_AutoEntrepriseArray">
+                    <thead>
+                        <tr>
+                            <th>Travailleur indépendant</th>
+                            <th>Nbre matchs</th>
+                            <th>Montant</th>
+                            <th>% URSSAF</th>
+                            <th>Cotisations / match</th>
+                            <th>Net</th>
+                            <th>Brut annuel</th>
+                            <th>Cotisations annuelles</th>
+                            <th>Net d'URSSAF annuel</th>
+                            <th>Frais par match</th>
+                            <th>Sommes annuelle des frais</th>
+                            <th>Résultat intermédiaire</th>
+                            <th>Frais annexes</th>
+                            <th>Résultats nets</th>
+                            <th>Régime IS</th>
+                            <th>Versement de dividendes<br>Imposition barême</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Saison régulière</td>
+                            <td id="sasu_is_cell2_1"></td>
+                            <td id="sasu_is_cell3_1"></td>
+                            <td id="sasu_is_cell4_1"></td>
+                            <td id="sasu_is_cell5_1"></td>
+                            <td id="sasu_is_cell6_1"></td>
+                            <td id="sasu_is_cell7_1"></td>
+                            <td id="sasu_is_cell8_1"></td>
+                            <td id="sasu_is_cell9_1"></td>
+                            <td id="sasu_is_cell10_1"></td>
+                            <td id="sasu_is_cell11_1"></td>
+                            <td id="sasu_is_cell12_1"></td>
+                            <td id="sasu_is_cell13_1"></td>
+                            <td id="sasu_is_cell14_1">---</td>
+                            <td id="sasu_is_cell15_1">---</td>
+                            <td id="sasu_is_cell16_1">---</td>
+                        </tr>
+                        <tr>
+                            <td>Poule de relégation</td>
+                            <td id="sasu_is_cell2_2"></td>
+                            <td id="sasu_is_cell3_2"></td>
+                            <td id="sasu_is_cell4_2"></td>
+                            <td id="sasu_is_cell5_2"></td>
+                            <td id="sasu_is_cell6_2"></td>
+                            <td id="sasu_is_cell7_2"></td>
+                            <td id="sasu_is_cell8_2"></td>
+                            <td id="sasu_is_cell9_2"></td>
+                            <td id="sasu_is_cell10_2"></td>
+                            <td id="sasu_is_cell11_2"></td>
+                            <td id="sasu_is_cell12_2"></td>
+                            <td id="sasu_is_cell13_2"></td>
+                            <td id="sasu_is_cell14_2">---</td>
+                            <td id="sasu_is_cell15_2"></td>
+                            <td id="sasu_is_cell16_2"></td>
+                        </tr>
+                        <tr>
+                            <td>Phases finales</td>
+                            <td id="sasu_is_cell2_3"></td>
+                            <td id="sasu_is_cell3_3"></td>
+                            <td id="sasu_is_cell4_3"></td>
+                            <td id="sasu_is_cell5_3"></td>
+                            <td id="sasu_is_cell6_3"></td>
+                            <td id="sasu_is_cell7_3"></td>
+                            <td id="sasu_is_cell8_3"></td>
+                            <td id="sasu_is_cell9_3"></td>
+                            <td id="sasu_is_cell10_3"></td>
+                            <td id="sasu_is_cell11_3"></td>
+                            <td id="sasu_is_cell12_3"></td>
+                            <td id="sasu_is_cell13_3">---</td>
+                            <td id="sasu_is_cell14_3">---</td>
+                            <td id="sasu_is_cell15_3">---</td>
+                            <td id="sasu_is_cell16_3">---</td>
+
+                        </tr>
+                        <tr>
+                    <tfoot>
+                        <td>SOMMES ANNUELLES</td>
+                        <td id="sasu_is_cell2_4"></td>
+                        <td id="sasu_is_cell3_4">---</td>
+                        <td id="sasu_is_cell4_4">---</td>
+                        <td id="sasu_is_cell5_4">---</td>
+                        <td id="sasu_is_cell6_4">---</td>
+                        <td id="sasu_is_cell7_4"></td>
+                        <td id="sasu_is_cell8_4"></td>
+                        <td id="sasu_is_cell9_4"></td>
+                        <td id="sasu_is_cell10_4">---</td>
+                        <td id="sasu_is_cell11_4"></td>
+                        <td id="sasu_is_cell12_4"></td>
+                        <td id="sasu_is_cell13_4"></td>
+                        <td id="sasu_is_cell14_4"></td>
+                        <td id="sasu_is_cell15_4"></td>
+                        <td id="sasu_is_cell16_4" class="gras-vert"></td>
+                    </tfoot>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                <hr>
+                <h2>Historique des tarifs</h2>
+
+                <table class="Tableau01_AutoEntrepriseArray">
+                    <thead>
+                        <tr>
+                            <th>Saison</th>
+                            <th>Head LM amicaux</th>
+                            <th>Head LM SR</th>
+                            <th>Head LM PO</th>
+                            <th>Head D1 amicaux</th>
+                            <th>Head D1 SR</th>
+                            <th>Head D1 PO</th>
+                            <th>JDL amicaux</th>
+                            <th>JDL SR</th>
+                            <th>JDL PO</th>
+                            <th>JDL amicaux D1</th>
+                            <th>JDL D1 SR</th>
+                            <th>JDL D1 PO</th>
+                            <th>Grand Déplacement</th>
+                            <th>Hôtel</th>
+                            <th>Km</th>
+                            <th>Repas</th>
+                            <th>Taux d'inflation</th>
+                            <th>Gazole</th>
+                            <th>Variation Km</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataBody">
+                    </tbody>
+                </table>
+                <script>
+                    // Lancement type window.onload = init;
+                    document.addEventListener('DOMContentLoaded', function () {
+                        init();
+                    });
+
+                </script>
+                <br>
+                <hr>
+
+                PRK : https://www.cartecarburant.leclerc/actualites/prix-revient-kilometrique<br>
+                <img src="https://simu.aahg.fr/tableau_prk.png" alt="Tableau PRK" />
+                <br>
+
+
+                <footer class="text-center text-muted">
+                    © 2024 ZLOUIK! par Guillaume Gielly. Code source sous licence WTFPLv2 ou LPRAB en France. <br>
+                    Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité de l'auteur ni
+                    de
+                    personne.
+                    <br>
+                    En cas d'erreur ou de demande d'évolution, merci de me contacter à l'adresse suivante : guillaume at
+                    rootshell.fr.
+                </footer>
+
+</body>
+</html>
