@@ -243,6 +243,35 @@ var gereEvents = function () {
     nbre_matchs_total = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03;
 };
 
+
+Promise.all([
+    display.tableauComparatif(resultats, "Saison régulière"),
+    display.tableauComparatif(resultats, "Poule de relégation"),
+    display.tableauComparatif(resultats, "Phase finale")
+]).then(results => {
+    let totalBeneficeReel = 0;
+    let combinedHTML = [];
+
+    results.forEach(result => {
+        totalBeneficeReel += result.value; // Aggregate the beneficeReel values
+        combinedHTML = combinedHTML.concat(result.html); // Combine the HTML contents
+    });
+
+    // Update the DOM with the total beneficeReel value
+    document.getElementById("frontBeneficeIndemnite").innerHTML = totalBeneficeReel.toLocaleString('fr-FR') + " €";
+
+    // Also append all the HTML content into a specific container
+    var tableauContainer = document.getElementById("tableauComparatifDiv");
+    if (tableauContainer) {
+        tableauContainer.innerHTML = combinedHTML.join(''); // Convert array to string and set as innerHTML
+    } else {
+        console.error("The container for the tableau does not exist.");
+    }
+}).catch(error => {
+    console.error("An error occurred:", error);
+});
+
+
 //Initialisation :
 // ajout des menus calculés dynamiquement
 // appel des fonctions de calcul initial de certaines données basées sur  primes / frais / nb match
