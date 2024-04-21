@@ -22,6 +22,7 @@ var nbre_matchs_03 = 0;
 var prime_montant_01 = 550;
 var prime_montant_02 = 700;
 var prime_montant_03 = 800;
+var nbre_matchs_total = 0;
 var pourcentage_urssaf = 25;
 var cotisations_urssaf_par_match_01 = 0;
 var cotisations_urssaf_par_match_02 = 0;

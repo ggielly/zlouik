@@ -5,6 +5,10 @@
 // Cette fonction appelle display.updateTableauxFederation() pour afficher les résultats des calculs
 
 var updateCalculs = function() { 
+
+    // Nombre de matchs au total
+    nbre_matchs_total = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03; 
+    
     // Colonne 5 => Calcul des cotisations URSSAF
     cotisations_urssaf_par_match_01 = prime_montant_01 * (pourcentage_urssaf / 100);
     cotisations_urssaf_par_match_02 = prime_montant_02 * (pourcentage_urssaf / 100);

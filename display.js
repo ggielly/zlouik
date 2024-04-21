@@ -350,6 +350,7 @@ var display = {
             var nbMatchs = nbMatches[index];
             var htmlTableau = `<h3>${etiquette} : ${nbMatchs} matchs.</h3><table id="tableauComparatif" class="Tableau01_AutoEntrepriseArray" border='3'><thead><tr><th>Domicile / Départ</th><th>Destination</th><th>Distance<br>aller/retour</th><th>Péages</th><th>Temps de trajet A/R</th><th>Grand déplacement</th><th>Indemnités kilométriques</th><th>PRK</th><th>Repas</th><th>Hôtel</th><th>Indemnité de préparation <br> et d'équipement</th><th>Note de frais historique <br>Chiffre d'affaire</th><th>Note de frais historique<br>bénéfices rééls</th><th>Prime<br>(chiffre d'affaire)</th><th>Frais</th><th>PRIMES<br>bénéfices rééls<br>(prime - frais - PRK)</th></tr></thead><tbody>`;
 
+
             // Itération sur les résultats pour les afficher dans le tableau
             var processedCount = 0;
 
@@ -402,7 +403,6 @@ var display = {
                     primeBenefice: primeBenefice.toFixed(2)
                 });
     
-
                 // Mise en format du tableau HTML
                 htmlTableau += `<tr><td>${trajet.VilleDepart}</td><td>${trajet.VilleDestination}</td><td>${distance} Km</td><td>${peages} €</td><td>${Math.floor(TempsTrajetAllerRetour / 60)}h${TempsTrajetAllerRetour % 60} min</td><td>${grandDeplacement} €</td><td>${indemnites.toFixed(2)} €</td><td>${prk.toFixed(2)} €</td><td>${repas.toFixed(2)} €</td><td>${hotelCost.toFixed(2)} €</td><td>${valeurIndemnite} €</td><td>${fraisHistorique.toFixed(2)} €</td><td style="${beneficeReel < 0 ? "color:red;" : ""}">${beneficeReel.toFixed(2)} €</td><td>${prime.toFixed(2)} €</td><td>${frais.toFixed(2)} €</td><td style="${primeBenefice < 0 ? "color:red;" : ""}">${primeBenefice.toFixed(2)} €</td></tr>`;
 
@@ -422,6 +422,8 @@ var display = {
                 totalPrimeBenefice += primeBenefice;
                 totalPRK += prk;
                 processedCount++;
+
+                
             }; // Fin de la boucle for
 
             var totalHeuresTrajet = Math.floor(totalTempsTrajet / 60);
@@ -437,10 +439,11 @@ var display = {
             htmlTableau += `<tr><td colspan='8'>Taux horaire moyen basé sur la prime : ${tauxHorairePrime.toFixed(2)} €/heure</td></tr>`;
             htmlTableau += `</table>`;
             
-            generateGraphsPlot(graphData, index);            
-
+                        
+            generateGraphsPlot(graphData, index);
             return htmlTableau;
         }); // fin de la boucle sur les étiquettes : tableauxHtml
+        
         return tableauxHtml.join('<br>');
     }, // Fin de la fonction
 
@@ -467,6 +470,7 @@ var display = {
     // Mise à jour de l'ensemble des tableaux prévisionnels de la fédération
     updateTableauxFederation: function () {
 
+        document.getElementById('frontNbreMatchs').textContent = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);  // This line updates the UI
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

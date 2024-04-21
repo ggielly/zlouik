@@ -14,7 +14,7 @@ Sous licence GPL3.
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simulateur ZLOUIK</title>
     <link href="default.css" rel="stylesheet" />
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -33,16 +33,15 @@ Sous licence GPL3.
     src="https://simu.aahg.fr/zlouik.jpg" 
     alt="Gliss allzenight"
     />-->
+
+
+    
     <div class="container-xxl">
         <div class="jumbotron">
-
             <p class="lead">
-
-
-            <div class="container mt-4">
-                <h1 class="text-center mb-4">Bienvenue sur ZLOUIK</h1>
-
-                <div class="card">
+                <div class="container mt-4">
+                    <h1 class="text-center mb-4">Bienvenue sur ZLOUIK</h1>
+                    <div class="card">
 
                     <div class="card-body">
                         <p class="card-text">
@@ -159,7 +158,7 @@ Sous licence GPL3.
                                                 
                         </div>
 
-                        <h2 class="mb-4">Réglages des Matchs</h2>
+                        <h2 class="mb-4">Nombre de matchs</h2>
                         <div class="row">
                         
                             <div class="col-md-6">
@@ -303,16 +302,6 @@ Sous licence GPL3.
                 </div>
                 <br>
 
-                <canvas id="grapheTableau00" width="600" height="400"></canvas>
-                <canvas id="grapheTableau01" width="600" height="400"></canvas>
-                <canvas id="grapheTableau02" width="600" height="400"></canvas>
-
-                <br>
-
-
-
-               
-                <br>
                 <h1>SIMULATION : tableaux comparatifs des frais</h1>
 
                 <br>
@@ -856,8 +845,6 @@ Sous licence GPL3.
                     </tbody>
                 </table>
                 <br>
-
-
                 <hr>
                 <h2>Historique des tarifs</h2>
 
@@ -890,8 +877,7 @@ Sous licence GPL3.
                     </tbody>
                 </table>
                 <script>
-                    //window.onload = init;
-                    // Best practice pour le chargement de la page
+                    // Lancement type window.onload = init;
                     document.addEventListener('DOMContentLoaded', function () {
                         init();
                     });
