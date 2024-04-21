@@ -4,8 +4,8 @@
 // les résultats sont stockés dans les variables globales déclarées dans data.js
 // Cette fonction appelle display.updateTableauxFederation() pour afficher les résultats des calculs
 
-var updateCalculs = function() { 
-   
+var updateCalculs = function () {
+
     // Colonne 5 => Calcul des cotisations URSSAF
     cotisations_urssaf_par_match_01 = prime_montant_01 * (pourcentage_urssaf / 100);
     cotisations_urssaf_par_match_02 = prime_montant_02 * (pourcentage_urssaf / 100);
@@ -48,9 +48,9 @@ var updateCalculs = function() {
     resultat_intermediaire_02 = prime_montant_02 * nbre_matchs_02 - frais_annuel_02;
     resultat_intermediaire_03 = prime_montant_03 * nbre_matchs_03 - frais_annuel_03;
 
-    Salaires = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf) - 
-                        (((tauxcotisation_eurl / 1.35) * (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 
-                            - frais_banque - frais_comptable - frais_urssaf)) / 100).toFixed(2); // Cotisations sociales
+    Salaires = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf) -
+        (((tauxcotisation_eurl / 1.35) * (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03
+            - frais_banque - frais_comptable - frais_urssaf)) / 100).toFixed(2); // Cotisations sociales
 
     resultat_net_is_TNS = resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf;
     AC24 = (resultat_net_is_TNS - (resultat_net_is_TNS * (15 / 100)));
@@ -59,7 +59,7 @@ var updateCalculs = function() {
     impotsSurLeRevenu = calculer_IR_EURL(AC16, tranche01_bas, tranche02_bas, tranche03_bas, tranche04_bas, tranche01_haut, tranche02_haut, tranche03_haut, tranche01_pourcent, tranche02_pourcent, tranche03_pourcent, tranche04_pourcent);
 
     montantFinal = calculerMontant_impotdividende(AC24, seuils, pourcentages);
-        
+
     CotisationsSociales = (((tauxcotisation_eurl / 1.35) * (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf)) / 100).toFixed(2); // Cotisations sociales
 
     display.updateTableauxFederation();
@@ -70,7 +70,7 @@ var updateCalculs = function() {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Définition de la fonction pour calculer le prélèvement sociaux
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-var calculerPrelevementSociaux = function(MontantRevenuImposable, tranches, taux) {
+var calculerPrelevementSociaux = function (MontantRevenuImposable, tranches, taux) {
 
     let taxeTotale = 0; // Initialisation du montant total de la taxe à payer  
     // Parcours des tranches d'imposition
@@ -78,10 +78,10 @@ var calculerPrelevementSociaux = function(MontantRevenuImposable, tranches, taux
         if (MontantRevenuImposable < tranches[i]) { // Vérification si le résultat après impôts est inférieur à la limite de la tranche
             break; // Sortie de la boucle si la limite de la tranche dépasse le résultat après impôts
         }
-        
+
         // Calcul du montant dans la tranche actuelle
         const montantDansTranche = i === 0 ? Math.min(MontantRevenuImposable, tranches[i]) : Math.min(MontantRevenuImposable, tranches[i]) - tranches[i - 1];
-        
+
         // Ajout du montant de la taxe pour la tranche actuelle au montant total de la taxe à payer
         taxeTotale += montantDansTranche * taux[i];
     }
@@ -92,7 +92,7 @@ var calculerPrelevementSociaux = function(MontantRevenuImposable, tranches, taux
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Définition des tranches d'imposition et des taux correspondants
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-var calculerMontant_impotdividende = function(AC24, seuils, pourcentages) {
+var calculerMontant_impotdividende = function (AC24, seuils, pourcentages) {
     const partiePrincipale = AC24 * 0.172; // CSG_CR
     const calculCommun = AC24 * 0.6 - 0.068 * AC24;
 
@@ -121,21 +121,21 @@ var calculerMontant_impotdividende = function(AC24, seuils, pourcentages) {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Définition des tranches d'imposition et des taux correspondants
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-var calculer_IR_EURL = function(AC16, tranche01_bas, tranche02_bas, tranche03_bas, tranche04_bas, tranche01_haut, tranche02_haut, tranche03_haut, tranche01_pourcent, tranche02_pourcent, tranche03_pourcent, tranche04_pourcent) {
+var calculer_IR_EURL = function (AC16, tranche01_bas, tranche02_bas, tranche03_bas, tranche04_bas, tranche01_haut, tranche02_haut, tranche03_haut, tranche01_pourcent, tranche02_pourcent, tranche03_pourcent, tranche04_pourcent) {
 
     if (AC16 < tranche01_haut) {
-        
+
         const tempdebug = (AC16 - tranche01_bas) * tranche01_pourcent;
-        
+
         return (AC16 - tranche01_bas) * tranche01_pourcent;
     } else if (AC16 < tranche02_haut) {
-        
+
         return tranche01_pourcent * (tranche01_haut - tranche01_bas) + (AC16 - tranche02_bas) * tranche02_pourcent;
     } else if (AC16 < tranche03_haut) {
-        
+
         return (tranche01_haut - tranche01_bas) * tranche01_pourcent + (tranche02_haut - tranche02_bas) * tranche02_pourcent + (AC16 - tranche03_bas) * tranche03_pourcent;
     } else {
-        
+
         return (AC16 - tranche04_bas) * tranche04_pourcent + (tranche03_haut - tranche03_bas) * tranche03_pourcent + (tranche02_haut - tranche02_bas) * tranche02_pourcent + (tranche01_haut - tranche01_bas) * tranche01_pourcent;
     }
 };
@@ -144,9 +144,9 @@ var calculer_IR_EURL = function(AC16, tranche01_bas, tranche02_bas, tranche03_ba
 
 
 // remplissage du array resultats avec les villes de destination calculées
-var calculDestinations = function() {
+var calculDestinations = function () {
     // Nombre total d'itérations à effectuer
-    var nombreIterations = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03; 
+    var nombreIterations = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03;
 
     // Récupération de l'élément selectVilleDepart
     var selectElement = document.getElementById("VilleDepart");
@@ -157,7 +157,7 @@ var calculDestinations = function() {
         // Calcul des itérations
         for (let i = 0; i < nombreIterations; i++) {
             // Choix aléatoire d'une ville de destination parmi celles disponibles pour la ville de départ sélectionnée
-            var VilleDestinationsPossibles = data.filter(function(trajet) {
+            var VilleDestinationsPossibles = data.filter(function (trajet) {
                 return trajet.VilleDepart === VilleDepart;
             });
 
@@ -196,11 +196,11 @@ var gereEvents = function () {
     elementsIds.forEach(function (id) {
         var element = document.getElementById(id);
         if (element) {
-            element.addEventListener("input", function() {
+            element.addEventListener("input", function () {
                 display.updateSliderValues();
                 display.updateTableauxFederation();  // Appel à la fonction de mise à jour des tableaux
             });
-            element.addEventListener("change", function() {
+            element.addEventListener("change", function () {
                 updateCalculs();
                 display.updateTableauxFederation();  // Mise à jour après le changement pour garantir la cohérence
             });
@@ -231,43 +231,43 @@ var gereEvents = function () {
     document.getElementById("nbre_matchs_02").addEventListener("change", updateCalculs);
     document.getElementById("nbre_matchs_03").addEventListener("change", updateCalculs);
 
-    document.getElementById("indemniteChoisieDiv").addEventListener("change", function() {
+    document.getElementById("indemniteChoisieDiv").addEventListener("change", function () {
         display.updateHistorique();
         display.updateTableauxFederation();  // Mise à jour des tableaux lorsque la prime change
     });
-    
+
     document.getElementById("VilleDepart").addEventListener("input", display.updateHistorique);
     document.getElementById("menuPRK").addEventListener("input", display.updateHistorique);
 
-        // Nombre de matchs au total
-        nbre_matchs_total = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03; 
+    // Nombre de matchs au total
+    nbre_matchs_total = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03;
 };
 
 //Initialisation :
 // ajout des menus calculés dynamiquement
 // appel des fonctions de calcul initial de certaines données basées sur  primes / frais / nb match
-var initialize = function() {
+var initialize = function () {
     display.setupRadioChangeListeners();
     display.createIndemniteChoisieDiv();
     display.menuVilles();
     display.menuPRK();
     display.updateSliderValues();
-    calculDestinations(); 
-    
+    calculDestinations();
+
     display.updatePrimeMontant();
-    updateCalculs(); 
+    updateCalculs();
     display.updateSelectedIndemnityValue();
     display.updateHistoriqueVille();
-    
+
 };
 
 
 
 
 
-var init = function() {
+var init = function () {
     initialize();
-    gereEvents();    
+    gereEvents();
 
     graph();
 };
