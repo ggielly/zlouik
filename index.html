@@ -61,13 +61,13 @@ Sous licence GPL3.
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
-        
+
         <span class="d-none d-lg-block">ZLOUïK</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- Fin du logo -->
 
-    
+
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
         <li class="nav-item dropdown">
@@ -170,7 +170,7 @@ Sous licence GPL3.
     </ul>
 
   </aside><!-- Fin de la barre de navigation --------------------------------------------------------->
-<!-- Fin de la barre de navigation =======================================================================================================>
+  <!-- Fin de la barre de navigation =======================================================================================================>
 
 
 
@@ -192,7 +192,7 @@ Sous licence GPL3.
         <div class="col-lg-8">
           <div class="row">
 
-            <!-- Carte de MATCHS -------------------------------------->
+            <!-- Carte de MATCHS ligne 1 badge 1-------------------------------------->
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card sales-card">
                 <div class="card-body">
@@ -213,18 +213,18 @@ Sous licence GPL3.
 
 
 
-            <!-- Carte Bénéfice indemnités ---------------------------------------->
+            <!-- Carte Bénéfice indemnités ligne 1 badge 2---------------------------------------->
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card revenue-card">
                 <div class="card-body">
-                  <h5 class="card-title">Bénéfices indemnités<span> sur une saison</span></h5>
+                  <h5 class="card-title">Bénéfices bruts indemnités<span>/saison</span></h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bx bx-euro"></i>
                     </div>
                     <div class="ps-3">
                       <h6 id="frontNbreMatchs"></h6> <!--============= ICI LA VARIABLE JS==============-->
-                      <span class="text-success small pt-1 fw-bold">8%</span> 
+                      <span class="text-success small pt-1 fw-bold">8%</span>
                       <span class="text-muted small pt-2 ps-1">de plus !</span>
                     </div>
                   </div>
@@ -233,11 +233,11 @@ Sous licence GPL3.
             </div><!-- Fin de la carte bénéfice indemnités-------------------------------->
 
 
-            <!--Bénéfices avec primes ----------------------------------->
+            <!--Bénéfices avec primes ligne 1 badge 3----------------------------------->
             <div class="col-xxl-4 col-xl-12">
-              <div class="card info-card customers-card">
+              <div class="card info-card revenue-card">
                 <div class="card-body">
-                  <h5 class="card-title">Bénéfices avec primes <span>sur une saison</span></h5>
+                  <h5 class="card-title">Bénéfices bruts, primes <span>/saison</span></h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bx bx-euro"></i>
@@ -250,14 +250,115 @@ Sous licence GPL3.
                   </div>
                 </div>
               </div>
-            </div><!-- Bénéfices avec primes ----------------------------------------------->
+            </div><!-- Fin de Bénéfices avec primes ----------------------------------------------->
+
+
+
+            <!-- Carte de IMPOTS Travailleur indépendant ligne 2 badge 1-------------------------------------->
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card customers-card">
+                <div class="card-body">
+                  <h5 class="card-title">Bénéfices en trav. indépendant<span>/saison</span></h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="ri ri-hand-coin-line"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6 id="frontNbreMatchs"></h6>
+                      <span class="text-success small pt-1 fw-bold">12%</span> <span
+                        class="text-muted small pt-2 ps-1">de plus !</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div><!-- Fin de IMPOTS Travailleur indépendant ligne 2 badge 1 ----------------------------------->
+
+
+            <!-- Carte bénéfice TNS EURL regime IR ligne 2 badge 2---------------------------------------->
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card customers-card">
+                <div class="card-body">
+                  <h5 class="card-title">Bénéfices en TNS EURL IR<span>/saison</span></h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="ri ri-hand-coin-line"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6 id="frontNbreMatchs"></h6> <!--============= ICI LA VARIABLE JS==============-->
+                      <span class="text-success small pt-1 fw-bold">8%</span>
+                      <span class="text-muted small pt-2 ps-1">de plus !</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div><!-- Fin de la carte bénéfice TNS EURL regime IR ligne 2 badge 2-------------------------------->
+
+            <!--Carte bénéfice TNS EURL regime IS ligne 2 badge 1 ligne 2 badge 3----------------------------------->
+            <div class="col-xxl-4 col-xl-12">
+              <div class="card info-card customers-card">
+                <div class="card-body">
+                  <h5 class="card-title">Bénéfices en TNS EURL IS<span>/saison</span></h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="ri ri-hand-coin-line"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>1244</h6>
+                      <span class="text-danger small pt-1 fw-bold">12%</span> <span
+                        class="text-muted small pt-2 ps-1">de moins !</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Fin de Carte bénéfice TNS EURL regime IS ligne 2 badge 3 ----------------------------------------------->
+
+
+            <!-- Carte de IMPOTS SASU IR ligne 3 badge 1-------------------------------------->
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card customers-card">
+                <div class="card-body">
+                  <h5 class="card-title">Bénéfices en SASU IR<span>/saison</span></h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="ri ri-hand-coin-line"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6 id="frontNbreMatchs"></h6>
+                      <span class="text-success small pt-1 fw-bold">12%</span> <span
+                        class="text-muted small pt-2 ps-1">de plus !</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div><!-- Fin de IMPOTS SASU IR ligne 3 badge 1 ----------------------------------->
+
+
+            <!-- Carte bénéfice impot SASU IS ligne 3 badge 2---------------------------------------->
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card customers-card">
+                <div class="card-body">
+                  <h5 class="card-title">Bénéfices en SASU IS<span>/saison</span></h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="ri ri-hand-coin-line"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6 id="frontNbreMatchs"></h6> <!--============= ICI LA VARIABLE JS==============-->
+                      <span class="text-success small pt-1 fw-bold">8%</span>
+                      <span class="text-muted small pt-2 ps-1">de plus !</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div><!-- Fin de la carte impots SASU IS ligne 3 badge 2-------------------------------->
 
 
             <!-- GRAPHES BENEFICES -------------------------------------->
             <div class="col-12">
               <div class="card">
-                                <div class="card-body">
-                  <h5 class="card-title">Bénéfices<span> / Comparatif</span></h5>
+                <div class="card-body">
+                  <h5 class="card-title">Bénéfices comparés<span>/saison</span></h5>
 
                   <!-- Dessin du graphes -->
                   <div id="reportsChart"></div>
@@ -331,22 +432,22 @@ Sous licence GPL3.
                 <div class="card-body">
                   <h5 class="card-title">Saison régulière<span></span></h5>
 
-                  <table class="table table-borderless datatable">
+                  <table class="table table-sm">
                     <thead>
                       <tr>
-                         <th scope="col">Domicile</th>
-                         <th scope="col">Destination</th>
-                         <th scope="col">Distance A/R</th>
-                         <th scope="col">Péages</th>
-                         <th scope="col">Temps de trajet</th>
-                         <th scope="col">Grand déplacement</th>
-                         <th scope="col">Indemnités kilométriques</th>
-                         <th scope="col">PRK</th>
-                         <th scope="col">Indemnités de préparation</th>
-                         <th scope="col">CA note de frais</th>
-                         <th scope="col">Bénéfice note de frais</th>
-                         <th scope="col">CA primes</th>
-                         <th scope="col">Bénéfices primes</th>
+                        <th scope="col">Domicile</th>
+                        <th scope="col">Destination</th>
+                        <th scope="col">Distance A/R</th>
+                        <th scope="col">Péages</th>
+                        <th scope="col">Temps de trajet</th>
+                        <th scope="col">Grand déplacement</th>
+                        <th scope="col">Indemnités kilométriques</th>
+                        <th scope="col">PRK</th>
+                        <th scope="col">Indemnités de préparation</th>
+                        <th scope="col">CA note de frais</th>
+                        <th scope="col">Bénéfice note de frais</th>
+                        <th scope="col">CA primes</th>
+                        <th scope="col">Bénéfices primes</th>
                       </tr>
 
                     </thead>
@@ -386,6 +487,42 @@ Sous licence GPL3.
                         <td>$165</td>
                         <td><span class="badge bg-success">Approved</span></td>
                       </tr>
+                      <tr>
+                        <th scope="row"><a href="#">#2049</a></th>
+                        <td>Ashleigh Langosh</td>
+                        <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
+                        <td>$147</td>
+                        <td><span class="badge bg-success">Approved</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><a href="#">#2049</a></th>
+                        <td>Ashleigh Langosh</td>
+                        <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
+                        <td>$147</td>
+                        <td><span class="badge bg-success">Approved</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><a href="#">#2049</a></th>
+                        <td>Ashleigh Langosh</td>
+                        <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
+                        <td>$147</td>
+                        <td><span class="badge bg-success">Approved</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><a href="#">#2049</a></th>
+                        <td>Ashleigh Langosh</td>
+                        <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
+                        <td>$147</td>
+                        <td><span class="badge bg-success">Approved</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><a href="#">#2049</a></th>
+                        <td>Ashleigh Langosh</td>
+                        <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
+                        <td>$147</td>
+                        <td><span class="badge bg-success">Approved</span></td>
+                      </tr>
+                      
                     </tbody>
                   </table>
                 </div>
@@ -407,19 +544,19 @@ Sous licence GPL3.
                     <thead>
 
                       <tr>
-                         <th scope="col">Domicile</th>
-                         <th scope="col">Destination</th>
-                         <th scope="col">Distance A/R</th>
-                         <th scope="col">Péages</th>
-                         <th scope="col">Temps de trajet</th>
-                         <th scope="col">Grand déplacement</th>
-                         <th scope="col">Indemnités kilométriques</th>
-                         <th scope="col">PRK</th>
-                         <th scope="col">Indemnités de préparation</th>
-                         <th scope="col">CA note de frais</th>
-                         <th scope="col">Bénéfice note de frais</th>
-                         <th scope="col">CA primes</th>
-                         <th scope="col">Bénéfices primes</th>
+                        <th scope="col">Domicile</th>
+                        <th scope="col">Destination</th>
+                        <th scope="col">Distance A/R</th>
+                        <th scope="col">Péages</th>
+                        <th scope="col">Temps de trajet</th>
+                        <th scope="col">Grand déplacement</th>
+                        <th scope="col">Indemnités kilométriques</th>
+                        <th scope="col">PRK</th>
+                        <th scope="col">Indemnités de préparation</th>
+                        <th scope="col">CA note de frais</th>
+                        <th scope="col">Bénéfice note de frais</th>
+                        <th scope="col">CA primes</th>
+                        <th scope="col">Bénéfices primes</th>
                       </tr>
 
                     </thead>
@@ -479,19 +616,19 @@ Sous licence GPL3.
                   <table class="table table-borderless datatable scrollY">
                     <thead>
                       <tr>
-                         <th scope="col">Domicile</th>
-                         <th scope="col">Destination</th>
-                         <th scope="col">Distance A/R</th>
-                         <th scope="col">Péages</th>
-                         <th scope="col">Temps de trajet</th>
-                         <th scope="col">Grand déplacement</th>
-                         <th scope="col">Indemnités kilométriques</th>
-                         <th scope="col">PRK</th>
-                         <th scope="col">Indemnités de préparation</th>
-                         <th scope="col">CA note de frais</th>
-                         <th scope="col">Bénéfice note de frais</th>
-                         <th scope="col">CA primes</th>
-                         <th scope="col">Bénéfices primes</th>
+                        <th scope="col">Domicile</th>
+                        <th scope="col">Destination</th>
+                        <th scope="col">Distance A/R</th>
+                        <th scope="col">Péages</th>
+                        <th scope="col">Temps de trajet</th>
+                        <th scope="col">Grand déplacement</th>
+                        <th scope="col">Indemnités kilométriques</th>
+                        <th scope="col">PRK</th>
+                        <th scope="col">Indemnités de préparation</th>
+                        <th scope="col">CA note de frais</th>
+                        <th scope="col">Bénéfice note de frais</th>
+                        <th scope="col">CA primes</th>
+                        <th scope="col">Bénéfices primes</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -1273,7 +1410,7 @@ Sous licence GPL3.
     </table>
     <br>
     <hr>
-    
+
 
     <h2>Historique des tarifs</h2>
 
@@ -1305,8 +1442,8 @@ Sous licence GPL3.
       <tbody id="dataBody">
       </tbody>
     </table>
-    
-    
+
+
     <script>
       // Lancement type window.onload = init;
       document.addEventListener('DOMContentLoaded', function () {
@@ -1314,8 +1451,8 @@ Sous licence GPL3.
       });
     </script>
 
-<br>
-<hr>
+    <br>
+    <hr>
 
     PRK : https://www.cartecarburant.leclerc/actualites/prix-revient-kilometrique<br>
     <img src="https://simu.aahg.fr/tableau_prk.png" alt="Tableau PRK" />
@@ -1332,4 +1469,5 @@ Sous licence GPL3.
     </footer>
 
 </body>
+
 </html>

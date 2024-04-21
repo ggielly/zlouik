@@ -2,7 +2,7 @@
 
 // Déclaration des variables globales
 
-const nomHeaderTableauComparatif = ["Saison régulière", "Poule de relégation", "Phase finale"];
+const typeSaison = ["Saison régulière", "Poule de relégation", "Phase finale"];
 const totalmatch = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
 
 var frais_banque = 240;
