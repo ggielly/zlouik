@@ -243,7 +243,8 @@ Sous licence GPL3.
                       <i class="bx bx-euro"></i>
                     </div>
                     <div class="ps-3">
-                      <h6 id="frontTotalBeneficeReelPrimeDisplay"></h6> <!--============= ICI LA VARIABLE JS==============-->                    
+                      <h6 id="frontTotalBeneficeReelPrimeDisplay"></h6>
+                      <!--============= ICI LA VARIABLE JS==============-->
                       <span class="text-danger small pt-1 fw-bold">-12%</span>
                       <span class="text-muted small pt-2 ps-1">les calculs sont pas bons Kévin !</span>
                     </div>
@@ -304,7 +305,7 @@ Sous licence GPL3.
                     </div>
                     <div class="ps-3">
                       <h6 id="frontTotalBeneficeTNSIS"></h6> <!--============= ICI LA VARIABLE JS==============-->
-                      <span class="text-danger small pt-1 fw-bold"></span> 
+                      <span class="text-danger small pt-1 fw-bold"></span>
                       <span class="text-muted small pt-2 ps-1"></span>
                     </div>
                   </div>
@@ -360,10 +361,12 @@ Sous licence GPL3.
                 <div class="card-body">
                   <h5 class="card-title">Bénéfices comparés<span>/saison</span></h5>
 
-                  <!-- Dessin du graphes -->
-                  <div id="reportsChart"></div>
+                  <!-- Dessin du graphes <div id="reportsChart"></div>-->
+
+                  <div id="chartContainer1"></div>
 
                   <script>
+                    /*
                     document.addEventListener("DOMContentLoaded", () => {
                       new ApexCharts(document.querySelector("#reportsChart"), {
                         series: [{
@@ -413,7 +416,8 @@ Sous licence GPL3.
                           },
                         }
                       }).render();
-                    });
+                    }); // fin script
+                    */
                   </script>
                   <!-- Fin du dessin du graphe --------------------------------->
 
@@ -694,18 +698,18 @@ Sous licence GPL3.
 
 
               <div class="card-body">
-                <h5 class="card-title">Donnée de trajet<span></span></h5>
+                <h5 class="card-title">Données de trajet<span></span></h5>
 
                 <div class="dropdown">
-                  <label for="menuPRK">Choix du Prix de Reviens Kilométrique (PRK) du véhicule:</label>
+                  <label for="menuPRK">Prix de reviens kilométrique (PRK) du véhicule :</label>
                   <select id="menuPRK" class="form-control" title="PRK"></select>
                 </div>
 
-                <small class="form-text text-muted">[1]</small>
+                <small class="form-text text-muted">[1]</small> <br>
 
                 <div class="dropdown">
                   <div id="menuVillesDepart"></div>
-                  <label for="VilleDepart">Choix du domicile pour la simulation des désignations:</label>
+                  <label for="VilleDepart">Choix du domicile pour la simulation des désignations :</label>
                   <select id="VilleDepart" class="form-control" title="Maison"></select>
                 </div>
 

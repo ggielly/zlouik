@@ -502,7 +502,9 @@ var display = {
         display.updateFrontendTotalBeneficeReel();
         display.updateFrontendTotalBeneficePrimeReel();
 
-        generateGraphsPlot(graphData, index);
+        //generateGraphsPlot(graphData, index);
+
+        generateGraphsApex(graphData, index);
         return htmlTableau;
 
 

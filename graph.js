@@ -1,6 +1,89 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Représentation graphique
 
+
+function generateGraphsApex(graphData, index) {
+    if (!Array.isArray(graphData) || graphData.length === 0) {
+        console.error("Invalid or empty array provided to generateGraphs; a non-empty array is expected:", graphData);
+        return;
+    }
+
+    var apexChartData = {
+        series: [{
+            name: "NdF : bénéfices réels",
+            data: []
+        }, {
+            name: "Primes :bénéfices réels",
+            data: []
+        }],
+        xaxisCategories: []
+    };
+
+    graphData.forEach((item) => {
+        let xValue = parseFloat(item.processedCount);  // Assuming 'processedCount' can be your x-axis categories
+        apexChartData.series[0].data.push(parseFloat(item.beneficeReel));
+        apexChartData.series[1].data.push(parseFloat(item.primeBenefice));
+        apexChartData.xaxisCategories.push(xValue);
+    });
+
+    var options = {
+        chart: {
+            type: 'area',
+            height: 350
+        },
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 300
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }],
+        series: apexChartData.series,
+        xaxis: {
+            categories: apexChartData.xaxisCategories,
+            type: 'numeric'  // Change this to 'datetime' if 'processedCount' represents dates
+        },
+        stroke: {
+            curve: 'smooth'
+        },
+        tooltip: {
+            x: { format: 'dd/MM/yy HH:mm' },
+            y: {
+                formatter: function (value) {
+                    return value + " units";
+                }
+            }
+        },
+        markers: {
+            size: 4
+        },
+        colors: ['#4154f1', '#2eca6a', '#ff771d'],
+        fill: {
+            type: "gradient",
+            gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 0.3,
+                opacityTo: 0.4,
+                stops: [0, 90, 100]
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chartContainer" + index), options);
+    chart.render();
+}
+
+
+
+
+
 function generateGraphsPlot(graphData, index) {
     var canvasId = index;
     if (!Array.isArray(graphData) || graphData.length === 0) {
@@ -15,7 +98,7 @@ function generateGraphsPlot(graphData, index) {
         // { label: "Prime", data: [], borderColor: 'rgb(153, 102, 255)', fill: false },
         { label: "NdF : bénéfices réels", data: [], borderColor: 'rgb(75, 192, 192)', fill: false },
         { label: "Primes :bénéfices réels", data: [], borderColor: 'rgb(98, 0, 234)', fill: false }
-        
+
     ];
 
     graphData.forEach((item, index) => {
@@ -28,7 +111,7 @@ function generateGraphsPlot(graphData, index) {
         datasets[0].data.push({ x: xValue, y: parseFloat(item.beneficeReel) });
         datasets[1].data.push({ x: xValue, y: parseFloat(item.primeBenefice) });
 
-        
+
     });
 
     var canvas = document.getElementById(canvasId);
@@ -139,11 +222,11 @@ function graph() {
 }
 
 
-    // Création d'un contexte de dessin sur le canvas
-   // const ctx = document.getElementById('myChart').getContext('2d');
+// Création d'un contexte de dessin sur le canvas
+// const ctx = document.getElementById('myChart').getContext('2d');
 
-    // Création du graphe
-    const myChart = new Chart(ctx, {
+// Création du graphe
+const myChart = new Chart(ctx, {
     type: 'line',
 
     data: {
@@ -247,12 +330,12 @@ function graph() {
     }//,
     //options: {
     // responsive: true,
-        //scales: {
-        // yAxes: [{
-            //  ticks: {
-                //  beginAtZero: true
-            // }
-        //  }]
+    //scales: {
+    // yAxes: [{
+    //  ticks: {
+    //  beginAtZero: true
+    // }
+    //  }]
     // }
     // }
-    }); 
+}); 
