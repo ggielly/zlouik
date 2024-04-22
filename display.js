@@ -25,10 +25,6 @@
  * organisation du code et facilite les tests unitaires des fonctions d'affichage indépendamment des 
  * autres parties du système.
  */
-
-
-
-
 var display = {
 
 
@@ -97,9 +93,6 @@ var display = {
 
         return randomResults;
     },
-
-
-
 
 
     // Mise à jour de l'affichage du slider
@@ -261,8 +254,6 @@ var display = {
 
     // Affichage des résultats du tableau historique en fonction de la ville de départ sélectionnée
     updateHistoriqueVille: function () {
-
-
         // Récupération de la ville de départ sélectionnée
         var selectElement = document.getElementById("VilleDepart");
         if (!selectElement) {
@@ -324,10 +315,22 @@ var display = {
     },
 
 
+    // Fonction de mise à jour du badge en frontend ligne 1 badge 2 - total benefice apres PRK pour le defrayement par
+    updateFrontendTotalBeneficeReel: function () {
+        let dat_total00 = Object.values(globalBeneficeReelValues).reduce((acc, value) => acc + value, 0);
+        document.getElementById('totalBeneficeReelDisplay').innerHTML = `${dat_total00.toLocaleString('fr-FR')+  " €"}`;
+    },
+
+    updateFrontendTotalBeneficePrimeReel: function () {
+        let dat_total01 = Object.values(globalBeneficeReelPrimeValues).reduce((acc, value) => acc + value, 0);
+        document.getElementById('totalBeneficeReelPrimeDisplay').innerHTML = `${dat_total01.toLocaleString('fr-FR')+  " €"}`;
+    },
+
+
     tableauComparatif: function (resultats, typeSaison) {
-        //var etiquettes = ["Saison régulière", "Poule de relégation", "Phase finale"];
         var coutRepas = 17;  // Coût fixé pour les repas
         var coutHotel = 87;  // Coût fixé pour les hôtels
+        totalBeneficeReel = 0; // Fixe la boucle à zero pour éviter l'addition infinie
 
         var nbMatches = [
             parseInt(document.getElementById('nbre_matchs_01').value),
@@ -347,8 +350,7 @@ var display = {
         var frais = parseFloat(document.getElementById(`frais_par_match0${index + 1}`).value);
 
         var formulePrk = document.getElementById("menuPRK").value;
-        let colorPrimeBenefice = 0;
-        let colorBeneficeReel = 0;
+
         let colorTotalBeneficeReel = 0;
         let colorTotalPrimeBenefice = 0;
 
@@ -358,11 +360,11 @@ var display = {
 
         var totalPRK = 0, totalKilometriques = 0, totalRepas = 0, totalHotels = 0, totalFrais = 0;
         var totalGrandDeplacement = 0, totalDistance = 0, totalPeages = 0, totalTempsTrajet = 0;
-        var totalPrimes = 0, totalFraisHistorique = 0, totalPreparation = 0, totalBeneficeReel = 0, totalPrimeBenefice = 0;
+        var totalPrimes = 0, totalFraisHistorique = 0, totalPreparation = 0, totalPrimeBenefice = 0;
+
         // Récupération du nombre de matchs à traiter
         var nbMatchs = nbMatches[index];
         var htmlTableau = `<h3>${typeSaison} : ${nbMatchs} matchs.</h3><table id="tableauComparatif" class="Tableau01_AutoEntrepriseArray" border='3'><thead><tr><th>Domicile / Départ</th><th>Destination</th><th>Distance<br>aller/retour</th><th>Péages</th><th>Temps de trajet A/R</th><th>Grand déplacement</th><th>Indemnités kilométriques</th><th>PRK</th><th>Repas</th><th>Hôtel</th><th>Indemnité de préparation <br> et d'équipement</th><th>Note de frais historique <br>Chiffre d'affaire</th><th>Note de frais historique<br>bénéfices rééls</th><th>Prime<br>(chiffre d'affaire)</th><th>Frais</th><th>PRIMES<br>bénéfices rééls<br>(prime - frais - PRK)</th></tr></thead><tbody>`;
-
 
         // Itération sur les résultats pour les afficher dans le tableau
         var processedCount = 0;
@@ -379,11 +381,12 @@ var display = {
         var nbGrandDeplacement = Math.round(nbMatches[index] * pourcentageGrandDeplacement);
         var matchTypes = new Array(nbMatches[index]).fill(0).map((_, idx) => idx < nbGrandDeplacement);
 
+
         // Boucle sur les résultats pour les afficher dans le tableau
         for (var i = 0; i < nbMatchs && processedCount < nbMatches[index]; i++) {
             var isLongDistance = matchTypes[i];
             var distance = isLongDistance ? 600 : 300;  // Utilisation des types de match mélangés pour assigner les distances
-            var baseRepasCost = isLongDistance ? 2 * coutRepas : coutRepas;
+            var repas = isLongDistance ? 2 * coutRepas : coutRepas;
             var hotelCost = isLongDistance ? coutHotel : 0;
 
             var trajet = resultats[i % resultats.length];
@@ -452,12 +455,17 @@ var display = {
         htmlTableau += `<tr><td colspan='8'>Taux horaire moyen basé sur la prime : ${tauxHorairePrime.toFixed(2)} €/heure</td></tr>`;
         htmlTableau += `</table>`;
 
+        // On additionne pour chaque saison les sous totaux des 3 tableaux
+        globalBeneficeReelValues[typeSaison] = totalBeneficeReel;  // Benefice de l'indemnite de match en prenant en compte le PRK
+        globalBeneficeReelPrimeValues[typeSaison] = totalPrimeBenefice;
+
+
+        display.updateFrontendTotalBeneficeReel();
+        display.updateFrontendTotalBeneficePrimeReel();
 
         generateGraphsPlot(graphData, index);
         return htmlTableau;
-        // fin de la boucle sur les étiquettes : tableauxHtml
 
-        // return tableauxHtml.join('<br>');
 
     }, // Fin de la fonction
 
@@ -481,10 +489,16 @@ var display = {
     },
 
 
+    updateFrontendTotalIndeminite: function (totalBeneficeReel) {
+        document.getElementById('totalBeneficeReelDisplay').innerHTML = totalBeneficeReel;
+
+    },
+
     // Mise à jour de l'ensemble des tableaux prévisionnels de la fédération
     updateTableauxFederation: function () {
 
-        document.getElementById('frontNbreMatchs').textContent = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
+
+        document.getElementById('frontNbreMatchs').innerHTML = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -787,6 +801,7 @@ var display = {
         // Mise à jour des tableaux prévisionnels de la fédération des paramètres modifiés par les sliders
         var resultats = display.getCurrentResults();  // Vous devrez définir cette méthode pour récupérer les données actuelles
         var prkVoiture = document.getElementById("menuPRK").value;
+
         var tableauContainer = document.getElementById("tableauComparatifDiv");
         if (tableauContainer) {
             // On combine le tableau 
@@ -797,6 +812,8 @@ var display = {
         } else {
             console.error("Le conteneur du tableau n'existe pas.");
         }
+
+
     },
 
 

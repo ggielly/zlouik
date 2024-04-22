@@ -2,10 +2,24 @@
 
 // Déclaration des variables globales
 
-const typeSaison = ["Saison régulière", "Poule de relégation", "Phase finale"];
-const totalmatch = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
+
+var totalBeneficeReel = 0;
+
+var globalBeneficeReelValues = {
+    "Saison régulière": 0,
+    "Poule de relégation": 0,
+    "Phase finale": 0
+};
+
+var globalBeneficeReelPrimeValues = {
+    "Saison régulière": 0,
+    "Poule de relégation": 0,
+    "Phase finale": 0
+};
+
 
 var frais_banque = 240;
+
 
 var globalMatchData = []; // Pour le graphique
 
@@ -99,6 +113,9 @@ var urssaf_zero = 0;
 var resultat_net_is_TNS = 0;
 
 var AC24 = (resultat_net_is_TNS - (resultat_net_is_TNS * (15 / 100)));
+
+const typeSaison = ["Saison régulière", "Poule de relégation", "Phase finale"];
+const totalmatch = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
 
 const HeadLMamicaux = [120, 126, 126, 130, 130, 135, 135, 135, 115, 115, 115, 125, 130, 130, 130, 130];
 const HeadLMSR = [120, 126, 126, 130, 130, 135, 135, 135, 140, 140, 140, 140, 145, 145, 145, 145];
