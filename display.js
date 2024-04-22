@@ -314,18 +314,57 @@ var display = {
         }
     },
 
+    updateFrontendTotalIndeminite: function (totalBeneficeReel) {
+        document.getElementById('frontTotalBeneficeReelDisplay').innerHTML = totalBeneficeReel;
 
-    // Fonction de mise à jour du badge en frontend ligne 1 badge 2 - total benefice apres PRK pour le defrayement par
+    },
+
+
+    // Fonction de mise à jour du badge en frontend ligne 1 badge 2 - total benefice apres PRK pour le defrayement par indemnités
     updateFrontendTotalBeneficeReel: function () {
-        let dat_total00 = Object.values(globalBeneficeReelValues).reduce((acc, value) => acc + value, 0);
-        document.getElementById('totalBeneficeReelDisplay').innerHTML = `${dat_total00.toLocaleString('fr-FR')+  " €"}`;
+        let dat_total00 = (Object.values(globalBeneficeReelValues).reduce((acc, value) => acc + value, 0)).toFixed();
+        document.getElementById('frontTotalBeneficeReelDisplay').innerHTML = dat_total00.toLocaleString('fr-FR') + " €";
     },
 
+
+    // Fonction de mise à jour du badge en frontend ligne 1 badge 3 - total benefice apres PRK pour le defrayement par prime (nouveau système)
     updateFrontendTotalBeneficePrimeReel: function () {
-        let dat_total01 = Object.values(globalBeneficeReelPrimeValues).reduce((acc, value) => acc + value, 0);
-        document.getElementById('totalBeneficeReelPrimeDisplay').innerHTML = `${dat_total01.toLocaleString('fr-FR')+  " €"}`;
+        let dat_total01 = (Object.values(globalBeneficeReelPrimeValues).reduce((acc, value) => acc + value, 0)).toFixed();
+        document.getElementById('frontTotalBeneficeReelPrimeDisplay').innerHTML = dat_total01.toLocaleString('fr-FR') + " €";
     },
 
+
+    // Fonction de mise à jour du badge en frontend ligne 2 badge 1 - issue du tableau 1 : travailleur indépendant
+    updateFrontendTotalBeneficeTravailleurIndependant: function (totalBeneficeTravailleurIndependant) {
+        document.getElementById('frontTotalBeneficeTravailleurIndependant').innerHTML = totalBeneficeTravailleurIndependant.toLocaleString('fr-FR');
+    },
+
+
+    // Fonction de mise à jour du badge en frontend ligne 2 badge 2 - issue du tableau 2 : TNS EURL IR
+    updateFrontendTotalBeneficeTNSIR: function (totalBeneficeTNSIR) {
+        document.getElementById('frontTotalBeneficeTNSIR').innerHTML = totalBeneficeTNSIR.toLocaleString('fr-FR');
+    },
+
+
+    // Fonction de mise à jour du badge en frontend ligne 2 badge 3 - issue du tableau 3 : TNS EURL IS
+    updateFrontendTotalBeneficeTNSIS: function (totalBeneficeTNSIS) {
+        document.getElementById('frontTotalBeneficeTNSIS').innerHTML = totalBeneficeTNSIS.toLocaleString('fr-FR');
+    },
+
+
+    updateFrontendTotalBeneficeSAUSIR: function (totalBeneficeSASUIR) {
+        document.getElementById('frontTotalBeneficeSASUIR').innerHTML = totalBeneficeSASUIR.toLocaleString('fr-FR');
+    },
+
+
+    updateFrontendTotalBeneficeSAUSIS: function (totalBeneficeSASUIS) {
+        document.getElementById('frontTotalBeneficeSASUIS').innerHTML = totalBeneficeSASUIS;
+    },
+
+    formateEuroBadge: function (donneaformater) {
+        var donneebadgeformatee = parseFloat(donneaformater).toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + " €";
+        return donneebadgeformatee;
+    },
 
     tableauComparatif: function (resultats, typeSaison) {
         var coutRepas = 17;  // Coût fixé pour les repas
@@ -459,7 +498,7 @@ var display = {
         globalBeneficeReelValues[typeSaison] = totalBeneficeReel;  // Benefice de l'indemnite de match en prenant en compte le PRK
         globalBeneficeReelPrimeValues[typeSaison] = totalPrimeBenefice;
 
-
+        // On affiche le resultat des sous totaux
         display.updateFrontendTotalBeneficeReel();
         display.updateFrontendTotalBeneficePrimeReel();
 
@@ -489,16 +528,9 @@ var display = {
     },
 
 
-    updateFrontendTotalIndeminite: function (totalBeneficeReel) {
-        document.getElementById('totalBeneficeReelDisplay').innerHTML = totalBeneficeReel;
-
-    },
-
     // Mise à jour de l'ensemble des tableaux prévisionnels de la fédération
     updateTableauxFederation: function () {
 
-
-        document.getElementById('frontNbreMatchs').innerHTML = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -813,6 +845,35 @@ var display = {
             console.error("Le conteneur du tableau n'existe pas.");
         }
 
+        // On envoie ces données sur le frontend et les badges
+        // Nombre de match
+        document.getElementById('frontNbreMatchs').innerHTML = parseFloat(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03); // BUG de rafraichissement
+
+        // Donnée du tableau 1
+        var totalBeneficeTravailleurIndependant = parseFloat(resultat_net_01 + resultat_net_02 + resultat_net_03).toFixed(2);  // Résultat net
+        totalBeneficeTravailleurIndependant = display.formateEuroBadge(totalBeneficeTravailleurIndependant);
+        display.updateFrontendTotalBeneficeTravailleurIndependant(totalBeneficeTravailleurIndependant);
+
+        // Données du tableau 2
+        var totalBeneficeTNSIR = parseFloat(AC16).toFixed(2);  // Résultat net
+        totalBeneficeTNSIR = display.formateEuroBadge(totalBeneficeTNSIR);
+        display.updateFrontendTotalBeneficeTNSIR(totalBeneficeTNSIR);
+
+        // Données du tableau 3
+        var totalBeneficeTNSIS = parseFloat(AC24 * (1 - ((30 / 100)))).toFixed(2);
+        totalBeneficeTNSIS = display.formateEuroBadge(totalBeneficeTNSIS);
+        display.updateFrontendTotalBeneficeTNSIS(totalBeneficeTNSIS);
+
+        // Données du tableau 4 SASU IR
+        var totalBeneficeSASUIR = parseFloat(((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15)) -
+            ((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15)) * 0.30).toFixed(2);
+        totalBeneficeSASUIR = display.formateEuroBadge(totalBeneficeSASUIR);
+        display.updateFrontendTotalBeneficeSAUSIR(totalBeneficeSASUIR);
+
+        // Données du tableau 5 SASU IS
+        var totalBeneficeSASUIS = parseFloat(ResultatApresIS_temp - (ResultatApresIS_temp * CSG_CR) - resultatPrelevementSociaux).toFixed(2);
+        totalBeneficeSASUIS = display.formateEuroBadge(totalBeneficeSASUIS);
+        display.updateFrontendTotalBeneficeSAUSIS(totalBeneficeSASUIS);
 
     },
 

@@ -2,7 +2,6 @@
 
 // Déclaration des variables globales
 
-
 var totalBeneficeReel = 0;
 
 var globalBeneficeReelValues = {
