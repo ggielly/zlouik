@@ -19,12 +19,32 @@ function generateGraphsApex(graphData, index) {
         xaxisCategories: []
     };
 
+
     graphData.forEach((item) => {
         let xValue = parseFloat(item.processedCount);  // Assuming 'processedCount' can be your x-axis categories
         apexChartData.series[0].data.push(parseFloat(item.beneficeReel));
         apexChartData.series[1].data.push(parseFloat(item.primeBenefice));
         apexChartData.xaxisCategories.push(xValue);
     });
+
+    var containerId = "chartContainer" + index;
+    var chartContainer = document.getElementById(containerId);
+
+    if (!chartContainer) {
+        console.error("Chart container not found: " + containerId);
+        return;
+    }
+/*
+    var datasets = [
+        {
+            name: "NdF : bénéfices réels",
+            data: graphData.map(item => ({ x: index, y: parseFloat(item.beneficeReel) }))
+        },
+        {
+            name: "Primes : bénéfices réels",
+            data: graphData.map(item => ({ x: index, y: parseFloat(item.primeBenefice) }))
+        }
+    ];*/
 
     var options = {
         chart: {
@@ -79,6 +99,77 @@ function generateGraphsApex(graphData, index) {
     var chart = new ApexCharts(document.querySelector("#chartContainer" + index), options);
     chart.render();
 }
+
+
+
+function generateGraphsApexBOrked(graphData, index) {
+    if (!Array.isArray(graphData) || graphData.length === 0) {
+        console.error("Invalid or empty array provided to generateGraphs; a non-empty array is expected:", graphData);
+        return;
+    }
+    var apexChartData = {
+        series: [{
+            name: "NdF : bénéfices réels",
+            data: []
+        }, {
+            name: "Primes :bénéfices réels",
+            data: []
+        }],
+        xaxisCategories: []
+    };
+
+    graphData.forEach((item) => {
+        let xValue = parseFloat(item.processedCount);  // Assuming 'processedCount' can be your x-axis categories
+        apexChartData.series[0].data.push(parseFloat(item.beneficeReel));
+        apexChartData.series[1].data.push(parseFloat(item.primeBenefice));
+        apexChartData.xaxisCategories.push(xValue);
+    });
+
+    var containerId = "chartContainer" + index;
+    var chartContainer = document.getElementById(containerId);
+
+    if (!chartContainer) {
+        console.error("Chart container not found: " + containerId);
+        return;
+    }
+
+    var datasets = [
+        {
+            name: "NdF : bénéfices réels",
+            data: graphData.map(item => ({ x: index, y: parseFloat(item.beneficeReel) }))
+        },
+        {
+            name: "Primes : bénéfices réels",
+            data: graphData.map(item => ({ x: index, y: parseFloat(item.primeBenefice) }))
+        }
+    ];
+
+    var options = {
+        chart: {
+            type: 'line',
+            height: 350
+        },
+        series: datasets,
+        xaxis: {
+            type: 'numeric',
+            categories: [index]  // This will place all data points at the position corresponding to the game index on the x-axis
+        },
+        stroke: {
+            curve: 'smooth'
+        },
+        tooltip: {
+            x: {
+                formatter: function(val) {
+                    return "Game: " + val;
+                }
+            }
+        }
+    };
+
+    var chart = new ApexCharts(chartContainer, options);
+    chart.render();
+}
+
 
 
 
