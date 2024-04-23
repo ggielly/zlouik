@@ -265,7 +265,7 @@ var display = {
             var VilleDepart = selectElement.value;
 
             // Filtrage des résultats pour la ville de départ sélectionnée
-            var resultats_filtres = data.filter(function (trajet) {
+            resultats_filtres = data.filter(function (trajet) {
                 return trajet.VilleDepart === VilleDepart;
             });
 
@@ -274,27 +274,10 @@ var display = {
             if (resultats_filtres.length > 0) {
                 // Récupération du PRK de la voiture sélectionné
                 var prkVoiture = parseFloat(document.getElementById('menuPRK').value);
-                // Génération du tableau des résultats
 
-                // Génération du tableau des résultats pour chaque type de saison
-                var tableauHtml1 = display.tableauComparatif(resultats_filtres, "Saison régulière");
-                var tableauHtml2 = display.tableauComparatif(resultats_filtres, "Poule de relégation");
-                var tableauHtml3 = display.tableauComparatif(resultats_filtres, "Phase finale");
+                // Génération des 3 tableaux des résultats pour chaque type de saison
+                display.generateTableauDesignations(resultats_filtres);
 
-                // Concaténation des 3 tableaux dans une seul string
-                var combinedTableauHtml = tableauHtml1 + tableauHtml2 + tableauHtml3;
-
-
-
-                // Récupération de l'élément conteneur pour le tableau des résultats
-                var tableauContainer = document.getElementById("tableauComparatifDiv");
-
-                // Affichage du tableau des résultats combinés dans l'élément conteneur 
-                if (tableauContainer) {
-                    tableauContainer.innerHTML = combinedTableauHtml;
-                } else {
-                    console.error("L'élément conteneur pour le tableau historique n'existe pas dans le document.");
-                }
             } else {
                 // Aucun résultat trouvé pour la ville de départ sélectionnée
                 console.log("Aucun résultat trouvé pour la ville de départ sélectionnée :", VilleDepart);
@@ -313,6 +296,17 @@ var display = {
             [array[i], array[j]] = [array[j], array[i]];
         }
     },
+
+
+    // Fonction qui fait l'appel pour générer 3 tableaux des désignations dans le front-end
+    // En entrant chaque ligne de chaque match
+    // Ne renvoit rien
+    generateTableauDesignations: function (resultats) {
+        document.getElementById("saisonReguliereTableContainer01").innerHTML = display.tableauComparatif(resultats, "Saison régulière");
+        document.getElementById("saisonReguliereTableContainer02").innerHTML = display.tableauComparatif(resultats, "Poule de relégation");
+        document.getElementById("saisonReguliereTableContainer03").innerHTML = display.tableauComparatif(resultats, "Phase finale");
+    },
+
 
     updateFrontendTotalIndeminite: function (totalBeneficeReel) {
         document.getElementById('frontTotalBeneficeReelDisplay').innerHTML = totalBeneficeReel;
@@ -403,7 +397,31 @@ var display = {
 
         // Récupération du nombre de matchs à traiter
         var nbMatchs = nbMatches[index];
-        var htmlTableau = `<h3>${typeSaison} : ${nbMatchs} matchs.</h3><table id="tableauComparatif" class="Tableau01_AutoEntrepriseArray" border='3'><thead><tr><th>Domicile / Départ</th><th>Destination</th><th>Distance<br>aller/retour</th><th>Péages</th><th>Temps de trajet A/R</th><th>Grand déplacement</th><th>Indemnités kilométriques</th><th>PRK</th><th>Repas</th><th>Hôtel</th><th>Indemnité de préparation <br> et d'équipement</th><th>Note de frais historique <br>Chiffre d'affaire</th><th>Note de frais historique<br>bénéfices rééls</th><th>Prime<br>(chiffre d'affaire)</th><th>Frais</th><th>PRIMES<br>bénéfices rééls<br>(prime - frais - PRK)</th></tr></thead><tbody>`;
+
+        let idtableau = "tableauComparatif0" + index;
+
+        // htmlTableau = `<h3>${typeSaison} : ${nbMatchs} matchs.</h3>
+        htmlTableau = `<h5 class="card-title">${nbMatchs} matchs.<span></span></h5>
+        <table id="${idtableau}" class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Domicile / Départ</th>
+                <th scope="col">Destination</th><th scope="col">Distance<br>aller/retour</th>
+                <th scope="col">Péages</th>
+                <th scope="col">Temps de trajet A/R</th>
+                <th scope="col">Grand déplacement</th>
+                <th scope="col">Indem. km</th>
+                <th scope="col">PRK</th>
+                <th scope="col">Repas</th>
+                <th scope="col">Hôtel</th>
+                <th scope="col">Indemnité de préparation <br> et d'équipement</th>
+                <th scope="col">Note de frais historique <br>Chiffre d'affaire</th>
+                <th scope="col">Note de frais historique<br>bénéfices rééls</th>
+                <th scope="col">Prime<br>(chiffre d'affaire)</th><th scope="col">Frais</th>
+                <th scope="col">PRIMES<br>bénéfices rééls<br>(prime - frais - PRK)</th>
+            </tr>
+        </thead>
+        <tbody>`;
 
         // Itération sur les résultats pour les afficher dans le tableau
         var processedCount = 0;
@@ -459,7 +477,24 @@ var display = {
             });
 
             // Mise en format du tableau HTML
-            htmlTableau += `<tr><td>${trajet.VilleDepart}</td><td>${trajet.VilleDestination}</td><td>${distance} Km</td><td>${peages} €</td><td>${Math.floor(TempsTrajetAllerRetour / 60)}h${TempsTrajetAllerRetour % 60} min</td><td>${grandDeplacement} €</td><td>${indemnites.toFixed(2)} €</td><td>${prk.toFixed(2)} €</td><td>${repas.toFixed(2)} €</td><td>${hotelCost.toFixed(2)} €</td><td>${valeurIndemnite} €</td><td>${fraisHistorique.toFixed(2)} €</td><td style="${beneficeReel < 0 ? "color:red;" : ""}">${beneficeReel.toFixed(2)} €</td><td>${prime.toFixed(2)} €</td><td>${frais.toFixed(2)} €</td><td style="${primeBenefice < 0 ? "color:red;" : ""}">${primeBenefice.toFixed(2)} €</td></tr>`;
+            htmlTableau += `<tr>
+            <th scope="row">${trajet.VilleDepart}</th>
+            <td><span class="text-primary">${trajet.VilleDestination}</span></td>
+            <td>${distance} Km</td>
+            <td>${peages}</td>
+            <td>${Math.floor(TempsTrajetAllerRetour / 60)}h${TempsTrajetAllerRetour % 60} min</td>
+            <td>${grandDeplacement}</td>
+            <td>${indemnites.toFixed()}</td>
+            <td>${prk.toFixed(2)}</td>
+            <td>${repas.toFixed()}</td>
+            <td>${hotelCost.toFixed(2)}</td>
+            <td>${valeurIndemnite}</td>
+            <td>${fraisHistorique.toFixed(0)}</td>
+            <td style="${beneficeReel < 0 ? "color:red;" : ""}">${beneficeReel.toFixed(2)}</td>
+            <td>${prime.toFixed(0)}</td>
+            <td>${frais.toFixed(0)}</td>
+            <td style="${primeBenefice < 0 ? "color:red;" : ""}">${primeBenefice.toFixed(2)} €</td>
+            </tr>`;
 
             // Mise à jour des totaux
             totalDistance += distance;
@@ -489,7 +524,26 @@ var display = {
         colorTotalBeneficeReel = totalBeneficeReel < 0 ? "color:red;" : "";
         colorTotalPrimeBenefice = totalPrimeBenefice < 0 ? "color:red;" : "";
 
-        htmlTableau += `</tbody><tfoot><tr class="totalRow"><td>TOTAUX</td><td>${nbMatchs} matchs</td><td>${totalDistance} km</td><td>${totalPeages.toFixed(2)} €</td><td>${Math.floor(totalTempsTrajet / 60)}h${totalTempsTrajet % 60}</td><td>${totalGrandDeplacement.toFixed(2)} €</td><td>${totalKilometriques.toFixed(2)} €</td><td>${totalPRK.toFixed(2)} €</td><td>${totalRepas.toFixed(2)} €</td><td>${totalHotels.toFixed(2)} €</td><td>${totalPreparation.toFixed(2)} €</td><td>${totalFraisHistorique.toFixed(2)} €</td><td style ="${colorTotalBeneficeReel}">${totalBeneficeReel.toFixed(2)} €</td><td>${totalPrimes.toFixed(2)} €</td><td>${totalFrais.toFixed(2)} €</td><td style ="${colorTotalPrimeBenefice}">${totalPrimeBenefice.toFixed(2)} €</td></tr></tfoot></table>`;
+        htmlTableau += `</tbody>
+        <tfoot>
+            <tr class="totalRow"><td>TOTAUX</td>
+            <td>${nbMatchs} matchs</td><td>${totalDistance} km</td>
+            <td>${totalPeages.toFixed(2)} €</td>
+            <td>${Math.floor(totalTempsTrajet / 60)}h${totalTempsTrajet % 60}</td>
+            <td>${totalGrandDeplacement.toFixed(0)} €</td>
+            <td>${totalKilometriques.toFixed(2)} €</td>
+            <td>${totalPRK.toFixed(2)} €</td>
+            <td>${totalRepas.toFixed(2)} €</td>
+            <td>${totalHotels.toFixed(2)} €</td>
+            <td>${totalPreparation.toFixed(0)} €</td>
+            <td>${totalFraisHistorique.toFixed(2)} €</td>
+            <td style ="${colorTotalBeneficeReel}">${totalBeneficeReel.toFixed(2)} €</td>
+            <td>${totalPrimes.toFixed(0)} €</td>
+            <td>${totalFrais.toFixed(0)} €</td>
+            <td style ="${colorTotalPrimeBenefice}">${totalPrimeBenefice.toFixed(2)} €</td>
+            </tr>
+        </tfoot>
+        </table>`;
         htmlTableau += `<table><tr><td colspan='1'>Taux horaire moyen basé sur l'indemnité : ${tauxHoraireIndemnite.toFixed(2)} €/heure</td></tr>`;
         htmlTableau += `<tr><td colspan='8'>Taux horaire moyen basé sur la prime : ${tauxHorairePrime.toFixed(2)} €/heure</td></tr>`;
         htmlTableau += `</table>`;
@@ -497,6 +551,7 @@ var display = {
         // On additionne pour chaque saison les sous totaux des 3 tableaux
         globalBeneficeReelValues[typeSaison] = totalBeneficeReel;  // Benefice de l'indemnite de match en prenant en compte le PRK
         globalBeneficeReelPrimeValues[typeSaison] = totalPrimeBenefice;
+
 
         // On affiche le resultat des sous totaux
         display.updateFrontendTotalBeneficeReel();
@@ -518,7 +573,10 @@ var display = {
             // Récupérer la valeur sélectionnée du PRKVoiture dans le menu déroulant
             var prkVoiture = document.getElementById("menuPRK").value;
             // Récupérer l'élément conteneur du tableau des résultats
-            var tableauContainer = document.getElementById("tableauComparatifDiv");
+
+            //var tableauContainer = document.getElementById("tableauComparatifDiv");
+
+            var tableauContainer = document.getElementById("saisonReguliereTableContainer01");
 
             if (tableauContainer) {
                 // Mettre à jour le contenu du tableau des résultats avec les données et le PRKVoiture sélectionné
@@ -532,6 +590,7 @@ var display = {
 
     // Mise à jour de l'ensemble des tableaux prévisionnels de la fédération
     updateTableauxFederation: function () {
+
 
 
 
@@ -836,16 +895,18 @@ var display = {
         var resultats = display.getCurrentResults();  // Vous devrez définir cette méthode pour récupérer les données actuelles
         var prkVoiture = document.getElementById("menuPRK").value;
 
-        var tableauContainer = document.getElementById("tableauComparatifDiv");
-        if (tableauContainer) {
-            // On combine le tableau 
-            var combinedHTML = display.tableauComparatif(resultats, "Saison régulière") +
-                display.tableauComparatif(resultats, "Poule de relégation") +
-                display.tableauComparatif(resultats, "Phase finale");
-            tableauContainer.innerHTML = combinedHTML;
-        } else {
-            console.error("Le conteneur du tableau n'existe pas.");
-        }
+
+        //var tableauContainer = document.getElementById("saisonReguliereTableContainer01");
+
+        /* if (tableauContainer) {
+             // On combine le tableau 
+             var combinedHTML = display.tableauComparatif(resultats, "Saison régulière") +
+                 display.tableauComparatif(resultats, "Poule de relégation") +
+                 display.tableauComparatif(resultats, "Phase finale");
+             tableauContainer.innerHTML = combinedHTML;
+         } else {
+             console.error("Le conteneur du tableau n'existe pas.");
+         }*/
 
         // On envoie ces données sur le frontend et les badges
         // Nombre de match
@@ -876,6 +937,7 @@ var display = {
         var totalBeneficeSASUIS = parseFloat(ResultatApresIS_temp - (ResultatApresIS_temp * CSG_CR) - resultatPrelevementSociaux).toFixed(2);
         totalBeneficeSASUIS = display.formateEuroBadge(totalBeneficeSASUIS);
         display.updateFrontendTotalBeneficeSAUSIS(totalBeneficeSASUIS);
+
 
     },
 

@@ -3,6 +3,7 @@
 // Déclaration des variables globales
 
 var totalBeneficeReel = 0;
+var resultats_filtres = 0;
 
 var globalBeneficeReelValues = {
     "Saison régulière": 0,
@@ -16,6 +17,7 @@ var globalBeneficeReelPrimeValues = {
     "Phase finale": 0
 };
 
+var htmlTableau; 
 
 var frais_banque = 240;
 
