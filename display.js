@@ -369,7 +369,7 @@ var display = {
     tableauComparatif: function (resultats, typeSaison) {
         var coutRepas = 17;  // Coût fixé pour les repas
         var coutHotel = 87;  // Coût fixé pour les hôtels
-        totalBeneficeReel = 0; // Fixe la boucle à zero pour éviter l'addition infinie
+        var totalBeneficeReel = 0; // Fixe la boucle à zero pour éviter l'addition infinie
 
         var nbMatches = [
             parseInt(document.getElementById('nbre_matchs_01').value),
