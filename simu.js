@@ -63,6 +63,7 @@ var updateCalculs = function () {
     CotisationsSociales = (((tauxcotisation_eurl / 1.35) * (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf)) / 100).toFixed(2); // Cotisations sociales
 
     display.updateTableauxFederation();
+    display.updateFrontendBadge();
 }
 
 
@@ -197,11 +198,13 @@ var gereEvents = function () {
         if (element) {
             element.addEventListener("input", function () {
                 display.updateSliderValues();
-                display.updateTableauxFederation();  // Appel à la fonction de mise à jour des tableaux
+                display.updateTableauxFederation(); // Appel à la fonction de mise à jour des tableaux
+                display.updateFrontendBadge();
             });
             element.addEventListener("change", function () {
                 updateCalculs();
                 display.updateTableauxFederation();  // Mise à jour après le changement pour garantir la cohérence
+                display.updateFrontendBadge();
             });
         } else {
             console.error("Element not found: ", id);
@@ -233,6 +236,7 @@ var gereEvents = function () {
     document.getElementById("indemniteChoisieDiv").addEventListener("change", function () {
         display.updateHistorique();
         display.updateTableauxFederation();  // Mise à jour des tableaux lorsque la prime change
+        display.updateFrontendBadge();
     });
 
     document.getElementById("VilleDepart").addEventListener("input", display.updateHistorique);

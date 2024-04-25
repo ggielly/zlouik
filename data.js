@@ -4,6 +4,10 @@
 
 var totalBeneficeReel = 0;
 var resultats_filtres = 0;
+var resultat_intermediaire_total = 0;
+var ResultatApresIS_temp = 0;
+var resultatPrelevementSociaux = 0;
+var data = 0 ;
 
 var globalBeneficeReelValues = {
     "Saison régulière": 0,
@@ -24,7 +28,7 @@ var frais_banque = 240;
 
 var globalMatchData = []; // Pour le graphique
 
-var indemniteChoisie = 666; // DEBUG
+var indemniteChoisie = 0; // DEBUG
 var totalIndemniteChoisie = 0; // DEBUG
 var frais_comptable = 400;
 var frais_urssaf = 1500;

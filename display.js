@@ -560,8 +560,8 @@ var display = {
             </tr>
         </tfoot>
         </table>`;
-        htmlTableau += `<table><tr><td colspan='1'>Taux horaire moyen basé sur l'indemnité : ${tauxHoraireIndemnite.toFixed(2)} €/heure</td></tr>`;
-        htmlTableau += `<tr><td colspan='8'>Taux horaire moyen basé sur la prime : ${tauxHorairePrime.toFixed(2)} €/heure</td></tr>`;
+        htmlTableau += `<table><tr><td colspan='1'><span class="text-primary">Taux horaire moyen basé sur l'indemnité : ${tauxHoraireIndemnite.toFixed(2)} €/heure</span></td></tr>`;
+        htmlTableau += `<tr><td colspan='8'><span class="text-primary">Taux horaire moyen basé sur la prime : ${tauxHorairePrime.toFixed(2)} €/heure</span></td></tr>`;
         htmlTableau += `</table>`;
 
         // On additionne pour chaque saison les sous totaux des 3 tableaux
@@ -574,7 +574,8 @@ var display = {
         display.updateFrontendTotalBeneficePrimeReel();
 
 
-        generateGraphsApex(graphData, index);  // Data and index for the first chart
+        let couleurGraphe1 = ['#1754f1', '#1eca6a', '#5f771d'];
+        generateGraphsApex(graphData, index, couleurGraphe1);  // Data and index for the first chart
 
         return htmlTableau;
 
@@ -926,6 +927,12 @@ var display = {
 
         // On envoie ces données sur le frontend et les badges
         // Nombre de match
+        
+
+    },
+
+    updateFrontendBadge: function() {
+
         document.getElementById('frontNbreMatchs').innerHTML = parseFloat(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03); // BUG de rafraichissement
 
         // Donnée du tableau 1
@@ -954,9 +961,7 @@ var display = {
         totalBeneficeSASUIS = display.formateEuroBadge(totalBeneficeSASUIS);
         display.updateFrontendTotalBeneficeSAUSIS(totalBeneficeSASUIS);
 
-
     },
-
 
     // Mise à jour dans les tableaux prévisionnels de la fédération des paramètres modifiés par les sliders
     updatePrimeMontant: function () {
