@@ -252,7 +252,17 @@ var display = {
     },
 
 
-    // Affichage des résultats du tableau historique en fonction de la ville de départ sélectionnée
+/**
+ * Met à jour l'historique des trajets en fonction de la ville de départ sélectionnée.
+ * Cette fonction récupère la valeur de la ville de départ depuis un élément select HTML d'ID "VilleDepart".
+ * Elle filtre ensuite les données de trajet disponibles pour correspondre à la ville sélectionnée.
+ * Si des trajets correspondants sont trouvés, la fonction procède à la génération d'un tableau
+ * des résultats basé sur le PRK de la voiture sélectionné et affiche les données filtrées par saison.
+ * En cas d'absence de résultats, un message de log est généré.
+ * 
+ * Note: La fonction interrompt son exécution et log une erreur si l'élément select n'est pas présent dans le DOM.
+ */
+
     updateHistoriqueVille: function () {
         // Récupération de la ville de départ sélectionnée
         var selectElement = document.getElementById("VilleDepart");
@@ -400,7 +410,7 @@ var display = {
 
         let idtableau = "tableauComparatif0" + index;
 
-        // htmlTableau = `<h3>${typeSaison} : ${nbMatchs} matchs.</h3>
+
         htmlTableau = `<h5 class="card-title">${nbMatchs} matchs.<span></span></h5>
         <table id="${idtableau}" class="table table-sm">
         <thead>
@@ -438,13 +448,17 @@ var display = {
         var nbGrandDeplacement = Math.round(nbMatches[index] * pourcentageGrandDeplacement);
         var matchTypes = new Array(nbMatches[index]).fill(0).map((_, idx) => idx < nbGrandDeplacement);
 
+        var nbMatchs = nbMatches[index];
+
 
         // Boucle sur les résultats pour les afficher dans le tableau
+        // La boucle va durer 3x pour les 3 quantité de match dans la saison
         for (var i = 0; i < nbMatchs && processedCount < nbMatches[index]; i++) {
+
             var isLongDistance = matchTypes[i];
             var distance = isLongDistance ? 600 : 300;  // Utilisation des types de match mélangés pour assigner les distances
-            var repas = isLongDistance ? 2 * coutRepas : coutRepas;
-            var hotelCost = isLongDistance ? coutHotel : 0;
+            //var repas = isLongDistance ? 2 * coutRepas : coutRepas;
+            //var hotel = isLongDistance ? coutHotel : 0;
 
             var trajet = resultats[i % resultats.length];
             // Vérification des données pour le calcul
@@ -457,10 +471,11 @@ var display = {
             var prk = eval(formulePrk.replace('d', distance.toString()));  // Calcul du PRK, utilisation sécurisée de eval
             var grandDeplacement = distance > 500 ? 80 : 0;
             var repas = (distance > 500 ? 2 : 1) * coutRepas;
+            var hotel = (distance > 500 ? coutHotel :0);
             var indemnites = distance * 0.410;
             var peages = parseFloat(trajet.Peages * 2);
-            var fraisHistorique = peages + grandDeplacement + indemnites + repas + hotelCost + valeurIndemnite;
-            var beneficeReel = fraisHistorique - (prk + repas + peages + hotelCost);
+            var fraisHistorique = peages + grandDeplacement + indemnites + repas + hotel + valeurIndemnite;
+            var beneficeReel = fraisHistorique - (prk + repas + peages + hotel);
             var primeBenefice = prime - frais - prk;
 
             var TempsTrajetAllerRetour = (parseInt(trajet.TempsTrajet.split('h')[0]) * 60 + parseInt(trajet.TempsTrajet.split('h')[1])) * 2;
@@ -487,13 +502,13 @@ var display = {
             <td>${indemnites.toFixed()}</td>
             <td>${prk.toFixed(2)}</td>
             <td>${repas.toFixed()}</td>
-            <td>${hotelCost.toFixed(2)}</td>
+            <td>${hotel.toFixed()}</td>
             <td>${valeurIndemnite}</td>
             <td>${fraisHistorique.toFixed(0)}</td>
             <td style="${beneficeReel < 0 ? "color:red;" : ""}">${beneficeReel.toFixed(2)}</td>
             <td>${prime.toFixed(0)}</td>
             <td>${frais.toFixed(0)}</td>
-            <td style="${primeBenefice < 0 ? "color:red;" : ""}">${primeBenefice.toFixed(2)} €</td>
+            <td style="${primeBenefice < 0 ? "color:red;" : ""}">${primeBenefice.toFixed(2)}</td>
             </tr>`;
 
             // Mise à jour des totaux
@@ -502,7 +517,7 @@ var display = {
             totalTempsTrajet += TempsTrajetAllerRetour;
             totalKilometriques += indemnites;
             totalRepas += repas;
-            totalHotels += hotelCost;
+            totalHotels += hotel;
             totalGrandDeplacement += grandDeplacement;
             totalPrimes += prime;
             totalFrais += frais;
@@ -527,20 +542,21 @@ var display = {
         htmlTableau += `</tbody>
         <tfoot>
             <tr class="totalRow"><td>TOTAUX</td>
-            <td>${nbMatchs} matchs</td><td>${totalDistance} km</td>
-            <td>${totalPeages.toFixed(2)} €</td>
+            <td><span class="text-primary">${nbMatchs} matchs</span></td>
+            <td>${totalDistance} km</td>
+            <td>${totalPeages.toFixed(2)}</td>
             <td>${Math.floor(totalTempsTrajet / 60)}h${totalTempsTrajet % 60}</td>
-            <td>${totalGrandDeplacement.toFixed(0)} €</td>
-            <td>${totalKilometriques.toFixed(2)} €</td>
-            <td>${totalPRK.toFixed(2)} €</td>
-            <td>${totalRepas.toFixed(2)} €</td>
-            <td>${totalHotels.toFixed(2)} €</td>
-            <td>${totalPreparation.toFixed(0)} €</td>
-            <td>${totalFraisHistorique.toFixed(2)} €</td>
-            <td style ="${colorTotalBeneficeReel}">${totalBeneficeReel.toFixed(2)} €</td>
-            <td>${totalPrimes.toFixed(0)} €</td>
-            <td>${totalFrais.toFixed(0)} €</td>
-            <td style ="${colorTotalPrimeBenefice}">${totalPrimeBenefice.toFixed(2)} €</td>
+            <td>${totalGrandDeplacement.toFixed(0)}</td>
+            <td>${totalKilometriques.toFixed(2)}</td>
+            <td>${totalPRK.toFixed()}</td>
+            <td>${totalRepas.toFixed(2)}</td>
+            <td>${totalHotels.toFixed(2)}</td>
+            <td>${totalPreparation.toFixed(0)}</td>
+            <td>${totalFraisHistorique.toFixed(2)}</td>
+            <td style ="${colorTotalBeneficeReel}">${totalBeneficeReel.toFixed(2)}</td>
+            <td>${totalPrimes.toFixed(0)}</td>
+            <td>${totalFrais.toFixed(0)}</td>
+            <td style ="${colorTotalPrimeBenefice}">${totalPrimeBenefice.toFixed(2)}</td>
             </tr>
         </tfoot>
         </table>`;
