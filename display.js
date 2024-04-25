@@ -252,16 +252,16 @@ var display = {
     },
 
 
-/**
- * Met à jour l'historique des trajets en fonction de la ville de départ sélectionnée.
- * Cette fonction récupère la valeur de la ville de départ depuis un élément select HTML d'ID "VilleDepart".
- * Elle filtre ensuite les données de trajet disponibles pour correspondre à la ville sélectionnée.
- * Si des trajets correspondants sont trouvés, la fonction procède à la génération d'un tableau
- * des résultats basé sur le PRK de la voiture sélectionné et affiche les données filtrées par saison.
- * En cas d'absence de résultats, un message de log est généré.
- * 
- * Note: La fonction interrompt son exécution et log une erreur si l'élément select n'est pas présent dans le DOM.
- */
+    /**
+     * Met à jour l'historique des trajets en fonction de la ville de départ sélectionnée.
+     * Cette fonction récupère la valeur de la ville de départ depuis un élément select HTML d'ID "VilleDepart".
+     * Elle filtre ensuite les données de trajet disponibles pour correspondre à la ville sélectionnée.
+     * Si des trajets correspondants sont trouvés, la fonction procède à la génération d'un tableau
+     * des résultats basé sur le PRK de la voiture sélectionné et affiche les données filtrées par saison.
+     * En cas d'absence de résultats, un message de log est généré.
+     * 
+     * Note: La fonction interrompt son exécution et log une erreur si l'élément select n'est pas présent dans le DOM.
+     */
 
     updateHistoriqueVille: function () {
         // Récupération de la ville de départ sélectionnée
@@ -471,7 +471,7 @@ var display = {
             var prk = eval(formulePrk.replace('d', distance.toString()));  // Calcul du PRK, utilisation sécurisée de eval
             var grandDeplacement = distance > 500 ? 80 : 0;
             var repas = (distance > 500 ? 2 : 1) * coutRepas;
-            var hotel = (distance > 500 ? coutHotel :0);
+            var hotel = (distance > 500 ? coutHotel : 0);
             var indemnites = distance * 0.410;
             var peages = parseFloat(trajet.Peages * 2);
             var fraisHistorique = peages + grandDeplacement + indemnites + repas + hotel + valeurIndemnite;
@@ -913,25 +913,11 @@ var display = {
         var prkVoiture = document.getElementById("menuPRK").value;
 
 
-        //var tableauContainer = document.getElementById("saisonReguliereTableContainer01");
 
-        /* if (tableauContainer) {
-             // On combine le tableau 
-             var combinedHTML = display.tableauComparatif(resultats, "Saison régulière") +
-                 display.tableauComparatif(resultats, "Poule de relégation") +
-                 display.tableauComparatif(resultats, "Phase finale");
-             tableauContainer.innerHTML = combinedHTML;
-         } else {
-             console.error("Le conteneur du tableau n'existe pas.");
-         }*/
-
-        // On envoie ces données sur le frontend et les badges
-        // Nombre de match
-        
 
     },
 
-    updateFrontendBadge: function() {
+    updateFrontendBadge: function () {
 
         document.getElementById('frontNbreMatchs').innerHTML = parseFloat(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03); // BUG de rafraichissement
 
@@ -1053,12 +1039,13 @@ var display = {
     },
 
 
-    // Actualise le tableau historique de façon globable
+    // Actualise la page de façon globable
+    // Rajouter ce qu'il y a a rafraichir ici
     updateHistorique: function () {
         display.updateHistoriquePRK();
         display.updateHistoriqueVille();
-
-
+        display.updateTableauxFederation();  // Mise à jour des tableaux lorsque la prime change
+        display.updateFrontendBadge();
     }
 }; // EOF display
 

@@ -7,7 +7,7 @@ var resultats_filtres = 0;
 var resultat_intermediaire_total = 0;
 var ResultatApresIS_temp = 0;
 var resultatPrelevementSociaux = 0;
-var data = 0 ;
+var data = 0;
 
 var globalBeneficeReelValues = {
     "Saison régulière": 0,
@@ -21,7 +21,7 @@ var globalBeneficeReelPrimeValues = {
     "Phase finale": 0
 };
 
-var htmlTableau; 
+var htmlTableau;
 
 var frais_banque = 240;
 

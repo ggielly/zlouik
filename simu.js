@@ -62,8 +62,7 @@ var updateCalculs = function () {
 
     CotisationsSociales = (((tauxcotisation_eurl / 1.35) * (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf)) / 100).toFixed(2); // Cotisations sociales
 
-    display.updateTableauxFederation();
-    display.updateFrontendBadge();
+
 }
 
 
@@ -145,7 +144,7 @@ var calculer_IR_EURL = function (AC16, tranche01_bas, tranche02_bas, tranche03_b
 // remplissage du array resultats avec les villes de destination calculées
 var calculDestinations = function () {
     // Nombre total d'itérations à effectuer
-    var nombreIterations = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03;
+    let nombreIterations = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03;
 
     // Récupération de l'élément selectVilleDepart
     var selectElement = document.getElementById("VilleDepart");
@@ -199,13 +198,11 @@ var gereEvents = function () {
             element.addEventListener("input", function () {
                 display.updateSliderValues();
                 display.updateTableauxFederation(); // Appel à la fonction de mise à jour des tableaux
-                display.updateFrontendBadge();
+                display.updateHistorique();
             });
             element.addEventListener("change", function () {
                 updateCalculs();
-                display.updateTableauxFederation();  // Mise à jour après le changement pour garantir la cohérence
-                display.updateFrontendBadge();
-            });
+                });
         } else {
             console.error("Element not found: ", id);
         }
@@ -235,8 +232,6 @@ var gereEvents = function () {
 
     document.getElementById("indemniteChoisieDiv").addEventListener("change", function () {
         display.updateHistorique();
-        display.updateTableauxFederation();  // Mise à jour des tableaux lorsque la prime change
-        display.updateFrontendBadge();
     });
 
     document.getElementById("VilleDepart").addEventListener("input", display.updateHistorique);
@@ -244,6 +239,9 @@ var gereEvents = function () {
 
     // Nombre de matchs au total
     nbre_matchs_total = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03;
+
+    
+
 };
 
 
@@ -262,6 +260,9 @@ var initialize = function () {
     updateCalculs();
     display.updateSelectedIndemnityValue();
     display.updateHistoriqueVille();
+    display.updateFrontendBadge();
+    
+
 
 };
 
