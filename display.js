@@ -448,7 +448,7 @@ var display = {
         var nbGrandDeplacement = Math.round(nbMatches[index] * pourcentageGrandDeplacement);
         var matchTypes = new Array(nbMatches[index]).fill(0).map((_, idx) => idx < nbGrandDeplacement);
 
-        var nbMatchs = nbMatches[index];
+        //var nbMatchs = nbMatches[index];
 
 
         // Boucle sur les résultats pour les afficher dans le tableau

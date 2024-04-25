@@ -19,14 +19,19 @@ function generateGraphsApex(graphData, index) {
         xaxisCategories: []
     };
 
-
+/*
     graphData.forEach((item) => {
         let xValue = parseFloat(item.processedCount);  // Assuming 'processedCount' can be your x-axis categories
         apexChartData.series[0].data.push(parseFloat(item.beneficeReel));
         apexChartData.series[1].data.push(parseFloat(item.primeBenefice));
         apexChartData.xaxisCategories.push(xValue);
-    });
+    });*/
 
+    graphData.forEach((item) => {
+        apexChartData.series[0].data.push({ x: item.processedCount, y: parseFloat(item.beneficeReel) });
+        apexChartData.series[1].data.push({ x: item.processedCount, y: parseFloat(item.primeBenefice) });
+        apexChartData.xaxisCategories.push(item.processedCount);
+    });
     var containerId = "chartContainer" + index;
     var chartContainer = document.getElementById(containerId);
 
@@ -34,18 +39,7 @@ function generateGraphsApex(graphData, index) {
         console.error("Chart container not found: " + containerId);
         return;
     }
-    /*
-        var datasets = [
-            {
-                name: "NdF : bénéfices réels",
-                data: graphData.map(item => ({ x: index, y: parseFloat(item.beneficeReel) }))
-            },
-            {
-                name: "Primes : bénéfices réels",
-                data: graphData.map(item => ({ x: index, y: parseFloat(item.primeBenefice) }))
-            }
-        ];*/
-
+    
     var options = {
         chart: {
             type: 'area',
@@ -65,13 +59,17 @@ function generateGraphsApex(graphData, index) {
         series: apexChartData.series,
         xaxis: {
             categories: apexChartData.xaxisCategories,
-            type: 'numeric'  // Change this to 'datetime' if 'processedCount' represents dates
+            type: 'category'  // Change this to 'datetime' if 'processedCount' represents dates
         },
         stroke: {
             curve: 'smooth'
         },
         tooltip: {
-            x: { format: 'dd/MM/yy HH:mm' },
+            x: {
+                formatter: function (value) {
+                    return "Step: " + value; // Customize tooltip for the x-axis label
+                }
+            },
             y: {
                 formatter: function (value) {
                     return value + " units";
