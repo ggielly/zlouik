@@ -4,10 +4,13 @@
 
 var totalBeneficeReel = 0;
 var resultats_filtres = 0;
-var resultat_intermediaire_total = 0;
-var ResultatApresIS_temp = 0;
-var resultatPrelevementSociaux = 0;
+var resultat_intermediaire_total = 0 ;
+var ResultatApresIS_temp = 0 ;
+var resultatPrelevementSociaux = 0 ;
 var data = 0;
+
+var sasu_is_cell16_4 = 0 ;
+var sasu_ir_cell16_4 = 0 ;
 
 var globalBeneficeReelValues = {
     "Saison régulière": 0,
