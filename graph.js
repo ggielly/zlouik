@@ -34,17 +34,17 @@ function generateGraphsApex(graphData, index) {
         console.error("Chart container not found: " + containerId);
         return;
     }
-/*
-    var datasets = [
-        {
-            name: "NdF : bénéfices réels",
-            data: graphData.map(item => ({ x: index, y: parseFloat(item.beneficeReel) }))
-        },
-        {
-            name: "Primes : bénéfices réels",
-            data: graphData.map(item => ({ x: index, y: parseFloat(item.primeBenefice) }))
-        }
-    ];*/
+    /*
+        var datasets = [
+            {
+                name: "NdF : bénéfices réels",
+                data: graphData.map(item => ({ x: index, y: parseFloat(item.beneficeReel) }))
+            },
+            {
+                name: "Primes : bénéfices réels",
+                data: graphData.map(item => ({ x: index, y: parseFloat(item.primeBenefice) }))
+            }
+        ];*/
 
     var options = {
         chart: {
@@ -159,7 +159,7 @@ function generateGraphsApexBOrked(graphData, index) {
         },
         tooltip: {
             x: {
-                formatter: function(val) {
+                formatter: function (val) {
                     return "Game: " + val;
                 }
             }
@@ -169,10 +169,6 @@ function generateGraphsApexBOrked(graphData, index) {
     var chart = new ApexCharts(chartContainer, options);
     chart.render();
 }
-
-
-
-
 
 
 function generateGraphsPlot(graphData, index) {
@@ -418,15 +414,5 @@ const myChart = new Chart(ctx, {
             borderColor: 'indigo',
             fill: false
         }]
-    }//,
-    //options: {
-    // responsive: true,
-    //scales: {
-    // yAxes: [{
-    //  ticks: {
-    //  beginAtZero: true
-    // }
-    //  }]
-    // }
-    // }
+    }
 }); 

@@ -141,8 +141,6 @@ var calculer_IR_EURL = function (AC16, tranche01_bas, tranche02_bas, tranche03_b
 };
 
 
-
-
 // remplissage du array resultats avec les villes de destination calculées
 var calculDestinations = function () {
     // Nombre total d'itérations à effectuer
@@ -177,6 +175,7 @@ var calculDestinations = function () {
         console.error("L'élément VilleDepart n'existe pas dans le document.");
     }
 };
+
 
 // enregistre toutes les fonctions à appeler selon les évènements UI
 var gereEvents = function () {
@@ -243,6 +242,7 @@ var gereEvents = function () {
     nbre_matchs_total = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03;
 };
 
+
 //Initialisation :
 // ajout des menus calculés dynamiquement
 // appel des fonctions de calcul initial de certaines données basées sur  primes / frais / nb match
@@ -260,9 +260,6 @@ var initialize = function () {
     display.updateHistoriqueVille();
 
 };
-
-
-
 
 
 var init = function () {
