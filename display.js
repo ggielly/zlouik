@@ -53,18 +53,6 @@ var display = {
       * var currentResults = display.getCurrentResults();
       * console.log(currentResults); // Affiche les trajets filtrés selon les critères actuels.
       */
-    getCurrentResultsold: function () {
-        // Récupération des résultats actuels
-        var villeDepart = document.getElementById("VilleDepart").value; // On suppose un champ input pour la ville de départ
-        var nbreMaxMatchs = parseInt(document.getElementById("nbre_matchs_01").value);
-
-        // Filtrage des données basé sur la ville de départ et un nombre maximum de résultats
-        var filteredResults = data.filter(function (trajet) {
-            return trajet.VilleDepart === villeDepart;
-        }).slice(0, nbreMaxMatchs); // Limitation du nombre de résultats au maximum spécifié par le slider
-
-        return filteredResults;
-    },
 
     getCurrentResults: function () {
         // Récupération de la ville de départ depuis l'input utilisateur
@@ -132,6 +120,7 @@ var display = {
             });
         });
     },
+
 
     // Création du formulaire pour le choix de l'indemnité
     createIndemniteChoisieDiv: function () {
@@ -373,7 +362,7 @@ var display = {
 
 
     updateFrontendBadge: function () {
-        document.getElementById('frontNbreMatchs').innerHTML = parseFloat(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
+        document.getElementById('frontNbreMatchs').innerHTML = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
 
         // Donnée du tableau 1
         var totalBeneficeTravailleurIndependant = parseFloat(resultat_net_01 + resultat_net_02 + resultat_net_03).toFixed(2);  // Résultat net
@@ -387,6 +376,7 @@ var display = {
 
         // Données du tableau 3
         var totalBeneficeTNSIS = parseFloat(AC24 * (1 - ((30 / 100)))).toFixed(2);
+        
         totalBeneficeTNSIS = display.formateEuroBadge(totalBeneficeTNSIS);
         display.updateFrontendTotalBeneficeTNSIS(totalBeneficeTNSIS);
 
@@ -402,6 +392,7 @@ var display = {
         
 
     },
+
 
     tableauComparatif: function (resultats, typeSaison) {
         var coutRepas = 17;  // Coût fixé pour les repas
@@ -420,6 +411,7 @@ var display = {
         var index = ["Saison régulière", "Poule de relégation", "Phase finale"].indexOf(typeSaison);
         if (index === -1) {
             console.error("Invalid typeSaison value");
+            console.log("type saison =>" + typeSaison)
             return ""; // Bye !
         }
         var prime = parseFloat(document.getElementById(`prime_montant_0${index + 1}`).value);
@@ -607,6 +599,7 @@ var display = {
         display.updateFrontendTotalBeneficePrimeReel();
 
 
+
         let couleurGraphe1 = ['#1754f1', '#1eca6a', '#5f771d'];
         generateGraphsApex(graphData, index, couleurGraphe1);  // Data and index for the first chart
 
@@ -623,14 +616,13 @@ var display = {
             // Récupérer la valeur sélectionnée du PRKVoiture dans le menu déroulant
             var prkVoiture = document.getElementById("menuPRK").value;
             // Récupérer l'élément conteneur du tableau des résultats
-
-            //var tableauContainer = document.getElementById("tableauComparatifDiv");
-
             var tableauContainer = document.getElementById("saisonReguliereTableContainer01");
 
             if (tableauContainer) {
                 // Mettre à jour le contenu du tableau des résultats avec les données et le PRKVoiture sélectionné
                 tableauContainer.innerHTML = display.tableauComparatif(resultats, typeSaison);
+                display.updateFrontendBadge();
+                
             } else {
                 console.error("L'élément conteneur pour le tableau historique des résultats n'existe pas dans le document.");
             }
@@ -1055,7 +1047,9 @@ var display = {
         display.updateHistoriquePRK();
         display.updateHistoriqueVille();
         display.updateTableauxFederation();  // Mise à jour des tableaux lorsque la prime change
-        display.updateFrontendBadge();
+        //display.updateFrontendBadge();
+        display.generateTableauDesignations();
+   
     }
 }; // EOF display
 
