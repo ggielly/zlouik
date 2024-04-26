@@ -1,37 +1,35 @@
 /**
  * Fichier Display.js
  * ------------------
- * 
+ *
  * Description :
  * Ce fichier contient toutes les fonctions nécessaires pour mettre à jour les éléments d'affichage
  * dans le HTML de l'application. Les fonctions sont regroupées sous un objet nommé `display`.
- * 
+ *
  * Utilisation :
  * L'encapsulation des fonctions d'affichage dans l'objet `display` permet une organisation claire
  * et une facilité d'appel des fonctions. Pour appeler une fonction, on utilise la syntaxe :
  * `display.nom_fonction()` à partir de n'importe quel autre script dans le projet, notamment depuis
  * la fonction `init()` qui sert à initialiser l'application.
- * 
+ *
  * Objectifs :
  * - Centraliser toutes les fonctions d'affichage pour simplifier la maintenance et l'évolution du code.
- * - Séparer clairement les responsabilités des fonctions d'affichage des autres logiques métier 
+ * - Séparer clairement les responsabilités des fonctions d'affichage des autres logiques métier
  *   dans le projet, renforçant ainsi la structure modulaire du code.
- * - Fournir une interface unique (`display`) pour l'accès aux fonctionnalités d'affichage, 
+ * - Fournir une interface unique (`display`) pour l'accès aux fonctionnalités d'affichage,
  *   augmentant la lisibilité et la réutilisabilité du code.
- * 
+ *
  * Architecture :
  * Le fichier `Display.js` agit comme une bibliothèque d'affichage, où chaque fonction membre de `display`
- * peut être visualisée comme un service d'affichage autonome. Ce modèle contribue à une meilleure 
- * organisation du code et facilite les tests unitaires des fonctions d'affichage indépendamment des 
+ * peut être visualisée comme un service d'affichage autonome. Ce modèle contribue à une meilleure
+ * organisation du code et facilite les tests unitaires des fonctions d'affichage indépendamment des
  * autres parties du système.
  */
-
-
 var display = {
     /**
       * Récupère et retourne les résultats actuels filtrés selon les critères définis
       * par les contrôles de l'interface utilisateur.
-      * 
+      *
       * Cette fonction consulte le tableau global `data` qui doit contenir tous les trajets possibles
       * avec leurs détails (ville de départ, destination, kilométrage, péages, temps de trajet, etc.).
       * Elle applique un filtre basé sur la ville de départ sélectionnée dans le champ input correspondant
@@ -52,7 +50,6 @@ var display = {
       * var currentResults = display.getCurrentResults();
       * console.log(currentResults); // Affiche les trajets filtrés selon les critères actuels.
       */
-
     getCurrentResults: function () {
         // Récupération de la ville de départ depuis l'input utilisateur
         var villeDepart = document.getElementById("VilleDepart").value;
@@ -91,8 +88,8 @@ var display = {
 
     // On affiche le slider joli
     updateOutputPourcent: function (val) {
-        document.getElementById('rangeOutput').value = val + ' %';  // Met à jour le contenu de l'output
-        document.getElementById('rangeOutput').textContent = val + ' %';  // Ajoute aussi pour garantir l'affichage
+        document.getElementById('rangeOutput').value = val + ' %'; // Met à jour le contenu de l'output
+        document.getElementById('rangeOutput').textContent = val + ' %'; // Ajoute aussi pour garantir l'affichage
     },
 
 
@@ -135,7 +132,7 @@ var display = {
         const indemniteOptions = [
             { value: 145, label: '145' },
             { value: 130, label: '130' },
-            { value: 115, label: '115', checked: true },  // Pre-select 115
+            { value: 115, label: '115', checked: true }, // Pre-select 115
             { value: 100, label: '100' },
         ];
 
@@ -153,7 +150,7 @@ var display = {
 
             // Create the label for the radio input
             const radioLabel = document.createElement('label');
-            radioLabel.htmlFor = radioInput.id;  // Link the label to the input
+            radioLabel.htmlFor = radioInput.id; // Link the label to the input
             radioLabel.textContent = option.label;
 
             // Append the input and label to the container
@@ -188,7 +185,7 @@ var display = {
 
             // Convertir l'objet en un tableau de tuples [ville, compteur], puis trier ce tableau
             var sortedVilles = Object.entries(villesDepartCount).sort(function (a, b) {
-                return a[1] - b[1];  // Tri basé sur le compteur de manière ascendante
+                return a[1] - b[1]; // Tri basé sur le compteur de manière ascendante
             });
 
             // Générer les options du menu déroulant en utilisant le tableau trié
@@ -248,10 +245,9 @@ var display = {
      * Si des trajets correspondants sont trouvés, la fonction procède à la génération d'un tableau
      * des résultats basé sur le PRK de la voiture sélectionné et affiche les données filtrées par saison.
      * En cas d'absence de résultats, un message de log est généré.
-     * 
+     *
      * Note: La fonction interrompt son exécution et log une erreur si l'élément select n'est pas présent dans le DOM.
      */
-
     updateHistoriqueVille: function () {
         // Récupération de la ville de départ sélectionnée
         var selectElement = document.getElementById("VilleDepart");
@@ -365,12 +361,12 @@ var display = {
         document.getElementById('frontNbreMatchs').innerHTML = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
 
         // Donnée du tableau 1
-        var totalBeneficeTravailleurIndependant = parseFloat(resultat_net_01 + resultat_net_02 + resultat_net_03).toFixed(2);  // Résultat net
+        var totalBeneficeTravailleurIndependant = parseFloat(resultat_net_01 + resultat_net_02 + resultat_net_03).toFixed(2); // Résultat net
         totalBeneficeTravailleurIndependant = display.formateEuroBadge(totalBeneficeTravailleurIndependant);
         display.updateFrontendTotalBeneficeTravailleurIndependant(totalBeneficeTravailleurIndependant);
 
         // Données du tableau 2
-        var totalBeneficeTNSIR = parseFloat(AC16).toFixed(2);  // Résultat net
+        var totalBeneficeTNSIR = parseFloat(AC16).toFixed(2); // Résultat net
         totalBeneficeTNSIR = display.formateEuroBadge(totalBeneficeTNSIR);
         display.updateFrontendTotalBeneficeTNSIR(totalBeneficeTNSIR);
 
@@ -395,8 +391,8 @@ var display = {
 
 
     tableauComparatif: function (resultats, typeSaison) {
-        var coutRepas = 17;  // Coût fixé pour les repas
-        var coutHotel = 87;  // Coût fixé pour les hôtels
+        var coutRepas = 17; // Coût fixé pour les repas
+        var coutHotel = 87; // Coût fixé pour les hôtels
         var totalBeneficeReel = 0; // Fixe la boucle à zero pour éviter l'addition infinie
 
         var nbMatches = [
@@ -411,7 +407,7 @@ var display = {
         var index = ["Saison régulière", "Poule de relégation", "Phase finale"].indexOf(typeSaison);
         if (index === -1) {
             console.error("Invalid typeSaison value");
-            console.log("type saison =>" + typeSaison)
+            console.log("type saison =>" + typeSaison);
             return ""; // Bye !
         }
         var prime = parseFloat(document.getElementById(`prime_montant_0${index + 1}`).value);
@@ -461,7 +457,8 @@ var display = {
         // Itération sur les résultats pour les afficher dans le tableau
         var processedCount = 0;
 
-        var graphData = [];  // Tableau pour collecter les données pour le graphe
+        var graphData = []; // Tableau pour collecter les données pour le graphe
+
 
         // Vérification si le nombre de matchs est supérieur au nombre de résultats
         if (resultats.length === 0) {
@@ -474,17 +471,17 @@ var display = {
         var matchTypes = new Array(nbMatches[index]).fill(0).map((_, idx) => idx < nbGrandDeplacement);
 
         //var nbMatchs = nbMatches[index];
-
-
         // Boucle sur les résultats pour les afficher dans le tableau
         // La boucle va durer 3x pour les 3 quantité de match dans la saison
         for (var i = 0; i < nbMatchs && processedCount < nbMatches[index]; i++) {
 
             var isLongDistance = matchTypes[i];
-            var distance = isLongDistance ? 600 : 300;  // Utilisation des types de match mélangés pour assigner les distances
+            var distance = isLongDistance ? 600 : 300; // Utilisation des types de match mélangés pour assigner les distances
+
+
+
             //var repas = isLongDistance ? 2 * coutRepas : coutRepas;
             //var hotel = isLongDistance ? coutHotel : 0;
-
             var trajet = resultats[i % resultats.length];
             // Vérification des données pour le calcul
             if (!trajet || !trajet.Km || !trajet.Peages) {
@@ -492,8 +489,8 @@ var display = {
                 continue;
             }
 
-            distance = parseFloat(trajet.Km * 2);  // Surcharge de la variable 'distance' pour refléter les vraies distances
-            var prk = eval(formulePrk.replace('d', distance.toString()));  // Calcul du PRK, utilisation sécurisée de eval
+            distance = parseFloat(trajet.Km * 2); // Surcharge de la variable 'distance' pour refléter les vraies distances
+            var prk = eval(formulePrk.replace('d', distance.toString())); // Calcul du PRK, utilisation sécurisée de eval
             var grandDeplacement = distance > 500 ? 80 : 0;
             var repas = (distance > 500 ? 2 : 1) * coutRepas;
             var hotel = (distance > 500 ? coutHotel : 0);
@@ -507,7 +504,6 @@ var display = {
 
             // Peuplement des données pour le graphique
             // Peuplement du tableau temporaire qui va servir pour la génération du graphe
-
             graphData.push({
                 processedCount: processedCount,
                 //fraisHistorique: fraisHistorique.toFixed(2),
@@ -590,7 +586,7 @@ var display = {
         htmlTableau += `</table>`;
 
         // On additionne pour chaque saison les sous totaux des 3 tableaux
-        globalBeneficeReelValues[typeSaison] = totalBeneficeReel;  // Benefice de l'indemnite de match en prenant en compte le PRK
+        globalBeneficeReelValues[typeSaison] = totalBeneficeReel; // Benefice de l'indemnite de match en prenant en compte le PRK
         globalBeneficeReelPrimeValues[typeSaison] = totalPrimeBenefice;
 
 
@@ -601,12 +597,13 @@ var display = {
 
 
         let couleurGraphe1 = ['#1754f1', '#1eca6a', '#5f771d'];
-        generateGraphsApex(graphData, index, couleurGraphe1);  // Data and index for the first chart
+        generateGraphsApex(graphData, index, couleurGraphe1); // Data and index for the first chart
 
         return htmlTableau;
 
 
     }, // Fin de la fonction
+
 
 
     // Mise à jour du tableau historique avec le PRKVoiture sélectionné
@@ -650,6 +647,7 @@ var display = {
         document.getElementById("cell11_1").innerHTML = frais_annuel_01.toLocaleString('fr-FR') + " €"; // Nos frais de l'ensemble des matchs annuels
         document.getElementById("cell12_1").innerHTML = resultat_net_01.toLocaleString('fr-FR') + " €"; // Caillasse annuelle
 
+
         // Ligne 2
         document.getElementById("cell2_2").innerHTML = nbre_matchs_02; // Nombre de matchs (match 2)
         document.getElementById("cell4_2").innerHTML = pourcentage_urssaf + " %"; // % URSSAF
@@ -661,6 +659,7 @@ var display = {
         document.getElementById("cell10_2").innerHTML = frais_par_match02.toLocaleString('fr-FR') + " €"; // Nos frais par match
         document.getElementById("cell11_2").innerHTML = frais_annuel_02.toLocaleString('fr-FR') + " €"; // Nos frais de l'ensemble des matchs annuels
         document.getElementById("cell12_2").innerHTML = resultat_net_02.toLocaleString('fr-FR') + " €"; // Caillasse annuelle
+
 
         // Ligne 3
         document.getElementById("cell2_3").innerHTML = nbre_matchs_03; // Nombre de matchs (match 3)
@@ -674,6 +673,7 @@ var display = {
         document.getElementById("cell11_3").innerHTML = frais_annuel_03.toLocaleString('fr-FR') + " €"; // Nos frais de l'ensemble des matchs annuels
         document.getElementById("cell12_3").innerHTML = resultat_net_03.toLocaleString('fr-FR') + " €"; // Caillasse annuelle
 
+
         // Ligne 4 => Sommes annuelles
         const totalmatch = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
         document.getElementById("cell2_4").innerHTML = totalmatch.toLocaleString('fr-FR'); // Nombre de matchs ANNUEL
@@ -683,6 +683,9 @@ var display = {
         document.getElementById("cell9_4").innerHTML = (net_urssaf_annuel_01 + net_urssaf_annuel_02 + net_urssaf_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des nets sur la saison
         document.getElementById("cell11_4").innerHTML = (frais_annuel_01 + frais_annuel_02 + frais_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais sur la saison
         document.getElementById("cell12_4").innerHTML = (resultat_net_01 + resultat_net_02 + resultat_net_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des résultats sur la saison
+
+
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Affichage des résultats dans le tableau 2 
@@ -699,6 +702,7 @@ var display = {
         document.getElementById("tns_ir_cell12_1").innerHTML = resultat_intermediaire_01 + " €"; // Resultat intermédiaire
 
         document.getElementById("tns_ir_cell13_1").innerHTML = frais_banque + " €"; // Frais annexes
+
 
         // colone 15 ligne 1 - cotisations sociales
         document.getElementById("tns_ir_cell15_1").innerHTML = CotisationsSociales.toLocaleString('fr-FR') + " €"; // Cotisations sociales
@@ -726,8 +730,10 @@ var display = {
         document.getElementById("tns_ir_cell11_3").innerHTML = frais_annuel_03.toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais
         document.getElementById("tns_ir_cell12_3").innerHTML = resultat_intermediaire_03.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
         document.getElementById("tns_ir_cell13_3").innerHTML = frais_urssaf.toLocaleString('fr-FR') + " €"; // Frais URSSAF
+
         // IR colone 15 ligne 3
         document.getElementById("tns_ir_cell15_3").innerHTML = (impotsSurLeRevenu.toFixed(2)).toLocaleString('fr-FR') + " €"; // impots sur le revenu
+
         // Ligne 4 => Sommes annuelles
         document.getElementById("tns_ir_cell2_4").innerHTML = totalmatch.toLocaleString('fr-FR'); // Nombre de matchs ANNUEL
         document.getElementById("tns_ir_cell7_4").innerHTML = (nbre_matchs_01 * prime_montant_01 + nbre_matchs_02 * prime_montant_02 + nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des bruts sur la saison
@@ -739,6 +745,9 @@ var display = {
         document.getElementById("tns_ir_cell14_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf).toLocaleString('fr-FR') + " €"; // Résultat net
         document.getElementById("tns_ir_cell15_4").innerHTML = (AC16 - impotsSurLeRevenu).toLocaleString('fr-FR') + " €"; // impots sur le revenu
         document.getElementById("tns_ir_cell16_4").innerHTML = AC16.toLocaleString('fr-FR'); // impots sur le revenu
+
+
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Affichage des résultats dans le tableau 3 
@@ -754,6 +763,7 @@ var display = {
         document.getElementById("tns_is_cell11_1").innerHTML = (frais_annuel_01).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais
         document.getElementById("tns_is_cell12_1").innerHTML = (resultat_intermediaire_01).toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
         document.getElementById("tns_is_cell13_1").innerHTML = frais_banque + " €"; // Frais annexes
+
 
         // Ligne 2
         document.getElementById("tns_is_cell2_2").innerHTML = nbre_matchs_02; // Nombre de matchs (match 2)
@@ -771,6 +781,7 @@ var display = {
         document.getElementById("tns_is_cell15_2").innerHTML = (resultat_net_is_TNS * (15 / 100)).toLocaleString('fr-FR') + " €"; // Salaires
         document.getElementById("tns_is_cell16_2").innerHTML = montantFinal.toLocaleString('fr-FR') + " €"; // Impot sur les dividendes
 
+
         // Ligne 3
         document.getElementById("tns_is_cell2_3").innerHTML = nbre_matchs_03; // Nombre de matchs (match 3)
         document.getElementById("tns_is_cell4_3").innerHTML = urssaf_zero + " %"; // % URSSAF
@@ -786,6 +797,7 @@ var display = {
         document.getElementById("tns_is_cell12_3").innerHTML = resultat_intermediaire_03.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
         document.getElementById("tns_is_cell13_3").innerHTML = frais_urssaf.toLocaleString('fr-FR') + " €"; // Frais annexes
 
+
         // Ligne 4 => Sommes annuelles
         document.getElementById("tns_is_cell2_4").innerHTML = totalmatch; // Nombre de matchs ANNUEL
         document.getElementById("tns_is_cell7_4").innerHTML = (brut_annuel_01 + brut_annuel_02 + brut_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des bruts sur la saison
@@ -795,11 +807,16 @@ var display = {
         document.getElementById("tns_is_cell12_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des résultats sur la saison
         document.getElementById("tns_is_cell13_4").innerHTML = (frais_banque + frais_comptable + frais_urssaf).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais annexes sur la saison
         document.getElementById("tns_is_cell14_4").innerHTML = resultat_net_is_TNS.toLocaleString('fr-FR') + " €"; // Résultat net
+
+
         // Résultat net - AC22
         //console.log("AC24 : " + AC24);
         document.getElementById("tns_is_cell15_4").innerHTML = AC24.toLocaleString('fr-FR') + " €"; // impots sur le revenu
 
         document.getElementById("tns_is_cell16_4").innerHTML = (AC24 * (1 - ((30 / 100)))).toLocaleString('fr-FR') + " €"; // impots sur le revenu
+
+
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Affichage des résultats dans le tableau 4 
@@ -816,6 +833,7 @@ var display = {
         document.getElementById("sasu_ir_cell12_1").innerHTML = resultat_intermediaire_01.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
         document.getElementById("sasu_ir_cell13_1").innerHTML = (frais_banque + frais_comptable + frais_urssaf).toLocaleString('fr-FR') + " €"; // Frais annexes
 
+
         // Ligne 2
         document.getElementById("sasu_ir_cell2_2").innerHTML = nbre_matchs_02; // Nombre de matchs (match 2)
         document.getElementById("sasu_ir_cell4_2").innerHTML = urssaf_zero + " %"; // % URSSAF
@@ -828,6 +846,7 @@ var display = {
         document.getElementById("sasu_ir_cell11_2").innerHTML = frais_annuel_02.toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais
         document.getElementById("sasu_ir_cell12_2").innerHTML = resultat_intermediaire_02.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
 
+
         // Ligne 3
         document.getElementById("sasu_ir_cell2_3").innerHTML = nbre_matchs_03; // Nombre de matchs (match 3)
         document.getElementById("sasu_ir_cell4_3").innerHTML = urssaf_zero + " %"; // % URSSAF
@@ -839,6 +858,7 @@ var display = {
         document.getElementById("sasu_ir_cell10_3").innerHTML = (frais_par_match03).toLocaleString('fr-FR') + " €"; // Frais par match
         document.getElementById("sasu_ir_cell11_3").innerHTML = frais_annuel_03.toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais
         document.getElementById("sasu_ir_cell12_3").innerHTML = resultat_intermediaire_03.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
+
 
         // Ligne 4
         document.getElementById("sasu_ir_cell2_4").innerHTML = totalmatch; // Nombre de matchs ANNUEL
@@ -865,6 +885,9 @@ var display = {
             ((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15)) * 0.30);
 
         document.getElementById("sasu_ir_cell16_4").innerHTML = sasu_ir_cell16_4; // impots sur le revenu
+
+
+
 
 
 
@@ -910,10 +933,12 @@ var display = {
         document.getElementById("sasu_is_cell13_3").innerHTML = frais_urssaf.toLocaleString('fr-FR') + " €"; // Frais annexes
         document.getElementById("sasu_is_cell12_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des résultats sur la saison
 
+
         //console.log(frais_banque);
         document.getElementById("sasu_is_cell13_1").innerHTML = frais_banque.toLocaleString('fr-FR') + " €"; // Frais annexes
         document.getElementById("sasu_is_cell13_2").innerHTML = frais_comptable.toLocaleString('fr-FR') + " €"; // Frais annexes
         document.getElementById("sasu_is_cell13_4").innerHTML = (frais_banque + frais_comptable).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais annexes sur la saison
+
 
         // Ligne 4 => Sommes annuelles
         document.getElementById("sasu_is_cell2_4").innerHTML = totalmatch; // Nombre de matchs ANNUEL
@@ -930,6 +955,7 @@ var display = {
         MontantRevenuImposable = (ResultatApresIS_temp * 0.60) - (0.068 * ResultatApresIS_temp);
         document.getElementById("sasu_is_cell16_1").innerHTML = "Montant revenus imposable : " + MontantRevenuImposable.toLocaleString('fr-FR') + " €"; // impots sur le revenu
         document.getElementById("sasu_is_cell16_2").innerHTML = "Prélèvements sociaux : " + (ResultatApresIS_temp * CSG_CR).toLocaleString('fr-FR') + " €"; // Prélèvement sociaux
+
 
         // Utilisation de la fonction pour calculer la taxe
         resultatPrelevementSociaux = calculerPrelevementSociaux(MontantRevenuImposable, tranches, taux);
@@ -1051,12 +1077,12 @@ var display = {
     updateHistorique: function () {
         display.updateHistoriquePRK();
         display.updateHistoriqueVille();
-        display.updateTableauxFederation();  // Mise à jour des tableaux lorsque la prime change
+        display.updateTableauxFederation(); // Mise à jour des tableaux lorsque la prime change
+
         //display.updateFrontendBadge();
         display.generateTableauDesignations();
         display.tableauComparatif();
 
     }
 }; // EOF display
-
 

@@ -48,7 +48,9 @@ function generateGraphsApex(graphData, index, datColor) {
             categories: apexChartData.xaxisCategories,
             type: 'category'
         },
-        stroke: { curve: 'smooth' },
+        stroke: { 
+            curve: 'smooth', width: 2
+        },
         tooltip: {
             x: {
                 formatter: (value, { dataPointIndex }) => `Match ${dataPointIndex + 1}`
