@@ -25,10 +25,9 @@
  * organisation du code et facilite les tests unitaires des fonctions d'affichage indépendamment des 
  * autres parties du système.
  */
+
+
 var display = {
-
-
-
     /**
       * Récupère et retourne les résultats actuels filtrés selon les critères définis
       * par les contrôles de l'interface utilisateur.
@@ -124,25 +123,25 @@ var display = {
 
     // Création du formulaire pour le choix de l'indemnité
     createIndemniteChoisieDiv: function () {
-        // Création de l'élément div pour le choix de l'indemnité
+        // Create the div element for indemnity choice
         const indemniteChoisieDiv = document.createElement('div');
         indemniteChoisieDiv.id = 'indemniteChoisieDiv';
         indemniteChoisieDiv.textContent = 'Montant des primes de préparation et d\'équipement (historique):';
 
-        // Création de l'élément div pour le choix de l'indemnité
+        // Create the container for radio buttons
         const radioContainer = document.createElement('div');
 
-        // Créer les options pour le choix de l'indemnité
+        // Define options for indemnity choice
         const indemniteOptions = [
             { value: 145, label: '145' },
             { value: 130, label: '130' },
-            { value: 115, label: '115', checked: true },  // Pre-sélectionne 115
+            { value: 115, label: '115', checked: true },  // Pre-select 115
             { value: 100, label: '100' },
         ];
 
-        // Créer les boutons radio pour chaque option
-        for (const option of indemniteOptions) {
-            // Créer l'input radio
+        // Create radio buttons for each option
+        indemniteOptions.forEach(option => {
+            // Create the radio input element
             const radioInput = document.createElement('input');
             radioInput.type = 'radio';
             radioInput.id = `indemnite${option.value}`;
@@ -151,19 +150,20 @@ var display = {
             if (option.checked) {
                 radioInput.checked = true;
             }
-            // Créer le label pour l'input radio
+
+            // Create the label for the radio input
             const radioLabel = document.createElement('label');
-            radioLabel.htmlFor = radioInput.id;  // Lier le label à l'input
+            radioLabel.htmlFor = radioInput.id;  // Link the label to the input
             radioLabel.textContent = option.label;
 
-            // Ajouter l'input et le label au conteneur
+            // Append the input and label to the container
             radioContainer.appendChild(radioInput);
             radioContainer.appendChild(radioLabel);
-        }
+        });
 
-        // Ajouter le conteneur des boutons radio à l'élément div
+        // Append the radio button container to the div element
         indemniteChoisieDiv.appendChild(radioContainer);
-        // Ajouter l'élément div au document
+        // Return the div element
         return indemniteChoisieDiv;
     },
 
@@ -1021,7 +1021,7 @@ var display = {
         cotisations_urssaf_par_match_02 = prime_montant_02 * (pourcentage_urssaf / 100);
         cotisations_urssaf_par_match_03 = prime_montant_03 * (pourcentage_urssaf / 100);
 
-   
+
 
 
 

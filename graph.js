@@ -116,8 +116,6 @@ function graph() {
 }
 
 
-// Création d'un contexte de dessin sur le canvas
-// const ctx = document.getElementById('myChart').getContext('2d');
 
 // Création du graphe
 const myChart = new Chart(ctx, {
