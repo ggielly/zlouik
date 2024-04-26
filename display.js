@@ -391,15 +391,9 @@ var display = {
         display.updateFrontendTotalBeneficeTNSIS(totalBeneficeTNSIS);
 
         // Données du tableau 4 SASU IR
-        //var totalBeneficeSASUIR = parseFloat(((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15)) -
-         //   ((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15)) * 0.30).toFixed();
-        console.log(sasu_ir_cell16_4);
-
         var totalBeneficeSASUIR = sasu_ir_cell16_4;
         totalBeneficeSASUIR = display.formateEuroBadge(totalBeneficeSASUIR);
         display.updateFrontendTotalBeneficeSASUSIR(totalBeneficeSASUIR);
-
-
 
         // Données du tableau 5 SASU IS
         var totalBeneficeSASUIS = parseFloat(ResultatApresIS_temp - (ResultatApresIS_temp * CSG_CR) - resultatPrelevementSociaux).toFixed(2);
@@ -876,7 +870,7 @@ var display = {
         document.getElementById("sasu_ir_cell16_2").innerHTML = (((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15)) * 0.30).toLocaleString('fr-FR') + " €"; // impots sur le revenu
 
         sasu_ir_cell16_4 = (((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15)) -
-            ((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15)) * 0.30).toLocaleString('fr-FR') + " €";
+            ((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15)) * 0.30);
 
         document.getElementById("sasu_ir_cell16_4").innerHTML = sasu_ir_cell16_4; // impots sur le revenu
 
