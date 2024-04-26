@@ -316,14 +316,14 @@ var display = {
     // Fonction de mise à jour du badge en frontend ligne 1 badge 2 - total benefice apres PRK pour le defrayement par indemnités
     updateFrontendTotalBeneficeReel: function () {
         let dat_total00 = (Object.values(globalBeneficeReelValues).reduce((acc, value) => acc + value, 0)).toFixed();
-        document.getElementById('frontTotalBeneficeReelDisplay').innerHTML = dat_total00.toLocaleString('fr-FR') ;
+        document.getElementById('frontTotalBeneficeReelDisplay').innerHTML = dat_total00.toLocaleString('fr-FR');
     },
 
 
     // Fonction de mise à jour du badge en frontend ligne 1 badge 3 - total benefice apres PRK pour le defrayement par prime (nouveau système)
     updateFrontendTotalBeneficePrimeReel: function () {
         let dat_total01 = (Object.values(globalBeneficeReelPrimeValues).reduce((acc, value) => acc + value, 0)).toFixed();
-        document.getElementById('frontTotalBeneficeReelPrimeDisplay').innerHTML = dat_total01.toLocaleString('fr-FR') ;
+        document.getElementById('frontTotalBeneficeReelPrimeDisplay').innerHTML = dat_total01.toLocaleString('fr-FR');
     },
 
 
@@ -376,7 +376,7 @@ var display = {
 
         // Données du tableau 3
         var totalBeneficeTNSIS = parseFloat(AC24 * (1 - ((30 / 100)))).toFixed(2);
-        
+
         totalBeneficeTNSIS = display.formateEuroBadge(totalBeneficeTNSIS);
         display.updateFrontendTotalBeneficeTNSIS(totalBeneficeTNSIS);
 
@@ -389,7 +389,7 @@ var display = {
         var totalBeneficeSASUIS = parseFloat(ResultatApresIS_temp - (ResultatApresIS_temp * CSG_CR) - resultatPrelevementSociaux).toFixed(2);
         totalBeneficeSASUIS = display.formateEuroBadge(totalBeneficeSASUIS);
         display.updateFrontendTotalBeneficeSASUSIS(totalBeneficeSASUIS);
-        
+
 
     },
 
@@ -622,7 +622,7 @@ var display = {
                 // Mettre à jour le contenu du tableau des résultats avec les données et le PRKVoiture sélectionné
                 tableauContainer.innerHTML = display.tableauComparatif(resultats, typeSaison);
                 display.updateFrontendBadge();
-                
+
             } else {
                 console.error("L'élément conteneur pour le tableau historique des résultats n'existe pas dans le document.");
             }
@@ -1020,6 +1020,11 @@ var display = {
         cotisations_urssaf_par_match_01 = prime_montant_01 * (pourcentage_urssaf / 100);
         cotisations_urssaf_par_match_02 = prime_montant_02 * (pourcentage_urssaf / 100);
         cotisations_urssaf_par_match_03 = prime_montant_03 * (pourcentage_urssaf / 100);
+
+   
+
+
+
     },
 
 
@@ -1049,7 +1054,8 @@ var display = {
         display.updateTableauxFederation();  // Mise à jour des tableaux lorsque la prime change
         //display.updateFrontendBadge();
         display.generateTableauDesignations();
-   
+        display.tableauComparatif();
+
     }
 }; // EOF display
 
