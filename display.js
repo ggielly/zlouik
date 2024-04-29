@@ -636,13 +636,18 @@ var display = {
 
     generateTableauImpotsMicroEntreprise: function () {
 
-
+        
         const totalmatch = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
-        let sommeAnnuelleBrut = (brut_annuel_01 + brut_annuel_02 + brut_annuel_03);
-        let sommeAnnuelleCotisationSaison = (cotisations_annuelles_01 + cotisations_annuelles_02 + cotisations_annuelles_03);
-        let sommeAnnuelleNetSaison = (net_urssaf_annuel_01 + net_urssaf_annuel_02 + net_urssaf_annuel_03);
-        let sommeAnnuelleFraisSaison = (frais_annuel_01 + frais_annuel_02 + frais_annuel_03);
-        let sommeAnnuelleResultatSaison = (resultat_net_01 + resultat_net_02 + resultat_net_03);
+        let sommeAnnuelleBrut = parseFloat(brut_annuel_01) + parseFloat(brut_annuel_02) + parseFloat(brut_annuel_03);
+        let sommeAnnuelleCotisationSaison = display.formateEuroBadge(parseFloat(cotisations_annuelles_01) + parseFloat(cotisations_annuelles_02) + parseFloat(cotisations_annuelles_03));
+        let sommeAnnuelleNetSaison = display.formateEuroBadge(parseFloat(net_urssaf_annuel_01) + parseFloat(net_urssaf_annuel_02) + parseFloat(net_urssaf_annuel_03));
+        let sommeAnnuelleFraisSaison = display.formateEuroBadge(parseFloat(frais_annuel_01) + parseFloat(frais_annuel_02) + parseFloat(frais_annuel_03));
+        let sommeAnnuelleResultatSaison = parseFloat(resultat_net_01) + parseFloat(resultat_net_02) + parseFloat(resultat_net_03);
+
+        let tauximposition = (sommeAnnuelleResultatSaison / sommeAnnuelleBrut) * 100;
+
+
+
 
         htmlTableau += `<table class="impots" class="table table-sm">
         <thead>
@@ -728,13 +733,11 @@ var display = {
           <td colspan='1'><span class="text-primary">Après imposition : ${sommeAnnuelleResultatSaison}</span></td>
         </tr>
       <tr>
-        <td colspan='8'><span class="text-primary">Taux par rapport au chiffre d'affaires : xx.xx %</span></td>
+        <td colspan='8'><span class="text-primary">Taux par rapport au chiffre d'affaires : ${tauximposition.toFixed(2)}%</span></td>
       </tr>
     </table>`;
 
-
     document.getElementById("impotMicroEntretriseDiv").innerHTML = htmlTableau;
-    
 },
 
 
