@@ -332,24 +332,20 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
             <!-- Fin de phase finale ----------------------------------------------------------------------------------------------------------->
 
 
-
             <!-- Tableau de l'imposition en micro entreprise---------------------------------------------------------------------------------->
             <!-------------------------------------------------------------------------------------------------------------------------------->
             <div class="col-12">
               <div class="card recent-sales overflow-auto">
                 <div class="card-body">
                   <h5 class="card-title">Calcul des revenus : imposition en micro-entreprise<span>(*)</span></h5>
-
-                  <h5 class="card-title"><span>Calculs basés sur une prime de match (rémunération)</span></h5>
-
-                  <p>Ce code calcule le revenu net d'un travailleur indépendant en prenant en compte les primes, les
-                    frais et les cotisations URSSAF. Seuil TVA d'un travailleur indépendant : 39 100e</p>
                   <div id="impotMicroEntretriseDiv"></div>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- Fin du tableau impositon en micro entreprise ---------------------------------------------------------------------------------------------->
+            <!-- Fin du tableau impositon en micro entreprise ---------------------------------------------------------------------------------------------->
+
+          </div> <!-- Fin du class ROW ------------------------------->
+
 
         </div><!-- End Left side columns -->
 
@@ -392,19 +388,27 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                 <h5 class="card-title">Taux marginal d'imposition<span></span></h5>
                 <div class="slider-group">
                   <label class="custom-range-label" for="tauxMarginalImpot"></label>
-                  <input type="range" class="custom-range" id="tauxMarginalImpot" name="tauxMarginalImpot" min="0"
+                  <input type="range" class="custom-range" id="idTauxMarginalImpot" name="tauxMarginalImpot" min="0"
                     max="60" value="4" step="0.1"
                     oninput="updateOutput('tauxMarginalImpot', 'valeurtauxMarginalImpot')">
                   <output id="valeurtauxMarginalImpot" class="output">4</output>
+                </div>
+
+
+
+                <h5 class="card-title">nombre de part fiscale<span></span></h5>
+                <div class="slider-group">
+                  <label class="custom-range-label" for="nombrePartFiscale"></label>
+                  <input type="range" class="custom-range" id="idnombrePartFiscale" name="nombrePartFiscale" min="0"
+                    max="8" value="3" step="1" oninput="updateOutput('nombrePartFiscale', 'valeurNombrePartFiscale')">
+                  <output id="valeurNombrePartFiscale" class="output">3</output>
                 </div>
               </div>
             </div>
 
 
-
             <!-- Simulation de nombre de match ---------------------------------------->
             <div class="card">
-
 
               <div class="card-body pb-0">
                 <h5 class="card-title">Nombre de matchs<span></span></h5>

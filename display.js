@@ -646,9 +646,6 @@ var display = {
 
         let tauximposition = (sommeAnnuelleResultatSaison / sommeAnnuelleBrut) * 100;
 
-
-
-
         htmlTableau += `<table class="impots" class="table table-sm">
         <thead>
           <tr>
@@ -722,7 +719,7 @@ var display = {
           <td id="cell9_4">${sommeAnnuelleNetSaison}</td>
           <td id="cell10_4">---</td>
           <td id="cell11_4">${sommeAnnuelleFraisSaison}</td>
-          <td id="cell12_4" class="gras-vert">${sommeAnnuelleResultatSaison}</td>
+          <td id="cell12_4">${sommeAnnuelleResultatSaison}</td>
         </tfoot>
         </tr>
         </tbody>
