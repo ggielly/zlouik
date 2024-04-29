@@ -362,6 +362,10 @@ var gereEvents = function () {
 var initialize = function () {
   display.setupRadioChangeListeners();
   display.createIndemniteChoisieDiv();
+
+  // Il faut construire le tableau HTML avant de pouvoir faire les appels aux cellules ID
+  display.generateTableauImpotsMicroEntreprise(); 
+  
   display.menuVilles();
   display.menuPRK();
   display.updateSliderValues();

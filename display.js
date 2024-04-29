@@ -628,66 +628,23 @@ var display = {
         }
     },
 
-    calculateTableauImpotsMicroEntreprise: function () {
-        
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Affichage des résultats dans le tableau 1 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        document.getElementById("cell2_1").innerHTML = nbre_matchs_01; // Nombre de matchs (match 1)
-        document.getElementById("cell4_1").innerHTML = pourcentage_urssaf + " %"; // % URSSAF
-        document.getElementById("cell5_1").innerHTML = cotisations_urssaf_par_match_01.toLocaleString('fr-FR') + " €"; // Cotisations URSSAF par match (match 1)
-        document.getElementById("cell6_1").innerHTML = net_match_01.toLocaleString('fr-FR') + " €"; // Net par match (match 1)
-        document.getElementById("cell7_1").innerHTML = brut_annuel_01.toLocaleString('fr-FR') + " €"; // Brut annuel 
-        document.getElementById("cell8_1").innerHTML = cotisations_annuelles_01.toLocaleString('fr-FR') + " €"; // Cotisations annuelles
-        document.getElementById("cell9_1").innerHTML = net_urssaf_annuel_01.toLocaleString('fr-FR') + " €"; // Net d'URSSAF annuel
-        document.getElementById("cell10_1").innerHTML = frais_par_match01.toLocaleString('fr-FR') + " €"; // Nos frais par match
-        document.getElementById("cell11_1").innerHTML = frais_annuel_01.toLocaleString('fr-FR') + " €"; // Nos frais de l'ensemble des matchs annuels
-        document.getElementById("cell12_1").innerHTML = resultat_net_01.toLocaleString('fr-FR') + " €"; // Caillasse annuelle
+    
 
-
-        // Ligne 2
-        document.getElementById("cell2_2").innerHTML = nbre_matchs_02; // Nombre de matchs (match 2)
-        document.getElementById("cell4_2").innerHTML = pourcentage_urssaf + " %"; // % URSSAF
-        document.getElementById("cell5_2").innerHTML = cotisations_urssaf_par_match_02 + " €"; // Cotisations URSSAF par match (match 2)
-        document.getElementById("cell6_2").innerHTML = net_match_02.toLocaleString('fr-FR') + " €"; // Net par match (match 2)
-        document.getElementById("cell7_2").innerHTML = brut_annuel_02.toLocaleString('fr-FR') + " €"; // Brut annuel
-        document.getElementById("cell8_2").innerHTML = cotisations_annuelles_02.toLocaleString('fr-FR') + " €"; // Cotisations annuelles
-        document.getElementById("cell9_2").innerHTML = net_urssaf_annuel_02.toLocaleString('fr-FR') + " €"; // Net d'URSSAF annuel
-        document.getElementById("cell10_2").innerHTML = frais_par_match02.toLocaleString('fr-FR') + " €"; // Nos frais par match
-        document.getElementById("cell11_2").innerHTML = frais_annuel_02.toLocaleString('fr-FR') + " €"; // Nos frais de l'ensemble des matchs annuels
-        document.getElementById("cell12_2").innerHTML = resultat_net_02.toLocaleString('fr-FR') + " €"; // Caillasse annuelle
-
-
-        // Ligne 3
-        document.getElementById("cell2_3").innerHTML = nbre_matchs_03; // Nombre de matchs (match 3)
-        document.getElementById("cell4_3").innerHTML = pourcentage_urssaf + " %"; // % URSSAF
-        document.getElementById("cell5_3").innerHTML = cotisations_urssaf_par_match_03 + " €"; // Cotisations URSSAF par match (match 3)
-        document.getElementById("cell6_3").innerHTML = net_match_03 + " €"; // Net par match (match 3)
-        document.getElementById("cell7_3").innerHTML = brut_annuel_03.toLocaleString('fr-FR') + " €"; // Brut annuel
-        document.getElementById("cell8_3").innerHTML = cotisations_annuelles_03.toLocaleString('fr-FR') + " €"; // Cotisations annuelles
-        document.getElementById("cell9_3").innerHTML = net_urssaf_annuel_03.toLocaleString('fr-FR') + " €"; // Net d'URSSAF annuel
-        document.getElementById("cell10_3").innerHTML = frais_par_match03.toLocaleString('fr-FR') + " €"; // Nos frais par match
-        document.getElementById("cell11_3").innerHTML = frais_annuel_03.toLocaleString('fr-FR') + " €"; // Nos frais de l'ensemble des matchs annuels
-        document.getElementById("cell12_3").innerHTML = resultat_net_03.toLocaleString('fr-FR') + " €"; // Caillasse annuelle
-
-
-        // Ligne 4 => Sommes annuelles
-        const totalmatch = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
-        document.getElementById("cell2_4").innerHTML = totalmatch.toLocaleString('fr-FR'); // Nombre de matchs ANNUEL
-
-        document.getElementById("cell7_4").innerHTML = (brut_annuel_01 + brut_annuel_02 + brut_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des bruts sur la saison
-        document.getElementById("cell8_4").innerHTML = (cotisations_annuelles_01 + cotisations_annuelles_02 + cotisations_annuelles_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des cotisations sur la saison
-        document.getElementById("cell9_4").innerHTML = (net_urssaf_annuel_01 + net_urssaf_annuel_02 + net_urssaf_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des nets sur la saison
-        document.getElementById("cell11_4").innerHTML = (frais_annuel_01 + frais_annuel_02 + frais_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais sur la saison
-        document.getElementById("cell12_4").innerHTML = (resultat_net_01 + resultat_net_02 + resultat_net_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des résultats sur la saison
-              
-
-    },
-
+    // Permet de générer le tableau 1 du status en micro entreprise
+    // Il est important de lancer dès le départ la création du tableau afin d'avoir les tableau et "id="" créés
+    // Avant même de faire des calculs ou des rafraichissement
 
     generateTableauImpotsMicroEntreprise: function () {
 
-        htmlTableau += `<table class="k" class="table table-sm">
+
+        const totalmatch = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
+        let sommeAnnuelleBrut = (brut_annuel_01 + brut_annuel_02 + brut_annuel_03);
+        let sommeAnnuelleCotisationSaison = (cotisations_annuelles_01 + cotisations_annuelles_02 + cotisations_annuelles_03);
+        let sommeAnnuelleNetSaison = (net_urssaf_annuel_01 + net_urssaf_annuel_02 + net_urssaf_annuel_03);
+        let sommeAnnuelleFraisSaison = (frais_annuel_01 + frais_annuel_02 + frais_annuel_03);
+        let sommeAnnuelleResultatSaison = (resultat_net_01 + resultat_net_02 + resultat_net_03);
+
+        htmlTableau += `<table class="impots" class="table table-sm">
         <thead>
           <tr>
             <th scope="col">Travailleur indépendant</th>
@@ -707,60 +664,60 @@ var display = {
         <tbody>
           <tr>
             <th scope="row">Saison régulière</th>
-            <td id="cell2_1"></td>
+            <td id="cell2_1">${nbre_matchs_01}</td>
             <td id="cell3_1"></td>
-            <td id="cell4_1"></td>
-            <td id="cell5_1"></td>
-            <td id="cell6_1"></td>
-            <td id="cell7_1"></td>
-            <td id="cell8_1"></td>
-            <td id="cell9_1"></td>
-            <td id="cell10_1"></td>
-            <td id="cell11_1"></td>
-            <td id="cell12_1"></td>
+            <td id="cell4_1">${pourcentage_urssaf}</td>
+            <td id="cell5_1">${cotisations_urssaf_par_match_01}</td>
+            <td id="cell6_1">${net_match_01}</td>
+            <td id="cell7_1">${brut_annuel_01}</td>
+            <td id="cell8_1">${cotisations_annuelles_01}</td>
+            <td id="cell9_1">${net_urssaf_annuel_01}</td>
+            <td id="cell10_1">${frais_par_match01}</td>
+            <td id="cell11_1">${frais_annuel_01}</td>
+            <td id="cell12_1">${resultat_net_01}</td>
           </tr>
           <tr>
             <th scope="row">Poule de relégation</th>
-            <td id="cell2_2"></td>
+            <td id="cell2_2">${nbre_matchs_02}</td>
             <td id="cell3_2"></td>
-            <td id="cell4_2"></td>
-            <td id="cell5_2"></td>
-            <td id="cell6_2"></td>
-            <td id="cell7_2"></td>
-            <td id="cell8_2"></td>
-            <td id="cell9_2"></td>
-            <td id="cell10_2"></td>
-            <td id="cell11_2"></td>
-            <td id="cell12_2"></td>
+            <td id="cell4_2">${pourcentage_urssaf}</td>
+            <td id="cell5_2">${cotisations_urssaf_par_match_02}</td>
+            <td id="cell6_2">${net_match_02}</td>
+            <td id="cell7_2">${brut_annuel_02}</td>
+            <td id="cell8_2">${cotisations_annuelles_02}</td>
+            <td id="cell9_2">${net_urssaf_annuel_02}</td>
+            <td id="cell10_2">${frais_par_match02}</td>
+            <td id="cell11_2">${frais_annuel_02}</td>
+            <td id="cell12_2">${resultat_net_02}</td>
           </tr>
           <tr>
             <th scope="row">Phase finale</th>
-            <td id="cell2_3"></td>
+            <td id="cell2_3">${nbre_matchs_03}</td>
             <td id="cell3_3"></td>
-            <td id="cell4_3"></td>
-            <td id="cell5_3"></td>
-            <td id="cell6_3"></td>
-            <td id="cell7_3"></td>
-            <td id="cell8_3"></td>
-            <td id="cell9_3"></td>
-            <td id="cell10_3"></td>
-            <td id="cell11_3"></td>
-            <td id="cell12_3"></td>
+            <td id="cell4_3">${pourcentage_urssaf}</td>
+            <td id="cell5_3">${cotisations_urssaf_par_match_03}</td>
+            <td id="cell6_3">${net_match_03}</td>
+            <td id="cell7_3">${brut_annuel_03}</td>
+            <td id="cell8_3">${cotisations_annuelles_03}</td>
+            <td id="cell9_3">${net_urssaf_annuel_03}</td>
+            <td id="cell10_3">${frais_par_match03}</td>
+            <td id="cell11_3">${frais_annuel_03}</td>
+            <td id="cell12_3">${resultat_net_03}</td>
           </tr>
           <tr>
         <tfoot>
           <th scope="row"><b>SOMMES ANNUELLES</b></th>
-          <td id="cell2_4"></td>
+          <td id="cell2_4">${totalmatch}</td>
           <td id="cell3_4">---</td>
           <td id="cell4_4">---</td>
           <td id="cell5_4">---</td>
           <td id="cell6_4">---</td>
-          <td id="cell7_4"></td>
-          <td id="cell8_4"></td>
-          <td id="cell9_4"></td>
+          <td id="cell7_4">${sommeAnnuelleBrut}</td>
+          <td id="cell8_4">${sommeAnnuelleCotisationSaison}</td>
+          <td id="cell9_4">${sommeAnnuelleNetSaison}</td>
           <td id="cell10_4">---</td>
-          <td id="cell11_4"></td>
-          <td id="cell12_4" class="gras-vert"></td>
+          <td id="cell11_4">${sommeAnnuelleFraisSaison}</td>
+          <td id="cell12_4" class="gras-vert">${sommeAnnuelleResultatSaison}</td>
         </tfoot>
         </tr>
         </tbody>
@@ -768,27 +725,24 @@ var display = {
       <br>
       <table>
         <tr>
-          <td colspan='1'><span class="text-primary">Après imposition : XXX</span></td>
+          <td colspan='1'><span class="text-primary">Après imposition : ${sommeAnnuelleResultatSaison}</span></td>
         </tr>
       <tr>
         <td colspan='8'><span class="text-primary">Taux par rapport au chiffre d'affaires : xx.xx %</span></td>
       </tr>
     </table>`;
 
-    return htmlTableau;
 
-
-        //document.getElementById("impotMicroEntretriseDiv").innerHTML = display.calculateTableauImpotsMicroEntreprise();
-    },
+    document.getElementById("impotMicroEntretriseDiv").innerHTML = htmlTableau;
     
+},
+
 
     // Mise à jour de l'ensemble des tableaux prévisionnels de la fédération
     updateTableauxFederation: function () {
 
-       display.calculateTableauImpotsMicroEntreprise();
-
-
-
+        // Generation du tableau en micro entreprise - tableau 1
+        display.generateTableauImpotsMicroEntreprise();
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Affichage des résultats dans le tableau 2 
@@ -1067,14 +1021,9 @@ var display = {
         var sasu_is_cell16_4 = (ResultatApresIS_temp - (ResultatApresIS_temp * CSG_CR) - resultatPrelevementSociaux);
         document.getElementById("sasu_is_cell16_4").innerHTML = sasu_is_cell16_4.toLocaleString('fr-FR') + " €";
 
-
-
         // Mise à jour des tableaux prévisionnels de la fédération des paramètres modifiés par les sliders
         var resultats = display.getCurrentResults();
         var prkVoiture = document.getElementById("menuPRK").value;
-
-
-
 
     },
 
