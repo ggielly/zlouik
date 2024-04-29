@@ -342,7 +342,20 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                 </div>
               </div>
             </div>
-            <!-- Fin du tableau impositon en micro entreprise ---------------------------------------------------------------------------------------------->
+            <!-- Fin du tableau impositon en micro entreprise -------------------------------------------------------------------------------------------->
+
+
+            <!-- Tableau de l'imposition Eurl régime impot sur le revenu - TNS ----------------------------------------------------------------------------->
+            <!-------------------------------------------------------------------------------------------------------------------------------->
+            <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+                <div class="card-body">
+                  <h5 class="card-title">Calcul des revenus : imposition en Eurl régime impot sur le revenu<span></span></h5>
+                  <div id="impotEurlIrDiv"></div>
+                </div>
+              </div>
+            </div>
+            <!-- Fin du tableau impositon Eurl régime impot sur le revenu -  TNS  --------------------------------------------------------------------------->
 
           </div> <!-- Fin du class ROW ------------------------------->
 
@@ -544,114 +557,6 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
       </div>
       </form>
     </section>
-
-    <hr>
-    <br>
-    <h1>2 - Calcul des revenus d'un arbitre en statut de travailleur non salarié - EURL régime impot sur le
-      revenu
-      (IR)
-    </h1>
-    <p>Ce code calcule le revenu net d'un TNS en prenant en compte les primes, les frais et les cotisations
-      URSSAF et les tranches d'impositions.</p>
-    <br>
-    Seuil TVA d'un travailleur indépendant : 36 800e<br>
-    <table class="Tableau01_AutoEntrepriseArray">
-      <thead>
-        <tr>
-          <th>Travailleur non salarié</th>
-          <th>Nbre matchs</th>
-          <th>Montant</th>
-          <th>% URSSAF</th>
-          <th>Cotisations / match</th>
-          <th>Net</th>
-          <th>Brut annuel</th>
-          <th>Cotisations annuelles</th>
-          <th>Net d'URSSAF annuel</th>
-          <th>Frais par match</th>
-          <th>Sommes annuelle des frais</th>
-          <th>Résultat intermédiaire</th>
-          <th>Frais annexes</th>
-          <th>Résultats nets</th>
-          <th>Régime IR</th>
-          <th>Montant revenus<br> imposables</th>
-
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Saison régulière</td>
-          <td id="tns_ir_cell2_1"></td>
-          <td id="tns_ir_cell3_1"></td>
-          <td id="tns_ir_cell4_1"></td>
-          <td id="tns_ir_cell5_1"></td>
-          <td id="tns_ir_cell6_1"></td>
-          <td id="tns_ir_cell7_1"></td>
-          <td id="tns_ir_cell8_1"></td>
-          <td id="tns_ir_cell9_1"></td>
-          <td id="tns_ir_cell10_1"></td>
-          <td id="tns_ir_cell11_1"></td>
-          <td id="tns_ir_cell12_1"></td>
-          <td id="tns_ir_cell13_1"></td>
-          <td id="tns_ir_cell14_1">---</td>
-          <td id="tns_ir_cell15_1"></td>
-        </tr>
-        <tr>
-          <td>Poule de relégation</td>
-          <td id="tns_ir_cell2_2"></td>
-          <td id="tns_ir_cell3_2"></td>
-          <td id="tns_ir_cell4_2"></td>
-          <td id="tns_ir_cell5_2"></td>
-          <td id="tns_ir_cell6_2"></td>
-          <td id="tns_ir_cell7_2"></td>
-          <td id="tns_ir_cell8_2"></td>
-          <td id="tns_ir_cell9_2"></td>
-          <td id="tns_ir_cell10_2"></td>
-          <td id="tns_ir_cell11_2"></td>
-          <td id="tns_ir_cell12_2"></td>
-          <td id="tns_ir_cell13_2"></td>
-          <td id="tns_ir_cell14_2">---</td>
-          <td id="tns_ir_cell15_2"></td>
-        </tr>
-        <tr>
-          <td>Phase finale</td>
-          <td id="tns_ir_cell2_3"></td>
-          <td id="tns_ir_cell3_3"></td>
-          <td id="tns_ir_cell4_3"></td>
-          <td id="tns_ir_cell5_3"></td>
-          <td id="tns_ir_cell6_3"></td>
-          <td id="tns_ir_cell7_3"></td>
-          <td id="tns_ir_cell8_3"></td>
-          <td id="tns_ir_cell9_3"></td>
-          <td id="tns_ir_cell10_3"></td>
-          <td id="tns_ir_cell11_3"></td>
-          <td id="tns_ir_cell12_3"></td>
-          <td id="tns_ir_cell13_3"></td>
-          <td id="tns_ir_cell14_3">---</td>
-          <td id="tns_ir_cell15_3"></td>
-        </tr>
-        <tr>
-      <tfoot>
-        <td>SOMMES ANNUELLES</td>
-        <td id="tns_ir_cell2_4"></td>
-        <td id="tns_ir_cell3_4">---</td>
-        <td id="tns_ir_cell4_4">---</td>
-        <td id="tns_ir_cell5_4">---</td>
-        <td id="tns_ir_cell6_4">---</td>
-        <td id="tns_ir_cell7_4"></td>
-        <td id="tns_ir_cell8_4"></td>
-        <td id="tns_ir_cell9_4"></td>
-        <td id="tns_ir_cell10_4">---</td>
-        <td id="tns_ir_cell11_4"></td>
-        <td id="tns_ir_cell12_4"></td>
-        <td id="tns_ir_cell13_4"></td>
-        <td id="tns_ir_cell14_4"></td>
-        <td id="tns_ir_cell15_4"></td>
-        <td id="tns_ir_cell16_4" class="gras-vert"></td>
-      </tfoot>
-      </tr>
-
-      </tbody>
-    </table>
     <br>
     <hr>
     <h1>3 - Calcul des revenus d'un arbitre en statut de travailleur non salarié - EURL régime impot sur les
@@ -761,21 +666,7 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
       </tr>
       </tbody>
     </table>
-    (*) : La flat tax (ou PFU) est composée d'un accompte de 12,8% d'impôt sur le revenu et de 17,2% de
-    prélèvements
-    sociaux. Les dividendes sont soumis à un prélèvement forfaitaire unique (PFU) de 30%.<br>
-    Les 12,8% d'impots sont possiblement dispensés si le revenu fiscal de référence n-2 est inférieur à 50
-    000e pour
-    une
-    personne seule et 75 000e pour un couple.<br>
-    Les 17,2% de prélèvements sociaux sont obligatoires.<br>
-    Le PFU est payable le 15 du mois suivant le versement des dividendes.<br>
-    L'année suivante, le montant des dividendes est à déclarer dans la <a
-      href="https://www.impots.gouv.fr/sites/default/files/formulaires/2042/2023/2042_4384.pdf">déclaration
-      de
-      revenus
-      2042 (IRPP)</a>.<br>
-    Il est possible d'opter pour le barême progressif de l'impôt sur le revenu.<br>
+    
     <hr>
     <h1>4 - Calcul des revenus d'un arbitre en statut de SASU en régime impot sur le revenu (IR)</h1>
     <p>Ce code calcule le revenu net SASU IR en prenant en compte les primes, les frais et les cotisations
