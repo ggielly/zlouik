@@ -1258,6 +1258,11 @@ var display = {
         document.getElementById("valeur_match_02").textContent = document.getElementById("nbre_matchs_02").value;
         document.getElementById("valeur_match_03").textContent = document.getElementById("nbre_matchs_03").value;
 
+        document.getElementById("valeurTauxMarginalImpot").textContent = document.getElementById("idTauxMarginalImpot").value;
+        document.getElementById("valeurNombrePartFiscale").textContent = document.getElementById("idNombrePartFiscale").value;
+        document.getElementById("valeurRevenuFiscalReference").textContent = document.getElementById("idRevenuFiscalReference").value;
+
+
 
     },
 

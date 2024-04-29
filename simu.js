@@ -263,6 +263,8 @@ var gereEvents = function () {
         "nbre_matchs_01",
         "nbre_matchs_02",
         "nbre_matchs_03",
+        "tauxMarginalImpot",
+        "nombrePartFiscale"
     ];
 
     elementsIds.forEach(function (id) {
@@ -319,6 +321,30 @@ var gereEvents = function () {
     document
         .getElementById("frais_par_match03")
         .addEventListener("change", updateCalculs);
+
+    document
+        .getElementById("idTauxMarginalImpot")
+        .addEventListener("change", updateCalculs);
+    document
+        .getElementById("idNombrePartFiscale")
+        .addEventListener("change", updateCalculs);
+
+    document
+        .getElementById("idTauxMarginalImpot")
+        .addEventListener("input", display.updateSliderValues);
+    document
+        .getElementById("idNombrePartFiscale")
+        .addEventListener("input", display.updateSliderValues);
+
+
+    document
+        .getElementById("idRevenuFiscalReference")
+        .addEventListener("change", updateCalculs);
+    document
+        .getElementById("idRevenuFiscalReference")
+        .addEventListener("input", display.updateSliderValues);
+
+
 
     document
         .getElementById("nbre_matchs_01")

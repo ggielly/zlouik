@@ -398,13 +398,23 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
 
 
               <div class="card-body pb-0">
+                <h5 class="card-title">Revenu fiscal de référence<span></span></h5>
+                <div class="slider-group">
+                  <label class="custom-range-label" for="revenuFiscalReference"></label>
+                  <input type="range" class="custom-range" id="idRevenuFiscalReference" name="revenuFiscalReference" min="0"
+                    max="200000" value="55000" step="100"
+                    oninput="updateOutput('revenuFiscalReference', 'valeurRevenuFiscalReference')">
+                  <output id="valeurRevenuFiscalReference" class="output">55000</output>
+                </div>
+
+              <div class="card-body pb-0">
                 <h5 class="card-title">Taux marginal d'imposition<span></span></h5>
                 <div class="slider-group">
                   <label class="custom-range-label" for="tauxMarginalImpot"></label>
                   <input type="range" class="custom-range" id="idTauxMarginalImpot" name="tauxMarginalImpot" min="0"
-                    max="60" value="4" step="0.1"
-                    oninput="updateOutput('tauxMarginalImpot', 'valeurtauxMarginalImpot')">
-                  <output id="valeurtauxMarginalImpot" class="output">4</output>
+                    max="90" value="4.3" step="0.1"
+                    oninput="updateOutput('tauxMarginalImpot', 'valeurTauxMarginalImpot')">
+                  <output id="valeurTauxMarginalImpot" class="output">4.3</output>
                 </div>
 
 
@@ -412,7 +422,7 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                 <h5 class="card-title">nombre de part fiscale<span></span></h5>
                 <div class="slider-group">
                   <label class="custom-range-label" for="nombrePartFiscale"></label>
-                  <input type="range" class="custom-range" id="idnombrePartFiscale" name="nombrePartFiscale" min="0"
+                  <input type="range" class="custom-range" id="idNombrePartFiscale" name="nombrePartFiscale" min="0"
                     max="8" value="3" step="1" oninput="updateOutput('nombrePartFiscale', 'valeurNombrePartFiscale')">
                   <output id="valeurNombrePartFiscale" class="output">3</output>
                 </div>
