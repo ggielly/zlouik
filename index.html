@@ -229,10 +229,11 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                     </div>
                   </div>
                 </div>
-              </div><!-- Fin de IMPOTS SASU IR ligne 3 badge 1 ----------------------------------->
+              </div>
+              <!-- Fin de IMPOTS SASU IR ligne 3 badge 1 ----------------------------------------------------------------------->
 
 
-              <!-- Carte bénéfice impot SASU IS ligne 3 badge 2---------------------------------------->
+              <!-- Carte bénéfice impot SASU IS ligne 3 badge 2------------------------------------------------------------------------>
               <div class="col-xxl-4 col-md-6">
                 <div class="card info-card customers-card">
                   <div class="card-body">
@@ -251,10 +252,12 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                     </div>
                   </div>
                 </div>
-              </div><!-- Fin de la carte impots SASU IS ligne 3 badge 2-------------------------------->
+              </div>
+              <!-- Fin de la carte impots SASU IS ligne 3 badge 2-------------------------------------------------------------->
 
 
-              <!-- GRAPHES BENEFICES SAISON REGULIERE-------------------------------------->
+              <!-- GRAPHES BENEFICES SAISON REGULIERE--------------------------------------------------------------------------------->
+              <!---------------------------------------------------------------------------------------------------------------------->
               <div class="col-12">
                 <div class="card">
                   <div class="card-body">
@@ -263,9 +266,10 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                   </div>
                 </div>
               </div>
-              <!-- FIN GRAPHE BENEFICES SAISON REGULIERE -------------------------------------------------------------------------->
+              <!-- FIN GRAPHE BENEFICES SAISON REGULIERE ----------------------------------------------------------------------------->
 
-              <!-- GRAPHES BENEFICES  POULE DE MAINTIEN   -------------------------------------->
+              <!-- GRAPHES BENEFICES  POULE DE MAINTIEN   ---------------------------------------------------------------------------->
+              <!---------------------------------------------------------------------------------------------------------------------->
               <div class="col-6">
                 <div class="card">
                   <div class="card-body">
@@ -276,7 +280,8 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
               </div>
 
 
-              <!-- GRAPHES BENEFICES PHASE FINALES -------------------------------------->
+              <!-- GRAPHES BENEFICES PHASE FINALES ----------------------------------------------------------------------------------->
+              <!---------------------------------------------------------------------------------------------------------------------->
               <div class="col-6">
                 <div class="card">
                   <div class="card-body">
@@ -289,7 +294,7 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
 
 
 
-              <!-- Tableau de la saison régulière ==================================================================================-->
+              <!-- Tableau de la saison régulière ------------------------------------------------------------------------------------>
               <!---------------------------------------------------------------------------------------------------------------------->
               <div class="col-12">
                 <div class="card recent-sales overflow-auto">
@@ -302,7 +307,8 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
               <!-- Fin de saison régulière ---------------------------------------------------------------------------------------------->
 
 
-              <!-- Tableeau de la poule de relégation  ------------------------------------------>
+
+              <!-- Tableeau de la poule de relégation  ---------------------------------------------------------------------------------->
               <div class="col-12">
                 <div class="card recent-sales overflow-auto">
                   <div class="card-body">
@@ -314,7 +320,7 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
               <!-- Fin de poule de relégation ---------------------------------------------------------------------------------------------->
 
 
-              <!-- Tableau de la phase finale ------------------------------------------>
+              <!-- Tableau de la phase finale ---------------------------------------------------------------------------------------------->
               <div class="col-12">
                 <div class="card recent-sales overflow-auto">
                   <div class="card-body">
@@ -324,9 +330,30 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                 </div>
               </div>
             </div>
-            <!-- Fin de phase finale ---------------------------------------------------------------------------------------------->
-          </div><!-- End Left side columns -->
+            <!-- Fin de phase finale ----------------------------------------------------------------------------------------------------------->
 
+
+
+
+            <!-- Tableau de l'imposition en micro entreprise---------------------------------------------------------------------------------->
+            <!-------------------------------------------------------------------------------------------------------------------------------->
+            <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+                <div class="card-body">
+                  <h5 class="card-title">Calcul des revenus : imposition en micro-entreprise<span>(*)</span></h5>
+                  <!-- <div id="impositionMicroEntrepriseContainer01"></div> -->
+                  <h5 class="card-title"><span>Calculs basés sur une prime de match (rémunération)</span></h5>
+
+                  <p>Ce code calcule le revenu net d'un travailleur indépendant en prenant en compte les primes, les
+                    frais
+                    et les cotisations URSSAF. Seuil TVA d'un travailleur indépendant : 39 100e</p>
+                <!--  <div id="impotMicroEntretriseDiv"></div>  -->
+                </div>
+              </div>
+            </div>
+            <!-- Fin du tableau impositon en micro entreprise ---------------------------------------------------------------------------------------------->
+
+          </div><!-- End Left side columns -->
 
 
           <!-- Right side columns -->
@@ -386,22 +413,22 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                   <div class="slider-group">
                     <label class="custom-range-label" for="nbre_matchs_01">Saison régulière</label>
                     <input type="range" class="custom-range" id="nbre_matchs_01" name="nbre_matchs_01" min="0" max="60"
-                      value="10" step="1" oninput="updateOutput('nbre_matchs_01', 'valeur_match_01')">
-                    <output id="valeur_match_01" class="output">10</output>
+                      value="20" step="1" oninput="updateOutput('nbre_matchs_01', 'valeur_match_01')">
+                    <output id="valeur_match_01" class="output">20</output>
                   </div>
 
                   <div class="slider-group">
                     <label class="custom-range-label" for="nbre_matchs_02">Poule de relégation</label>
                     <input type="range" class="custom-range" id="nbre_matchs_02" name="nbre_matchs_02" min="0" max="60"
-                      value="10" step="1" oninput="updateOutput('nbre_matchs_02', 'valeur_match_02')">
-                    <output id="valeur_match_02" class="output">10</output>
+                      value="24" step="1" oninput="updateOutput('nbre_matchs_02', 'valeur_match_02')">
+                    <output id="valeur_match_02" class="output">24</output>
                   </div>
 
                   <div class="slider-group">
                     <label class="custom-range-label" for="nbre_matchs_03">Phase finale</label>
                     <input type="range" class="custom-range" id="nbre_matchs_03" name="nbre_matchs_03" min="0" max="60"
-                      value="3" step="1" oninput="updateOutput('nbre_matchs_03', 'valeur_match_03')">
-                    <output id="valeur_match_03" class="output">3</output>
+                      value="7" step="1" oninput="updateOutput('nbre_matchs_03', 'valeur_match_03')">
+                    <output id="valeur_match_03" class="output">7</output>
 
                   </div>
                   <div class="slider-group">
@@ -465,8 +492,8 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                   <div class="slider-group">
                     <label for="prime_montant_01">Saison régulière</label>
                     <input type="range" class="custom-range" id="prime_montant_01" name="prime_montant_01" min="100"
-                      max="2000" value="500" step="10" oninput="updateOutput('prime_montant_01', 'valeur_prime_01')">
-                    <output id="valeur_prime_01">500</output>€
+                      max="2000" value="550" step="10" oninput="updateOutput('prime_montant_01', 'valeur_prime_01')">
+                    <output id="valeur_prime_01">550</output>€
                   </div>
 
                   <div class="slider-group">
@@ -517,110 +544,14 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
         </form>
       </section>
 
-
-
-
-      <br>
-      <div id="tableauComparatifDiv"></div>
-      <br>
-      <br>
-      <br><br>
       <hr>
-      <h1>Calculs basés sur une prime de match (rémunération)</h1>
-      <h1>1 - Calcul des revenus d'un arbitre en statut de travailleur indépendant (auto entreprise)</h1>
-      <p>Ce code calcule le revenu net d'un travailleur indépendant en prenant en compte les primes, les frais
-        et les
-        cotisations URSSAF.</p>
       <br>
-      Seuil TVA d'un travailleur indépendant : 39 100e<br>
-      <table class="Tableau01_AutoEntrepriseArray">
-        <thead>
-          <tr>
-            <th>Travailleur indépendant</th>
-            <th>Nbre matchs</th>
-            <th>Montant</th>
-            <th>% URSSAF</th>
-            <th>Cotisations / match</th>
-            <th>Net</th>
-            <th>Brut annuel</th>
-            <th>Cotisations annuelles</th>
-            <th>Net d'URSSAF annuel</th>
-            <th>Frais par match</th>
-            <th>Somme annuelle des frais</th>
-            <th>RÉSULTAT NET</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Saison régulière</td>
-            <td id="cell2_1"></td>
-            <td id="cell3_1"></td>
-            <td id="cell4_1"></td>
-            <td id="cell5_1"></td>
-            <td id="cell6_1"></td>
-            <td id="cell7_1"></td>
-            <td id="cell8_1"></td>
-            <td id="cell9_1"></td>
-            <td id="cell10_1"></td>
-            <td id="cell11_1"></td>
-            <td id="cell12_1"></td>
-          </tr>
-          <tr>
-            <td>Poule de relégation</td>
-            <td id="cell2_2"></td>
-            <td id="cell3_2"></td>
-            <td id="cell4_2"></td>
-            <td id="cell5_2"></td>
-            <td id="cell6_2"></td>
-            <td id="cell7_2"></td>
-            <td id="cell8_2"></td>
-            <td id="cell9_2"></td>
-            <td id="cell10_2"></td>
-            <td id="cell11_2"></td>
-            <td id="cell12_2"></td>
-          </tr>
-          <tr>
-            <td>Phase finale</td>
-            <td id="cell2_3"></td>
-            <td id="cell3_3"></td>
-            <td id="cell4_3"></td>
-            <td id="cell5_3"></td>
-            <td id="cell6_3"></td>
-            <td id="cell7_3"></td>
-            <td id="cell8_3"></td>
-            <td id="cell9_3"></td>
-            <td id="cell10_3"></td>
-            <td id="cell11_3"></td>
-            <td id="cell12_3"></td>
-          </tr>
-          <tr>
-        <tfoot>
-          <td><b>SOMMES ANNUELLES</b></td>
-          <td id="cell2_4"></td>
-          <td id="cell3_4">---</td>
-          <td id="cell4_4">---</td>
-          <td id="cell5_4">---</td>
-          <td id="cell6_4">---</td>
-          <td id="cell7_4"></td>
-          <td id="cell8_4"></td>
-          <td id="cell9_4"></td>
-          <td id="cell10_4">---</td>
-          <td id="cell11_4"></td>
-          <td id="cell12_4" class="gras-vert"></td>
-        </tfoot>
-        </tr>
-        </tbody>
-      </table>
-      <br>
-      <hr>
       <h1>2 - Calcul des revenus d'un arbitre en statut de travailleur non salarié - EURL régime impot sur le
         revenu
         (IR)
       </h1>
       <p>Ce code calcule le revenu net d'un TNS en prenant en compte les primes, les frais et les cotisations
-        URSSAF
-        et
-        les tranches d'impositions.</p>
+        URSSAF et les tranches d'impositions.</p>
       <br>
       Seuil TVA d'un travailleur indépendant : 36 800e<br>
       <table class="Tableau01_AutoEntrepriseArray">
@@ -1100,7 +1031,7 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
         document.addEventListener('DOMContentLoaded', function () {
           init();
         });
-        w3.includeHTML();
+
 
       </script>
 

@@ -268,6 +268,7 @@ var initialize = function () {
 
 
 var init = function () {
+    w3.includeHTML();
     initialize();
     gereEvents();
 

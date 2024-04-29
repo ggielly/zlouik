@@ -437,7 +437,8 @@ var display = {
         <thead>
             <tr>
                 <th scope="col">Domicile / Départ</th>
-                <th scope="col">Destination</th><th scope="col">Distance<br>aller/retour</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Distance<br>aller/retour</th>
                 <th scope="col">Péages</th>
                 <th scope="col">Temps de trajet A/R</th>
                 <th scope="col">Grand déplacement</th>
@@ -448,7 +449,8 @@ var display = {
                 <th scope="col">Indemnité de préparation <br> et d'équipement</th>
                 <th scope="col">Note de frais historique <br>Chiffre d'affaire</th>
                 <th scope="col">Note de frais historique<br>bénéfices rééls</th>
-                <th scope="col">Prime<br>(chiffre d'affaire)</th><th scope="col">Frais</th>
+                <th scope="col">Prime<br>(chiffre d'affaire)</th>
+                <th scope="col">Frais</th>
                 <th scope="col">PRIMES<br>bénéfices rééls<br>(prime - frais - PRK)</th>
             </tr>
         </thead>
@@ -626,13 +628,8 @@ var display = {
         }
     },
 
-
-    // Mise à jour de l'ensemble des tableaux prévisionnels de la fédération
-    updateTableauxFederation: function () {
-
-
-
-
+    calculateTableauImpotsMicroEntreprise: function () {
+        
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Affichage des résultats dans le tableau 1 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -683,6 +680,112 @@ var display = {
         document.getElementById("cell9_4").innerHTML = (net_urssaf_annuel_01 + net_urssaf_annuel_02 + net_urssaf_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des nets sur la saison
         document.getElementById("cell11_4").innerHTML = (frais_annuel_01 + frais_annuel_02 + frais_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais sur la saison
         document.getElementById("cell12_4").innerHTML = (resultat_net_01 + resultat_net_02 + resultat_net_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des résultats sur la saison
+              
+
+    },
+
+
+    generateTableauImpotsMicroEntreprise: function () {
+
+        htmlTableau += `<table class="k" class="table table-sm">
+        <thead>
+          <tr>
+            <th scope="col">Travailleur indépendant</th>
+            <th scope="col">Nbre matchs</th>
+            <th scope="col">Montant</th>
+            <th scope="col">% URSSAF</th>
+            <th scope="col">Cotisations / match</th>
+            <th scope="col">Net</th>
+            <th scope="col">Brut annuel</th>
+            <th scope="col">Cotisations annuelles</th>
+            <th scope="col">Net d'URSSAF annuel</th>
+            <th scope="col">Frais par match</th>
+            <th scope="col">Somme annuelle des frais</th>
+            <th scope="col">RÉSULTAT NET</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Saison régulière</th>
+            <td id="cell2_1"></td>
+            <td id="cell3_1"></td>
+            <td id="cell4_1"></td>
+            <td id="cell5_1"></td>
+            <td id="cell6_1"></td>
+            <td id="cell7_1"></td>
+            <td id="cell8_1"></td>
+            <td id="cell9_1"></td>
+            <td id="cell10_1"></td>
+            <td id="cell11_1"></td>
+            <td id="cell12_1"></td>
+          </tr>
+          <tr>
+            <th scope="row">Poule de relégation</th>
+            <td id="cell2_2"></td>
+            <td id="cell3_2"></td>
+            <td id="cell4_2"></td>
+            <td id="cell5_2"></td>
+            <td id="cell6_2"></td>
+            <td id="cell7_2"></td>
+            <td id="cell8_2"></td>
+            <td id="cell9_2"></td>
+            <td id="cell10_2"></td>
+            <td id="cell11_2"></td>
+            <td id="cell12_2"></td>
+          </tr>
+          <tr>
+            <th scope="row">Phase finale</th>
+            <td id="cell2_3"></td>
+            <td id="cell3_3"></td>
+            <td id="cell4_3"></td>
+            <td id="cell5_3"></td>
+            <td id="cell6_3"></td>
+            <td id="cell7_3"></td>
+            <td id="cell8_3"></td>
+            <td id="cell9_3"></td>
+            <td id="cell10_3"></td>
+            <td id="cell11_3"></td>
+            <td id="cell12_3"></td>
+          </tr>
+          <tr>
+        <tfoot>
+          <th scope="row"><b>SOMMES ANNUELLES</b></th>
+          <td id="cell2_4"></td>
+          <td id="cell3_4">---</td>
+          <td id="cell4_4">---</td>
+          <td id="cell5_4">---</td>
+          <td id="cell6_4">---</td>
+          <td id="cell7_4"></td>
+          <td id="cell8_4"></td>
+          <td id="cell9_4"></td>
+          <td id="cell10_4">---</td>
+          <td id="cell11_4"></td>
+          <td id="cell12_4" class="gras-vert"></td>
+        </tfoot>
+        </tr>
+        </tbody>
+      </table>
+      <br>
+      <table>
+        <tr>
+          <td colspan='1'><span class="text-primary">Après imposition : XXX</span></td>
+        </tr>
+      <tr>
+        <td colspan='8'><span class="text-primary">Taux par rapport au chiffre d'affaires : xx.xx %</span></td>
+      </tr>
+    </table>`;
+
+    return htmlTableau;
+
+
+        //document.getElementById("impotMicroEntretriseDiv").innerHTML = display.calculateTableauImpotsMicroEntreprise();
+    },
+    
+
+    // Mise à jour de l'ensemble des tableaux prévisionnels de la fédération
+    updateTableauxFederation: function () {
+
+       display.calculateTableauImpotsMicroEntreprise();
 
 
 

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Excel Data Display</title>
+<script>
+// Data from 'Feuil1'
+const feuil1Data = [
+  [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "Impôts SASU IS", "Impôts SASU IR", "Impôts EURL IS", "Impôts EURL IR", "Impôts sans hockey", null],
+  ["Auto entreprise", "Nombre matchs annuel", null, null, null, null, null, "Annuel", null, null, null, "Par match", null, null, null, null, null, null, null, "Total charges annuelles frais", null, "Résultat net", null, null, null, null, null, null, null, null, "Après imposition", null, "Taux par rapport au chiffre d'affaires", null, null, "Tranche impôts", null, null, null, null, null, null, null, null, null],
+  // Add more rows as needed
+];
+
+// Data from 'Perso'
+const persoData = [
+  [null, null, "km", "indemnité", "Repas", "Hotel", "Grand déplacement", "Péage", "Total", null, "Nouveau", "URSSAF", null, "Frais train", "Frais repas", "Frasi hôtel", "Péage", "Essence", "Total", null, "Ancien", "Nouveau", "Delta"],
+  ["Amiens", 164, "=B2*2*0.427", 145, "=IF(B2>500,40.4,20.2)", "=IF(B2>250,80.5,0)", "=IF(B2>250,80,0)", 35.2, "=SUM(C2:H2)", null, "=IF(B2>400,550+150,550)", "=K2*0.75", null, null, 30, null, 24.2, 50, "=SUM(N2:R2)", null, "=I2-S2", "=L2-S2", "=V2-U2"],
+  // Add more rows as needed
+];
+
+function displayData(sheetData, elementId) {
+  let table = "<table border='1'>";
+  sheetData.forEach(row => {
+    table += "<tr>";
+    row.forEach(cell => {
+      table += `<td>${cell !== null ? cell : ""}</td>`;
+    });
+    table += "</tr>";
+  });
+  table += "</table>";
+  document.getElementById(elementId).innerHTML = table;
+}
+</script>
+</head>
+<body>
+<h2>Feuil1 Data</h2>
+<div id="feuil1Table"></div>
+<h2>Perso Data</h2>
+<div id="persoTable"></div>
+
+<script>
+// Display data in HTML tables
+window.onload = function() {
+  displayData(feuil1Data, "feuil1Table");
+  displayData(persoData, "persoTable");
+};
+</script>
+</body>
+</html>
