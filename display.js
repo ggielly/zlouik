@@ -628,7 +628,7 @@ var display = {
         }
     },
 
-    
+
 
     // Permet de générer le tableau 1 du status en micro entreprise
     // Il est important de lancer dès le départ la création du tableau afin d'avoir les tableau et "id="" créés
@@ -636,7 +636,7 @@ var display = {
 
     generateTableauImpotsMicroEntreprise: function () {
 
-        
+
         const totalmatch = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
         let sommeAnnuelleBrut = parseFloat(brut_annuel_01) + parseFloat(brut_annuel_02) + parseFloat(brut_annuel_03);
         let sommeAnnuelleCotisationSaison = display.formateEuroBadge(parseFloat(cotisations_annuelles_01) + parseFloat(cotisations_annuelles_02) + parseFloat(cotisations_annuelles_03));
@@ -646,7 +646,7 @@ var display = {
 
         let tauximposition = (sommeAnnuelleResultatSaison / sommeAnnuelleBrut) * 100;
 
-        htmlTableau += `<table class="impots" class="table table-sm">
+        htmlTableau += `<table class="table table-sm">
         <thead>
           <tr>
             <th scope="col">Travailleur indépendant</th>
@@ -732,10 +732,10 @@ var display = {
       <tr>
         <td colspan='8'><span class="text-primary">Taux par rapport au chiffre d'affaires : ${tauximposition.toFixed(2)}%</span></td>
       </tr>
-    </table>`;
+      </table>`;
 
-    document.getElementById("impotMicroEntretriseDiv").innerHTML = htmlTableau;
-},
+        document.getElementById("impotMicroEntretriseDiv").innerHTML = htmlTableau;
+    },
 
 
     // Mise à jour de l'ensemble des tableaux prévisionnels de la fédération
@@ -1098,10 +1098,6 @@ var display = {
         cotisations_urssaf_par_match_01 = prime_montant_01 * (pourcentage_urssaf / 100);
         cotisations_urssaf_par_match_02 = prime_montant_02 * (pourcentage_urssaf / 100);
         cotisations_urssaf_par_match_03 = prime_montant_03 * (pourcentage_urssaf / 100);
-
-
-
-
 
     },
 
