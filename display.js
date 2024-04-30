@@ -433,7 +433,7 @@ var display = {
 
 
         htmlTableau = `<h5 class="card-title">${nbMatchs} matchs.<span></span></h5>
-        <table id="${idtableau}" class="table table-sm">
+        <table id="${idtableau}" class="table table-sm table-striped table-dark"">
         <thead>
             <tr>
                 <th scope="col">Domicile / Départ</th>
@@ -631,7 +631,7 @@ var display = {
 
     createTableauImpotsEurlIr: function () {
 
-        htmlTableau += `<table class="table table-sm">
+        htmlTableau += `<table id="impotEurlIr" class="table table-sm table-striped table-dark">
         <thead>
           <tr>
             <th scope="col">Travailleur non salarié</th>
@@ -648,8 +648,8 @@ var display = {
             <th scope="col">Résultat intermédiaire</th>
             <th scope="col">Frais annexes</th>
             <th scope="col">Résultats nets</th>
-            <th scope="col">Régime IR</th>
-            <th scope="col">Montant revenus<br> imposables</th>
+            <th scope="col"></th>
+            <th scope="col">Après imposition</th>   
           </tr>
         </thead>
         <tbody>
@@ -669,7 +669,7 @@ var display = {
           <td id="tns_ir_cell12_1">${resultat_intermediaire_01}</td>
           <td id="tns_ir_cell13_1">${frais_banque}</td>
           <td id="tns_ir_cell14_1">---</td>
-          <td id="tns_ir_cell15_1">${CotisationsSociales}</td>
+          <td id="tns_ir_cell15_1"></td>
         </tr>
         <tr>
           <th scope="row">Poule de relégation</th>
@@ -686,7 +686,8 @@ var display = {
           <td id="tns_ir_cell12_2">${resultat_intermediaire_02}</td>
           <td id="tns_ir_cell13_2">${frais_comptable}</td>
           <td id="tns_ir_cell14_2">---</td>
-          <td id="tns_ir_cell15_2">${Salaires}</td>
+          <td id="tns_ir_cell15_2"></td>
+          <td id="tns_ir_cell16_2">ici</td>
         </tr>
         <tr>
         <th scope="row">Phase finale</th>
@@ -703,7 +704,7 @@ var display = {
           <td id="tns_ir_cell12_3">${resultat_intermediaire_03}</td>
           <td id="tns_ir_cell13_3">${frais_urssaf}</td>
           <td id="tns_ir_cell14_3">---</td>
-          <td id="tns_ir_cell15_3">${impotsSurLeRevenu}</td>
+          <td id="tns_ir_cell15_3"></td>
         </tr>
         <tr>
       <tfoot>
@@ -721,7 +722,7 @@ var display = {
         <td id="tns_ir_cell12_4">${(resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03)}</td>
         <td id="tns_ir_cell13_4">${(frais_banque + frais_comptable + frais_urssaf)}</td>
         <td id="tns_ir_cell14_4">${(resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf)}</td>
-        <td id="tns_ir_cell15_4">${(AC16 - impotsSurLeRevenu)}</td>
+        <td id="tns_ir_cell15_4"></td>
         <td id="tns_ir_cell16_4">${AC16}</td>
       </tfoot>
       </tr>
@@ -732,6 +733,61 @@ var display = {
 
     },
 
+
+    createTableauImpositionGenerale: function () {
+
+
+        htmlTableau += `<table id="impotGenerale" class="table table-sm table-striped table-dark">
+
+        <thead>
+        <tr>
+          <th scope="col">-</th>
+          <th scope="col">Impots SASU IS</th>
+          <th scope="col">Impots SASU IR</th>
+          <th scope="col">Impots EURL IS</th>
+          <th scope="col">Impotss EURL IR</th>
+          <th scope="col">Impots sans être au service du hockey</th>
+          
+
+    </tr>
+    </thead>
+    <tr>
+        <td id="r2c1">R2C1</td>
+        <td id="r2c2">R2C2</td>
+        <td id="r2c3">R2C3</td>
+        <td id="r2c4">R2C4</td>
+        <td id="r2c5">R2C5</td>
+        <td id="r2c6">R2C6</td>
+    </tr>
+    <tr>
+        <td id="r3c1">R3C1</td>
+        <td id="r3c2">R3C2</td>
+        <td id="r3c3">R3C3</td>
+        <td id="r3c4">R3C4</td>
+        <td id="r3c5">R3C5</td>
+        <td id="r3c6">R3C6</td>
+    </tr>
+    <tr>
+        <td id="r4c1">R4C1</td>
+        <td id="r4c2">R4C2</td>
+        <td id="r4c3">R4C3</td>
+        <td id="r4c4">R4C4</td>
+        <td id="r4c5">R4C5</td>
+        <td id="r4c6">R4C6</td>
+    </tr>
+    <tr>
+        <td id="r5c1">Impots à payer</td>
+        <td id="r5c2">R5C2</td>
+        <td id="r5c3">R5C3</td>
+        <td id="r5c4">R5C4</td>
+        <td id="r5c5">R5C5</td>
+        <td id="r5c6">R5C6</td>
+    </tr>
+    </table>`;
+
+
+        document.getElementById("divImpotTableauImpositionGenerale").innerHTML = htmlTableau;
+    },
 
 
     // Permet de générer le tableau 1 du status en micro entreprise
@@ -894,6 +950,12 @@ var display = {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Affichage des résultats dans le tableau 2 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Colonne  13 : frais annexes
+        //          14 : résultats nets
+        //          15 : vide
+        //          16 : après imposition
+        //          17 : taux par rapport au chiffre d'affaire (à créer)
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         document.getElementById("tns_ir_cell2_1").innerHTML = nbre_matchs_01; // Nombre de matchs (match 1)
         document.getElementById("tns_ir_cell4_1").innerHTML = urssaf_zero + " %"; // % URSSAF
         document.getElementById("tns_ir_cell5_1").innerHTML = urssaf_zero + "€"; // Cotisations URSSAF par match (match 1)
@@ -907,8 +969,8 @@ var display = {
 
         document.getElementById("tns_ir_cell13_1").innerHTML = frais_banque + " €"; // Frais annexes
 
-        // colone 15 ligne 1 - cotisations sociales
-        document.getElementById("tns_ir_cell15_1").innerHTML = CotisationsSociales.toLocaleString('fr-FR') + " €"; // Cotisations sociales
+
+        //document.getElementById("tns_ir_cell15_1").innerHTML = CotisationsSociales.toLocaleString('fr-FR') + " €"; // Cotisations sociales
 
         document.getElementById("tns_ir_cell2_2").innerHTML = nbre_matchs_02; // Nombre de matchs (match 2)
         document.getElementById("tns_ir_cell4_2").innerHTML = urssaf_zero + " %"; // % URSSAF
@@ -921,7 +983,7 @@ var display = {
         document.getElementById("tns_ir_cell11_2").innerHTML = frais_annuel_02.toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais
         document.getElementById("tns_ir_cell12_2").innerHTML = resultat_intermediaire_02.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
         document.getElementById("tns_ir_cell13_2").innerHTML = frais_comptable.toLocaleString('fr-FR') + " €"; // Frais annexes
-        document.getElementById("tns_ir_cell15_2").innerHTML = Salaires.toLocaleString('fr-FR') + " €"; // Salaires
+        //document.getElementById("tns_ir_cell15_2").innerHTML = Salaires.toLocaleString('fr-FR') + " €"; // Salaires
         document.getElementById("tns_ir_cell2_3").innerHTML = nbre_matchs_03; // Nombre de matchs (match 3)
         document.getElementById("tns_ir_cell4_3").innerHTML = urssaf_zero + " %"; // % URSSAF
         document.getElementById("tns_ir_cell5_3").innerHTML = urssaf_zero + "€"; // Cotisations URSSAF par match (match 3)
@@ -932,24 +994,38 @@ var display = {
         document.getElementById("tns_ir_cell10_3").innerHTML = frais_par_match03.toLocaleString('fr-FR') + " €"; // Frais par match
         document.getElementById("tns_ir_cell11_3").innerHTML = frais_annuel_03.toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais
         document.getElementById("tns_ir_cell12_3").innerHTML = resultat_intermediaire_03.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
-        document.getElementById("tns_ir_cell13_3").innerHTML = frais_urssaf.toLocaleString('fr-FR') + " €"; // Frais URSSAF
+
+        document.getElementById("tns_ir_cell13_3").innerHTML = urssaf + " €"; // Cotisation URSSAF
         // IR colone 15 ligne 3
-        document.getElementById("tns_ir_cell15_3").innerHTML = (impotsSurLeRevenu.toFixed(2)).toLocaleString('fr-FR') + " €"; // impots sur le revenu
+        //document.getElementById("tns_ir_cell15_3").innerHTML = (impotsSurLeRevenu.toFixed(2)).toLocaleString('fr-FR') + " €"; // impots sur le revenu
         // Ligne 4 => Sommes annuelles
         document.getElementById("tns_ir_cell2_4").innerHTML = totalmatch.toLocaleString('fr-FR'); // Nombre de matchs ANNUEL
         document.getElementById("tns_ir_cell7_4").innerHTML = (nbre_matchs_01 * prime_montant_01 + nbre_matchs_02 * prime_montant_02 + nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des bruts sur la saison
         document.getElementById("tns_ir_cell8_4").innerHTML = (urssaf_zero * nbre_matchs_01 + urssaf_zero * nbre_matchs_02 + urssaf_zero * nbre_matchs_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des cotisations URSSAF
         document.getElementById("tns_ir_cell9_4").innerHTML = (urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 + urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 + urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des nets d'URSSAF
         document.getElementById("tns_ir_cell11_4").innerHTML = (frais_annuel_01 + frais_annuel_02 + frais_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais sur la saison
-        document.getElementById("tns_ir_cell12_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des résultats sur la saison
-        document.getElementById("tns_ir_cell13_4").innerHTML = (frais_banque + frais_comptable + frais_urssaf).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais annexes sur la saison
-        document.getElementById("tns_ir_cell14_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf).toLocaleString('fr-FR') + " €"; // Résultat net
-        document.getElementById("tns_ir_cell15_4").innerHTML = (AC16 - impotsSurLeRevenu).toLocaleString('fr-FR') + " €"; // impots sur le revenu
-        document.getElementById("tns_ir_cell16_4").innerHTML = AC16.toLocaleString('fr-FR'); // impots sur le revenu
+
+        document.getElementById("tns_ir_cell12_4").innerHTML = resultats_eurl_intermediaire.toLocaleString('fr-FR') + " €"; // 
+        document.getElementById("tns_ir_cell13_4").innerHTML = total_frais_annexe_eurl.toLocaleString('fr-FR') + " €"; // Sommes frais annexes
+
+
+        document.getElementById("tns_ir_cell14_4").innerHTML = resultats_net_eurl + " €"; // Résultat net 
+        //document.getElementById("tns_ir_cell15_4").innerHTML = (AC16 - impotsSurLeRevenu).toLocaleString('fr-FR') + " €"; // vide
+
+        // Appel de la fonction 
+        valeurImpotEurlIr = calculerImpotsEurlIr(resultats_net_eurl);
+        document.getElementById("tns_ir_cell16_2").innerHTML = valeurImpotEurlIr.toLocaleString('fr-FR'); // Après imposition
+        document.getElementById("tns_ir_cell16_4").innerHTML = AC16.toLocaleString('fr-FR'); // Après imposition
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Affichage des résultats dans le tableau 3 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Colonne  13 : frais annexes
+        //          14 : résultats nets
+        //          15 : résultat net d'impots
+        //          16 : après imposition
+        //          17 : taux par rapport au chiffre d'affaire (à créer)
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         document.getElementById("tns_is_cell2_1").innerHTML = nbre_matchs_01; // Nombre de matchs (match 1)
         document.getElementById("tns_is_cell4_1").innerHTML = urssaf_zero + " %"; // % URSSAF
@@ -994,7 +1070,7 @@ var display = {
         document.getElementById("tns_is_cell11_3").innerHTML = (frais_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais
 
         document.getElementById("tns_is_cell12_3").innerHTML = resultat_intermediaire_03.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
-        document.getElementById("tns_is_cell13_3").innerHTML = frais_urssaf.toLocaleString('fr-FR') + " €"; // Frais annexes
+        document.getElementById("tns_is_cell13_3").innerHTML = urssaf.toLocaleString('fr-FR') + " €"; // Frais annexes
 
 
         // Ligne 4 => Sommes annuelles
@@ -1003,9 +1079,9 @@ var display = {
         document.getElementById("tns_is_cell8_4").innerHTML = (urssaf_zero * nbre_matchs_01 + urssaf_zero * nbre_matchs_02 + urssaf_zero * nbre_matchs_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des cotisations URSSAF
         document.getElementById("tns_is_cell9_4").innerHTML = (urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 + urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 + urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des nets d'URSSAF
         document.getElementById("tns_is_cell11_4").innerHTML = (frais_annuel_01 + frais_annuel_02 + frais_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais sur la saison
-        document.getElementById("tns_is_cell12_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des résultats sur la saison
-        document.getElementById("tns_is_cell13_4").innerHTML = (frais_banque + frais_comptable + frais_urssaf).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais annexes sur la saison
-        document.getElementById("tns_is_cell14_4").innerHTML = resultat_net_is_TNS.toLocaleString('fr-FR') + " €"; // Résultat net
+        document.getElementById("tns_is_cell12_4").innerHTML = resultats_eurl_intermediaire.toLocaleString('fr-FR') + " €"; // Sommes annuelle des résultats sur la saison
+        document.getElementById("tns_is_cell13_4").innerHTML = total_frais_annexe_eurl.toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais annexes sur la saison
+        document.getElementById("tns_is_cell14_4").innerHTML = resultats_net_eurl + " €"; // Résultat net
 
 
         // Résultat net - AC22

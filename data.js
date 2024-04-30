@@ -9,6 +9,15 @@ var ResultatApresIS_temp = 0 ;
 var resultatPrelevementSociaux = 0 ;
 var data = 0;
 
+var frais_urssaf = 1500;
+var urssaf = 0;
+var revenuFiscalReference = 1;
+var nombrePartFiscale = 1;
+var resultats_eurl_intermediaire = 0;
+var resultats_net_eurl = 0;
+var total_frais_annexe_eurl = 0;
+
+
 var sasu_is_cell16_4 = 0 ;
 var sasu_ir_cell16_4 = 0 ;
 
@@ -31,10 +40,10 @@ var frais_banque = 240;
 
 var globalMatchData = []; // Pour le graphique
 
+var urssaf = 0;
 var indemniteChoisie = 0; // DEBUG
 var totalIndemniteChoisie = 0; // DEBUG
 var frais_comptable = 400;
-var frais_urssaf = 1500;
 var repas = 15;
 var hotel = 80;
 var baremeKm = 0.415;

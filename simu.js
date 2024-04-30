@@ -45,6 +45,7 @@ var updateCalculs = function () {
     resultat_net_02 = net_urssaf_annuel_02 - frais_annuel_02;
     resultat_net_03 = net_urssaf_annuel_03 - frais_annuel_03;
 
+
     // Colonne 12 -> Resultat intermediaire
     resultat_intermediaire_01 =
         prime_montant_01 * nbre_matchs_01 - frais_annuel_01;
@@ -52,6 +53,16 @@ var updateCalculs = function () {
         prime_montant_02 * nbre_matchs_02 - frais_annuel_02;
     resultat_intermediaire_03 =
         prime_montant_03 * nbre_matchs_03 - frais_annuel_03;
+
+    resultats_eurl_intermediaire = resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03;
+
+    total_frais_annexe_eurl = (frais_banque + frais_comptable + (resultats_eurl_intermediaire * 0.45));
+
+    resultats_net_eurl = resultats_eurl_intermediaire - total_frais_annexe_eurl;
+
+    console.log(resultats_net_eurl);
+
+    urssaf = resultats_eurl_intermediaire * 0.45;
 
     Salaires =
         resultat_intermediaire_01 +
@@ -98,6 +109,9 @@ var updateCalculs = function () {
 
     montantFinal = calculerMontant_impotdividende(AC24, seuils, pourcentages);
 
+
+
+
     CotisationsSociales = (
         ((tauxcotisation_eurl / 1.35) *
             (resultat_intermediaire_01 +
@@ -108,7 +122,84 @@ var updateCalculs = function () {
                 frais_urssaf)) /
         100
     ).toFixed(2); // Cotisations sociales
+
+
 };
+
+
+/**
+ * Calcule l'impôt progressif basé sur le revenu combiné et le revenu fiscal de référence,
+ * ajusté selon le nombre de parts fiscales. La fonction calcule le montant imposable
+ * en ajoutant le résultat net d'une EURL (Entreprise Unipersonnelle à Responsabilité Limitée)
+ * et le revenu fiscal de référence, puis en divisant par le nombre de parts fiscales pour déterminer le revenu par part.
+ * Elle applique ensuite un taux d'imposition progressif basé sur des tranches de revenus prédéfinies.
+ *
+ * @param {string | number} resultats_net_eurl - Le résultat net (revenu) de l'EURL, pouvant être une chaîne de caractères ou un nombre.
+ *
+ * La fonction récupère les éléments suivants dans le DOM :
+ * - revenuFiscal : Le revenu fiscal de référence récupéré depuis un élément input avec l'ID 'idRevenuFiscalReference'.
+ * - partsFiscales : Le nombre de parts fiscales récupéré depuis un élément input avec l'ID 'idNombrePartFiscale'.
+ *
+ * L'impôt est calculé selon les tranches suivantes (selon le code fiscal actuel) :
+ * - De 0       à   11 294 €    : 0%
+ * - De 11 295  à   28 797 €    : 11%
+ * - De 28 798  à   82 341 €    : 30%
+ * - De 82 342  à   177 106 €   : 41%
+ * - Au-delà de     177 107 €   : 45%
+ *
+ * Le calcul prévoit la gestion des cas où le résultat net plus le revenu fiscal de référence,
+ * divisé par le nombre de parts fiscales, dépasse la dernière tranche.
+ *
+ * @returns {number} Le montant de l'impôt calculé, ajusté selon les tranches.
+ */
+
+// 1er calcul => Resultat net + revenu imposable / nombre de part
+
+var calculerImpotsEurlIr = function (resultats_net_eurl) {
+
+    // Ensure the variables are parsed as numbers and handle undefined or null values
+    var resultatNet = parseFloat(resultats_net_eurl);
+
+    var revenuFiscal = parseFloat(document.getElementById('idRevenuFiscalReference').value);
+    var partsFiscales = parseFloat(document.getElementById('idNombrePartFiscale').value);
+
+    if (!partsFiscales) { // Prevent division by zero
+        console.error("Nombre de parts fiscales cannot be zero or undefined.");
+        return; // Exit the function if parts fiscales is zero or undefined
+    }
+
+    let dattemp = (resultatNet + revenuFiscal) / partsFiscales;
+
+    const brackets = [
+        { upper: 11294, rate: 0.00 },
+        { upper: 28797, rate: 0.11 },
+        { upper: 82341, rate: 0.30 },
+        { upper: 177106, rate: 0.41 },
+        { upper: Infinity, rate: 0.45 }
+    ];
+
+    let tax = 0;
+
+    // Calculate tax for each bracket
+    for (let i = 0; i < brackets.length; i++) {
+        if (dattemp > brackets[i].upper) {
+            // Calculate full bracket tax for all but last bracket
+            if (i > 0) {
+                tax += (brackets[i].upper - (brackets[i - 1].upper + 1)) * brackets[i].rate;
+            }
+        } else {
+            // Calculate partial bracket tax for the last applicable bracket
+            if (i > 0) {
+                tax += (dattemp - (brackets[i - 1].upper + 1)) * brackets[i].rate;
+            }
+            break;
+        }
+    }
+
+    return tax;
+
+};
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Définition de la fonction pour calculer le prélèvement sociaux
@@ -263,8 +354,9 @@ var gereEvents = function () {
         "nbre_matchs_01",
         "nbre_matchs_02",
         "nbre_matchs_03",
-        "tauxMarginalImpot",
-        "nombrePartFiscale"
+        "idTauxMarginalImpot",
+        "idNombrePartFiscale",
+        "idRevenuFiscalReference"
     ];
 
     elementsIds.forEach(function (id) {
@@ -392,6 +484,7 @@ var initialize = function () {
     // Il faut construire le tableau HTML avant de pouvoir faire les appels aux cellules ID
     display.createTableauImpotsMicroEntreprise();
     display.createTableauImpotsEurlIr();
+    display.createTableauImpositionGenerale();
 
     display.menuVilles();
     display.menuPRK();
