@@ -8,6 +8,8 @@ var resultat_intermediaire_total = 0 ;
 var ResultatApresIS_temp = 0 ;
 var resultatPrelevementSociaux = 0 ;
 var data = 0;
+var revenuParPart = 0;
+
 
 var frais_urssaf = 1500;
 var urssaf = 0;

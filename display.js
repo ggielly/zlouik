@@ -433,7 +433,7 @@ var display = {
 
 
         htmlTableau = `<h5 class="card-title">${nbMatchs} matchs.<span></span></h5>
-        <table id="${idtableau}" class="table table-sm table-striped table-dark"">
+        <table id="${idtableau}" class="table table-sm table-striped">
         <thead>
             <tr>
                 <th scope="col">Domicile / Départ</th>
@@ -454,7 +454,8 @@ var display = {
                 <th scope="col">PRIMES<br>bénéfices rééls<br>(prime - frais - PRK)</th>
             </tr>
         </thead>
-        <tbody>`;
+        
+        <tbody>` ;
 
         // Itération sur les résultats pour les afficher dans le tableau
         var processedCount = 0;
@@ -480,10 +481,6 @@ var display = {
             var isLongDistance = matchTypes[i];
             var distance = isLongDistance ? 600 : 300; // Utilisation des types de match mélangés pour assigner les distances
 
-
-
-            //var repas = isLongDistance ? 2 * coutRepas : coutRepas;
-            //var hotel = isLongDistance ? coutHotel : 0;
             var trajet = resultats[i % resultats.length];
             // Vérification des données pour le calcul
             if (!trajet || !trajet.Km || !trajet.Peages) {
@@ -508,30 +505,29 @@ var display = {
             // Peuplement du tableau temporaire qui va servir pour la génération du graphe
             graphData.push({
                 processedCount: processedCount,
-                //fraisHistorique: fraisHistorique.toFixed(2),
                 beneficeReel: beneficeReel.toFixed(2),
-                //prime: prime.toFixed(2),
                 primeBenefice: primeBenefice.toFixed(2)
             });
 
             // Mise en format du tableau HTML
-            htmlTableau += `<tr>
-            <th scope="row">${trajet.VilleDepart}</th>
-            <td><span class="text-primary">${trajet.VilleDestination}</span></td>
-            <td>${distance} Km</td>
-            <td>${peages}</td>
-            <td>${Math.floor(TempsTrajetAllerRetour / 60)}h${TempsTrajetAllerRetour % 60} min</td>
-            <td>${grandDeplacement}</td>
-            <td>${indemnites.toFixed()}</td>
-            <td>${prk.toFixed(2)}</td>
-            <td>${repas.toFixed()}</td>
-            <td>${hotel.toFixed()}</td>
-            <td>${valeurIndemnite}</td>
-            <td>${fraisHistorique.toFixed(0)}</td>
-            <td style="${beneficeReel < 0 ? "color:red;" : ""}">${beneficeReel.toFixed(2)}</td>
-            <td>${prime.toFixed(0)}</td>
-            <td>${frais.toFixed(0)}</td>
-            <td style="${primeBenefice < 0 ? "color:red;" : ""}">${primeBenefice.toFixed(2)}</td>
+            htmlTableau += `
+            <tr>
+                <th scope="row">${trajet.VilleDepart}</th>
+                <td><span class="text-primary">${trajet.VilleDestination}</span></td>
+                <td>${distance} Km</td>
+                <td>${peages}</td>
+                <td>${Math.floor(TempsTrajetAllerRetour / 60)}h${TempsTrajetAllerRetour % 60} min</td>
+                <td>${grandDeplacement}</td>
+                <td>${indemnites.toFixed()}</td>
+                <td>${prk.toFixed(2)}</td>
+                <td>${repas.toFixed()}</td>
+                <td>${hotel.toFixed()}</td>
+                <td>${valeurIndemnite}</td>
+                <td>${fraisHistorique.toFixed(0)}</td>
+                <td style="${beneficeReel < 0 ? "color:red;" : ""}">${beneficeReel.toFixed(2)}</td>
+                <td>${prime.toFixed(0)}</td>
+                <td>${frais.toFixed(0)}</td>
+                <td style="${primeBenefice < 0 ? "color:red;" : ""}">${primeBenefice.toFixed(2)}</td>
             </tr>`;
 
             // Mise à jour des totaux
@@ -564,28 +560,39 @@ var display = {
 
         htmlTableau += `</tbody>
         <tfoot>
-            <tr class="totalRow"><td>TOTAUX</td>
-            <td><span class="text-primary">${nbMatchs} matchs</span></td>
-            <td>${totalDistance} km</td>
-            <td>${totalPeages.toFixed(2)}</td>
-            <td>${Math.floor(totalTempsTrajet / 60)}h${totalTempsTrajet % 60}</td>
-            <td>${totalGrandDeplacement.toFixed(0)}</td>
-            <td>${totalKilometriques.toFixed(2)}</td>
-            <td>${totalPRK.toFixed()}</td>
-            <td>${totalRepas.toFixed(2)}</td>
-            <td>${totalHotels.toFixed(2)}</td>
-            <td>${totalPreparation.toFixed(0)}</td>
-            <td>${totalFraisHistorique.toFixed(2)}</td>
-            <td style ="${colorTotalBeneficeReel}">${totalBeneficeReel.toFixed(2)}</td>
-            <td>${totalPrimes.toFixed(0)}</td>
-            <td>${totalFrais.toFixed(0)}</td>
-            <td style ="${colorTotalPrimeBenefice}">${totalPrimeBenefice.toFixed(2)}</td>
+            <tr class="totalRow">
+                <td>TOTAUX</td>
+                <td><span class="text-primary">${nbMatchs} matchs</span></td>
+                <td>${totalDistance} km</td>
+                <td>${totalPeages.toFixed(2)}</td>
+                <td>${Math.floor(totalTempsTrajet / 60)}h${totalTempsTrajet % 60}</td>
+                <td>${totalGrandDeplacement.toFixed(0)}</td>
+                <td>${totalKilometriques.toFixed(2)}</td>
+                <td>${totalPRK.toFixed()}</td>
+                <td>${totalRepas.toFixed(2)}</td>
+                <td>${totalHotels.toFixed(2)}</td>
+                <td>${totalPreparation.toFixed(0)}</td>
+                <td>${totalFraisHistorique.toFixed(2)}</td>
+                <td style ="${colorTotalBeneficeReel}">${totalBeneficeReel.toFixed(2)}</td>
+                <td>${totalPrimes.toFixed(0)}</td>
+                <td>${totalFrais.toFixed(0)}</td>
+                <td style ="${colorTotalPrimeBenefice}">${totalPrimeBenefice.toFixed(2)}</td>
             </tr>
         </tfoot>
         </table>`;
-        htmlTableau += `<table><tr><td colspan='1'><span class="text-primary">Taux horaire moyen basé sur l'indemnité : ${tauxHoraireIndemnite.toFixed(2)} €/heure</span></td></tr>`;
-        htmlTableau += `<tr><td colspan='8'><span class="text-primary">Taux horaire moyen basé sur la prime : ${tauxHorairePrime.toFixed(2)} €/heure</span></td></tr>`;
-        htmlTableau += `</table>`;
+        htmlTableau += `<table>
+            <tr>
+                <td colspan='1'>
+                    <span class="text-primary">Taux horaire moyen basé sur l'indemnité : ${tauxHoraireIndemnite.toFixed(2)} €/heure</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan='8'>
+                    <span class="text-primary">Taux horaire moyen basé sur la prime : ${tauxHorairePrime.toFixed(2)} €/heure</span>
+                </td>
+            </tr>
+        </table>`;
 
         // On additionne pour chaque saison les sous totaux des 3 tableaux
         globalBeneficeReelValues[typeSaison] = totalBeneficeReel; // Benefice de l'indemnite de match en prenant en compte le PRK
@@ -631,7 +638,7 @@ var display = {
 
     createTableauImpotsEurlIr: function () {
 
-        htmlTableau += `<table id="impotEurlIr" class="table table-sm table-striped table-dark">
+        htmlTableau += `<table id="impotEurlIr" class="table table-sm table-striped">
         <thead>
           <tr>
             <th scope="col">Travailleur non salarié</th>
@@ -652,7 +659,7 @@ var display = {
             <th scope="col">Après imposition</th>   
           </tr>
         </thead>
-        <tbody>
+        
         <tbody>
         <tr>
           <th scope="row">Saison régulière</th>
@@ -671,6 +678,7 @@ var display = {
           <td id="tns_ir_cell14_1">---</td>
           <td id="tns_ir_cell15_1"></td>
         </tr>
+        
         <tr>
           <th scope="row">Poule de relégation</th>
           <td id="tns_ir_cell2_2">${nbre_matchs_02}</td>
@@ -689,8 +697,9 @@ var display = {
           <td id="tns_ir_cell15_2"></td>
           <td id="tns_ir_cell16_2">ici</td>
         </tr>
+        
         <tr>
-        <th scope="row">Phase finale</th>
+          <th scope="row">Phase finale</th>
           <td id="tns_ir_cell2_3">${nbre_matchs_03}</td>
           <td id="tns_ir_cell3_3"></td>
           <td id="tns_ir_cell4_3">${urssaf_zero}</td>
@@ -706,26 +715,28 @@ var display = {
           <td id="tns_ir_cell14_3">---</td>
           <td id="tns_ir_cell15_3"></td>
         </tr>
-        <tr>
+        
       <tfoot>
-      <th scope="row">SOMMES ANNUELLES</th>
-        <td id="tns_ir_cell2_4">${totalmatch}</td>
-        <td id="tns_ir_cell3_4">---</td>
-        <td id="tns_ir_cell4_4">---</td>
-        <td id="tns_ir_cell5_4">---</td>
-        <td id="tns_ir_cell6_4">---</td>
-        <td id="tns_ir_cell7_4">${(nbre_matchs_01 * prime_montant_01 + nbre_matchs_02 * prime_montant_02 + nbre_matchs_03 * prime_montant_03)}</td>
-        <td id="tns_ir_cell8_4">${(urssaf_zero * nbre_matchs_01 + urssaf_zero * nbre_matchs_02 + urssaf_zero * nbre_matchs_03)}</td>
-        <td id="tns_ir_cell9_4">${(urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 + urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 + urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03)}</td>
-        <td id="tns_ir_cell10_4">---</td>
-        <td id="tns_ir_cell11_4">${(frais_annuel_01 + frais_annuel_02 + frais_annuel_03)}</td>
-        <td id="tns_ir_cell12_4">${(resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03)}</td>
-        <td id="tns_ir_cell13_4">${(frais_banque + frais_comptable + frais_urssaf)}</td>
-        <td id="tns_ir_cell14_4">${(resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf)}</td>
-        <td id="tns_ir_cell15_4"></td>
-        <td id="tns_ir_cell16_4">${AC16}</td>
+       <tr>
+        <th scope="row">SOMMES ANNUELLES</th>
+         <td id="tns_ir_cell2_4">${totalmatch}</td>
+         <td id="tns_ir_cell3_4">---</td>
+         <td id="tns_ir_cell4_4">---</td>
+         <td id="tns_ir_cell5_4">---</td>
+         <td id="tns_ir_cell6_4">---</td>
+         <td id="tns_ir_cell7_4">${(nbre_matchs_01 * prime_montant_01 + nbre_matchs_02 * prime_montant_02 + nbre_matchs_03 * prime_montant_03)}</td>
+         <td id="tns_ir_cell8_4">${(urssaf_zero * nbre_matchs_01 + urssaf_zero * nbre_matchs_02 + urssaf_zero * nbre_matchs_03)}</td>
+         <td id="tns_ir_cell9_4">${(urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 + urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 + urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03)}</td>
+         <td id="tns_ir_cell10_4">---</td>
+         <td id="tns_ir_cell11_4">${(frais_annuel_01 + frais_annuel_02 + frais_annuel_03)}</td>
+         <td id="tns_ir_cell12_4">${(resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03)}</td>
+         <td id="tns_ir_cell13_4">${(frais_banque + frais_comptable + frais_urssaf)}</td>
+         <td id="tns_ir_cell14_4">${(resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf)}</td>
+         <td id="tns_ir_cell15_4"></td>
+         <td id="tns_ir_cell16_4">${AC16}</td>
+       </tr>
       </tfoot>
-      </tr>
+      
       </tbody>
     </table>`;
 
@@ -735,10 +746,7 @@ var display = {
 
 
     createTableauImpositionGenerale: function () {
-
-
         htmlTableau += `<table id="impotGenerale" class="table table-sm table-striped table-dark">
-
         <thead>
         <tr>
           <th scope="col">-</th>
@@ -747,45 +755,43 @@ var display = {
           <th scope="col">Impots EURL IS</th>
           <th scope="col">Impotss EURL IR</th>
           <th scope="col">Impots sans être au service du hockey</th>
-          
-
-    </tr>
-    </thead>
-    <tr>
-        <td id="r2c1">R2C1</td>
-        <td id="r2c2">R2C2</td>
-        <td id="r2c3">R2C3</td>
-        <td id="r2c4">R2C4</td>
-        <td id="r2c5">R2C5</td>
-        <td id="r2c6">R2C6</td>
-    </tr>
-    <tr>
-        <td id="r3c1">R3C1</td>
-        <td id="r3c2">R3C2</td>
-        <td id="r3c3">R3C3</td>
-        <td id="r3c4">R3C4</td>
-        <td id="r3c5">R3C5</td>
-        <td id="r3c6">R3C6</td>
-    </tr>
-    <tr>
-        <td id="r4c1">R4C1</td>
-        <td id="r4c2">R4C2</td>
-        <td id="r4c3">R4C3</td>
-        <td id="r4c4">R4C4</td>
-        <td id="r4c5">R4C5</td>
-        <td id="r4c6">R4C6</td>
-    </tr>
-    <tr>
-        <td id="r5c1">Impots à payer</td>
-        <td id="r5c2">R5C2</td>
-        <td id="r5c3">R5C3</td>
-        <td id="r5c4">R5C4</td>
-        <td id="r5c5">R5C5</td>
-        <td id="r5c6">R5C6</td>
-    </tr>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="r2c1">R2C1</td>
+                <td id="r2c2">R2C2</td>
+                <td id="r2c3">R2C3</td>
+                <td id="r2c4">R2C4</td>
+                <td id="r2c5">R2C5</td>
+                <td id="r2c6">R2C6</td>
+            </tr>
+            <tr>
+                <td id="r3c1">R3C1</td>
+                <td id="r3c2">R3C2</td>
+                <td id="r3c3">R3C3</td>
+                <td id="r3c4">R3C4</td>
+                <td id="r3c5">R3C5</td>
+                <td id="r3c6">R3C6</td>
+            </tr>
+            <tr>
+                <td id="r4c1">R4C1</td>
+                <td id="r4c2">R4C2</td>
+                <td id="r4c3">R4C3</td>
+                <td id="r4c4">R4C4</td>
+                <td id="r4c5">R4C5</td>
+                <td id="r4c6">R4C6</td>
+            </tr>
+            <tr>
+                <td id="r5c1">Impots à payer</td>
+                <td id="r5c2">R5C2</td>
+                <td id="r5c3">R5C3</td>
+                <td id="r5c4">R5C4</td>
+                <td id="r5c5">R5C5</td>
+                <td id="r5c6">R5C6</td>
+            </tr>
+        </tbody>
     </table>`;
-
-
         document.getElementById("divImpotTableauImpositionGenerale").innerHTML = htmlTableau;
     },
 
@@ -864,35 +870,56 @@ var display = {
             <td id="cell11_3">${frais_annuel_03}</td>
             <td id="cell12_3">${resultat_net_03}</td>
           </tr>
-          <tr>
-        <tfoot>
-          <th scope="row"><b>SOMMES ANNUELLES</b></th>
-          <td id="cell2_4">${totalmatch}</td>
-          <td id="cell3_4">---</td>
-          <td id="cell4_4">---</td>
-          <td id="cell5_4">---</td>
-          <td id="cell6_4">---</td>
-          <td id="cell7_4">${sommeAnnuelleBrut}</td>
-          <td id="cell8_4">${sommeAnnuelleCotisationSaison}</td>
-          <td id="cell9_4">${sommeAnnuelleNetSaison}</td>
-          <td id="cell10_4">---</td>
-          <td id="cell11_4">${sommeAnnuelleFraisSaison}</td>
-          <td id="cell12_4">${sommeAnnuelleResultatSaison}</td>
-        </tfoot>
-        </tr>
+          
+         <tfoot>
+            <tr>
+                <th scope="row"><b>SOMMES ANNUELLES</b></th>
+                <td id="cell2_4">${totalmatch}</td>
+                <td id="cell3_4">---</td>
+                <td id="cell4_4">---</td>
+                <td id="cell5_4">---</td>
+                <td id="cell6_4">---</td>
+                <td id="cell7_4">${sommeAnnuelleBrut}</td>
+                <td id="cell8_4">${sommeAnnuelleCotisationSaison}</td>
+                <td id="cell9_4">${sommeAnnuelleNetSaison}</td>
+                <td id="cell10_4">---</td>
+                <td id="cell111_4">${sommeAnnuelleFraisSaison}</td>
+                <td id="cell12_4">${sommeAnnuelleResultatSaison}</td>
+            </tr>
+         </tfoot>
+        
         </tbody>
       </table>
       <br>
       <table>
         <tr>
-          <td colspan='1'><span class="text-primary">Après imposition : ${sommeAnnuelleResultatSaison}</span></td>
+            <td colspan='1'>
+                <span class="text-primary">Après imposition : ${sommeAnnuelleResultatSaison}</span>
+            </td>
         </tr>
-      <tr>
-        <td colspan='8'><span class="text-primary">Taux par rapport au chiffre d'affaires : ${tauximposition.toFixed(2)}%</span></td>
-      </tr>
+        
+        <tr>
+            <td colspan='8'>
+                <span class="text-primary">Taux par rapport au chiffre d'affaires : ${tauximposition.toFixed(2)}%</span>
+            </td>
+        </tr>
+
       </table>`;
 
         document.getElementById("impotMicroEntretriseDiv").innerHTML = htmlTableau;
+    },
+
+
+    // Tableau en noir - pour vérifier les calculs  et les formules
+    // N'a pas vocation à être affiché une fois les calculs validés
+
+    updateTableauImpositionGenerale: function () {
+        document.getElementById("r2c5").innerHTML = resultats_net_eurl;
+        document.getElementById("r3c5").innerHTML = revenuParPart.toFixed();
+
+        document.getElementById("r2c6").innerHTML = "vide";
+        
+
     },
 
 
@@ -1349,6 +1376,9 @@ var display = {
         display.updateHistoriquePRK();
         display.updateHistoriqueVille();
         display.updateTableauImpositions(); // Mise à jour des tableaux lorsque la prime change
+
+        // Mise à jour du tableau de calcul debug
+        display.updateTableauImpositionGenerale();
 
         //display.updateFrontendBadge();
         display.generateTableauDesignations();

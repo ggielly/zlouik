@@ -152,11 +152,8 @@ var updateCalculs = function () {
  *
  * @returns {number} Le montant de l'impôt calculé, ajusté selon les tranches.
  */
-
-// 1er calcul => Resultat net + revenu imposable / nombre de part
-
 var calculerImpotsEurlIr = function (resultats_net_eurl) {
-
+    // 1er calcul => Resultat net + revenu imposable / nombre de part
     // Ensure the variables are parsed as numbers and handle undefined or null values
     var resultatNet = parseFloat(resultats_net_eurl);
 
@@ -168,7 +165,7 @@ var calculerImpotsEurlIr = function (resultats_net_eurl) {
         return; // Exit the function if parts fiscales is zero or undefined
     }
 
-    let dattemp = (resultatNet + revenuFiscal) / partsFiscales;
+    revenuParPart = (resultatNet + revenuFiscal) / partsFiscales;
 
     const brackets = [
         { upper: 11294, rate: 0.00 },
@@ -179,23 +176,17 @@ var calculerImpotsEurlIr = function (resultats_net_eurl) {
     ];
 
     let tax = 0;
+let previousUpper = 0;
 
-    // Calculate tax for each bracket
-    for (let i = 0; i < brackets.length; i++) {
-        if (dattemp > brackets[i].upper) {
-            // Calculate full bracket tax for all but last bracket
-            if (i > 0) {
-                tax += (brackets[i].upper - (brackets[i - 1].upper + 1)) * brackets[i].rate;
-            }
-        } else {
-            // Calculate partial bracket tax for the last applicable bracket
-            if (i > 0) {
-                tax += (dattemp - (brackets[i - 1].upper + 1)) * brackets[i].rate;
-            }
-            break;
-        }
+for (let i = 0; i < brackets.length; i++) {
+    if (revenuParPart <= brackets[i].upper) {
+        tax += (revenuParPart - previousUpper) * brackets[i].rate;
+        break;
+    } else {
+        tax += (brackets[i].upper - previousUpper) * brackets[i].rate;
+        previousUpper = brackets[i].upper;
     }
-
+}
     return tax;
 
 };
@@ -366,6 +357,9 @@ var gereEvents = function () {
                 display.updateSliderValues();
                 display.updateTableauImpositions(); // Appel à la fonction de mise à jour des tableaux
                 display.updateHistorique();
+                // debug
+                display.updateTableauImpositionGenerale(); // Appel à la fonction de mise à jour du tableau récapitulatif impots
+
             });
             element.addEventListener("change", function () {
                 updateCalculs();
