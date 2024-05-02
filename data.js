@@ -14,6 +14,9 @@ var sommeAnnuelleResultatSaison = 0;
 var sommeAnnuelleBrutMicro = 0;
 var sommeAnnuelleResultatSaison = 0;
 
+var impositionEURLir = 0;
+var nbrepartfiscale = 0;
+var revenufiscal = 0;
 
 var frais_urssaf = 1500;
 var urssaf = 0;

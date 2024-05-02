@@ -693,8 +693,8 @@ var display = {
 
     updateTableauImpositionGenerale: function () {
 
-        let nbrepartfiscale = parseFloat(document.getElementById('idNombrePartFiscale').value);
-        let revenufiscal = parseFloat(document.getElementById('idRevenuFiscalReference').value);
+        nbrepartfiscale = parseFloat(document.getElementById('idNombrePartFiscale').value);
+        revenufiscal = parseFloat(document.getElementById('idRevenuFiscalReference').value);
 
         // Colonne impots SASU IS C2
 
@@ -716,9 +716,8 @@ var display = {
         document.getElementById("r4c6").innerHTML = calculerImpotsRevenu(revenuFiscalReference).toFixed(0);
         document.getElementById("r5c6").innerHTML = (calculerImpotsRevenu(revenuFiscalReference) * nbrepartfiscale).toFixed(0);
 
-
-        
-        
+        var impositionEURLir = parseFloat(calculateTaxTest(revenuParPart) * nbrepartfiscale) - parseFloat(calculerImpotsRevenu(revenuFiscalReference) * nbrepartfiscale);
+        console.log(impositionEURLir);
 
     },
 
@@ -791,8 +790,8 @@ var display = {
         document.getElementById("tns_ir_cell8_1").innerHTML = urssaf_zero * nbre_matchs_01 + " €"; // Cotisations annuelles
         document.getElementById("tns_ir_cell9_1").innerHTML = (urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01).toLocaleString('fr-FR') + " €"; // Net d'URSSAF annuel
         document.getElementById("tns_ir_cell10_1").innerHTML = frais_par_match01.toLocaleString('fr-FR') + " €"; // Frais par match
-        document.getElementById("tns_ir_cell11_1").innerHTML = frais_annuel_01.toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais
-        document.getElementById("tns_ir_cell12_1").innerHTML = resultat_intermediaire_01 + " €"; // Resultat intermédiaire
+       // document.getElementById("tns_ir_cell11_1").innerHTML = frais_annuel_01.toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais
+        document.getElementById("tns_ir_cell11_1").innerHTML = resultat_intermediaire_01 + " €"; // Resultat intermédiaire
 
         document.getElementById("tns_ir_cell13_1").innerHTML = frais_banque + " €"; // Frais annexes
 
@@ -840,8 +839,10 @@ var display = {
 
         // Appel de la fonction 
         valeurImpotEurlIr = calculerImpotsRevenu(resultats_net_eurl);
-        document.getElementById("tns_ir_cell16_2").innerHTML = valeurImpotEurlIr.toLocaleString('fr-FR'); // Après imposition
-        //document.getElementById("tns_ir_cell16_4").innerHTML = AC16.toLocaleString('fr-FR'); // Après imposition
+
+        document.getElementById("tns_ir_cell16_2").innerHTML = impositionEURLir;
+        // Après imposition
+        document.getElementById("tns_ir_cell16_4").innerHTML = impositionEURLir + resultats_net_eurl ; // Après imposition
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
