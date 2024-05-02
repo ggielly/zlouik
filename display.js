@@ -366,7 +366,7 @@ var display = {
         display.updateFrontendTotalBeneficeTravailleurIndependant(totalBeneficeTravailleurIndependant);
 
         // Données du tableau 2
-        var totalBeneficeTNSIR = parseFloat(AC16).toFixed(2); // Résultat net
+        var totalBeneficeTNSIR = "bug" //parseFloat(AC16).toFixed(2); // Résultat net
         totalBeneficeTNSIR = display.formateEuroBadge(totalBeneficeTNSIR);
         display.updateFrontendTotalBeneficeTNSIR(totalBeneficeTNSIR);
 
@@ -837,12 +837,11 @@ var display = {
 
 
         document.getElementById("tns_ir_cell14_4").innerHTML = resultats_net_eurl + " €"; // Résultat net 
-        //document.getElementById("tns_ir_cell15_4").innerHTML = (AC16 - impotsSurLeRevenu).toLocaleString('fr-FR') + " €"; // vide
 
         // Appel de la fonction 
         valeurImpotEurlIr = calculerImpotsRevenu(resultats_net_eurl);
         document.getElementById("tns_ir_cell16_2").innerHTML = valeurImpotEurlIr.toLocaleString('fr-FR'); // Après imposition
-        document.getElementById("tns_ir_cell16_4").innerHTML = AC16.toLocaleString('fr-FR'); // Après imposition
+        //document.getElementById("tns_ir_cell16_4").innerHTML = AC16.toLocaleString('fr-FR'); // Après imposition
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

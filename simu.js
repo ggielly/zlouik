@@ -92,28 +92,9 @@ var updateCalculs = function () {
         frais_urssaf;
     AC24 = resultat_net_is_TNS - resultat_net_is_TNS * (15 / 100);
 
-    AC16 = Salaires * 0.9 + ((Salaires * 2.9) / 100) * 1.3;
-    impotsSurLeRevenu = calculer_IR_EURL(
-        AC16,
-        tranche01_bas,
-        tranche02_bas,
-        tranche03_bas,
-        tranche04_bas,
-        tranche01_haut,
-        tranche02_haut,
-        tranche03_haut,
-        tranche01_pourcent,
-        tranche02_pourcent,
-        tranche03_pourcent,
-        tranche04_pourcent,
-    );
-
     montantFinal = calculerMontant_impotdividende(AC24, seuils, pourcentages);
 
-
-
-
-    CotisationsSociales = (
+   CotisationsSociales = (
         ((tauxcotisation_eurl / 1.35) *
             (resultat_intermediaire_01 +
                 resultat_intermediaire_02 +
@@ -281,47 +262,6 @@ var calculerMontant_impotdividende = function (AC24, seuils, pourcentages) {
     );
 };
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Définition des tranches d'imposition et des taux correspondants
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-var calculer_IR_EURL = function (
-    AC16,
-    tranche01_bas,
-    tranche02_bas,
-    tranche03_bas,
-    tranche04_bas,
-    tranche01_haut,
-    tranche02_haut,
-    tranche03_haut,
-    tranche01_pourcent,
-    tranche02_pourcent,
-    tranche03_pourcent,
-    tranche04_pourcent,
-) {
-    if (AC16 < tranche01_haut) {
-        // const tempdebug = (AC16 - tranche01_bas) * tranche01_pourcent;
-
-        return (AC16 - tranche01_bas) * tranche01_pourcent;
-    } else if (AC16 < tranche02_haut) {
-        return (
-            tranche01_pourcent * (tranche01_haut - tranche01_bas) +
-            (AC16 - tranche02_bas) * tranche02_pourcent
-        );
-    } else if (AC16 < tranche03_haut) {
-        return (
-            (tranche01_haut - tranche01_bas) * tranche01_pourcent +
-            (tranche02_haut - tranche02_bas) * tranche02_pourcent +
-            (AC16 - tranche03_bas) * tranche03_pourcent
-        );
-    } else {
-        return (
-            (AC16 - tranche04_bas) * tranche04_pourcent +
-            (tranche03_haut - tranche03_bas) * tranche03_pourcent +
-            (tranche02_haut - tranche02_bas) * tranche02_pourcent +
-            (tranche01_haut - tranche01_bas) * tranche01_pourcent
-        );
-    }
-};
 
 // remplissage du array resultats avec les villes de destination calculées
 var calculDestinations = function () {
