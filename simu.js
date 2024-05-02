@@ -60,7 +60,8 @@ var updateCalculs = function () {
 
     resultats_net_eurl = resultats_eurl_intermediaire - total_frais_annexe_eurl;
 
-    console.log(resultats_net_eurl);
+    tauximpositionmicro = (parseFloat(sommeAnnuelleResultatSaison) / parseFloat(sommeAnnuelleBrutMicro)) * 100;
+    console.log(tauximpositionmicro);
 
     urssaf = resultats_eurl_intermediaire * 0.45;
 
@@ -505,8 +506,6 @@ var initialize = function () {
     display.createIndemniteChoisieDiv();
 
     // Il faut construire le tableau HTML avant de pouvoir faire les appels aux cellules ID
-    display.createTableauImpotsMicroEntreprise();
-    display.createTableauImpotsEurlIr();
     display.createTableauImpositionGenerale();
 
     display.menuVilles();

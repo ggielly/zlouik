@@ -9,6 +9,10 @@ var ResultatApresIS_temp = 0 ;
 var resultatPrelevementSociaux = 0 ;
 var data = 0;
 var revenuParPart = 0;
+var tauximpositionmicro = 0;
+var sommeAnnuelleResultatSaison = 0;
+var sommeAnnuelleBrutMicro = 0;
+var sommeAnnuelleResultatSaison = 0;
 
 
 var frais_urssaf = 1500;

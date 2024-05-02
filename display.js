@@ -433,7 +433,7 @@ var display = {
 
 
         htmlTableau = `<h5 class="card-title">${nbMatchs} matchs.<span></span></h5>
-        <table id="${idtableau}" class="table table-sm table-striped">
+        <table id="${idtableau}" class="table table-sm table-striped table-hover">
         <thead>
             <tr>
                 <th scope="col">Domicile / Départ</th>
@@ -636,115 +636,7 @@ var display = {
     },
 
 
-    createTableauImpotsEurlIr: function () {
-
-        htmlTableau += `<table id="impotEurlIr" class="table table-sm table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Travailleur non salarié</th>
-            <th scope="col">Nbre matchs</th>
-            <th scope="col">Montant</th>
-            <th scope="col">% URSSAF</th>
-            <th scope="col">Cotisations / match</th>
-            <th scope="col">Net</th>
-            <th scope="col">Brut annuel</th>
-            <th scope="col">Cotisations annuelles</th>
-            <th scope="col">Net d'URSSAF annuel</th>
-            <th scope="col">Frais par match</th>
-            <th scope="col">Somme annuelle des frais</th>
-            <th scope="col">Résultat intermédiaire</th>
-            <th scope="col">Frais annexes</th>
-            <th scope="col">Résultats nets</th>
-            <th scope="col"></th>
-            <th scope="col">Après imposition</th>   
-          </tr>
-        </thead>
-        
-        <tbody>
-        <tr>
-          <th scope="row">Saison régulière</th>
-          <td id="tns_ir_cell2_1">${nbre_matchs_01}</td>
-          <td id="tns_ir_cell3_1"></td>
-          <td id="tns_ir_cell4_1">${urssaf_zero}%</td>
-          <td id="tns_ir_cell5_1">${urssaf_zero}</td>
-          <td id="tns_ir_cell6_1">${(urssaf_zero + prime_montant_01)}</td>
-          <td id="tns_ir_cell7_1">${(nbre_matchs_01 * prime_montant_01)}</td>
-          <td id="tns_ir_cell8_1">${(urssaf_zero * nbre_matchs_01)}</td>
-          <td id="tns_ir_cell9_1">${(urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01)}</td>
-          <td id="tns_ir_cell10_1">${frais_par_match01}</td>
-          <td id="tns_ir_cell11_1">${frais_annuel_01}</td>
-          <td id="tns_ir_cell12_1">${resultat_intermediaire_01}</td>
-          <td id="tns_ir_cell13_1">${frais_banque}</td>
-          <td id="tns_ir_cell14_1">---</td>
-          <td id="tns_ir_cell15_1"></td>
-        </tr>
-        
-        <tr>
-          <th scope="row">Poule de relégation</th>
-          <td id="tns_ir_cell2_2">${nbre_matchs_02}</td>
-          <td id="tns_ir_cell3_2">
-          <td id="tns_ir_cell4_2">${urssaf_zero}</td>
-          <td id="tns_ir_cell5_2">${urssaf_zero}</td>
-          <td id="tns_ir_cell6_2">${urssaf_zero + prime_montant_02}</td>
-          <td id="tns_ir_cell7_2">${(nbre_matchs_02 * prime_montant_02)}</td>
-          <td id="tns_ir_cell8_2">${(urssaf_zero * nbre_matchs_02)}</td>
-          <td id="tns_ir_cell9_2">${(urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02)}</td>
-          <td id="tns_ir_cell10_2">${frais_par_match02}</td>
-          <td id="tns_ir_cell11_2">${frais_annuel_02}</td>
-          <td id="tns_ir_cell12_2">${resultat_intermediaire_02}</td>
-          <td id="tns_ir_cell13_2">${frais_comptable}</td>
-          <td id="tns_ir_cell14_2">---</td>
-          <td id="tns_ir_cell15_2"></td>
-          <td id="tns_ir_cell16_2">ici</td>
-        </tr>
-        
-        <tr>
-          <th scope="row">Phase finale</th>
-          <td id="tns_ir_cell2_3">${nbre_matchs_03}</td>
-          <td id="tns_ir_cell3_3"></td>
-          <td id="tns_ir_cell4_3">${urssaf_zero}</td>
-          <td id="tns_ir_cell5_3">${urssaf_zero}</td>
-          <td id="tns_ir_cell6_3">${urssaf_zero + prime_montant_03}</td>
-          <td id="tns_ir_cell7_3">${(nbre_matchs_03 * prime_montant_03)}</td>
-          <td id="tns_ir_cell8_3">${(urssaf_zero * nbre_matchs_03)}</td>
-          <td id="tns_ir_cell9_3">${(urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03)}</td>
-          <td id="tns_ir_cell10_3">${frais_par_match03}</td>
-          <td id="tns_ir_cell11_3">${frais_annuel_03}</td>
-          <td id="tns_ir_cell12_3">${resultat_intermediaire_03}</td>
-          <td id="tns_ir_cell13_3">${frais_urssaf}</td>
-          <td id="tns_ir_cell14_3">---</td>
-          <td id="tns_ir_cell15_3"></td>
-        </tr>
-        
-      <tfoot>
-       <tr>
-        <th scope="row">SOMMES ANNUELLES</th>
-         <td id="tns_ir_cell2_4">${totalmatch}</td>
-         <td id="tns_ir_cell3_4">---</td>
-         <td id="tns_ir_cell4_4">---</td>
-         <td id="tns_ir_cell5_4">---</td>
-         <td id="tns_ir_cell6_4">---</td>
-         <td id="tns_ir_cell7_4">${(nbre_matchs_01 * prime_montant_01 + nbre_matchs_02 * prime_montant_02 + nbre_matchs_03 * prime_montant_03)}</td>
-         <td id="tns_ir_cell8_4">${(urssaf_zero * nbre_matchs_01 + urssaf_zero * nbre_matchs_02 + urssaf_zero * nbre_matchs_03)}</td>
-         <td id="tns_ir_cell9_4">${(urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 + urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 + urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03)}</td>
-         <td id="tns_ir_cell10_4">---</td>
-         <td id="tns_ir_cell11_4">${(frais_annuel_01 + frais_annuel_02 + frais_annuel_03)}</td>
-         <td id="tns_ir_cell12_4">${(resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03)}</td>
-         <td id="tns_ir_cell13_4">${(frais_banque + frais_comptable + frais_urssaf)}</td>
-         <td id="tns_ir_cell14_4">${(resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03 - frais_banque - frais_comptable - frais_urssaf)}</td>
-         <td id="tns_ir_cell15_4"></td>
-         <td id="tns_ir_cell16_4">${AC16}</td>
-       </tr>
-      </tfoot>
-      
-      </tbody>
-    </table>`;
-
-        document.getElementById("impotEurlIrDiv").innerHTML = htmlTableau;
-
-    },
-
-
+ 
     createTableauImpositionGenerale: function () {
         htmlTableau += `<table id="impotGenerale" class="table table-sm table-striped table-dark">
         <thead>
@@ -796,120 +688,6 @@ var display = {
     },
 
 
-    // Permet de générer le tableau 1 du status en micro entreprise
-    // Il est important de lancer dès le départ la création du tableau afin d'avoir les tableau et "id="" créés
-    // Avant même de faire des calculs ou des rafraichissement
-    createTableauImpotsMicroEntreprise: function () {
-
-        const totalmatch = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
-        let sommeAnnuelleBrut = parseFloat(brut_annuel_01) + parseFloat(brut_annuel_02) + parseFloat(brut_annuel_03);
-        let sommeAnnuelleCotisationSaison = display.formateEuroBadge(parseFloat(cotisations_annuelles_01) + parseFloat(cotisations_annuelles_02) + parseFloat(cotisations_annuelles_03));
-        let sommeAnnuelleNetSaison = display.formateEuroBadge(parseFloat(net_urssaf_annuel_01) + parseFloat(net_urssaf_annuel_02) + parseFloat(net_urssaf_annuel_03));
-        let sommeAnnuelleFraisSaison = display.formateEuroBadge(parseFloat(frais_annuel_01) + parseFloat(frais_annuel_02) + parseFloat(frais_annuel_03));
-        let sommeAnnuelleResultatSaison = parseFloat(resultat_net_01) + parseFloat(resultat_net_02) + parseFloat(resultat_net_03);
-
-        let tauximposition = (sommeAnnuelleResultatSaison / sommeAnnuelleBrut) * 100;
-
-        htmlTableau += `<table class="table table-sm">
-        <thead>
-          <tr>
-            <th scope="col">Travailleur indépendant</th>
-            <th scope="col">Nbre matchs</th>
-            <th scope="col">Montant</th>
-            <th scope="col">% URSSAF</th>
-            <th scope="col">Cotisations / match</th>
-            <th scope="col">Net</th>
-            <th scope="col">Brut annuel</th>
-            <th scope="col">Cotisations annuelles</th>
-            <th scope="col">Net d'URSSAF annuel</th>
-            <th scope="col">Frais par match</th>
-            <th scope="col">Somme annuelle des frais</th>
-            <th scope="col">RÉSULTAT NET</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">Saison régulière</th>
-            <td id="cell2_1">${nbre_matchs_01}</td>
-            <td id="cell3_1"></td>
-            <td id="cell4_1">${pourcentage_urssaf}</td>
-            <td id="cell5_1">${cotisations_urssaf_par_match_01}</td>
-            <td id="cell6_1">${net_match_01}</td>
-            <td id="cell7_1">${brut_annuel_01}</td>
-            <td id="cell8_1">${cotisations_annuelles_01}</td>
-            <td id="cell9_1">${net_urssaf_annuel_01}</td>
-            <td id="cell10_1">${frais_par_match01}</td>
-            <td id="cell11_1">${frais_annuel_01}</td>
-            <td id="cell12_1">${resultat_net_01}</td>
-          </tr>
-          <tr>
-            <th scope="row">Poule de relégation</th>
-            <td id="cell2_2">${nbre_matchs_02}</td>
-            <td id="cell3_2"></td>
-            <td id="cell4_2">${pourcentage_urssaf}</td>
-            <td id="cell5_2">${cotisations_urssaf_par_match_02}</td>
-            <td id="cell6_2">${net_match_02}</td>
-            <td id="cell7_2">${brut_annuel_02}</td>
-            <td id="cell8_2">${cotisations_annuelles_02}</td>
-            <td id="cell9_2">${net_urssaf_annuel_02}</td>
-            <td id="cell10_2">${frais_par_match02}</td>
-            <td id="cell11_2">${frais_annuel_02}</td>
-            <td id="cell12_2">${resultat_net_02}</td>
-          </tr>
-          <tr>
-            <th scope="row">Phase finale</th>
-            <td id="cell2_3">${nbre_matchs_03}</td>
-            <td id="cell3_3"></td>
-            <td id="cell4_3">${pourcentage_urssaf}</td>
-            <td id="cell5_3">${cotisations_urssaf_par_match_03}</td>
-            <td id="cell6_3">${net_match_03}</td>
-            <td id="cell7_3">${brut_annuel_03}</td>
-            <td id="cell8_3">${cotisations_annuelles_03}</td>
-            <td id="cell9_3">${net_urssaf_annuel_03}</td>
-            <td id="cell10_3">${frais_par_match03}</td>
-            <td id="cell11_3">${frais_annuel_03}</td>
-            <td id="cell12_3">${resultat_net_03}</td>
-          </tr>
-          
-         <tfoot>
-            <tr>
-                <th scope="row"><b>SOMMES ANNUELLES</b></th>
-                <td id="cell2_4">${totalmatch}</td>
-                <td id="cell3_4">---</td>
-                <td id="cell4_4">---</td>
-                <td id="cell5_4">---</td>
-                <td id="cell6_4">---</td>
-                <td id="cell7_4">${sommeAnnuelleBrut}</td>
-                <td id="cell8_4">${sommeAnnuelleCotisationSaison}</td>
-                <td id="cell9_4">${sommeAnnuelleNetSaison}</td>
-                <td id="cell10_4">---</td>
-                <td id="cell11_4">${sommeAnnuelleFraisSaison}</td>
-                <td id="cell12_4">${sommeAnnuelleResultatSaison}</td>
-            </tr>
-         </tfoot>
-        
-        </tbody>
-      </table>
-      <br>
-      <table>
-        <tr>
-            <td colspan='1'>
-                <span class="text-primary">Après imposition : ${sommeAnnuelleResultatSaison}</span>
-            </td>
-        </tr>
-        
-        <tr>
-            <td colspan='8'>
-                <span class="text-primary">Taux par rapport au chiffre d'affaires : ${tauximposition.toFixed(2)}%</span>
-            </td>
-        </tr>
-
-      </table>`;
-
-        document.getElementById("impotMicroEntretriseDiv").innerHTML = htmlTableau;
-    },
-
-
     // Tableau en noir - pour vérifier les calculs  et les formules
     // N'a pas vocation à être affiché une fois les calculs validés
 
@@ -949,7 +727,7 @@ var display = {
     updateTableauImpositions: function () {
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Affichage des résultats dans le tableau 1 
+        // Affichage des résultats dans le tableau 1 - micro entreprise
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         document.getElementById("cell2_1").innerHTML = nbre_matchs_01; // Nombre de matchs (match 1)
         document.getElementById("cell4_1").innerHTML = pourcentage_urssaf + " %"; // % URSSAF
