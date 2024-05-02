@@ -883,7 +883,7 @@ var display = {
                 <td id="cell8_4">${sommeAnnuelleCotisationSaison}</td>
                 <td id="cell9_4">${sommeAnnuelleNetSaison}</td>
                 <td id="cell10_4">---</td>
-                <td id="cell111_4">${sommeAnnuelleFraisSaison}</td>
+                <td id="cell11_4">${sommeAnnuelleFraisSaison}</td>
                 <td id="cell12_4">${sommeAnnuelleResultatSaison}</td>
             </tr>
          </tfoot>
@@ -914,10 +914,32 @@ var display = {
     // N'a pas vocation à être affiché une fois les calculs validés
 
     updateTableauImpositionGenerale: function () {
-        document.getElementById("r2c5").innerHTML = resultats_net_eurl;
-        document.getElementById("r3c5").innerHTML = revenuParPart.toFixed();
 
+        let nbrepartfiscale = parseFloat(document.getElementById('idNombrePartFiscale').value);
+        let revenufiscal = parseFloat(document.getElementById('idRevenuFiscalReference').value);
+
+        // Colonne impots SASU IS C2
+
+        // Colonne impots SASU IR C3
+
+        // Colonne impots EURL IS C4
+
+        // Colonne impots EURL IR  C5 - OK FAIT ET VALIDE
+        document.getElementById("r2c5").innerHTML = resultats_net_eurl.toFixed(0);;
+        document.getElementById("r3c5").innerHTML = revenuParPart.toFixed(0);
+        document.getElementById("r4c5").innerHTML = calculateTaxTest(revenuParPart).toFixed(0);
+        document.getElementById("r5c5").innerHTML = (calculateTaxTest(revenuParPart) * nbrepartfiscale).toFixed(0);
+
+        
+
+        // Colonne impots sans le hockey - OK FAIT ET VALIDE
         document.getElementById("r2c6").innerHTML = "vide";
+        document.getElementById("r3c6").innerHTML = (revenufiscal / nbrepartfiscale).toFixed(0);
+        document.getElementById("r4c6").innerHTML = calculerImpotsRevenu(revenuFiscalReference).toFixed(0);
+        document.getElementById("r5c6").innerHTML = (calculerImpotsRevenu(revenuFiscalReference) * nbrepartfiscale).toFixed(0);
+
+
+        
         
 
     },
@@ -1040,7 +1062,7 @@ var display = {
         //document.getElementById("tns_ir_cell15_4").innerHTML = (AC16 - impotsSurLeRevenu).toLocaleString('fr-FR') + " €"; // vide
 
         // Appel de la fonction 
-        valeurImpotEurlIr = calculerImpotsEurlIr(resultats_net_eurl);
+        valeurImpotEurlIr = calculerImpotsRevenu(resultats_net_eurl);
         document.getElementById("tns_ir_cell16_2").innerHTML = valeurImpotEurlIr.toLocaleString('fr-FR'); // Après imposition
         document.getElementById("tns_ir_cell16_4").innerHTML = AC16.toLocaleString('fr-FR'); // Après imposition
 

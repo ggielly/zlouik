@@ -18,6 +18,7 @@ var nombrePartFiscale = 1;
 var resultats_eurl_intermediaire = 0;
 var resultats_net_eurl = 0;
 var total_frais_annexe_eurl = 0;
+var partsFiscales = 0 
 
 
 var sasu_is_cell16_4 = 0 ;

@@ -152,7 +152,7 @@ var updateCalculs = function () {
  *
  * @returns {number} Le montant de l'impôt calculé, ajusté selon les tranches.
  */
-var calculerImpotsEurlIr = function (resultats_net_eurl) {
+var calculerImpotsRevenu = function (resultats_net_eurl) {
     // 1er calcul => Resultat net + revenu imposable / nombre de part
     // Ensure the variables are parsed as numbers and handle undefined or null values
     var resultatNet = parseFloat(resultats_net_eurl);
@@ -190,6 +190,35 @@ for (let i = 0; i < brackets.length; i++) {
     return tax;
 
 };
+
+
+var calculateTaxTest = function (revenu) {
+    const brackets = [11294, 28797, 82341, 177106];  // These should be replaced with your actual bracket limits
+    const rates = [0, 0.11, 0.30, 0.41, 0.45];       // These rates correspond to the brackets
+
+    let tax = 0;
+
+    if (revenu <= brackets[0]) {
+        tax = 0;
+    } else if (revenu <= brackets[1]) {
+        tax = (revenu - brackets[0]) * rates[1];
+    } else if (revenu <= brackets[2]) {
+        tax = (brackets[1] - brackets[0]) * rates[1] + (revenu - brackets[1]) * rates[2];
+    } else if (revenu <= brackets[3]) {
+        tax = (brackets[1] - brackets[0]) * rates[1] +
+              (brackets[2] - brackets[1]) * rates[2] +
+              (revenu - brackets[2]) * rates[3];
+    } else {
+        tax = (brackets[1] - brackets[0]) * rates[1] +
+              (brackets[2] - brackets[1]) * rates[2] +
+              (brackets[3] - brackets[2]) * rates[3] +
+              (revenu - brackets[3]) * rates[4];
+    }
+
+    return tax;
+};
+
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
