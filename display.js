@@ -360,12 +360,6 @@ var display = {
     },
 
 
-    formateEuroBadge: function (donneaformater) {
-        var donneebadgeformatee = parseFloat(donneaformater).toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + " €";
-        return donneebadgeformatee;
-    },
-
-
     updateFrontendBadge: function () {
         document.getElementById('frontNbreMatchs').innerHTML = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
 
@@ -394,8 +388,12 @@ var display = {
         var totalBeneficeSASUIS = parseFloat(ResultatApresIS_temp - (ResultatApresIS_temp * CSG_CR) - resultatPrelevementSociaux).toFixed(2);
         totalBeneficeSASUIS = display.formateEuroBadge(totalBeneficeSASUIS);
         display.updateFrontendTotalBeneficeSASUSIS(totalBeneficeSASUIS);
+    },
 
 
+    formateEuroBadge: function (donneaformater) {
+        var donneebadgeformatee = parseFloat(donneaformater).toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + " €";
+        return donneebadgeformatee;
     },
 
 
@@ -699,7 +697,6 @@ var display = {
 
     // Tableau en noir - pour vérifier les calculs  et les formules
     // N'a pas vocation à être affiché une fois les calculs validés
-
     updateTableauImpositionGenerale: function () {
 
         nbrepartfiscale = parseFloat(document.getElementById('idNombrePartFiscale').value);
@@ -724,10 +721,6 @@ var display = {
         document.getElementById("r3c6").innerHTML = (revenufiscal / nbrepartfiscale).toFixed(0);
         document.getElementById("r4c6").innerHTML = calculerImpotsRevenu(revenuFiscalReference).toFixed(0);
         document.getElementById("r5c6").innerHTML = (calculerImpotsRevenu(revenuFiscalReference) * nbrepartfiscale).toFixed(0);
-
-        var impositionEURLir = parseFloat(calculateTaxTest(revenuParPart) * nbrepartfiscale) - parseFloat(calculerImpotsRevenu(revenuFiscalReference) * nbrepartfiscale);
-        console.log(impositionEURLir);
-
     },
 
 
@@ -1091,7 +1084,7 @@ var display = {
 
 
 
-    // Mise à jour dans les tableaux prévisionnels de la fédération des paramètres modifiés par les sliders
+    // Mise à jour dans les tableaux des impots du montat des primes nouveau calcul
     updatePrimeMontant: function () {
         prime_montant_01 = document.getElementById("prime_montant_01").value;
         document.getElementById("cell3_1").innerHTML = prime_montant_01.toLocaleString('fr-FR') + " €";
@@ -1160,7 +1153,6 @@ var display = {
         cotisations_urssaf_par_match_01 = prime_montant_01 * (pourcentage_urssaf / 100);
         cotisations_urssaf_par_match_02 = prime_montant_02 * (pourcentage_urssaf / 100);
         cotisations_urssaf_par_match_03 = prime_montant_03 * (pourcentage_urssaf / 100);
-
     },
 
 
@@ -1189,7 +1181,7 @@ var display = {
 
     // Actualise la page de façon globable
     // Rajouter ce qu'il y a a rafraichir ici
-    updateHistorique: function () {
+    updateGlobal: function () {
         display.updateHistoriquePRK();
         display.updateHistoriqueVille();
         display.updateTableauImpositions(); // Mise à jour des tableaux lorsque la prime change

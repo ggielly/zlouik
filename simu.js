@@ -60,9 +60,6 @@ var updateCalculs = function () {
 
     resultats_net_eurl = resultats_eurl_intermediaire - total_frais_annexe_eurl;
 
-    tauximpositionmicro = (parseFloat(sommeAnnuelleResultatSaison) / parseFloat(sommeAnnuelleBrutMicro)) * 100;
-    console.log(tauximpositionmicro);
-
     urssaf = resultats_eurl_intermediaire * 0.45;
 
     Salaires =
@@ -326,9 +323,11 @@ var gereEvents = function () {
             element.addEventListener("input", function () {
                 display.updateSliderValues();
                 display.updateTableauImpositions(); // Appel à la fonction de mise à jour des tableaux
-                display.updateHistorique();
+                display.updateGlobal();
+
                 // debug
                 display.updateTableauImpositionGenerale(); // Appel à la fonction de mise à jour du tableau récapitulatif impots
+                // fin du tableau de debug
 
             });
             element.addEventListener("change", function () {
@@ -424,23 +423,48 @@ var gereEvents = function () {
     document
         .getElementById("indemniteChoisieDiv")
         .addEventListener("change", function () {
-            display.updateHistorique();
+            display.updateGlobal();
         });
 
     document
         .getElementById("VilleDepart")
-        .addEventListener("input", display.updateHistorique);
+        .addEventListener("input", display.updateGlobal);
     document
         .getElementById("menuPRK")
-        .addEventListener("input", display.updateHistorique);
+        .addEventListener("input", display.updateGlobal);
 
     // Nombre de matchs au total
     nbre_matchs_total = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03;
 };
 
-//Initialisation :
-// ajout des menus calculés dynamiquement
-// appel des fonctions de calcul initial de certaines données basées sur  primes / frais / nb match
+
+/**
+ * Initializes the application's user interface components upon startup.
+ * This function orchestrates the setup of various UI components and ensures
+ * that the necessary DOM elements are created and initialized in the correct order.
+ * It sets up event listeners for form controls, builds dynamic HTML tables,
+ * populates dropdown menus, updates default slider values, and performs initial
+ * data processing tasks.
+ *
+ * Functions called within `initialize`:
+ * - `setupRadioChangeListeners`: Attaches event listeners to radio buttons for handling changes.
+ * - `createIndemniteChoisieDiv`: Constructs the HTML structure for displaying chosen indemnity options.
+ * - `createTableauImpositionGenerale`: Generates a general tax table and inserts it into the DOM.
+ * - `menuVilles`: Populates the dropdown menu with city options based on available data.
+ * - `menuPRK`: Fills the dropdown for selecting the vehicular cost per kilometer.
+ * - `updateSliderValues`: Sets initial values for all sliders based on predefined defaults or user settings.
+ * - `calculDestinations`: Calculates possible destinations based on current city selections and other criteria.
+ * - `updatePrimeMontant`: Refreshes the display of bonus amounts as sliders are adjusted.
+ * - `updateCalculs`: Performs initial calculations for displayed values and summaries.
+ * - `updateSelectedIndemnityValue`: Updates the UI to reflect the currently selected indemnity rate.
+ * - `updateHistoriqueVille`: Updates historical data visualizations based on the selected city.
+ * - `updateFrontendBadge`: Refreshes badges and other indicators on the frontend to show new data or statuses.
+ *
+ * Note:
+ * This function must be called after the DOM is fully loaded to ensure all elements
+ * are available for manipulation and event binding. Typically, this is done at the end
+ * of the HTML document or inside a DOMContentLoaded event listener.
+ */
 var initialize = function () {
     display.setupRadioChangeListeners();
     display.createIndemniteChoisieDiv();
