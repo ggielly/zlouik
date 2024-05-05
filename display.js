@@ -303,9 +303,18 @@ var display = {
     },
 
 
+    updateProfitPercentageMicro: function (pourcentage) {
+        // Get the span by its ID
+        // Mets à jour le %age du badge
+        const percentageSpan = document.getElementById('profitIncreasePercentageMicro');
+
+        // Update the text content of the span
+        percentageSpan.textContent = pourcentage.toFixed(2) + '%';
+    },
+
+
     updateFrontendTotalIndeminite: function (totalBeneficeReel) {
         document.getElementById('frontTotalBeneficeReelDisplay').innerHTML = totalBeneficeReel;
-
     },
 
 
@@ -636,7 +645,7 @@ var display = {
     },
 
 
- 
+
     createTableauImpositionGenerale: function () {
         htmlTableau += `<table id="impotGenerale" class="table table-sm table-striped table-dark">
         <thead>
@@ -708,7 +717,7 @@ var display = {
         document.getElementById("r4c5").innerHTML = calculateTaxTest(revenuParPart).toFixed(0);
         document.getElementById("r5c5").innerHTML = (calculateTaxTest(revenuParPart) * nbrepartfiscale).toFixed(0);
 
-        
+
 
         // Colonne impots sans le hockey - OK FAIT ET VALIDE
         document.getElementById("r2c6").innerHTML = "vide";
@@ -773,6 +782,14 @@ var display = {
         document.getElementById("cell11_4").innerHTML = (frais_annuel_01 + frais_annuel_02 + frais_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais sur la saison
         document.getElementById("cell12_4").innerHTML = (resultat_net_01 + resultat_net_02 + resultat_net_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des résultats sur la saison
 
+        var pourcentageImpositionMicro = ((parseInt(resultat_net_01) + parseInt(resultat_net_02) + parseInt(resultat_net_03)) / (parseInt(brut_annuel_01) + parseInt(brut_annuel_02) + parseInt(brut_annuel_03))) * 100;
+
+        // On affiche le pourcentage dans le badge 1
+        display.updateProfitPercentageMicro(pourcentageImpositionMicro);
+
+
+
+
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Affichage des résultats dans le tableau 2 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -790,7 +807,7 @@ var display = {
         document.getElementById("tns_ir_cell8_1").innerHTML = urssaf_zero * nbre_matchs_01 + " €"; // Cotisations annuelles
         document.getElementById("tns_ir_cell9_1").innerHTML = (urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01).toLocaleString('fr-FR') + " €"; // Net d'URSSAF annuel
         document.getElementById("tns_ir_cell10_1").innerHTML = frais_par_match01.toLocaleString('fr-FR') + " €"; // Frais par match
-       // document.getElementById("tns_ir_cell11_1").innerHTML = frais_annuel_01.toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais
+        // document.getElementById("tns_ir_cell11_1").innerHTML = frais_annuel_01.toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais
         document.getElementById("tns_ir_cell11_1").innerHTML = resultat_intermediaire_01 + " €"; // Resultat intermédiaire
 
         document.getElementById("tns_ir_cell13_1").innerHTML = frais_banque + " €"; // Frais annexes
@@ -842,7 +859,7 @@ var display = {
 
         document.getElementById("tns_ir_cell16_2").innerHTML = impositionEURLir;
         // Après imposition
-        document.getElementById("tns_ir_cell16_4").innerHTML = impositionEURLir + resultats_net_eurl ; // Après imposition
+        document.getElementById("tns_ir_cell16_4").innerHTML = impositionEURLir + resultats_net_eurl; // Après imposition
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
