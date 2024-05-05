@@ -430,15 +430,15 @@ var display = {
     generateTableauComparatifHeader: function (nbMatchs, idtableau) {
 
         htmlTableau = `<h5 class="card-title">${nbMatchs} matchs.<span></span></h5>
-        <table id="${idtableau}" class="table table-sm table-striped table-hover">
+        <table id="${idtableau}" class="table table-sm table-striped table-hover text-center">
         <thead>
             <tr>
-                <th scope="col">Domicile / Départ</th>
+                <th scope="col">Domicile</th>
                 <th scope="col">Destination</th>
-                <th scope="col">Distance<br>aller/retour</th>
+                <th scope="col">Distance<br>A/R</th>
                 <th scope="col">Péages</th>
-                <th scope="col">Temps de trajet A/R</th>
-                <th scope="col">Grand déplacement</th>
+                <th scope="col">Temps de trajet<br>A/R</th>
+                <th scope="col">Grand<br>déplacement</th>
                 <th scope="col">Indem. km</th>
                 <th scope="col">PRK</th>
                 <th scope="col">Repas</th>
