@@ -170,7 +170,29 @@ for (let i = 0; i < brackets.length; i++) {
 
 };
 
-
+/**
+ * Calculates the income tax based on a set of predefined tax brackets and rates.
+ * This function uses a progressive tax calculation method where each segment of income
+ * that falls into a higher tax bracket is taxed at a higher rate. The function is structured
+ * to handle incomes that span multiple tax brackets, applying different tax rates to each
+ * segment of the income as defined by the bracket thresholds.
+ *
+ * @param {number} revenu - The total income for which the tax is to be calculated. Must be a non-negative number.
+ *
+ * @returns {number} The total tax calculated based on the given income. The tax is calculated by applying
+ * the tax rate of each bracket to the portion of the income that falls within that bracket's range.
+ *
+ * Example:
+ * - For an income of 30,000, the function would calculate:
+ *   - Tax for income between 11,294 and 28,797 at 11%,
+ *   - Plus tax for income from 28,798 to 30,000 at 30%.
+ *
+ * Note:
+ * - The tax brackets and rates are hardcoded into the function:
+ *   - Brackets: [11,294, 28,797, 82,341, 177,106]
+ *   - Rates: [0%, 11%, 30%, 41%, 45%]
+ * - This function assumes that the input is valid and does not perform error checking on the `revenu` parameter.
+ */
 var calculateTaxTest = function (revenu) {
     const brackets = [11294, 28797, 82341, 177106];  // These should be replaced with your actual bracket limits
     const rates = [0, 0.11, 0.30, 0.41, 0.45];       // These rates correspond to the brackets
@@ -260,45 +282,81 @@ var calculerMontant_impotdividende = function (AC24, seuils, pourcentages) {
 };
 
 
-// remplissage du array resultats avec les villes de destination calculées
+
+/**
+ * Fetches possible destinations for a given departure city from the global `data` array.
+ * Filters the `data` array to find all destination objects where the departure city matches
+ * the specified `VilleDepart`.
+ *
+ * @param {string} VilleDepart - The departure city to filter destinations by.
+ * @returns {Array} An array of destination objects that match the given departure city.
+ *
+ * Note:
+ * - Returns an empty array if no matching destinations are found.
+ */
+var fetchDestinationData = function(VilleDepart) {
+    return data.filter(trajet => trajet.VilleDepart === VilleDepart);
+};
+
+
+/**
+ * Selects a random destination from an array of destinations.
+ * Chooses a random index in the given array and returns the destination at that index.
+ *
+ * @param {Array} destinations - An array of destination objects.
+ * @returns {Object|null} A randomly selected destination object or null if the array is empty.
+ *
+ * Note:
+ * - Returns null if the input array is empty to indicate no destination could be selected.
+ */
+var getRandomDestination =  function(destinations) {
+    if (!destinations.length) return null;
+    const index = Math.floor(Math.random() * destinations.length);
+    return destinations[index];
+};
+
+
+/**
+ * Calculates and stores random destinations based on the selected departure city.
+ * This function retrieves the selected city from the DOM, fetches potential destinations based
+ * on this city from the global `data` array, and selects random destinations according to the
+ * total number of matches specified by global match count variables.
+ * It then pushes these destinations into the global `resultats` array.
+ *
+ * Prerequisites:
+ * - The `data` array must be populated with destination objects that include a `VilleDepart` property.
+ * - Global match variables (`nbre_matchs_01`, `nbre_matchs_02`, `nbre_matchs_03`) must be set.
+ *
+ * Side Effects:
+ * - Updates the global `resultats` array with selected destination objects.
+ * - Logs warnings to the console if no valid destination or `VilleDepart` element is found.
+ *
+ * Error Handling:
+ * - Exits early and logs an error if the `VilleDepart` element is not found in the DOM.
+ * - Logs a warning if no destinations are available for the selected departure city.
+ */
 var calculDestinations = function () {
-    // Nombre total d'itérations à effectuer
-    let nombreIterations = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03;
-
-    // Récupération de l'élément selectVilleDepart
     var selectElement = document.getElementById("VilleDepart");
-
-    // Vérification si l'élément selectVilleDepart existe
-    if (selectElement) {
-        var VilleDepart = selectElement.value;
-        // Calcul des itérations
-        for (let i = 0; i < nombreIterations; i++) {
-            // Choix aléatoire d'une ville de destination parmi celles disponibles pour la ville de départ sélectionnée
-            var VilleDestinationsPossibles = data.filter(function (trajet) {
-                return trajet.VilleDepart === VilleDepart;
-            });
-
-            // Vérification si des villes de destination sont disponibles
-            if (VilleDestinationsPossibles.length === 0) {
-                console.warn(
-                    "Aucune ville de destination trouvée pour la ville de départ :",
-                    VilleDepart,
-                );
-                continue; // Passer à l'itération suivante si aucune ville de destination n'est disponible
-            }
-
-            var indexVilleDestination = Math.floor(
-                Math.random() * VilleDestinationsPossibles.length,
-            );
-            var VilleDestination = VilleDestinationsPossibles[indexVilleDestination];
-
-            // Ajout du trajet aux résultats
-            resultats.push(VilleDestination);
-        }
-    } else {
+    if (!selectElement) {
         console.error("L'élément VilleDepart n'existe pas dans le document.");
+        return;
+    }
+
+    var VilleDepart = selectElement.value;
+    var destinations = fetchDestinationData(VilleDepart);
+
+    if (!destinations.length) {
+        console.warn("Aucune ville de destination trouvée pour la ville de départ :", VilleDepart);
+        return;
+    }
+
+    let nombreIterations = nbre_matchs_01 + nbre_matchs_02 + nbre_matchs_03;
+    for (let i = 0; i < nombreIterations; i++) {
+        var VilleDestination = getRandomDestination(destinations);
+        if (VilleDestination) resultats.push(VilleDestination);
     }
 };
+
 
 // enregistre toutes les fonctions à appeler selon les évènements UI
 var gereEvents = function () {
@@ -474,6 +532,7 @@ var initialize = function () {
 
     display.menuVilles();
     display.menuPRK();
+
     display.updateSliderValues();
     calculDestinations();
 

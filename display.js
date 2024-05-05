@@ -397,6 +397,33 @@ var display = {
     },
 
 
+
+    /**
+ * Generates and returns an HTML table that displays comparative data for different match sessions.
+ * This function calculates various costs and benefits for matches depending on their type and compiles them into a formatted HTML table.
+ * It handles different season types, calculates expenses based on predefined rates for meals and hotels, and computes the total benefits including allowances.
+ *
+ * Parameters:
+ * - resultats {Array} - An array of objects containing data about each match, such as distances and toll fees.
+ * - typeSaison {String} - A string indicating the type of season which could be "Saison régulière", "Poule de relégation", or "Phase finale". This determines which set of matches and corresponding data are processed.
+ *
+ * Returns:
+ * - {String} An HTML string representing a table filled with calculated data for matches. If no valid season type or matches are found, it returns a message indicating no data is available.
+ *
+ * Implementation Details:
+ * - First, the function verifies if the season type provided is valid and determines the index to fetch relevant data.
+ * - It retrieves the number of matches and the proportion that involves long distances to calculate costs accordingly.
+ * - It loops through each match to compute total and individual costs for transportation, meals, accommodation, and bonuses.
+ * - The costs are aggregated and displayed at the bottom of the table as totals.
+ * - Additionally, the function prepares data for graphical representation which is handled elsewhere by `generateGraphsApex`.
+ * - Debugging statements are included to log errors or warnings when expected data elements are missing.
+ *
+ * Usage:
+ * - This function is typically called when a user selects a season type from the UI and requests a detailed breakdown of costs and benefits.
+ *
+ * Example:
+ * - tableauComparatif(matchData, 'Saison régulière');
+ */
     tableauComparatif: function (resultats, typeSaison) {
         var coutRepas = 17; // Coût fixé pour les repas
         var coutHotel = 87; // Coût fixé pour les hôtels
