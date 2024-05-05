@@ -208,34 +208,30 @@ var display = {
     },
 
 
-    // génération du menu du PRK avec des formules calculées selon la distance
-    menuPRK: function () {
-        var options = "";
-        // Définition des catégories et formules selon la distance
-        const categories = [
-            { chevaux: "3 CV ou moins", formulas: ["0.456 * d", "(0.273 * d) + 915", "0.318 * d"] },
-            { chevaux: "4 CV", formulas: ["0.523 * d", "(0.294 * d) + 1147", "0.352 * d"] },
-            { chevaux: "5 CV", formulas: ["0.548 * d", "(0.308 * d) + 1200", "0.368 * d"] },
-            { chevaux: "6 CV", formulas: ["0.574 * d", "(0.323 * d) + 1256", "0.386 * d"] },
-            { chevaux: "7 CV ou plus", formulas: ["0.601 * d", "(0.340 * d) + 1301", "0.405 * d"] }
-        ];
+// Defines the function to generate the PRK menu options based on vehicle power and mileage
+menuPRK: function () {
+    const categories = [
+        { chevaux: "3 CV ou moins", formulas: ["0.456 * d", "(0.273 * d) + 915", "0.318 * d"] },
+        { chevaux: "4 CV", formulas: ["0.523 * d", "(0.294 * d) + 1147", "0.352 * d"] },
+        { chevaux: "5 CV", formulas: ["0.548 * d", "(0.308 * d) + 1200", "0.368 * d"] },
+        { chevaux: "6 CV", formulas: ["0.574 * d", "(0.323 * d) + 1256", "0.386 * d"] },
+        { chevaux: "7 CV ou plus", formulas: ["0.601 * d", "(0.340 * d) + 1301", "0.405 * d"] }
+    ];
 
-        categories.forEach((category) => {
-            category.formulas.forEach((formula, index) => {
-                var label = `${category.chevaux} => `;
-                if (index === 0) {
-                    label += "moins de 5 000 km";
-                } else if (index === 1) {
-                    label += "de 5001 à 20 000 km";
-                } else {
-                    label += "plus 20 000 km";
-                }
-                options += `<option value='${formula}'>${label}</option>\n`;
-            });
-        });
+    const distanceLabels = [
+        "moins de 5 000 km",
+        "de 5001 à 20 000 km",
+        "plus de 20 000 km"
+    ];
 
-        document.getElementById("menuPRK").innerHTML = options;
-    },
+    let options = categories.map(category => 
+        category.formulas.map((formula, index) => 
+            `<option value='${formula}'>${category.chevaux} => ${distanceLabels[index]}</option>`
+        ).join("")
+    ).join("\n");
+
+    document.getElementById("menuPRK").innerHTML = options;
+},
 
 
     /**
@@ -253,36 +249,23 @@ var display = {
         var selectElement = document.getElementById("VilleDepart");
         if (!selectElement) {
             console.error("L'élément VilleDepart n'existe pas dans le document.");
-            return; // Sortie de la fonction si l'élément VilleDepart n'existe pas
+            return; // Early exit if VilleDepart element does not exist
         }
-
-        if (selectElement) {
-            var VilleDepart = selectElement.value;
-
-            // Filtrage des résultats pour la ville de départ sélectionnée
-            resultats_filtres = data.filter(function (trajet) {
-                return trajet.VilleDepart === VilleDepart;
-            });
-
-            // Génération du tableau des résultats si des résultats ont été trouvés
-            var tableauHtml = "";
-            if (resultats_filtres.length > 0) {
-                // Récupération du PRK de la voiture sélectionné
-                var prkVoiture = parseFloat(document.getElementById('menuPRK').value);
-
-                // Génération des 3 tableaux des résultats pour chaque type de saison
-                display.generateTableauDesignations(resultats_filtres);
-
-            } else {
-                // Aucun résultat trouvé pour la ville de départ sélectionnée
-                console.log("Aucun résultat trouvé pour la ville de départ sélectionnée :", VilleDepart);
-            }
-        }
-        else {
-            console.error("L'élément VilleDepart n'existe pas dans le document.");
+    
+        var VilleDepart = selectElement.value;
+    
+        // Filtrage des résultats pour la ville de départ sélectionnée
+        var resultatsFiltres = data.filter(trajet => trajet.VilleDepart === VilleDepart);
+    
+        if (resultatsFiltres.length > 0) {
+            // Génération des 3 tableaux des résultats pour chaque type de saison
+            display.generateTableauDesignations(resultatsFiltres);
+        } else {
+            // Aucun résultat trouvé pour la ville de départ sélectionnée
+            console.log("Aucun résultat trouvé pour la ville de départ sélectionnée:", VilleDepart);
         }
     },
-
+    
 
     // fonction de mélange aléatoire d'un tableau Fisher-Yates
     shuffleArray: function (array) {
@@ -397,33 +380,62 @@ var display = {
     },
 
 
+    generateTableauComparatifHeader: function (nbMatchs, idtableau) {
+
+        htmlTableau = `<h5 class="card-title">${nbMatchs} matchs.<span></span></h5>
+        <table id="${idtableau}" class="table table-sm table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Domicile / Départ</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Distance<br>aller/retour</th>
+                <th scope="col">Péages</th>
+                <th scope="col">Temps de trajet A/R</th>
+                <th scope="col">Grand déplacement</th>
+                <th scope="col">Indem. km</th>
+                <th scope="col">PRK</th>
+                <th scope="col">Repas</th>
+                <th scope="col">Hôtel</th>
+                <th scope="col">Indemnité de préparation <br> et d'équipement</th>
+                <th scope="col">Note de frais historique <br>Chiffre d'affaire</th>
+                <th scope="col">Note de frais historique<br>bénéfices rééls</th>
+                <th scope="col">Prime<br>(chiffre d'affaire)</th>
+                <th scope="col">Frais</th>
+                <th scope="col">PRIMES<br>bénéfices rééls<br>(prime - frais - PRK)</th>
+            </tr>
+        </thead>
+        <tbody>` ;
+
+        return htmlTableau;
+    },
+
 
     /**
- * Generates and returns an HTML table that displays comparative data for different match sessions.
- * This function calculates various costs and benefits for matches depending on their type and compiles them into a formatted HTML table.
- * It handles different season types, calculates expenses based on predefined rates for meals and hotels, and computes the total benefits including allowances.
- *
- * Parameters:
- * - resultats {Array} - An array of objects containing data about each match, such as distances and toll fees.
- * - typeSaison {String} - A string indicating the type of season which could be "Saison régulière", "Poule de relégation", or "Phase finale". This determines which set of matches and corresponding data are processed.
- *
- * Returns:
- * - {String} An HTML string representing a table filled with calculated data for matches. If no valid season type or matches are found, it returns a message indicating no data is available.
- *
- * Implementation Details:
- * - First, the function verifies if the season type provided is valid and determines the index to fetch relevant data.
- * - It retrieves the number of matches and the proportion that involves long distances to calculate costs accordingly.
- * - It loops through each match to compute total and individual costs for transportation, meals, accommodation, and bonuses.
- * - The costs are aggregated and displayed at the bottom of the table as totals.
- * - Additionally, the function prepares data for graphical representation which is handled elsewhere by `generateGraphsApex`.
- * - Debugging statements are included to log errors or warnings when expected data elements are missing.
- *
- * Usage:
- * - This function is typically called when a user selects a season type from the UI and requests a detailed breakdown of costs and benefits.
- *
- * Example:
- * - tableauComparatif(matchData, 'Saison régulière');
- */
+    * Generates and returns an HTML table that displays comparative data for different match sessions.
+    * This function calculates various costs and benefits for matches depending on their type and compiles them into a formatted HTML table.
+    * It handles different season types, calculates expenses based on predefined rates for meals and hotels, and computes the total benefits including allowances.
+    *
+    * Parameters:
+    * - resultats {Array} - An array of objects containing data about each match, such as distances and toll fees.
+    * - typeSaison {String} - A string indicating the type of season which could be "Saison régulière", "Poule de relégation", or "Phase finale". This determines which set of matches and corresponding data are processed.
+    *
+    * Returns:
+    * - {String} An HTML string representing a table filled with calculated data for matches. If no valid season type or matches are found, it returns a message indicating no data is available.
+    *
+    * Implementation Details:
+    * - First, the function verifies if the season type provided is valid and determines the index to fetch relevant data.
+    * - It retrieves the number of matches and the proportion that involves long distances to calculate costs accordingly.
+    * - It loops through each match to compute total and individual costs for transportation, meals, accommodation, and bonuses.
+    * - The costs are aggregated and displayed at the bottom of the table as totals.
+    * - Additionally, the function prepares data for graphical representation which is handled elsewhere by `generateGraphsApex`.
+    * - Debugging statements are included to log errors or warnings when expected data elements are missing.
+    *
+    * Usage:
+    * - This function is typically called when a user selects a season type from the UI and requests a detailed breakdown of costs and benefits.
+    *
+    * Example:
+    * - tableauComparatif(matchData, 'Saison régulière');
+    */
     tableauComparatif: function (resultats, typeSaison) {
         var coutRepas = 17; // Coût fixé pour les repas
         var coutHotel = 87; // Coût fixé pour les hôtels
@@ -465,31 +477,8 @@ var display = {
 
         let idtableau = "tableauComparatif0" + index;
 
-
-        htmlTableau = `<h5 class="card-title">${nbMatchs} matchs.<span></span></h5>
-        <table id="${idtableau}" class="table table-sm table-striped table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Domicile / Départ</th>
-                <th scope="col">Destination</th>
-                <th scope="col">Distance<br>aller/retour</th>
-                <th scope="col">Péages</th>
-                <th scope="col">Temps de trajet A/R</th>
-                <th scope="col">Grand déplacement</th>
-                <th scope="col">Indem. km</th>
-                <th scope="col">PRK</th>
-                <th scope="col">Repas</th>
-                <th scope="col">Hôtel</th>
-                <th scope="col">Indemnité de préparation <br> et d'équipement</th>
-                <th scope="col">Note de frais historique <br>Chiffre d'affaire</th>
-                <th scope="col">Note de frais historique<br>bénéfices rééls</th>
-                <th scope="col">Prime<br>(chiffre d'affaire)</th>
-                <th scope="col">Frais</th>
-                <th scope="col">PRIMES<br>bénéfices rééls<br>(prime - frais - PRK)</th>
-            </tr>
-        </thead>
-        
-        <tbody>` ;
+        // On appelle la fonction qui va générer le header du tableau HTML
+        htmlTableau = display.generateTableauComparatifHeader(nbMatchs, idtableau);
 
         // Itération sur les résultats pour les afficher dans le tableau
         var processedCount = 0;
@@ -614,6 +603,7 @@ var display = {
             </tr>
         </tfoot>
         </table>`;
+
         htmlTableau += `<table>
             <tr>
                 <td colspan='1'>
@@ -632,18 +622,14 @@ var display = {
         globalBeneficeReelValues[typeSaison] = totalBeneficeReel; // Benefice de l'indemnite de match en prenant en compte le PRK
         globalBeneficeReelPrimeValues[typeSaison] = totalPrimeBenefice;
 
-
         // On affiche le resultat des sous totaux
         display.updateFrontendTotalBeneficeReel();
         display.updateFrontendTotalBeneficePrimeReel();
-
-
 
         let couleurGraphe1 = ['#1754f1', '#1eca6a', '#5f771d'];
         generateGraphsApex(graphData, index, couleurGraphe1); // Data and index for the first chart
 
         return htmlTableau;
-
 
     }, // Fin de la fonction
 
