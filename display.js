@@ -118,27 +118,39 @@ var display = {
     },
 
 
-    // Création du formulaire pour le choix de l'indemnité
+    /**
+     * Creates and returns a DIV element containing a set of radio buttons for choosing an indemnity amount.
+     * Each radio button represents a different indemnity option, allowing users to select from predefined values.
+     *
+     * The function programmatically creates a DIV to house the radio buttons, sets up individual radio input
+     * elements for each indemnity option, and associates each with a label for better accessibility and usability.
+     *
+     * Returns:
+     * - {HTMLElement} A DIV element containing the configured radio buttons and their labels.
+     *
+     * Example Usage:
+     * - const indemniteDiv = createIndemniteChoisieDiv();
+     * - document.body.appendChild(indemniteDiv); // This will append the created div to the body of the page.
+     */
     createIndemniteChoisieDiv: function () {
-        // Create the div element for indemnity choice
+        // Create the main container DIV for the indemnity choices
         const indemniteChoisieDiv = document.createElement('div');
         indemniteChoisieDiv.id = 'indemniteChoisieDiv';
         indemniteChoisieDiv.textContent = 'Montant des primes de préparation et d\'équipement (historique):';
 
-        // Create the container for radio buttons
+        // Container for the radio buttons to ensure grouped layout and styling
         const radioContainer = document.createElement('div');
 
-        // Define options for indemnity choice
+        // Array of options for indemnity amounts with their respective labels and a default checked option
         const indemniteOptions = [
-            { value: 145, label: '145' },
-            { value: 130, label: '130' },
-            { value: 115, label: '115', checked: true }, // Pre-select 115
-            { value: 100, label: '100' },
+            { value: 145, label: '145€' },
+            { value: 130, label: '130€' },
+            { value: 115, label: '115€', checked: true }, // Default selection
+            { value: 100, label: '100€' },
         ];
 
-        // Create radio buttons for each option
+        // Loop through each indemnity option to create and configure radio buttons
         indemniteOptions.forEach(option => {
-            // Create the radio input element
             const radioInput = document.createElement('input');
             radioInput.type = 'radio';
             radioInput.id = `indemnite${option.value}`;
@@ -148,59 +160,66 @@ var display = {
                 radioInput.checked = true;
             }
 
-            // Create the label for the radio input
             const radioLabel = document.createElement('label');
-            radioLabel.htmlFor = radioInput.id; // Link the label to the input
+            radioLabel.htmlFor = radioInput.id;
             radioLabel.textContent = option.label;
 
-            // Append the input and label to the container
             radioContainer.appendChild(radioInput);
             radioContainer.appendChild(radioLabel);
         });
 
-        // Append the radio button container to the div element
+        // Append the container of radio buttons to the main div
         indemniteChoisieDiv.appendChild(radioContainer);
-        // Return the div element
+
         return indemniteChoisieDiv;
     },
 
 
-    // Créé le menu déroulant avec l'ensemble des villes disponibles lu dans le tableau data
-    // Avec un tri par ordre croissant
+
+    /**
+     * Populates a dropdown menu with cities of departure extracted from global 'data', 
+     * along with the count of occurrences for each city. This function provides a visual 
+     * representation in a form of a sorted dropdown menu where each option represents a 
+     * city and the number of times it appears as a departure point in the dataset.
+     *
+     * Implementation Details:
+     * - Retrieves the DOM element identified by the ID 'VilleDepart' to serve as the container for the dropdown.
+     * - Counts each occurrence of departure cities in the global 'data' array using an object to store counts.
+     * - Converts the counts object into an array of tuples, sorts them by the number of occurrences, and
+     *   generates dropdown options from this sorted array.
+     * - Inserts the generated options into the 'VilleDepart' dropdown, marking the first city as the default selected option.
+     * - Provides error handling by checking the existence of the 'VilleDepart' DOM element and logging an error if not found.
+     *
+     * Usage:
+     * - This function should be called during the initialization phase of the page or when the data set is updated to ensure
+     *   the dropdown is always populated with the latest data.
+     *
+     * Example:
+     * - menuVilles(); // Executes the function to populate the 'VilleDepart' dropdown.
+     *
+     * Note:
+     * - Assumes 'data' is a globally accessible array containing objects with a 'VilleDepart' property.
+     * - This function is dependent on a specific HTML structure, expecting a select element with the ID 'VilleDepart'.
+     */
     menuVilles: function () {
-        // Récupération de l'élément conteneur pour le menu déroulant des villes de départ
         const selectContainer = document.getElementById("VilleDepart");
-        // Insertion du menu déroulant des villes de départ dans l'élément conteneur
         if (selectContainer) {
             var villesDepartCount = {};
 
-            // Compter les occurrences de chaque ville de départ
             data.forEach(function (trajet) {
-                if (villesDepartCount[trajet.VilleDepart]) {
-                    villesDepartCount[trajet.VilleDepart]++;
-                } else {
-                    villesDepartCount[trajet.VilleDepart] = 1;
-                }
+                villesDepartCount[trajet.VilleDepart] = (villesDepartCount[trajet.VilleDepart] || 0) + 1;
             });
 
-            // Convertir l'objet en un tableau de tuples [ville, compteur], puis trier ce tableau
             var sortedVilles = Object.entries(villesDepartCount).sort(function (a, b) {
-                return a[1] - b[1]; // Tri basé sur le compteur de manière ascendante
+                return a[1] - b[1]; // Sort by count in ascending order
             });
 
-            // Générer les options du menu déroulant en utilisant le tableau trié
-            var options = "";
-            var first = true;
-            sortedVilles.forEach(function (item) {
-                var ville = item[0];
-                var count = item[1];
-                var sel = "";
-                if (first) {
-                    sel = " selected";
-                    first = false;
-                }
-                options += `<option value="${ville}"${sel}>${ville} (${count})</option>\n`;
-            });
+            var options = sortedVilles.reduce((acc, item, index) => {
+                const [ville, count] = item;
+                const selected = index === 0 ? " selected" : "";
+                return acc + `<option value="${ville}"${selected}>${ville} (${count})</option>\n`;
+            }, "");
+
             selectContainer.innerHTML = options;
         } else {
             console.error("L'élément conteneur pour le menu des villes de départ n'existe pas dans le document.");
@@ -208,30 +227,58 @@ var display = {
     },
 
 
-// Defines the function to generate the PRK menu options based on vehicle power and mileage
-menuPRK: function () {
-    const categories = [
-        { chevaux: "3 CV ou moins", formulas: ["0.456 * d", "(0.273 * d) + 915", "0.318 * d"] },
-        { chevaux: "4 CV", formulas: ["0.523 * d", "(0.294 * d) + 1147", "0.352 * d"] },
-        { chevaux: "5 CV", formulas: ["0.548 * d", "(0.308 * d) + 1200", "0.368 * d"] },
-        { chevaux: "6 CV", formulas: ["0.574 * d", "(0.323 * d) + 1256", "0.386 * d"] },
-        { chevaux: "7 CV ou plus", formulas: ["0.601 * d", "(0.340 * d) + 1301", "0.405 * d"] }
-    ];
 
-    const distanceLabels = [
-        "moins de 5 000 km",
-        "de 5001 à 20 000 km",
-        "plus de 20 000 km"
-    ];
+    /**
+     * Generates and populates the dropdown menu for vehicle kilometric cost calculations (PRK) based on vehicle horsepower.
+     * The function iterates over predefined categories of vehicle horsepower (chevaux), each associated with specific
+     * formulas that calculate the kilometric cost depending on three different distance ranges. These formulas are
+     * dynamically inserted as options into a dropdown menu in the HTML.
+     *
+     * The function categorizes formulas into:
+     * - "moins de 5 000 km": Uses a simpler formula for short distances.
+     * - "de 5001 à 20 000 km": Applies a base rate plus a fixed addition for medium distances.
+     * - "plus de 20 000 km": Uses a higher base rate for long distances.
+     *
+     * Implementation Details:
+     * - The dropdown menu is identified by the ID 'menuPRK' within the document.
+     * - Each option in the dropdown is labeled with both the vehicle power category and the applicable distance range
+     *   to provide clear context for each formula.
+     * - The structure and labels are predefined but easily adjusted for different configurations or localizations.
+     *
+     * Assumptions:
+     * - The document contains an element with the ID 'menuPRK'.
+     * - Vehicle power categories and associated formulas are predefined and do not change dynamically.
+     *
+     * Usage:
+     * - This function is typically called during the initial setup phase of a form or interface where users need to
+     *   calculate travel costs based on vehicle type and distance traveled.
+     *
+     * Example:
+     * - menuPRK(); // Populates the 'menuPRK' dropdown with appropriate PRK calculation options
+     */
+    menuPRK: function () {
+        const categories = [
+            { chevaux: "3 CV ou moins", formulas: ["0.456 * d", "(0.273 * d) + 915", "0.318 * d"] },
+            { chevaux: "4 CV", formulas: ["0.523 * d", "(0.294 * d) + 1147", "0.352 * d"] },
+            { chevaux: "5 CV", formulas: ["0.548 * d", "(0.308 * d) + 1200", "0.368 * d"] },
+            { chevaux: "6 CV", formulas: ["0.574 * d", "(0.323 * d) + 1256", "0.386 * d"] },
+            { chevaux: "7 CV ou plus", formulas: ["0.601 * d", "(0.340 * d) + 1301", "0.405 * d"] }
+        ];
 
-    let options = categories.map(category => 
-        category.formulas.map((formula, index) => 
-            `<option value='${formula}'>${category.chevaux} => ${distanceLabels[index]}</option>`
-        ).join("")
-    ).join("\n");
+        const distanceLabels = [
+            "moins de 5 000 km",
+            "de 5001 à 20 000 km",
+            "plus de 20 000 km"
+        ];
 
-    document.getElementById("menuPRK").innerHTML = options;
-},
+        let options = categories.map(category =>
+            category.formulas.map((formula, index) =>
+                `<option value='${formula}'>${category.chevaux} => ${distanceLabels[index]}</option>`
+            ).join("")
+        ).join("\n");
+
+        document.getElementById("menuPRK").innerHTML = options;
+    },
 
 
     /**
@@ -251,12 +298,12 @@ menuPRK: function () {
             console.error("L'élément VilleDepart n'existe pas dans le document.");
             return; // Early exit if VilleDepart element does not exist
         }
-    
+
         var VilleDepart = selectElement.value;
-    
+
         // Filtrage des résultats pour la ville de départ sélectionnée
         var resultatsFiltres = data.filter(trajet => trajet.VilleDepart === VilleDepart);
-    
+
         if (resultatsFiltres.length > 0) {
             // Génération des 3 tableaux des résultats pour chaque type de saison
             display.generateTableauDesignations(resultatsFiltres);
@@ -265,7 +312,7 @@ menuPRK: function () {
             console.log("Aucun résultat trouvé pour la ville de départ sélectionnée:", VilleDepart);
         }
     },
-    
+
 
     // fonction de mélange aléatoire d'un tableau Fisher-Yates
     shuffleArray: function (array) {
