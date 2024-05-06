@@ -17,6 +17,9 @@ var sommeAnnuelleResultatSaison = 0;
 var impositionIntermediaireEurlIr = 0;
 var impositionIntermediaireEurlIs = 0;
 
+var sasu_ir_cell14_4 = 0;
+var sasu_is_cell15_4 = 0;
+
 var apresImpositionEurlIr = 0;
 var apresImpositionEurlIs = 0;
 

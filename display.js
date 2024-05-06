@@ -787,15 +787,46 @@ var display = {
         nbrepartfiscale = parseFloat(document.getElementById('idNombrePartFiscale').value);
         revenufiscal = parseFloat(document.getElementById('idRevenuFiscalReference').value);
 
+        ///////////////////////////////////////////////////////////////////////////////////
         // Colonne impots SASU IS C2
+        ///////////////////////////////////////////////////////////////////////////////////
+        var r2c2 = parseFloat(sasu_is_cell15_4);
+        document.getElementById("r2c2").innerHTML = r2c2;
 
+        var r3c2 = parseFloat((( r2c2 + parseFloat(revenufiscal)) / nbrepartfiscale));
+        document.getElementById("r3c2").innerHTML = r3c2.toFixed(0);
+
+        var r4c2 = parseFloat(calculateTaxTest(r3c2));
+        document.getElementById("r4c2").innerHTML = r4c2.toFixed(0);
+
+        var r5c2 = parseFloat(r4c2 * nbrepartfiscale);
+        document.getElementById("r5c2").innerHTML = r5c2.toFixed(0);
+
+
+
+        ///////////////////////////////////////////////////////////////////////////////////
         // Colonne impots SASU IR C3
+        ///////////////////////////////////////////////////////////////////////////////////
+        var r2c3 = sasu_ir_cell14_4;
+        document.getElementById("r2c3").innerHTML = r2c3.toFixed(0);
 
+        var r3c3 = (( r2c3 + parseFloat(revenufiscal)) / nbrepartfiscale);
+        document.getElementById("r3c3").innerHTML = r3c3.toFixed(0);
+
+        var r4c3 = calculateTaxTest(r3c3);
+        document.getElementById("r4c3").innerHTML = r4c3.toFixed(0);
+
+        var r5c3 = r4c3 * nbrepartfiscale;
+        document.getElementById("r5c3").innerHTML = r5c3.toFixed(0);
+
+
+        ///////////////////////////////////////////////////////////////////////////////////
         // Colonne impots EURL IS C4 - OK FAIT ET VALIDE
+        ///////////////////////////////////////////////////////////////////////////////////
         var r2c4 = tempResultatNetImpotsEurlIs;
         document.getElementById("r2c4").innerHTML = r2c4.toFixed(0);
 
-        var r3c4 = ((tempResultatNetImpotsEurlIs + parseFloat(revenufiscal)) / nbrepartfiscale);
+        var r3c4 = ((r2c4 + parseFloat(revenufiscal)) / nbrepartfiscale);
         document.getElementById("r3c4").innerHTML = r3c4.toFixed(0);
 
         var r4c4 = calculateTaxTest(r3c4);
@@ -804,13 +835,18 @@ var display = {
         var r5c4 = r4c4 * nbrepartfiscale;
         document.getElementById("r5c4").innerHTML = r5c4.toFixed(0);
 
+        ///////////////////////////////////////////////////////////////////////////////////
         // Colonne impots EURL IR  C5 - OK FAIT ET VALIDE
+        ///////////////////////////////////////////////////////////////////////////////////
         document.getElementById("r2c5").innerHTML = resultats_net_eurl.toFixed(0);
         document.getElementById("r3c5").innerHTML = revenuParPartEurlIr.toFixed(0);
         document.getElementById("r4c5").innerHTML = calculateTaxTest(revenuParPartEurlIr).toFixed(0);
         document.getElementById("r5c5").innerHTML = (calculateTaxTest(revenuParPartEurlIr) * nbrepartfiscale).toFixed(0);
 
+
+        ///////////////////////////////////////////////////////////////////////////////////
         // Colonne impots sans le hockey - OK FAIT ET VALIDE
+        ///////////////////////////////////////////////////////////////////////////////////
         document.getElementById("r2c6").innerHTML = "vide";
 
         var r3c6 = revenufiscal / nbrepartfiscale;
@@ -822,14 +858,13 @@ var display = {
         var r5c6 = (calculerImpotsRevenu(revenuFiscalReference) * nbrepartfiscale);
         document.getElementById("r5c6").innerHTML = r5c6.toFixed(0);
 
+        ///////////////////////////////////////////////////////////////////////////////////
         // Affichage positionné ici pour des raisons de bug d'affichage et de calcul du tableau 2 BIS
         // Les variables globales restent à 0
         // A investiguer corriger par la suite
+        ///////////////////////////////////////////////////////////////////////////////////
         impositionIntermediaireEurlIr = calculerMontantImpotIntermediaireEurlIr();
         document.getElementById("tns_ir_cell15_2").innerHTML = display.formateEuroBadge(impositionIntermediaireEurlIr);
-
-
-        //console.log("debug 2 : " + impositionIntermediaireEurlIr);
 
         apresImpositionEurlIr = resultats_net_eurl - impositionIntermediaireEurlIr
         document.getElementById("tns_ir_cell15_4").innerHTML = display.formateEuroBadge(apresImpositionEurlIr); // Après imposition
@@ -840,9 +875,11 @@ var display = {
         //console.log("debug 4 : " + pourcentageImpositionEurlIr);
         display.updateProfitPercentageEurlIr(pourcentageImpositionEurlIr);
         // Fin du contournement du tableau 2 BIS
+        ///////////////////////////////////////////////////////////////////////////////////
 
         document.getElementById('frontTotalBeneficeEurlIr').innerHTML = display.formateEuroBadge(apresImpositionEurlIr);
 
+        ///////////////////////////////////////////////////////////////////////////////////
         // Calcul à effectuer en fin de procédure pour avoir les bonnes données
         // Affichage ici  pour des raisons de bug d'affichage et de calcul du tableau 3
         impositionIntermediaireEurlIs = r5c4 - r5c6;
@@ -858,8 +895,9 @@ var display = {
         
         display.updateProfitPercentageEurlIs(pourcentageImpositionEurlIs);
         document.getElementById('frontTotalBeneficeEurlIs').innerHTML = display.formateEuroBadge(apresImpositionEurlIs);
-
         // Fin du contournement pour le tableau 3
+        ///////////////////////////////////////////////////////////////////////////////////
+
 
     },
 
@@ -1048,7 +1086,8 @@ var display = {
         document.getElementById("sasu_ir_cell13_2").innerHTML = frais_comptable + " €"; // Frais annexes
         document.getElementById("sasu_ir_cell13_4").innerHTML = (frais_banque + frais_comptable).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais annexes sur la saison
 
-        document.getElementById("sasu_ir_cell14_4").innerHTML = (resultat_intermediaire_total - frais_banque - frais_comptable).toLocaleString('fr-FR') + " €"; // Résultat net
+        sasu_ir_cell14_4 = (resultat_intermediaire_total - frais_banque - frais_comptable);
+        document.getElementById("sasu_ir_cell14_4").innerHTML = sasu_ir_cell14_4.toLocaleString('fr-FR') + " €"; // Résultat net
 
         document.getElementById("sasu_ir_cell15_2").innerHTML = ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15).toLocaleString('fr-FR') + " €"; // impots sur le revenu
 
@@ -1121,6 +1160,10 @@ var display = {
         document.getElementById("sasu_is_cell15_2").innerHTML = ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais annexes sur la saison
 
         ResultatApresIS_temp = ((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15)).toFixed(2);
+        
+        // Variable pour nettoyage futur, en lien avec le tableau des impositions
+        sasu_is_cell15_4 = parseFloat(ResultatApresIS_temp);
+
         document.getElementById("sasu_is_cell15_4").innerHTML = ResultatApresIS_temp.toLocaleString('fr-FR') + " €"; // impots sur le revenu
 
         MontantRevenuImposable = (ResultatApresIS_temp * 0.60) - (0.068 * ResultatApresIS_temp);
