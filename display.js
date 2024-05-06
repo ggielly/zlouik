@@ -858,8 +858,6 @@ var display = {
         
         display.updateProfitPercentageEurlIs(pourcentageImpositionEurlIs);
         document.getElementById('frontTotalBeneficeEurlIs').innerHTML = display.formateEuroBadge(apresImpositionEurlIs);
-       // totalBeneficeTNSIS = display.formateEuroBadge(totalBeneficeTNSIS);
-       //display.updateFrontendTotalBeneficeTNSIS(totalBeneficeTNSIS);
 
         // Fin du contournement pour le tableau 3
 
@@ -1034,11 +1032,9 @@ var display = {
         document.getElementById("tns_is_cell15_4").innerHTML = tempResultatNetImpotsEurlIs.toLocaleString('fr-FR') + " €"; // impots sur le revenu
 
         // Pour le 16_2 et 16-4 voir la fonction updateTableauImpositionGenerale()
-        //Clairement un bug de passage de variables à corriger
+        // Clairement un bug de passage de variables à corriger
         // Ou un appel de fonction avant l'autre (mauvais ordre)
         //document.getElementById("tns_is_cell16_2").innerHTML = impositionIntermediaireEurlIs;
-
-
 
 
 
@@ -1046,9 +1042,6 @@ var display = {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Affichage des résultats dans le tableau 4 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        //document.getElementById("sasu_ir_cell13_1").innerHTML = (frais_banque + frais_comptable + frais_urssaf).toLocaleString('fr-FR') + " €"; // Frais annexes
-
 
         var resultat_intermediaire_total = resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03;
         document.getElementById("sasu_ir_cell13_1").innerHTML = frais_banque + " €"; // Frais annexes
@@ -1062,14 +1055,6 @@ var display = {
         var resultatApresIS = (resultat_intermediaire_total - frais_banque - frais_comptable) - (resultat_intermediaire_total - frais_banque - frais_comptable * 0.15);
 
         document.getElementById("sasu_ir_cell15_4").innerHTML = ((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15)).toLocaleString('fr-FR') + " €"; // impots sur le revenu
-        //document.getElementById("sasu_ir_cell16_2").innerHTML = (((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15)) * 0.30).toLocaleString('fr-FR') + " €"; // impots sur le revenu
-
-        // sasu_ir_cell16_4 = (((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15)) -
-        //    ((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15)) * 0.30);
-
-        // document.getElementById("sasu_ir_cell16_4").innerHTML = sasu_ir_cell16_4; // impots sur le revenu
-
-
 
 
 
@@ -1164,65 +1149,47 @@ var display = {
 
         document.getElementById("cell3_1").innerHTML = prime_montant_01.toLocaleString('fr-FR') + " €";
         document.getElementById("tns_ir_cell3_1").innerHTML = prime_montant_01.toLocaleString('fr-FR') + " €";
-        //document.getElementById("tns_is_cell3_1").innerHTML = prime_montant_01.toLocaleString('fr-FR') + " €";
-        //document.getElementById("sasu_ir_cell3_1").innerHTML = prime_montant_01.toLocaleString('fr-FR') + " €";
-        //document.getElementById("sasu_is_cell3_1").innerHTML = prime_montant_01.toLocaleString('fr-FR') + " €";
+
 
         prime_montant_02 = document.getElementById("prime_montant_02").value;
         document.getElementById("cell3_2").innerHTML = prime_montant_02.toLocaleString('fr-FR') + " €";
         document.getElementById("tns_ir_cell3_2").innerHTML = prime_montant_02.toLocaleString('fr-FR') + " €";
-        //document.getElementById("tns_is_cell3_2").innerHTML = prime_montant_02.toLocaleString('fr-FR') + " €";
-        //document.getElementById("sasu_ir_cell3_2").innerHTML = prime_montant_02.toLocaleString('fr-FR') + " €";
-        //document.getElementById("sasu_is_cell3_2").innerHTML = prime_montant_02.toLocaleString('fr-FR') + " €";
+
 
         prime_montant_03 = document.getElementById("prime_montant_03").value;
         document.getElementById("cell3_3").innerHTML = prime_montant_03 + " €";
         document.getElementById("tns_ir_cell3_3").innerHTML = prime_montant_03.toLocaleString('fr-FR') + " €";
-        //document.getElementById("tns_is_cell3_3").innerHTML = prime_montant_03.toLocaleString('fr-FR') + " €";
-        //document.getElementById("sasu_ir_cell3_3").innerHTML = prime_montant_03.toLocaleString('fr-FR') + " €";
-        //document.getElementById("sasu_is_cell3_3").innerHTML = prime_montant_03.toLocaleString('fr-FR') + " €";
+
 
         frais_par_match01 = document.getElementById("frais_par_match01").value;
         document.getElementById("cell10_1").innerHTML = frais_par_match01 + " €";
         document.getElementById("tns_ir_cell10_1").innerHTML = frais_par_match01 + " €";
-        // document.getElementById("tns_is_cell10_1").innerHTML = frais_par_match01 + " €";
-        //  document.getElementById("sasu_ir_cell10_1").innerHTML = frais_par_match01 + " €";
-        // document.getElementById("sasu_is_cell10_1").innerHTML = frais_par_match01 + " €";
+
 
         frais_par_match02 = document.getElementById("frais_par_match02").value;
         document.getElementById("cell10_2").innerHTML = frais_par_match02 + " €";
         document.getElementById("tns_ir_cell10_2").innerHTML = frais_par_match02.toLocaleString('fr-FR') + " €";
-        //  document.getElementById("tns_is_cell10_2").innerHTML = frais_par_match02.toLocaleString('fr-FR') + " €";
-        //   document.getElementById("sasu_ir_cell10_2").innerHTML = frais_par_match02.toLocaleString('fr-FR') + " €";
-        //   document.getElementById("sasu_is_cell10_2").innerHTML = frais_par_match02.toLocaleString('fr-FR') + " €";
+
 
         frais_par_match03 = document.getElementById("frais_par_match03").value;
         document.getElementById("cell10_3").innerHTML = frais_par_match03 + " €";
         document.getElementById("tns_ir_cell10_3").innerHTML = frais_par_match03.toLocaleString('fr-FR') + " €";
-        //  document.getElementById("tns_is_cell10_3").innerHTML = frais_par_match03.toLocaleString('fr-FR') + " €";
-        //  document.getElementById("sasu_ir_cell10_3").innerHTML = frais_par_match03.toLocaleString('fr-FR') + " €";
-        //   document.getElementById("sasu_is_cell10_3").innerHTML = frais_par_match03.toLocaleString('fr-FR') + " €";
+
 
         nbre_matchs_01 = document.getElementById("nbre_matchs_01").value;
         document.getElementById("cell2_1").innerHTML = nbre_matchs_01;
         document.getElementById("tns_ir_cell2_1").innerHTML = nbre_matchs_01;
-        //    document.getElementById("tns_is_cell2_1").innerHTML = nbre_matchs_01;
-        //  document.getElementById("sasu_ir_cell2_1").innerHTML = nbre_matchs_01;
-        //  document.getElementById("sasu_is_cell2_1").innerHTML = nbre_matchs_01;
+
 
         nbre_matchs_02 = document.getElementById("nbre_matchs_02").value;
         document.getElementById("cell2_2").innerHTML = nbre_matchs_02;
         document.getElementById("tns_ir_cell2_2").innerHTML = nbre_matchs_02;
-        //   document.getElementById("tns_is_cell2_2").innerHTML = nbre_matchs_02;
-        //   document.getElementById("sasu_ir_cell2_2").innerHTML = nbre_matchs_02;
-        //   document.getElementById("sasu_is_cell2_2").innerHTML = nbre_matchs_02;
+
 
         nbre_matchs_03 = document.getElementById("nbre_matchs_03").value;
         document.getElementById("cell2_3").innerHTML = nbre_matchs_03;
         document.getElementById("tns_ir_cell2_3").innerHTML = nbre_matchs_03;
-        //  document.getElementById("tns_is_cell2_3").innerHTML = nbre_matchs_03;
-        //   document.getElementById("sasu_ir_cell2_3").innerHTML = nbre_matchs_03;
-        //   document.getElementById("sasu_is_cell2_3").innerHTML = nbre_matchs_03;
+
 
         // Calcul des cotisations URSSAF
         cotisations_urssaf_par_match_01 = prime_montant_01 * (pourcentage_urssaf / 100);
