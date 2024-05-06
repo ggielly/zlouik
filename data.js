@@ -4,18 +4,24 @@
 
 var totalBeneficeReel = 0;
 var resultats_filtres = 0;
-var resultat_intermediaire_total = 0 ;
-var ResultatApresIS_temp = 0 ;
-var resultatPrelevementSociaux = 0 ;
+var resultat_intermediaire_total = 0;
+var ResultatApresIS_temp = 0;
+var resultatPrelevementSociaux = 0;
 var data = 0;
 var revenuParPart = 0;
 var tauximpositionmicro = 0;
 var sommeAnnuelleResultatSaison = 0;
 var sommeAnnuelleBrutMicro = 0;
 var sommeAnnuelleResultatSaison = 0;
+
 var impositionIntermediaireEurlIr = 0;
+var impositionIntermediaireEurlIs = 0;
+
 var apresImpositionEurlIr = 0;
-var tempResultatNetImpotsEurlIr = 0 ;
+var apresImpositionEurlIs = 0;
+
+var tempResultatNetImpotsEurlIr = 0
+var tempResultatNetImpotsEurlIs = 0;
 
 var impositionEURLir = 0;
 var nbrepartfiscale = 0;
@@ -28,11 +34,11 @@ var nombrePartFiscale = 1;
 var resultats_eurl_intermediaire = 0;
 var resultats_net_eurl = 0;
 var total_frais_annexe_eurl = 0;
-var partsFiscales = 0 
+var partsFiscales = 0
 
 
-var sasu_is_cell16_4 = 0 ;
-var sasu_ir_cell16_4 = 0 ;
+var sasu_is_cell16_4 = 0;
+var sasu_ir_cell16_4 = 0;
 
 var globalBeneficeReelValues = {
     "Saison régulière": 0,
