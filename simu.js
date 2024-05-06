@@ -144,7 +144,7 @@ var calculerImpotsRevenu = function (resultats_net_eurl) {
         return; // Exit the function if parts fiscales is zero or undefined
     }
 
-    revenuParPart = (resultatNet + revenuFiscal) / partsFiscales;
+    revenuParPartEurlIr = (resultatNet + revenuFiscal) / partsFiscales;
 
     const brackets = [
         { upper: 11294, rate: 0.00 },
@@ -158,8 +158,8 @@ var calculerImpotsRevenu = function (resultats_net_eurl) {
 let previousUpper = 0;
 
 for (let i = 0; i < brackets.length; i++) {
-    if (revenuParPart <= brackets[i].upper) {
-        tax += (revenuParPart - previousUpper) * brackets[i].rate;
+    if (revenuParPartEurlIr <= brackets[i].upper) {
+        tax += (revenuParPartEurlIr - previousUpper) * brackets[i].rate;
         break;
     } else {
         tax += (brackets[i].upper - previousUpper) * brackets[i].rate;

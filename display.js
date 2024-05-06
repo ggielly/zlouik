@@ -781,15 +781,24 @@ var display = {
 
         // Colonne impots SASU IR C3
 
-        // Colonne impots EURL IS C4
+        // Colonne impots EURL IS C4 - OK FAIT ET VALIDE
+        document.getElementById("r2c4").innerHTML = tempResultatNetImpotsEurlIr.toFixed(0);
+        
+        var r3c4 = ((tempResultatNetImpotsEurlIr + parseFloat(revenufiscal)) / nbrepartfiscale);
+        document.getElementById("r3c4").innerHTML = r3c4.toFixed(0);
+        
+        var r4c4 = calculateTaxTest(r3c4);
+        document.getElementById("r4c4").innerHTML = r4c4.toFixed(0);
+
+        var r5c4 = r4c4 * nbrepartfiscale;
+        document.getElementById("r5c4").innerHTML = r5c4.toFixed(0);
+
 
         // Colonne impots EURL IR  C5 - OK FAIT ET VALIDE
         document.getElementById("r2c5").innerHTML = resultats_net_eurl.toFixed(0);
-        document.getElementById("r3c5").innerHTML = revenuParPart.toFixed(0);
-        document.getElementById("r4c5").innerHTML = calculateTaxTest(revenuParPart).toFixed(0);
-        document.getElementById("r5c5").innerHTML = (calculateTaxTest(revenuParPart) * nbrepartfiscale).toFixed(0);
-
-
+        document.getElementById("r3c5").innerHTML = revenuParPartEurlIr.toFixed(0);
+        document.getElementById("r4c5").innerHTML = calculateTaxTest(revenuParPartEurlIr).toFixed(0);
+        document.getElementById("r5c5").innerHTML = (calculateTaxTest(revenuParPartEurlIr) * nbrepartfiscale).toFixed(0);
 
         // Colonne impots sans le hockey - OK FAIT ET VALIDE
         document.getElementById("r2c6").innerHTML = "vide";
@@ -801,13 +810,13 @@ var display = {
         // Les variables globales restent à 0
         // A investiguer corriger par la suite
         impositionIntermediaireEurlIr = calculerMontantImpotIntermediaireEurlIr();
-        document.getElementById("tns_ir_cell15_2").innerHTML = impositionIntermediaireEurlIr + " €";
+        document.getElementById("tns_ir_cell15_2").innerHTML = display.formateEuroBadge(impositionIntermediaireEurlIr);
 
 
         //console.log("debug 2 : " + impositionIntermediaireEurlIr);
 
         apresImpositionEurlIr = resultats_net_eurl - impositionIntermediaireEurlIr
-        document.getElementById("tns_ir_cell15_4").innerHTML = apresImpositionEurlIr.toLocaleString('fr-FR') + " €"; // Après imposition
+        document.getElementById("tns_ir_cell15_4").innerHTML = display.formateEuroBadge(apresImpositionEurlIr); // Après imposition
         //console.log("debug 3 : " + apresImpositionEurlIr);
 
         // On affiche le pourcentage dans le badge 1
@@ -816,13 +825,10 @@ var display = {
         display.updateProfitPercentageEurlIr(pourcentageImpositionEurlIr);
         // Fin du contournement du tableau 2 BIS
 
-        document.getElementById('frontTotalBeneficeEurlIr').innerHTML = apresImpositionEurlIr.toFixed(0);
+        document.getElementById('frontTotalBeneficeEurlIr').innerHTML = display.formateEuroBadge(apresImpositionEurlIr);
 
 
-        document.getElementById("r2c4").innerHTML = tempResultatNetImpotsEurlIr.toFixed(2);
 
-        console.log(idRevenuFiscalReference.value, nbrepartfiscale);
-        document.getElementById("r3c4").innerHTML = ((tempResultatNetImpotsEurlIr + parseFloat(idRevenuFiscalReference.value)) / nbrepartfiscale).toFixed(0);
     },
 
 
