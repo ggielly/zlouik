@@ -15,6 +15,7 @@ var sommeAnnuelleBrutMicro = 0;
 var sommeAnnuelleResultatSaison = 0;
 var impositionIntermediaireEurlIr = 0;
 var apresImpositionEurlIr = 0;
+var tempResultatNetImpotsEurlIr = 0 ;
 
 var impositionEURLir = 0;
 var nbrepartfiscale = 0;

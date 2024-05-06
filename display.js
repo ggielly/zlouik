@@ -800,24 +800,29 @@ var display = {
         // Affichage positionné ici pour des raisons de bug d'affichage et de calcul du tableau 2 BIS
         // Les variables globales restent à 0
         // A investiguer corriger par la suite
-        var impositionIntermediaireEurlIr = calculerMontantImpotIntermediaireEurlIr();
+        impositionIntermediaireEurlIr = calculerMontantImpotIntermediaireEurlIr();
         document.getElementById("tns_ir_cell15_2").innerHTML = impositionIntermediaireEurlIr + " €";
 
 
         //console.log("debug 2 : " + impositionIntermediaireEurlIr);
 
-        var apresImpositionEurlIr = resultats_net_eurl - impositionIntermediaireEurlIr
+        apresImpositionEurlIr = resultats_net_eurl - impositionIntermediaireEurlIr
         document.getElementById("tns_ir_cell15_4").innerHTML = apresImpositionEurlIr.toLocaleString('fr-FR') + " €"; // Après imposition
         //console.log("debug 3 : " + apresImpositionEurlIr);
 
         // On affiche le pourcentage dans le badge 1
-        var pourcentageImpositionEurlIr = (parseFloat(apresImpositionEurlIr) / parseFloat(nbre_matchs_01 * prime_montant_01 + nbre_matchs_02 * prime_montant_02 + nbre_matchs_03 * prime_montant_03)) * 100;
+        pourcentageImpositionEurlIr = (parseFloat(apresImpositionEurlIr) / parseFloat(nbre_matchs_01 * prime_montant_01 + nbre_matchs_02 * prime_montant_02 + nbre_matchs_03 * prime_montant_03)) * 100;
         //console.log("debug 4 : " + pourcentageImpositionEurlIr);
         display.updateProfitPercentageEurlIr(pourcentageImpositionEurlIr);
         // Fin du contournement du tableau 2 BIS
 
-        document.getElementById('frontTotalBeneficeEurlIr').innerHTML = apresImpositionEurlIr.toLocaleString('fr-FR');
+        document.getElementById('frontTotalBeneficeEurlIr').innerHTML = apresImpositionEurlIr.toFixed(0);
 
+
+        document.getElementById("r2c4").innerHTML = tempResultatNetImpotsEurlIr.toFixed(2);
+
+        console.log(idRevenuFiscalReference.value, nbrepartfiscale);
+        document.getElementById("r3c4").innerHTML = ((tempResultatNetImpotsEurlIr + parseFloat(idRevenuFiscalReference.value)) / nbrepartfiscale).toFixed(0);
     },
 
 
@@ -923,9 +928,6 @@ var display = {
         document.getElementById("tns_ir_cell11_3").innerHTML = frais_annuel_03.toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais
         document.getElementById("tns_ir_cell12_3").innerHTML = resultat_intermediaire_03.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
 
-
-        // IR colone 15 ligne 3
-        //document.getElementById("tns_ir_cell15_3").innerHTML = (impotsSurLeRevenu.toFixed(2)).toLocaleString('fr-FR') + " €"; // impots sur le revenu
         // Ligne 4 => Sommes annuelles
         document.getElementById("tns_ir_cell2_4").innerHTML = totalmatch.toLocaleString('fr-FR'); // Nombre de matchs ANNUEL
         document.getElementById("tns_ir_cell7_4").innerHTML = (nbre_matchs_01 * prime_montant_01 + nbre_matchs_02 * prime_montant_02 + nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des bruts sur la saison
@@ -934,9 +936,10 @@ var display = {
         document.getElementById("tns_ir_cell11_4").innerHTML = (frais_annuel_01 + frais_annuel_02 + frais_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais sur la saison
 
         document.getElementById("tns_ir_cell12_4").innerHTML = resultats_eurl_intermediaire.toLocaleString('fr-FR') + " €"; // 
-        // Appel de la fonction 
+        
+        // Appel de la fonction pour la suite des calculs. 
+        // Doit se faire à ce moment des opération pour avoir les données justes
         valeurImpotEurlIr = calculerImpotsRevenu(resultats_net_eurl);
-
 
 
 
@@ -986,7 +989,13 @@ var display = {
         // Ligne 4 => Sommes annuelles    
         document.getElementById("tns_is_cell13_4").innerHTML = total_frais_annexe_eurl.toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais annexes sur la saison
         document.getElementById("tns_is_cell14_4").innerHTML = resultats_net_eurl + " €"; // Résultat net
-        document.getElementById("tns_is_cell15_4").innerHTML = (resultats_net_eurl - (resultats_net_eurl * (15 / 100))).toLocaleString('fr-FR').toLocaleString('fr-FR') + " €"; // impots sur le revenu
+
+        tempResultatNetImpotsEurlIr = (resultats_net_eurl - (resultats_net_eurl * (15 / 100)));
+        document.getElementById("tns_is_cell15_4").innerHTML = tempResultatNetImpotsEurlIr.toLocaleString('fr-FR') + " €"; // impots sur le revenu
+        
+
+        
+        
         document.getElementById("tns_is_cell16_4").innerHTML = (AC24 * (1 - ((30 / 100)))).toLocaleString('fr-FR') + " €"; // impots sur le revenu
 
 
