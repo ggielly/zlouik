@@ -222,6 +222,17 @@ var calculateTaxTest = function (revenu) {
 
 
 
+function calculerMontantImpotIntermediaireEurlIr() {
+    const taxFromFirstCalculation = parseFloat(document.getElementById("r5c5").innerHTML.replace(/,/g, ''));
+    const taxFromSecondCalculation = parseFloat(document.getElementById("r5c6").innerHTML.replace(/,/g, ''));
+
+    const firstValue = isNaN(taxFromFirstCalculation) ? 0 : taxFromFirstCalculation;
+    const secondValue = isNaN(taxFromSecondCalculation) ? 0 : taxFromSecondCalculation;
+
+    return firstValue - secondValue;
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Définition de la fonction pour calculer le prélèvement sociaux
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

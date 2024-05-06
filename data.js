@@ -13,6 +13,8 @@ var tauximpositionmicro = 0;
 var sommeAnnuelleResultatSaison = 0;
 var sommeAnnuelleBrutMicro = 0;
 var sommeAnnuelleResultatSaison = 0;
+var impositionIntermediaireEurlIr = 0;
+var apresImpositionEurlIr = 0;
 
 var impositionEURLir = 0;
 var nbrepartfiscale = 0;
