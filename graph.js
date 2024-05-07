@@ -72,7 +72,7 @@ function generateGraphsApex(graphData, index, datColor) {
         },
         markers: { size: 4 },
         //colors: ['#4154f1', '#2eca6a', '#ff771d'],
-        colors: datColor || ['#4154f1', '#2eca6a', '#ff771d', '#ff8855'],  // Use passed colors or default if not provided
+        colors: datColor || ['#4154f1', '#2eca6a', '#ff771d', '#70321B80'],  // Use passed colors or default if not provided
         fill: {
             type: "gradient",
             gradient: {
