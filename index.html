@@ -214,9 +214,9 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                     </div>
 
                     <div class="ps-3">
-                      <h6 id="frontTotalBeneficeSASUIR">1</h6>
-                      <span class="text-success small pt-1 fw-bold"></span>
-                      <span class="text-muted small pt-2 ps-1"></span>
+                      <h6 id="frontTotalBeneficeSasuIr">1</h6>
+                      <span id="profitIncreasePercentageSasuIr" class="text-success small pt-1 fw-bold">666%</span>
+                      <span class="text-muted small pt-2 ps-1">d'imposition</span>
                     </div>
                   </div>
                 </div>
@@ -236,9 +236,9 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                     </div>
 
                     <div class="ps-3">
-                      <h6 id="frontTotalBeneficeSASUIS">!</h6>
-                      <span class="text-success small pt-1 fw-bold"></span>
-                      <span class="text-muted small pt-2 ps-1"></span>
+                      <h6 id="frontTotalBeneficeSasuIs">!</h6>
+                      <span id="profitIncreasePercentageSasuIs" class="text-success small pt-1 fw-bold">666%</span>
+                      <span class="text-muted small pt-2 ps-1">d'imposition</span>
                     </div>
 
                   </div>
@@ -868,8 +868,8 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                   <h5 class="card-title">nombre de part fiscale<span></span></h5>
                   <div class="slider-group">
                     <label class="custom-range-label" for="idNombrePartFiscale"></label>
-                    <input type="range" class="custom-range" id="idNombrePartFiscale" name="nombrePartFiscale" min="0"
-                      max="8" value="3" step="1" title="nombre de part fiscale"
+                    <input type="range" class="custom-range" id="idNombrePartFiscale" name="nombrePartFiscale" min="1"
+                      max="10" value="3" step="0.5" title="nombre de part fiscale"
                       oninput="updateOutput('nombrePartFiscale', 'valeurNombrePartFiscale')">
                     <output id="valeurNombrePartFiscale" class="output">3</output>
                   </div>

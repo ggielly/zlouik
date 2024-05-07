@@ -361,6 +361,24 @@ var display = {
     },
 
 
+    updateProfitPercentageSasuIr: function (pourcentage) {
+        // Get the span by its ID
+        // Mets à jour le %age du badge
+        const percentageSpan = document.getElementById('profitIncreasePercentageSasuIr');
+
+        // Update the text content of the span
+        percentageSpan.textContent = pourcentage.toFixed(2) + '%';
+    },
+
+
+    updateProfitPercentageSasuIs: function (pourcentage) {
+        // Get the span by its ID
+        // Mets à jour le %age du badge
+        const percentageSpan = document.getElementById('profitIncreasePercentageSasuIs');
+
+        // Update the text content of the span
+        percentageSpan.textContent = pourcentage.toFixed(2) + '%';
+    },
 
     updateFrontendTotalIndeminite: function (totalBeneficeReel) {
         document.getElementById('frontTotalBeneficeReelDisplay').innerHTML = totalBeneficeReel;
@@ -399,14 +417,10 @@ var display = {
     //},
 
 
-    updateFrontendTotalBeneficeSASUSIR: function (totalBeneficeSASUIR) {
-        document.getElementById('frontTotalBeneficeSASUIR').innerHTML = totalBeneficeSASUIR.toLocaleString('fr-FR');
-    },
 
 
-    updateFrontendTotalBeneficeSASUSIS: function (totalBeneficeSASUIS) {
-        document.getElementById('frontTotalBeneficeSASUIS').innerHTML = totalBeneficeSASUIS.toLocaleString('fr-FR');
-    },
+  //  updateFrontendTotalBeneficeSasuIs: function (totalBeneficeSasuIs) {
+   // },
 
 
     updateFrontendBadge: function () {
@@ -417,25 +431,16 @@ var display = {
         totalBeneficeTravailleurIndependant = display.formateEuroBadge(totalBeneficeTravailleurIndependant);
         display.updateFrontendTotalBeneficeTravailleurIndependant(totalBeneficeTravailleurIndependant);
 
-        // Données du tableau 2 bis - Bug 
-        //var apresImpositionEurlIr = display.formateEuroBadge(apresImpositionEurlIr);
-        //display.updateFrontendTotalBeneficeEurlIr(apresImpositionEurlIr);
-
-        // Données du tableau 3
-        //var totalBeneficeTNSIS = parseFloat(AC24 * (1 - ((30 / 100)))).toFixed(2);
-        
-        //totalBeneficeTNSIS = display.formateEuroBadge(totalBeneficeTNSIS);
-        //display.updateFrontendTotalBeneficeTNSIS(totalBeneficeTNSIS);
 
         // Données du tableau 4 SASU IR
-        var totalBeneficeSASUIR = sasu_ir_cell16_4;
-        totalBeneficeSASUIR = display.formateEuroBadge(totalBeneficeSASUIR);
-        display.updateFrontendTotalBeneficeSASUSIR(totalBeneficeSASUIR);
+       // var totalBeneficeSasuIr = sasu_ir_cell16_4;
+     //   totalBeneficeSASUIR = display.formateEuroBadge(totalBeneficeSasuIr);
+     //   display.updateFrontendTotalBeneficeSasuIr(totalBeneficeSasuIr);
 
         // Données du tableau 5 SASU IS
-        var totalBeneficeSASUIS = parseFloat(ResultatApresIS_temp - (ResultatApresIS_temp * CSG_CR) - resultatPrelevementSociaux).toFixed(2);
-        totalBeneficeSASUIS = display.formateEuroBadge(totalBeneficeSASUIS);
-        display.updateFrontendTotalBeneficeSASUSIS(totalBeneficeSASUIS);
+        var totalBeneficeSasuIs = parseFloat(ResultatApresIS_temp - (ResultatApresIS_temp * CSG_CR) - resultatPrelevementSociaux).toFixed(2);
+        totalBeneficeSasuIs = display.formateEuroBadge(totalBeneficeSasuIs);
+        display.updateFrontendTotalBeneficeSasuIs(totalBeneficeSasuIs);
     },
 
 
@@ -867,7 +872,7 @@ var display = {
         document.getElementById("tns_ir_cell15_2").innerHTML = display.formateEuroBadge(impositionIntermediaireEurlIr);
 
         apresImpositionEurlIr = resultats_net_eurl - impositionIntermediaireEurlIr
-        document.getElementById("tns_ir_cell15_4").innerHTML = display.formateEuroBadge(apresImpositionEurlIr); // Après imposition
+        document.getElementById("tns_ir_cell15_4").innerHTML = display.formateEuroBadge(apresImpositionEurlIr); // Bénéfices après impots
         //console.log("debug 3 : " + apresImpositionEurlIr);
 
         // On affiche le pourcentage dans le badge 1
@@ -886,10 +891,9 @@ var display = {
         document.getElementById("tns_is_cell16_2").innerHTML = display.formateEuroBadge(impositionIntermediaireEurlIs);
         
         var apresImpositionEurlIs = tempResultatNetImpotsEurlIs - impositionIntermediaireEurlIs;
-        document.getElementById("tns_is_cell16_4").innerHTML =  display.formateEuroBadge(apresImpositionEurlIs); // impots sur le revenu
+        document.getElementById("tns_is_cell16_4").innerHTML =  display.formateEuroBadge(apresImpositionEurlIs); // Bénéfices après impots
 
-        var apresImpositionEurlIs = tempResultatNetImpotsEurlIs - impositionIntermediaireEurlIs;
-
+        
         // On affiche le pourcentage dans le badge sur le frontend
         var pourcentageImpositionEurlIs = (parseFloat(apresImpositionEurlIs) / parseFloat(nbre_matchs_01 * prime_montant_01 + nbre_matchs_02 * prime_montant_02 + nbre_matchs_03 * prime_montant_03)) * 100;
         
@@ -897,6 +901,38 @@ var display = {
         document.getElementById('frontTotalBeneficeEurlIs').innerHTML = display.formateEuroBadge(apresImpositionEurlIs);
         // Fin du contournement pour le tableau 3
         ///////////////////////////////////////////////////////////////////////////////////
+
+
+        ///////////////////////////////////////////////////////////////////////////////////
+        // Calcul à effectuer en fin de procédure pour avoir les bonnes données
+        // Affichage ici  pour des raisons de bug d'affichage et de calcul du tableau 4
+        sasu_ir_cell15_2 = parseFloat(r5c3) - parseFloat(r5c6);
+        //console.log("debug : " + r5c3, r5c6);
+        document.getElementById("sasu_ir_cell15_2").innerHTML = display.formateEuroBadge(sasu_ir_cell15_2); // impots intermédiaires
+
+        apresImpositionSasuIr = parseFloat(sasu_ir_cell14_4) - parseFloat(sasu_ir_cell15_2);
+        document.getElementById("sasu_ir_cell15_4").innerHTML = display.formateEuroBadge(apresImpositionSasuIr); // Bénéfices après impots
+
+        // On affiche le pourcentage dans le badge sur le frontend
+        var pourcentageImpositionSasuIr = (parseFloat(apresImpositionSasuIr) / parseFloat(nbre_matchs_01 * prime_montant_01 + nbre_matchs_02 * prime_montant_02 + nbre_matchs_03 * prime_montant_03)) * 100;
+        display.updateProfitPercentageSasuIr(pourcentageImpositionSasuIr);
+        document.getElementById('frontTotalBeneficeSasuIr').innerHTML = display.formateEuroBadge(apresImpositionSasuIr);
+        // Fin du contournement pour le tableau 4
+        ///////////////////////////////////////////////////////////////////////////////////
+
+
+        ///////////////////////////////////////////////////////////////////////////////////
+        // Calcul à effectuer en fin de procédure pour avoir les bonnes données
+        // Affichage ici  pour des raisons de bug d'affichage et de calcul du tableau 
+        var apresImpositionSasuIs = sasu_is_cell15_4 - (r5c2 -r5c6);
+        document.getElementById("sasu_is_cell16_4").innerHTML = display.formateEuroBadge(apresImpositionSasuIs);
+
+        // On affiche le pourcentage dans le badge sur le frontend
+        var pourcentageImpositionSasuIs = (parseFloat(apresImpositionSasuIs) / parseFloat(nbre_matchs_01 * prime_montant_01 + nbre_matchs_02 * prime_montant_02 + nbre_matchs_03 * prime_montant_03)) * 100;
+        display.updateProfitPercentageSasuIs(pourcentageImpositionSasuIs);
+
+        document.getElementById('frontTotalBeneficeSasuIs').innerHTML = display.formateEuroBadge(apresImpositionSasuIs);
+
 
 
     },
@@ -1089,11 +1125,10 @@ var display = {
         sasu_ir_cell14_4 = (resultat_intermediaire_total - frais_banque - frais_comptable);
         document.getElementById("sasu_ir_cell14_4").innerHTML = sasu_ir_cell14_4.toLocaleString('fr-FR') + " €"; // Résultat net
 
-        document.getElementById("sasu_ir_cell15_2").innerHTML = ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15).toLocaleString('fr-FR') + " €"; // impots sur le revenu
-
         var resultatApresIS = (resultat_intermediaire_total - frais_banque - frais_comptable) - (resultat_intermediaire_total - frais_banque - frais_comptable * 0.15);
 
-        document.getElementById("sasu_ir_cell15_4").innerHTML = ((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15)).toLocaleString('fr-FR') + " €"; // impots sur le revenu
+        var sasu_ir_cell15_4 = (resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15);
+        document.getElementById("sasu_ir_cell15_4").innerHTML = display.formateEuroBadge(sasu_ir_cell15_4); // impots sur le revenu
 
 
 
@@ -1101,82 +1136,34 @@ var display = {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Affichage des résultats dans le tableau 5 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /*document.getElementById("sasu_is_cell2_1").innerHTML = nbre_matchs_01; // Nombre de matchs (match 1)
-        document.getElementById("sasu_is_cell4_1").innerHTML = urssaf_zero + " %"; // % URSSAF
-        document.getElementById("sasu_is_cell5_1").innerHTML = urssaf_zero + "€"; // Cotisations URSSAF par match (match 1)
-        document.getElementById("sasu_is_cell6_1").innerHTML = urssaf_zero + prime_montant_01 + " €"; // Net par match (match 1)
-        document.getElementById("sasu_is_cell7_1").innerHTML = (nbre_matchs_01 * prime_montant_01).toLocaleString('fr-FR') + " €"; // Brut annuel
-        document.getElementById("sasu_is_cell8_1").innerHTML = urssaf_zero * nbre_matchs_01 + " €"; // Cotisations annuelles
-        document.getElementById("sasu_is_cell9_1").innerHTML = (urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01).toLocaleString('fr-FR') + " €"; // Net d'URSSAF annuel
-        document.getElementById("sasu_is_cell10_1").innerHTML = (frais_par_match01).toLocaleString('fr-FR') + " €"; // Frais par match
-        document.getElementById("sasu_is_cell11_1").innerHTML = frais_annuel_01.toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais
-        document.getElementById("sasu_is_cell12_1").innerHTML = resultat_net_01.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire*/
+ 
+        //var sasu_is_cell13_1 = frais_banque + frais_comptable + frais_urssaf; 
+        //document.getElementById("sasu_is_cell13_1").innerHTML = display.formateEuroBadge(sasu_is_cell13_1); // Frais annexes
+        document.getElementById("sasu_is_cell13_2").innerHTML = display.formateEuroBadge(frais_comptable); // Frais annexes
+        document.getElementById("sasu_is_cell16_2").innerHTML = display.formateEuroBadge(montantFinal); // Impot sur les dividendes
+        document.getElementById("sasu_is_cell13_1").innerHTML = display.formateEuroBadge(frais_banque); // Frais annexes
 
-        document.getElementById("sasu_is_cell13_1").innerHTML = frais_banque + frais_comptable + frais_urssaf.toLocaleString('fr-FR') + " €"; // Frais annexes
-        /*
-                document.getElementById("sasu_is_cell2_2").innerHTML = nbre_matchs_02; // Nombre de matchs (match 2)
-                document.getElementById("sasu_is_cell4_2").innerHTML = urssaf_zero + " %"; // % URSSAF
-                document.getElementById("sasu_is_cell5_2").innerHTML = urssaf_zero + "€"; // Cotisations URSSAF par match (match 2)
-                document.getElementById("sasu_is_cell6_2").innerHTML = (urssaf_zero + prime_montant_02).toLocaleString('fr-FR') + " €"; // Net par match (match 2)
-                document.getElementById("sasu_is_cell7_2").innerHTML = (nbre_matchs_02 * prime_montant_02).toLocaleString('fr-FR') + " €"; // Brut annuel
-                document.getElementById("sasu_is_cell8_2").innerHTML = urssaf_zero * nbre_matchs_02 + " €"; // Cotisations annuelles
-                document.getElementById("sasu_is_cell9_2").innerHTML = (urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02).toLocaleString('fr-FR') + " €"; // Net d'URSSAF annuel
-                document.getElementById("sasu_is_cell10_2").innerHTML = frais_par_match02.toLocaleString('fr-FR') + " €"; // Frais par match
-                document.getElementById("sasu_is_cell11_2").innerHTML = frais_annuel_02.toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais*/
+        var sasu_is_cell13_4 = frais_banque + frais_comptable;
+        document.getElementById("sasu_is_cell13_4").innerHTML = display.formateEuroBadge(sasu_is_cell13_4); // Sommes annuelle des frais annexes sur la saison
 
-        document.getElementById("sasu_is_cell13_2").innerHTML = frais_comptable.toLocaleString('fr-FR') + " €"; // Frais annexes
-        document.getElementById("sasu_is_cell16_2").innerHTML = montantFinal.toFixed(2).toLocaleString('fr-FR') + " €"; // Impot sur les dividendes
-        /*
-                document.getElementById("sasu_is_cell2_3").innerHTML = nbre_matchs_03; // Nombre de matchs (match 3)
-                document.getElementById("sasu_is_cell4_3").innerHTML = urssaf_zero + " %"; // % URSSAF
-                document.getElementById("sasu_is_cell5_3").innerHTML = urssaf_zero + "€"; // Cotisations URSSAF par match (match 3)
-                document.getElementById("sasu_is_cell6_3").innerHTML = urssaf_zero + prime_montant_03 + " €"; // Net par match (match 3)
-                document.getElementById("sasu_is_cell7_3").innerHTML = (nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Brut annuel
-                document.getElementById("sasu_is_cell8_3").innerHTML = urssaf_zero * nbre_matchs_03 + " €"; // Cotisations annuelles
-                document.getElementById("sasu_is_cell9_3").innerHTML = (urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Net d'URSSAF annuel
-                document.getElementById("sasu_is_cell10_3").innerHTML = frais_par_match03.toLocaleString('fr-FR') + " €"; // Frais par match
-                document.getElementById("sasu_is_cell11_3").innerHTML = frais_annuel_03.toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais
-               // document.getElementById("sasu_is_cell12_3").innerHTML = resultat_intermediaire_03.toLocaleString('fr-FR').toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
-        */
-        // document.getElementById("sasu_is_cell12_2").innerHTML = resultat_intermediaire_02.toLocaleString('fr-FR') + " €"; // Resultat intermédiaire
-        //document.getElementById("sasu_is_cell13_3").innerHTML = frais_urssaf.toLocaleString('fr-FR') + " €"; // Frais annexes
-        // document.getElementById("sasu_is_cell12_4").innerHTML = (resultat_intermediaire_01 + resultat_intermediaire_02 + resultat_intermediaire_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des résultats sur la saison
+        var sasu_is_cell14_4 = resultat_intermediaire_total - frais_banque - frais_comptable;
+        document.getElementById("sasu_is_cell14_4").innerHTML = display.formateEuroBadge(sasu_is_cell14_4); // Sommes annuelle des résultats sur la saison
 
-
-        document.getElementById("sasu_is_cell13_1").innerHTML = frais_banque.toLocaleString('fr-FR') + " €"; // Frais annexes
-        document.getElementById("sasu_is_cell13_2").innerHTML = frais_comptable.toLocaleString('fr-FR') + " €"; // Frais annexes
-        document.getElementById("sasu_is_cell13_4").innerHTML = (frais_banque + frais_comptable).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais annexes sur la saison
-
-
-        // Ligne 4 => Sommes annuelles
-        /*
-        document.getElementById("sasu_is_cell2_4").innerHTML = totalmatch; // Nombre de matchs ANNUEL
-        document.getElementById("sasu_is_cell7_4").innerHTML = (brut_annuel_01 + brut_annuel_02 + brut_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des bruts sur la saison
-        document.getElementById("sasu_is_cell8_4").innerHTML = (urssaf_zero * nbre_matchs_01 + urssaf_zero * nbre_matchs_02 + urssaf_zero * nbre_matchs_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des cotisations URSSAF
-        document.getElementById("sasu_is_cell9_4").innerHTML = (urssaf_zero * nbre_matchs_01 + nbre_matchs_01 * prime_montant_01 + urssaf_zero * nbre_matchs_02 + nbre_matchs_02 * prime_montant_02 + urssaf_zero * nbre_matchs_03 + nbre_matchs_03 * prime_montant_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des nets d'URSSAF
-        document.getElementById("sasu_is_cell11_4").innerHTML = (frais_annuel_01 + frais_annuel_02 + frais_annuel_03).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais sur la saison
-        */
-        document.getElementById("sasu_is_cell14_4").innerHTML = (resultat_intermediaire_total - frais_banque - frais_comptable).toLocaleString('fr-FR') + " €"; // Sommes annuelle des résultats sur la saison
-        document.getElementById("sasu_is_cell15_2").innerHTML = ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15).toLocaleString('fr-FR') + " €"; // Sommes annuelle des frais annexes sur la saison
+        var sasu_is_cell15_2 = ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15);
+        document.getElementById("sasu_is_cell15_2").innerHTML = display.formateEuroBadge(sasu_is_cell15_2); // Sommes annuelle des frais annexes sur la saison
 
         ResultatApresIS_temp = ((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15)).toFixed(2);
         
         // Variable pour nettoyage futur, en lien avec le tableau des impositions
         sasu_is_cell15_4 = parseFloat(ResultatApresIS_temp);
+        document.getElementById("sasu_is_cell15_4").innerHTML = display.formateEuroBadge(ResultatApresIS_temp); // impots sur le revenu
 
-        document.getElementById("sasu_is_cell15_4").innerHTML = ResultatApresIS_temp.toLocaleString('fr-FR') + " €"; // impots sur le revenu
+        document.getElementById("sasu_is_cell16_1").innerHTML = "30% d'abattement forfaitaire";
 
-        MontantRevenuImposable = (ResultatApresIS_temp * 0.60) - (0.068 * ResultatApresIS_temp);
-        document.getElementById("sasu_is_cell16_1").innerHTML = "Montant revenus imposable : " + MontantRevenuImposable.toLocaleString('fr-FR') + " €"; // impots sur le revenu
-        document.getElementById("sasu_is_cell16_2").innerHTML = "Prélèvements sociaux : " + (ResultatApresIS_temp * CSG_CR).toLocaleString('fr-FR') + " €"; // Prélèvement sociaux
+        var sasu_is_cell16_2 = parseFloat(sasu_is_cell15_4) * 0.7;
+        document.getElementById("sasu_is_cell16_2").innerHTML = display.formateEuroBadge(sasu_is_cell16_2); // Après imposition avec 30% abattement
+        document.getElementById("sasu_is_cell16_3").innerHTML = "Imposition sur ta déclaration perso";
 
-
-        // Utilisation de la fonction pour calculer la taxe
-        resultatPrelevementSociaux = calculerPrelevementSociaux(MontantRevenuImposable, tranches, taux);
-        document.getElementById("sasu_is_cell16_3").innerHTML = "Prélèvement sur barême fiscal : " + resultatPrelevementSociaux.toLocaleString('fr-FR') + " €"; // Prélevement sur bareme fiscal ligne 3 - BUG !!
-
-        var sasu_is_cell16_4 = (ResultatApresIS_temp - (ResultatApresIS_temp * CSG_CR) - resultatPrelevementSociaux);
-        document.getElementById("sasu_is_cell16_4").innerHTML = sasu_is_cell16_4.toLocaleString('fr-FR') + " €";
 
         // Mise à jour des tableaux prévisionnels de la fédération des paramètres modifiés par les sliders
         var resultats = display.getCurrentResults();

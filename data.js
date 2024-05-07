@@ -19,9 +19,12 @@ var impositionIntermediaireEurlIs = 0;
 
 var sasu_ir_cell14_4 = 0;
 var sasu_is_cell15_4 = 0;
+var sasu_ir_cell15_2 = 0;
 
 var apresImpositionEurlIr = 0;
 var apresImpositionEurlIs = 0;
+var apresImpositionSasuIr = 0;
+var apresImpositionSasuIs = 0;
 
 var tempResultatNetImpotsEurlIr = 0
 var tempResultatNetImpotsEurlIs = 0;
