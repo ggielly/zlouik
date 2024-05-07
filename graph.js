@@ -11,8 +11,11 @@ function generateGraphsApex(graphData, index, datColor) {
     // Preparing data for the chart
     let apexChartData = {
         series: [
-            { name: "Notes de frais", data: [] },
-            { name: "Primes", data: [] }
+            { name: "Notes de frais avec PRK", data: [] },
+            { name: "Primes avec PRK", data: [] },
+            { name: "Notes de frais sans PRK", data: [] },
+            { name: "Primes sans PRK", data: [] }
+
         ],
         xaxisCategories: []
     };
@@ -21,6 +24,9 @@ function generateGraphsApex(graphData, index, datColor) {
         let xValue = item.processedCount + 2; // Adjust x to start from 1
         apexChartData.series[0].data.push({ x: item.processedCount, y: parseFloat(item.beneficeReel) });
         apexChartData.series[1].data.push({ x: item.processedCount, y: parseFloat(item.primeBenefice) });
+        apexChartData.series[2].data.push({ x: item.processedCount, y: parseFloat(item.beneficeFraisSSPRK) });
+        apexChartData.series[3].data.push({ x: item.processedCount, y: parseFloat(item.beneficePrimeSSPRK) });
+
         apexChartData.xaxisCategories.push(`Match ${xValue}`);
     });
 
@@ -66,7 +72,7 @@ function generateGraphsApex(graphData, index, datColor) {
         },
         markers: { size: 4 },
         //colors: ['#4154f1', '#2eca6a', '#ff771d'],
-        colors: datColor || ['#4154f1', '#2eca6a', '#ff771d'],  // Use passed colors or default if not provided
+        colors: datColor || ['#4154f1', '#2eca6a', '#ff771d', '#ff8855'],  // Use passed colors or default if not provided
         fill: {
             type: "gradient",
             gradient: {

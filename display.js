@@ -451,11 +451,13 @@ var display = {
                 <th scope="col">Repas</th>
                 <th scope="col">Hôtel</th>
                 <th scope="col">Indemnité de préparation <br> et d'équipement</th>
-                <th scope="col">Note de frais historique <br>Chiffre d'affaire</th>
-                <th scope="col">Note de frais historique<br>bénéfices rééls</th>
-                <th scope="col">Prime<br>(chiffre d'affaire)</th>
-                <th scope="col">Frais</th>
-                <th scope="col">PRIMES<br>bénéfices rééls<br>(prime - frais - PRK)</th>
+                <th scope="col">Chiffre d'affaire<br> note de frais</th>
+                <th scope="col">Bénéfices rééls <br> note de frais</th>
+                <th scope="col">Chiffre d'affaire<br> primes</th>
+                <th scope="col">Frais fixes moyens</th>
+                <th scope="col">Bénéfice rééls<br> primes</th>
+                <th scope="col">Bénéfices note de frais<br> sans PRK</th>
+                <th scope="col">Bénéfices primes<br> sans PRK</th>
             </tr>
         </thead>
         <tbody>` ;
@@ -517,6 +519,8 @@ var display = {
 
         let colorTotalBeneficeReel = 0;
         let colorTotalPrimeBenefice = 0;
+        let colorTotalBeneficeFraisSSPRK = 0
+        let colorTotalBeneficePrimeSSPRK = 0;
 
         // Récupération de la valeur de l'indemnité choisie
         var valeurIndemnite = document.querySelector('#indemniteChoisieDiv input[type="radio"]:checked') ?
@@ -525,6 +529,7 @@ var display = {
         var totalPRK = 0, totalKilometriques = 0, totalRepas = 0, totalHotels = 0, totalFrais = 0;
         var totalGrandDeplacement = 0, totalDistance = 0, totalPeages = 0, totalTempsTrajet = 0;
         var totalPrimes = 0, totalFraisHistorique = 0, totalPreparation = 0, totalPrimeBenefice = 0;
+        var totalBeneficePrimeSSPRK = 0, totalBeneficeFraisSSPRK = 0;
 
         // Récupération du nombre de matchs à traiter
         var nbMatchs = nbMatches[index];
@@ -575,15 +580,21 @@ var display = {
             var fraisHistorique = peages + grandDeplacement + indemnites + repas + hotel + valeurIndemnite;
             var beneficeReel = fraisHistorique - (prk + repas + peages + hotel);
             var primeBenefice = prime - frais - prk;
+            
+            var beneficePrimeSSPRK = prime - frais;
+            var beneficeFraisSSPRK = fraisHistorique - (repas + peages + hotel);
 
             var TempsTrajetAllerRetour = (parseInt(trajet.TempsTrajet.split('h')[0]) * 60 + parseInt(trajet.TempsTrajet.split('h')[1])) * 2;
 
             // Peuplement des données pour le graphique
             // Peuplement du tableau temporaire qui va servir pour la génération du graphe
+            // Il suffit de rajouter les données en paramêtre pour rajouter une ligne dans le graphe
             graphData.push({
                 processedCount: processedCount,
-                beneficeReel: beneficeReel.toFixed(2),
-                primeBenefice: primeBenefice.toFixed(2)
+                beneficeReel: beneficeReel.toFixed(0),
+                primeBenefice: primeBenefice.toFixed(0),
+                beneficePrimeSSPRK: beneficePrimeSSPRK.toFixed(0),
+                beneficeFraisSSPRK: beneficeFraisSSPRK.toFixed(0)
             });
 
             // Mise en format du tableau HTML
@@ -605,6 +616,9 @@ var display = {
                 <td>${prime.toFixed(0)}</td>
                 <td>${frais.toFixed(0)}</td>
                 <td style="${primeBenefice < 0 ? "color:red;" : ""}">${primeBenefice.toFixed(2)}</td>
+                <td style="${beneficeFraisSSPRK < 0 ? "color:red;" : ""}">${beneficeFraisSSPRK.toFixed(2)}</td>
+                <td style="${beneficePrimeSSPRK < 0 ? "color:red;" : ""}">${beneficePrimeSSPRK.toFixed(2)}</td>
+
             </tr>`;
 
             // Mise à jour des totaux
@@ -622,18 +636,29 @@ var display = {
             totalBeneficeReel += beneficeReel;
             totalPrimeBenefice += primeBenefice;
             totalPRK += prk;
+            totalBeneficePrimeSSPRK += +beneficePrimeSSPRK;
+            totalBeneficeFraisSSPRK += +beneficeFraisSSPRK;
+
             processedCount++;
 
 
         }; // Fin de la boucle for
 
+
+        // Calcul des taux horaires
         var totalHeuresTrajet = Math.floor(totalTempsTrajet / 60);
+
         var tauxHoraireIndemnite = totalBeneficeReel / totalHeuresTrajet;
         var tauxHorairePrime = totalPrimeBenefice / totalHeuresTrajet;
+        var tauxHorairePrimeSSPRK = totalBeneficePrimeSSPRK / totalHeuresTrajet;
+        var tauxHoraireFraisSSPRK = totalBeneficeFraisSSPRK / totalHeuresTrajet;
 
         // Si jamais le résultat est négatif, alors on le met en rouge
         colorTotalBeneficeReel = totalBeneficeReel < 0 ? "color:red;" : "";
         colorTotalPrimeBenefice = totalPrimeBenefice < 0 ? "color:red;" : "";
+        colorTotalBeneficePrimeSSPRK = totalBeneficePrimeSSPRK < 0 ? "color:red;" : "";
+        colorTotalBeneficeFraisSSPRK = totalBeneficeFraisSSPRK < 0 ? "color:red;" : "";
+        
 
         htmlTableau += `</tbody>
         <tfoot>
@@ -654,6 +679,8 @@ var display = {
                 <td>${totalPrimes.toFixed(0)}</td>
                 <td>${totalFrais.toFixed(0)}</td>
                 <td style ="${colorTotalPrimeBenefice}">${totalPrimeBenefice.toFixed(2)}</td>
+                <td style ="${colorTotalBeneficeFraisSSPRK}"><b>${totalBeneficeFraisSSPRK.toFixed(2)}</b></td>
+                <td style ="${colorTotalBeneficePrimeSSPRK}"><b>${totalBeneficePrimeSSPRK.toFixed(2)}</b></td>
             </tr>
         </tfoot>
         </table>`;
@@ -661,13 +688,15 @@ var display = {
         htmlTableau += `<table>
             <tr>
                 <td colspan='1'>
-                    <span class="text-primary">Taux horaire moyen basé sur l'indemnité : ${tauxHoraireIndemnite.toFixed(2)} €/heure</span>
+                    <span class="text-primary">Taux horaire moyen basé sur l'indemnité avec PRK : <b>${tauxHoraireIndemnite.toFixed(2)} €/heure</b>. <br>
+                    Taux horaire moyen basé sur l'indemnité sans PRK : <b>${tauxHoraireFraisSSPRK.toFixed(2)} €/heure</b>.</span>
                 </td>
             </tr>
 
             <tr>
                 <td colspan='8'>
-                    <span class="text-primary">Taux horaire moyen basé sur la prime : ${tauxHorairePrime.toFixed(2)} €/heure</span>
+                    <span class="text-primary">Taux horaire moyen basé sur la prime avec PRK : <b>${tauxHorairePrime.toFixed(2)} €/heure</b>.<br>
+                    Taux horaire moyen basé sur la prime sans PRK : <b>${tauxHorairePrimeSSPRK.toFixed(2)} €/heure</b>.</span>
                 </td>
             </tr>
         </table>`;
@@ -680,8 +709,8 @@ var display = {
         display.updateFrontendTotalBeneficeReel();
         display.updateFrontendTotalBeneficePrimeReel();
 
-        let couleurGraphe1 = ['#1754f1', '#1eca6a', '#5f771d'];
-        generateGraphsApex(graphData, index, couleurGraphe1); // Data and index for the first chart
+        //let couleurGraphe1 = ['#1754f1', '#1eca6a', '#5f771d'];
+        generateGraphsApex(graphData, index); // Data and index for the first chart
 
         return htmlTableau;
 
@@ -714,7 +743,7 @@ var display = {
     // N'a pas vocation à être affiché ensuite
     createTableauImpositionGenerale: function () {
         //
-        htmlTableau += `<table id="impotGenerale" class="table table-sm table-striped table-dark">
+        htmlTableau += `<table id="impotGenerale" class="table table-sm table-striped table-dark table-hover">
         <thead>
         <tr>
           <th scope="col">C1 -</th>
