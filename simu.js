@@ -91,7 +91,7 @@ var updateCalculs = function () {
 
     montantFinal = calculerMontant_impotdividende(AC24, seuils, pourcentages);
 
-   CotisationsSociales = (
+    CotisationsSociales = (
         ((tauxcotisation_eurl / 1.35) *
             (resultat_intermediaire_01 +
                 resultat_intermediaire_02 +
@@ -155,17 +155,17 @@ var calculerImpotsRevenu = function (resultats_net_eurl) {
     ];
 
     let tax = 0;
-let previousUpper = 0;
+    let previousUpper = 0;
 
-for (let i = 0; i < brackets.length; i++) {
-    if (revenuParPartEurlIr <= brackets[i].upper) {
-        tax += (revenuParPartEurlIr - previousUpper) * brackets[i].rate;
-        break;
-    } else {
-        tax += (brackets[i].upper - previousUpper) * brackets[i].rate;
-        previousUpper = brackets[i].upper;
+    for (let i = 0; i < brackets.length; i++) {
+        if (revenuParPartEurlIr <= brackets[i].upper) {
+            tax += (revenuParPartEurlIr - previousUpper) * brackets[i].rate;
+            break;
+        } else {
+            tax += (brackets[i].upper - previousUpper) * brackets[i].rate;
+            previousUpper = brackets[i].upper;
+        }
     }
-}
     return tax;
 
 };
@@ -207,13 +207,13 @@ var calculateTaxTest = function (revenu) {
         tax = (brackets[1] - brackets[0]) * rates[1] + (revenu - brackets[1]) * rates[2];
     } else if (revenu <= brackets[3]) {
         tax = (brackets[1] - brackets[0]) * rates[1] +
-              (brackets[2] - brackets[1]) * rates[2] +
-              (revenu - brackets[2]) * rates[3];
+            (brackets[2] - brackets[1]) * rates[2] +
+            (revenu - brackets[2]) * rates[3];
     } else {
         tax = (brackets[1] - brackets[0]) * rates[1] +
-              (brackets[2] - brackets[1]) * rates[2] +
-              (brackets[3] - brackets[2]) * rates[3] +
-              (revenu - brackets[3]) * rates[4];
+            (brackets[2] - brackets[1]) * rates[2] +
+            (brackets[3] - brackets[2]) * rates[3] +
+            (revenu - brackets[3]) * rates[4];
     }
 
     return tax;
@@ -232,34 +232,6 @@ function calculerMontantImpotIntermediaireEurlIr() {
     return firstValue - secondValue;
 }
 
-/*
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Définition de la fonction pour calculer le prélèvement sociaux
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-var calculerPrelevementSociaux = function (
-    MontantRevenuImposable,
-    tranches,
-    taux,
-) {
-    let taxeTotale = 0; // Initialisation du montant total de la taxe à payer
-    // Parcours des tranches d'imposition
-    for (let i = 0; i < tranches.length; i++) {
-        if (MontantRevenuImposable < tranches[i]) {
-            // Vérification si le résultat après impôts est inférieur à la limite de la tranche
-            break; // Sortie de la boucle si la limite de la tranche dépasse le résultat après impôts
-        }
-
-        // Calcul du montant dans la tranche actuelle
-        const montantDansTranche =
-            i === 0
-                ? Math.min(MontantRevenuImposable, tranches[i])
-                : Math.min(MontantRevenuImposable, tranches[i]) - tranches[i - 1];
-
-        // Ajout du montant de la taxe pour la tranche actuelle au montant total de la taxe à payer
-        taxeTotale += montantDansTranche * taux[i];
-    }
-    return taxeTotale; // Retourne le montant total de la taxe à payer
-};*/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Définition des tranches d'imposition et des taux correspondants
@@ -305,7 +277,7 @@ var calculerMontant_impotdividende = function (AC24, seuils, pourcentages) {
  * Note:
  * - Returns an empty array if no matching destinations are found.
  */
-var fetchDestinationData = function(VilleDepart) {
+var fetchDestinationData = function (VilleDepart) {
     return data.filter(trajet => trajet.VilleDepart === VilleDepart);
 };
 
@@ -320,7 +292,7 @@ var fetchDestinationData = function(VilleDepart) {
  * Note:
  * - Returns null if the input array is empty to indicate no destination could be selected.
  */
-var getRandomDestination =  function(destinations) {
+var getRandomDestination = function (destinations) {
     if (!destinations.length) return null;
     const index = Math.floor(Math.random() * destinations.length);
     return destinations[index];
@@ -393,10 +365,8 @@ var gereEvents = function () {
                 display.updateSliderValues();
                 display.updateTableauImpositions(); // Appel à la fonction de mise à jour des tableaux
                 display.updateGlobal();
-
-                // debug
                 display.updateTableauImpositionGenerale(); // Appel à la fonction de mise à jour du tableau récapitulatif impots
-                // fin du tableau de debug
+
 
             });
             element.addEventListener("change", function () {
@@ -548,10 +518,15 @@ var initialize = function () {
     calculDestinations();
 
     display.updatePrimeMontant();
+
     updateCalculs();
+
     display.updateSelectedIndemnityValue();
     display.updateHistoriqueVille();
     display.updateFrontendBadge();
+
+    
+
 };
 
 var init = function () {
