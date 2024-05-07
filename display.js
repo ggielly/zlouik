@@ -384,6 +384,15 @@ var display = {
         percentageSpan.textContent = pourcentage.toFixed(2) + '%';
     },
 
+    updateProfitPercentageSasuIsAbattement: function (pourcentage) {
+        // Get the span by its ID
+        // Mets à jour le %age du badge
+        const percentageSpan = document.getElementById('profitIncreasePercentageSasuIsAbattement');
+
+        // Update the text content of the span
+        percentageSpan.textContent = pourcentage.toFixed(2) + '%';
+    },
+
     updateFrontendTotalIndeminite: function (totalBeneficeReel) {
         document.getElementById('frontTotalBeneficeReelDisplay').innerHTML = totalBeneficeReel;
     },
@@ -407,9 +416,6 @@ var display = {
     updateFrontendTotalBeneficeTravailleurIndependant: function (totalBeneficeTravailleurIndependant) {
         document.getElementById('frontTotalBeneficeTravailleurIndependant').innerHTML = totalBeneficeTravailleurIndependant.toLocaleString('fr-FR');
     },
-
-
-
 
     updateFrontendBadge: function () {
         document.getElementById('frontNbreMatchs').innerHTML = parseInt(nbre_matchs_01) + parseInt(nbre_matchs_02) + parseInt(nbre_matchs_03);
@@ -896,13 +902,20 @@ var display = {
         // Calcul à effectuer en fin de procédure pour avoir les bonnes données
         // Affichage ici  pour des raisons de bug d'affichage et de calcul du tableau 5
         var apresImpositionSasuIs = sasu_is_cell15_4 - (r5c2 - r5c6);
-        document.getElementById("sasu_is_cell16_4").innerHTML = display.formateEuroBadge(apresImpositionSasuIs);
+        document.getElementById("sasu_is_cell16_4").innerHTML = display.formateEuroBadge(apresImpositionSasuIs); // 30% abattement
 
+
+        // BADGE SASU IS 
         // On affiche le pourcentage dans le badge sur le frontend
         var pourcentageImpositionSasuIs = (parseFloat(apresImpositionSasuIs) / parseFloat(nbre_matchs_01 * prime_montant_01 + nbre_matchs_02 * prime_montant_02 + nbre_matchs_03 * prime_montant_03)) * 100;
+
         display.updateProfitPercentageSasuIs(pourcentageImpositionSasuIs);
 
         document.getElementById('frontTotalBeneficeSasuIs').innerHTML = display.formateEuroBadge(apresImpositionSasuIs);
+
+        var pourcentageImpositionSasuIsAbattement = (parseFloat(apresImpositionSasuIs) / parseFloat(nbre_matchs_01 * prime_montant_01 + nbre_matchs_02 * prime_montant_02 + nbre_matchs_03 * prime_montant_03)) * 100;
+        display.updateProfitPercentageSasuIsAbattement(pourcentageImpositionSasuIsAbattement);
+
         // Fin du contournement pour le tableau 5
         ///////////////////////////////////////////////////////////////////////////////////
 
@@ -1090,8 +1103,6 @@ var display = {
         // Affichage des résultats dans le tableau 5 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        //var sasu_is_cell13_1 = frais_banque + frais_comptable + frais_urssaf; 
-        //document.getElementById("sasu_is_cell13_1").innerHTML = display.formateEuroBadge(sasu_is_cell13_1); // Frais annexes
         document.getElementById("sasu_is_cell13_2").innerHTML = display.formateEuroBadge(frais_comptable); // Frais annexes
         document.getElementById("sasu_is_cell16_2").innerHTML = display.formateEuroBadge(montantFinal); // Impot sur les dividendes
         document.getElementById("sasu_is_cell13_1").innerHTML = display.formateEuroBadge(frais_banque); // Frais annexes
@@ -1107,15 +1118,21 @@ var display = {
 
         ResultatApresIS_temp = ((resultat_intermediaire_total - frais_banque - frais_comptable) - ((resultat_intermediaire_total - frais_banque - frais_comptable) * 0.15)).toFixed(2);
 
-        // Variable pour nettoyage futur, en lien avec le tableau des impositions
+        
         sasu_is_cell15_4 = parseFloat(ResultatApresIS_temp);
-        document.getElementById("sasu_is_cell15_4").innerHTML = display.formateEuroBadge(ResultatApresIS_temp); // impots sur le revenu
+        document.getElementById("sasu_is_cell15_4").innerHTML = display.formateEuroBadge(ResultatApresIS_temp); // impots sur le revenu en déclaration perso
 
         document.getElementById("sasu_is_cell16_1").innerHTML = "30% d'abattement forfaitaire";
 
         var sasu_is_cell16_2 = parseFloat(sasu_is_cell15_4) * 0.7;
         document.getElementById("sasu_is_cell16_2").innerHTML = display.formateEuroBadge(sasu_is_cell16_2); // Après imposition avec 30% abattement
         document.getElementById("sasu_is_cell16_3").innerHTML = "Imposition sur ta déclaration perso";
+
+        // Badge SASU avec l'abattement forfaitaire
+        document.getElementById('frontTotalBeneficeSasuIsAbattement').innerHTML = display.formateEuroBadge(sasu_is_cell16_2);
+
+
+
 
 
         // Mise à jour des tableaux prévisionnels de la fédération des paramètres modifiés par les sliders
@@ -1195,12 +1212,8 @@ var display = {
         document.getElementById("valeur_match_02").textContent = document.getElementById("nbre_matchs_02").value;
         document.getElementById("valeur_match_03").textContent = document.getElementById("nbre_matchs_03").value;
 
-        document.getElementById("valeurTauxMarginalImpot").textContent = document.getElementById("idTauxMarginalImpot").value;
         document.getElementById("valeurNombrePartFiscale").textContent = document.getElementById("idNombrePartFiscale").value;
         document.getElementById("valeurRevenuFiscalReference").textContent = document.getElementById("idRevenuFiscalReference").value;
-
-
-
     },
 
 

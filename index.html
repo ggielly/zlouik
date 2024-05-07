@@ -224,12 +224,11 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
             </div>
             <!-- Fin de IMPOTS SASU IR ligne 3 badge 1 ********************************************************************-->
 
-
             <!-- Carte bénéfice impot SASU IS ligne 3 badge 2************************************************************************-->
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card customers-card">
                 <div class="card-body">
-                  <h5 class="card-title">Bénéfices en SASU IS<span> | net</span></h5>
+                  <h5 class="card-title">Bénéfices en SASU IS<span> | imposition sur la déclaration d'impots perso, net</span></h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="ri ri-hand-coin-line"></i>
@@ -247,6 +246,27 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
             </div>
             <!-- Fin de la carte impots SASU IS ligne 3 badge 2*********************************************************************-->
 
+            <!-- Carte bénéfice impot SASU IS ligne 3 badge 3************************************************************************-->
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card customers-card">
+                <div class="card-body">
+                  <h5 class="card-title">Bénéfices en SASU IS<span> | 30% d'abattement forfaitaire, net</span></h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="ri ri-hand-coin-line"></i>
+                    </div>
+
+                    <div class="ps-3">
+                      <h6 id="frontTotalBeneficeSasuIsAbattement">!</h6>
+                      <span id="profitIncreasePercentageSasuIsAbattement" class="text-success small pt-1 fw-bold">666%</span>
+                      <span class="text-muted small pt-2 ps-1">d'imposition</span>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Fin de la carte impots SASU IS ligne 3 badge 3*********************************************************************-->
 
             <!-- Tableau imposition générale ********************************************************************************************-->
             <div class="col-12">
@@ -257,6 +277,7 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                 </div>
               </div>
             </div>
+
             <!-- Fin du tableau imposition générale****************************************************************************************-->
 
 
@@ -431,7 +452,8 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
             <div class="col-12">
               <div class="card recent-sales overflow-auto">
                 <div class="card-body">
-                  <h5 class="card-title">Impositions communes en EURL IR ou en EURL IS ou en SASU IR ou en SASU IS<span> :)</span>
+                  <h5 class="card-title">Impositions communes en EURL IR ou en EURL IS ou en SASU IR ou en SASU IS<span>
+                      :)</span>
                   </h5>
 
                   <table id="impotEurlIr" class="table table-sm align-middle text-center">
@@ -562,7 +584,7 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                         <td id="tns_ir_cell13_3"></td>
                         <td id="tns_ir_cell14_3">---</td>
                         <td id="tns_ir_cell15_3">---</td>
-                                              </tr>
+                      </tr>
                     </tbody>
 
                     <tfoot>
@@ -669,21 +691,21 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                         <td id="sasu_ir_cell13_1"></td>
                         <td id="sasu_ir_cell14_1">---</td>
                         <td id="sasu_ir_cell15_1">---</td>
-                        
+
                       </tr>
                       <tr>
                         <td>Comptable</td>
                         <td id="sasu_ir_cell13_2"></td>
                         <td id="sasu_ir_cell14_2">---</td>
                         <td id="sasu_ir_cell15_2"></td>
-                        
+
                       </tr>
                       <tr>
                         <td>---</td>
                         <td id="sasu_ir_cell13_3">---</td>
                         <td id="sasu_ir_cell14_3">---</td>
                         <td id="sasu_ir_cell15_3">---</td>
-                        
+
                       </tr>
                     </tbody>
 
@@ -693,7 +715,7 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                         <td id="sasu_ir_cell13_4" class="gras-vert"></td>
                         <td id="sasu_ir_cell14_4" class="gras-vert"></td>
                         <td id="sasu_ir_cell15_4" class="gras-vert"></td>
-                        
+
                       </tr>
                     </tfoot>
 
@@ -832,7 +854,6 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                   <select id="VilleDepart" class="form-control" title="Maison"></select>
                 </div>
 
-                <br>
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked
                     disabled>
@@ -841,7 +862,6 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                   </label>
                 </div>
               </div>
-
 
               <div class="card-body pb-0">
                 <h5 class="card-title">Revenu fiscal de référence<span></span></h5>
@@ -853,166 +873,154 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                   <output id="valeurRevenuFiscalReference" class="output">55950</output>
                 </div>
 
-                <div class="card-body pb-0">
-                  <h5 class="card-title">Taux marginal d'imposition<span></span></h5>
-                  <div class="slider-group">
-                    <label class="custom-range-label" for="idTauxMarginalImpot"></label>
-                    <input type="range" class="custom-range" id="idTauxMarginalImpot" name="tauxMarginalImpot" min="0"
-                      max="90" value="4.3" step="0.1" title="Taux Marginal d'Impôt"
-                      oninput="updateOutput('tauxMarginalImpot', 'valeurTauxMarginalImpot')">
-                    <output id="valeurTauxMarginalImpot" class="output">4.3</output>
-                  </div>
-
-
-
-                  <h5 class="card-title">nombre de part fiscale<span></span></h5>
-                  <div class="slider-group">
-                    <label class="custom-range-label" for="idNombrePartFiscale"></label>
-                    <input type="range" class="custom-range" id="idNombrePartFiscale" name="nombrePartFiscale" min="1"
-                      max="10" value="3" step="0.5" title="nombre de part fiscale"
-                      oninput="updateOutput('nombrePartFiscale', 'valeurNombrePartFiscale')">
-                    <output id="valeurNombrePartFiscale" class="output">3</output>
-                  </div>
+                <h5 class="card-title">nombre de part fiscale<span></span></h5>
+                <div class="slider-group">
+                  <label class="custom-range-label" for="idNombrePartFiscale"></label>
+                  <input type="range" class="custom-range" id="idNombrePartFiscale" name="nombrePartFiscale" min="1"
+                    max="10" value="3" step="0.5" title="nombre de part fiscale"
+                    oninput="updateOutput('nombrePartFiscale', 'valeurNombrePartFiscale')">
+                  <output id="valeurNombrePartFiscale" class="output">3</output>
                 </div>
               </div>
+            </div>
 
 
-              <!-- Simulation de nombre de match ****************************************-->
-              <div class="card">
+            <!-- Simulation de nombre de match ****************************************-->
+            <div class="card">
 
-                <div class="card-body pb-0">
-                  <h5 class="card-title">Nombre de matchs<span></span></h5>
-                  <div class="slider-group">
-                    <label class="custom-range-label" for="nbre_matchs_01">Saison régulière</label>
-                    <input type="range" class="custom-range" id="nbre_matchs_01" name="nbre_matchs_01" min="0" max="60"
-                      value="20" step="1" oninput="updateOutput('nbre_matchs_01', 'valeur_match_01')">
-                    <output id="valeur_match_01" class="output">20</output>
-                  </div>
+              <div class="card-body pb-0">
+                <h5 class="card-title">Nombre de matchs<span></span></h5>
+                <div class="slider-group">
+                  <label class="custom-range-label" for="nbre_matchs_01">Saison régulière</label>
+                  <input type="range" class="custom-range" id="nbre_matchs_01" name="nbre_matchs_01" min="0" max="60"
+                    value="20" step="1" oninput="updateOutput('nbre_matchs_01', 'valeur_match_01')">
+                  <output id="valeur_match_01" class="output">20</output>
+                </div>
 
-                  <div class="slider-group">
-                    <label class="custom-range-label" for="nbre_matchs_02">Poule de relégation</label>
-                    <input type="range" class="custom-range" id="nbre_matchs_02" name="nbre_matchs_02" min="0" max="60"
-                      value="24" step="1" oninput="updateOutput('nbre_matchs_02', 'valeur_match_02')">
-                    <output id="valeur_match_02" class="output">24</output>
-                  </div>
+                <div class="slider-group">
+                  <label class="custom-range-label" for="nbre_matchs_02">Poule de relégation</label>
+                  <input type="range" class="custom-range" id="nbre_matchs_02" name="nbre_matchs_02" min="0" max="60"
+                    value="24" step="1" oninput="updateOutput('nbre_matchs_02', 'valeur_match_02')">
+                  <output id="valeur_match_02" class="output">24</output>
+                </div>
 
-                  <div class="slider-group">
-                    <label class="custom-range-label" for="nbre_matchs_03">Phase finale</label>
-                    <input type="range" class="custom-range" id="nbre_matchs_03" name="nbre_matchs_03" min="0" max="60"
-                      value="7" step="1" oninput="updateOutput('nbre_matchs_03', 'valeur_match_03')">
-                    <output id="valeur_match_03" class="output">7</output>
-
-                  </div>
-
-                  <div class="slider-group">
-                    <label class="custom-range-label" for="pourcentageGrandDeplacement">Pourcentage de
-                      grands déplacements (bugué)</label>
-                    <input type="range" class="custom-range" id="pourcentageGrandDeplacement"
-                      name="pourcentageGrandDeplacement" min="0" max="100" value="0" step="1"
-                      oninput="this.nextElementSibling.value = this.value">
-                    <output class="output">%</output>
-                  </div>
+                <div class="slider-group">
+                  <label class="custom-range-label" for="nbre_matchs_03">Phase finale</label>
+                  <input type="range" class="custom-range" id="nbre_matchs_03" name="nbre_matchs_03" min="0" max="60"
+                    value="7" step="1" oninput="updateOutput('nbre_matchs_03', 'valeur_match_03')">
+                  <output id="valeur_match_03" class="output">7</output>
 
                 </div>
-              </div><!-- Fin du nombre de match ****************************************************-->
 
-              <!-- Carte indemnités historiques****************-->
-              <div class="card">
-
-
-                <div class="card-body pb-0">
-                  <h5 class="card-title">Indemnités historiques<span></span></h5>
-
-                  <div id="indemniteChoisieDiv">
-
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" id="indemnite145" name="indemnite" value="145"
-                        checked>
-                      <label class="form-check-label" for="indemnite145">145€ : arbitre LM</label>
-                    </div>
-
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" id="indemnite130" name="indemnite" value="130">
-                      <label class="form-check-label" for="indemnite130">130€ : arbitre LM amical</label>
-                    </div>
-
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" id="indemnite120" name="indemnite" value="120">
-                      <label class="form-check-label" for="indemnite120">120€ : arbitre D1</label>
-                    </div>
-
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" id="indemnite115" name="indemnite" value="115">
-                      <label class="form-check-label" for="indemnite115">115€ : juge de lignes SR</label>
-                    </div>
-
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" id="indemnite105" name="indemnite" value="105">
-                      <label class="form-check-label" for="indemnite105">105€ : juge de lignes amical</label>
-                    </div>
-                  </div>
-
+                <div class="slider-group">
+                  <label class="custom-range-label" for="pourcentageGrandDeplacement">Pourcentage de
+                    grands déplacements (bugué)</label>
+                  <input type="range" class="custom-range" id="pourcentageGrandDeplacement"
+                    name="pourcentageGrandDeplacement" min="0" max="100" value="0" step="1"
+                    oninput="this.nextElementSibling.value = this.value">
+                  <output class="output">%</output>
                 </div>
-              </div><!-- Fin de la carte indemnités historiques****************************-->
-
-
-              <!-- Carte du montant des primes par match ************************************-->
-              <div class="card">
-
-
-                <div class="card-body pb-0">
-                  <h5 class="card-title">Montant des primes<span> par match</span></h5>
-                  <div class="slider-group">
-                    <label for="prime_montant_01">Saison régulière</label>
-                    <input type="range" class="custom-range" id="prime_montant_01" name="prime_montant_01" min="100"
-                      max="2000" value="550" step="10" oninput="updateOutput('prime_montant_01', 'valeur_prime_01')">
-                    <output id="valeur_prime_01">550</output>€
-                  </div>
-
-                  <div class="slider-group">
-                    <label for="prime_montant_02">Poule de relégation</label>
-                    <input type="range" class="custom-range" id="prime_montant_02" name="prime_montant_02" min="100"
-                      max="2000" value="700" step="10" oninput="updateOutput('prime_montant_02', 'valeur_prime_02')">
-                    <output id="valeur_prime_02">700</output>€
-                  </div>
-
-                  <div class="slider-group">
-                    <label for="prime_montant_03">Phase finale</label>
-                    <input type="range" class="custom-range" id="prime_montant_03" name="prime_montant_03" min="100"
-                      max="2000" value="800" step="10" oninput="updateOutput('prime_montant_03', 'valeur_prime_03')">
-                    <output id="valeur_prime_03">800</output>€
-                  </div>
-                </div>
-                <div class="card-body pb-0">
-                  <h5 class="card-title">Montant des frais par match <span> (utilisés par le calculs primes uniquement)</span></h5>
-
-                  <div class="slider-group">
-                    <label for="frais_par_match01">Saison régulière</label>
-                    <input type="range" class="custom-range" id="frais_par_match01" name="frais_par_match01" min="10"
-                      max="1200" value="130" step="10" oninput="updateOutput('frais_par_match01', 'valeur_frais_01')">
-                    <output id="valeur_frais_01">130</output>€
-                  </div>
-
-                  <div class="slider-group">
-                    <label for="frais_par_match02">Poule de relégation</label>
-                    <input type="range" class="custom-range" id="frais_par_match02" name="frais_par_match02" min="10"
-                      max="1200" value="260" step="10" oninput="updateOutput('frais_par_match02', 'valeur_frais_02')">
-                    <output id="valeur_frais_02">260</output>€
-                  </div>
-
-                  <div class="slider-group">
-                    <label for="frais_par_match03">Phase finale</label>
-                    <input type="range" class="custom-range" id="frais_par_match03" name="frais_par_match03" min="10"
-                      max="1200" value="260" step="10" oninput="updateOutput('frais_par_match03', 'valeur_frais_03')">
-                    <output id="valeur_frais_03">260</output>€
-                  </div>
-
-                </div><!-- fin de la carte du montant des primes par match ********************************-->
 
               </div>
-            </div><!-- End News & Updates -->
-          </form>
-        </div><!-- Fin des colonnes de droite -->
+            </div><!-- Fin du nombre de match ****************************************************-->
+
+            <!-- Carte indemnités historiques****************-->
+            <div class="card">
+
+
+              <div class="card-body pb-0">
+                <h5 class="card-title">Indemnités historiques<span></span></h5>
+
+                <div id="indemniteChoisieDiv">
+
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" id="indemnite145" name="indemnite" value="145" checked>
+                    <label class="form-check-label" for="indemnite145">145€ : arbitre LM</label>
+                  </div>
+
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" id="indemnite130" name="indemnite" value="130">
+                    <label class="form-check-label" for="indemnite130">130€ : arbitre LM amical</label>
+                  </div>
+
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" id="indemnite120" name="indemnite" value="120">
+                    <label class="form-check-label" for="indemnite120">120€ : arbitre D1</label>
+                  </div>
+
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" id="indemnite115" name="indemnite" value="115">
+                    <label class="form-check-label" for="indemnite115">115€ : juge de lignes SR</label>
+                  </div>
+
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" id="indemnite105" name="indemnite" value="105">
+                    <label class="form-check-label" for="indemnite105">105€ : juge de lignes amical</label>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- Fin de la carte indemnités historiques****************************-->
+
+
+            <!-- Carte du montant des primes par match ************************************-->
+            <div class="card">
+
+
+              <div class="card-body pb-0">
+                <h5 class="card-title">Montant des primes<span> par match</span></h5>
+                <div class="slider-group">
+                  <label for="prime_montant_01">Saison régulière</label>
+                  <input type="range" class="custom-range" id="prime_montant_01" name="prime_montant_01" min="100"
+                    max="2000" value="550" step="10" oninput="updateOutput('prime_montant_01', 'valeur_prime_01')">
+                  <output id="valeur_prime_01">550</output>€
+                </div>
+
+                <div class="slider-group">
+                  <label for="prime_montant_02">Poule de relégation</label>
+                  <input type="range" class="custom-range" id="prime_montant_02" name="prime_montant_02" min="100"
+                    max="2000" value="700" step="10" oninput="updateOutput('prime_montant_02', 'valeur_prime_02')">
+                  <output id="valeur_prime_02">700</output>€
+                </div>
+
+                <div class="slider-group">
+                  <label for="prime_montant_03">Phase finale</label>
+                  <input type="range" class="custom-range" id="prime_montant_03" name="prime_montant_03" min="100"
+                    max="2000" value="800" step="10" oninput="updateOutput('prime_montant_03', 'valeur_prime_03')">
+                  <output id="valeur_prime_03">800</output>€
+                </div>
+              </div>
+              <div class="card-body pb-0">
+                <h5 class="card-title">Montant des frais par match <span> (utilisés par le calculs primes
+                    uniquement)</span></h5>
+
+                <div class="slider-group">
+                  <label for="frais_par_match01">Saison régulière</label>
+                  <input type="range" class="custom-range" id="frais_par_match01" name="frais_par_match01" min="10"
+                    max="1200" value="130" step="10" oninput="updateOutput('frais_par_match01', 'valeur_frais_01')">
+                  <output id="valeur_frais_01">130</output>€
+                </div>
+
+                <div class="slider-group">
+                  <label for="frais_par_match02">Poule de relégation</label>
+                  <input type="range" class="custom-range" id="frais_par_match02" name="frais_par_match02" min="10"
+                    max="1200" value="260" step="10" oninput="updateOutput('frais_par_match02', 'valeur_frais_02')">
+                  <output id="valeur_frais_02">260</output>€
+                </div>
+
+                <div class="slider-group">
+                  <label for="frais_par_match03">Phase finale</label>
+                  <input type="range" class="custom-range" id="frais_par_match03" name="frais_par_match03" min="10"
+                    max="1200" value="260" step="10" oninput="updateOutput('frais_par_match03', 'valeur_frais_03')">
+                  <output id="valeur_frais_03">260</output>€
+                </div>
+
+              </div><!-- fin de la carte du montant des primes par match ********************************-->
+
+            </div>
+        </div><!-- End News & Updates -->
+        </form>
+      </div><!-- Fin des colonnes de droite -->
       </div>
 
     </section>

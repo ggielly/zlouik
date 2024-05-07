@@ -353,7 +353,6 @@ var gereEvents = function () {
         "nbre_matchs_01",
         "nbre_matchs_02",
         "nbre_matchs_03",
-        "idTauxMarginalImpot",
         "idNombrePartFiscale",
         "idRevenuFiscalReference"
     ];
@@ -416,16 +415,11 @@ var gereEvents = function () {
         .getElementById("frais_par_match03")
         .addEventListener("change", updateCalculs);
 
-    document
-        .getElementById("idTauxMarginalImpot")
-        .addEventListener("change", updateCalculs);
+
     document
         .getElementById("idNombrePartFiscale")
         .addEventListener("change", updateCalculs);
 
-    document
-        .getElementById("idTauxMarginalImpot")
-        .addEventListener("input", display.updateSliderValues);
     document
         .getElementById("idNombrePartFiscale")
         .addEventListener("input", display.updateSliderValues);
@@ -525,7 +519,7 @@ var initialize = function () {
     display.updateHistoriqueVille();
     display.updateFrontendBadge();
 
-    
+
 
 };
 

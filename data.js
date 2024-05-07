@@ -26,6 +26,8 @@ var apresImpositionEurlIs = 0;
 var apresImpositionSasuIr = 0;
 var apresImpositionSasuIs = 0;
 
+var pourcentageImpositionSasuIsAbattement = 0;
+
 var tempResultatNetImpotsEurlIr = 0
 var tempResultatNetImpotsEurlIs = 0;
 
