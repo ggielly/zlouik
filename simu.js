@@ -514,13 +514,11 @@ var initialize = function () {
     display.updatePrimeMontant();
 
     updateCalculs();
+    display.updateGlobal();
 
     display.updateSelectedIndemnityValue();
     display.updateHistoriqueVille();
     display.updateFrontendBadge();
-
-
-
 };
 
 var init = function () {

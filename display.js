@@ -729,7 +729,7 @@ var display = {
 
             if (tableauContainer) {
                 // Mettre à jour le contenu du tableau des résultats avec les données et le PRKVoiture sélectionné
-                tableauContainer.innerHTML = display.tableauComparatif(resultats, typeSaison);
+                //tableauContainer.innerHTML = display.tableauComparatif(resultats, typeSaison);
                 display.updateFrontendBadge();
 
             } else {
@@ -1257,8 +1257,8 @@ var display = {
         display.updateTableauImpositionGenerale();
 
         //display.updateFrontendBadge();
-        display.generateTableauDesignations();
-        display.tableauComparatif();
+        //display.generateTableauDesignations();
+       // display.tableauComparatif();
 
     }
 }; // EOF display

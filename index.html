@@ -869,7 +869,7 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                   <label class="custom-range-label" for="idRevenuFiscalReference"></label>
                   <input type="range" class="custom-range" id="idRevenuFiscalReference" name="revenuFiscalReference"
                     min="10" max="177110" value="55950" step="10" title="revenu fiscal de référence"
-                    oninput="updateOutput('revenuFiscalReference', 'valeurRevenuFiscalReference')">
+                    oninput="()  => { updateOutput('revenuFiscalReference', 'valeurRevenuFiscalReference'); }">
                   <output id="valeurRevenuFiscalReference" class="output">55950</output>
                 </div>
 
@@ -878,7 +878,7 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                   <label class="custom-range-label" for="idNombrePartFiscale"></label>
                   <input type="range" class="custom-range" id="idNombrePartFiscale" name="nombrePartFiscale" min="1"
                     max="10" value="3" step="0.5" title="nombre de part fiscale"
-                    oninput="updateOutput('nombrePartFiscale', 'valeurNombrePartFiscale')">
+                    oninput="()  => { updateOutput('nombrePartFiscale', 'valeurNombrePartFiscale'); }">
                   <output id="valeurNombrePartFiscale" class="output">3</output>
                 </div>
               </div>
@@ -893,21 +893,21 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                 <div class="slider-group">
                   <label class="custom-range-label" for="nbre_matchs_01">Saison régulière</label>
                   <input type="range" class="custom-range" id="nbre_matchs_01" name="nbre_matchs_01" min="0" max="60"
-                    value="20" step="1" oninput="updateOutput('nbre_matchs_01', 'valeur_match_01')">
+                    value="20" step="1" oninput="()  => { updateOutput('nbre_matchs_01', 'valeur_match_01'); }">
                   <output id="valeur_match_01" class="output">20</output>
                 </div>
 
                 <div class="slider-group">
                   <label class="custom-range-label" for="nbre_matchs_02">Poule de relégation</label>
                   <input type="range" class="custom-range" id="nbre_matchs_02" name="nbre_matchs_02" min="0" max="60"
-                    value="24" step="1" oninput="updateOutput('nbre_matchs_02', 'valeur_match_02')">
+                    value="24" step="1" oninput="()  => { updateOutput('nbre_matchs_02', 'valeur_match_02'); }">
                   <output id="valeur_match_02" class="output">24</output>
                 </div>
 
                 <div class="slider-group">
                   <label class="custom-range-label" for="nbre_matchs_03">Phase finale</label>
                   <input type="range" class="custom-range" id="nbre_matchs_03" name="nbre_matchs_03" min="0" max="60"
-                    value="7" step="1" oninput="updateOutput('nbre_matchs_03', 'valeur_match_03')">
+                    value="7" step="1" oninput="()  => { updateOutput('nbre_matchs_03', 'valeur_match_03'); }">
                   <output id="valeur_match_03" class="output">7</output>
 
                 </div>
@@ -972,21 +972,21 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                 <div class="slider-group">
                   <label for="prime_montant_01">Saison régulière</label>
                   <input type="range" class="custom-range" id="prime_montant_01" name="prime_montant_01" min="100"
-                    max="2000" value="550" step="10" oninput="updateOutput('prime_montant_01', 'valeur_prime_01')">
+                    max="2000" value="550" step="10" oninput="()  => { updateOutput('prime_montant_01', 'valeur_prime_01'); }">
                   <output id="valeur_prime_01">550</output>€
                 </div>
 
                 <div class="slider-group">
                   <label for="prime_montant_02">Poule de relégation</label>
                   <input type="range" class="custom-range" id="prime_montant_02" name="prime_montant_02" min="100"
-                    max="2000" value="700" step="10" oninput="updateOutput('prime_montant_02', 'valeur_prime_02')">
+                    max="2000" value="700" step="10" oninput="()  => { updateOutput('prime_montant_02', 'valeur_prime_02'); }">
                   <output id="valeur_prime_02">700</output>€
                 </div>
 
                 <div class="slider-group">
                   <label for="prime_montant_03">Phase finale</label>
                   <input type="range" class="custom-range" id="prime_montant_03" name="prime_montant_03" min="100"
-                    max="2000" value="800" step="10" oninput="updateOutput('prime_montant_03', 'valeur_prime_03')">
+                    max="2000" value="800" step="10" oninput="()  => { updateOutput('prime_montant_03', 'valeur_prime_03'); }">
                   <output id="valeur_prime_03">800</output>€
                 </div>
               </div>
@@ -997,21 +997,21 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                 <div class="slider-group">
                   <label for="frais_par_match01">Saison régulière</label>
                   <input type="range" class="custom-range" id="frais_par_match01" name="frais_par_match01" min="10"
-                    max="1200" value="130" step="10" oninput="updateOutput('frais_par_match01', 'valeur_frais_01')">
+                    max="1200" value="130" step="10" oninput="()  => { updateOutput('frais_par_match01', 'valeur_frais_01'); }">
                   <output id="valeur_frais_01">130</output>€
                 </div>
 
                 <div class="slider-group">
                   <label for="frais_par_match02">Poule de relégation</label>
                   <input type="range" class="custom-range" id="frais_par_match02" name="frais_par_match02" min="10"
-                    max="1200" value="260" step="10" oninput="updateOutput('frais_par_match02', 'valeur_frais_02')">
+                    max="1200" value="260" step="10" oninput="()  => { updateOutput('frais_par_match02', 'valeur_frais_02'); }">
                   <output id="valeur_frais_02">260</output>€
                 </div>
 
                 <div class="slider-group">
                   <label for="frais_par_match03">Phase finale</label>
                   <input type="range" class="custom-range" id="frais_par_match03" name="frais_par_match03" min="10"
-                    max="1200" value="260" step="10" oninput="updateOutput('frais_par_match03', 'valeur_frais_03')">
+                    max="1200" value="260" step="10" oninput="()  => { updateOutput('frais_par_match03', 'valeur_frais_03'); }">
                   <output id="valeur_frais_03">260</output>€
                 </div>
 
