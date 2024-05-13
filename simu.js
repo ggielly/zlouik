@@ -434,24 +434,24 @@ var gereEvents = function () {
 
 
 
-    document
-        .getElementById("nbre_matchs_01")
-        .addEventListener("input", display.updateSliderValues);
-    document
-        .getElementById("nbre_matchs_02")
-        .addEventListener("input", display.updateSliderValues);
-    document
-        .getElementById("nbre_matchs_03")
-        .addEventListener("input", display.updateSliderValues);
-    document
-        .getElementById("nbre_matchs_01")
-        .addEventListener("change", updateCalculs);
-    document
-        .getElementById("nbre_matchs_02")
-        .addEventListener("change", updateCalculs);
-    document
-        .getElementById("nbre_matchs_03")
-        .addEventListener("change", updateCalculs);
+    // document
+    //     .getElementById("nbre_matchs_01")
+    //     .addEventListener("input", display.updateSliderValues);
+    // document
+    //     .getElementById("nbre_matchs_02")
+    //     .addEventListener("input", display.updateSliderValues);
+    // document
+    //     .getElementById("nbre_matchs_03")
+    //     .addEventListener("input", display.updateSliderValues);
+    // document
+    //     .getElementById("nbre_matchs_01")
+    //     .addEventListener("change", updateCalculs);
+    // document
+    //     .getElementById("nbre_matchs_02")
+    //     .addEventListener("change", updateCalculs);
+    // document
+    //     .getElementById("nbre_matchs_03")
+    //     .addEventListener("change", updateCalculs);
 
     document
         .getElementById("indemniteChoisieDiv")

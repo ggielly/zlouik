@@ -1228,19 +1228,32 @@ var display = {
 
 
     // Mise à jour des valeurs affichées des sliders
+    // comme on utilise des variables globales de data.js qui peuvent être lues par d'autres fonctions
+    // on n'oublie pas de les mettre à jour avec les valeurs des inputs
     updateSliderValues: function () {
-        document.getElementById("valeur_prime_01").textContent = document.getElementById("prime_montant_01").value;
-        document.getElementById("valeur_prime_02").textContent = document.getElementById("prime_montant_02").value;
-        document.getElementById("valeur_prime_03").textContent = document.getElementById("prime_montant_03").value;
+        prime_montant_01 = parseInt(document.getElementById("prime_montant_01").value);
+        prime_montant_02 = parseInt(document.getElementById("prime_montant_02").value);
+        prime_montant_03 = parseInt(document.getElementById("prime_montant_03").value);
+        document.getElementById("valeur_prime_01").textContent = prime_montant_01;
+        document.getElementById("valeur_prime_02").textContent = prime_montant_02;
+        document.getElementById("valeur_prime_03").textContent = prime_montant_03;
 
-        document.getElementById("valeur_frais_01").textContent = document.getElementById("frais_par_match01").value;
-        document.getElementById("valeur_frais_02").textContent = document.getElementById("frais_par_match02").value;
-        document.getElementById("valeur_frais_03").textContent = document.getElementById("frais_par_match03").value;
+        frais_par_match01 = parseInt(document.getElementById("frais_par_match01").value);
+        frais_par_match02 = parseInt(document.getElementById("frais_par_match02").value);
+        frais_par_match03 = parseInt(document.getElementById("frais_par_match03").value);
+        document.getElementById("valeur_frais_01").textContent = frais_par_match01;
+        document.getElementById("valeur_frais_02").textContent = frais_par_match02;
+        document.getElementById("valeur_frais_03").textContent = frais_par_match03;
 
-        document.getElementById("valeur_match_01").textContent = document.getElementById("nbre_matchs_01").value;
-        document.getElementById("valeur_match_02").textContent = document.getElementById("nbre_matchs_02").value;
-        document.getElementById("valeur_match_03").textContent = document.getElementById("nbre_matchs_03").value;
+        nbre_matchs_01 = parseInt(document.getElementById("nbre_matchs_01").value);
+        nbre_matchs_02 = parseInt(document.getElementById("nbre_matchs_02").value);
+        nbre_matchs_03 = parseInt(document.getElementById("nbre_matchs_03").value);
+        document.getElementById("valeur_match_01").textContent = nbre_matchs_01;
+        document.getElementById("valeur_match_02").textContent = nbre_matchs_02;
+        document.getElementById("valeur_match_03").textContent = nbre_matchs_03;
 
+// >> ATTENTION ICI :
+        // si ces 2 inputs modifient aussi des variables globales de data.js, alors il faudra les mettre à jour
         document.getElementById("valeurNombrePartFiscale").textContent = document.getElementById("idNombrePartFiscale").value;
         document.getElementById("valeurRevenuFiscalReference").textContent = document.getElementById("idRevenuFiscalReference").value;
     },
@@ -1256,7 +1269,7 @@ var display = {
         // Mise à jour du tableau de calcul debug
         display.updateTableauImpositionGenerale();
 
-        //display.updateFrontendBadge();
+        display.updateFrontendBadge();
         //display.generateTableauDesignations();
        // display.tableauComparatif();
 
