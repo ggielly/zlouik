@@ -220,8 +220,6 @@ var calculateTaxTest = function (revenu) {
 };
 
 
-
-
 function calculerMontantImpotIntermediaireEurlIr() {
     const taxFromFirstCalculation = parseFloat(document.getElementById("r5c5").innerHTML.replace(/,/g, ''));
     const taxFromSecondCalculation = parseFloat(document.getElementById("r5c6").innerHTML.replace(/,/g, ''));
