@@ -1,3 +1,28 @@
+.table-header-rotated th.rotate-45 {
+  height: 100px; /* Adjust this height as needed */
+  width: 40px;   /* Adjust this width as needed */
+  position: relative;
+  vertical-align: bottom;
+  padding: 0;
+  font-size: 12px;
+  line-height: 0.8;
+}
+
+.table-header-rotated th.rotate-45 > div {
+  position: absolute;
+  bottom: 20px; /* Adjust this value to move the text up */
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg); /* Adjusted to move up */
+  transform-origin: center bottom;
+}
+
+.table-header-rotated th.rotate-45 span {
+  display: block;
+  white-space: nowrap;
+}
+
+
+
 .axis {
   font-family: sans-serif;
   font-size: 10px;

@@ -401,14 +401,14 @@ var display = {
     // Fonction de mise à jour du badge en frontend ligne 1 badge 2 - total benefice apres PRK pour le defrayement par indemnités
     updateFrontendTotalBeneficeReel: function () {
         let dat_total00 = (Object.values(globalBeneficeReelValues).reduce((acc, value) => acc + value, 0)).toFixed();
-        document.getElementById('frontTotalBeneficeReelDisplay').innerHTML = dat_total00.toLocaleString('fr-FR');
+        document.getElementById('frontTotalBeneficeReelDisplay').innerHTML = display.formateEuroBadge(dat_total00);
     },
 
 
     // Fonction de mise à jour du badge en frontend ligne 1 badge 3 - total benefice apres PRK pour le defrayement par prime (nouveau système)
     updateFrontendTotalBeneficePrimeReel: function () {
         let dat_total01 = (Object.values(globalBeneficeReelPrimeValues).reduce((acc, value) => acc + value, 0)).toFixed();
-        document.getElementById('frontTotalBeneficeReelPrimeDisplay').innerHTML = dat_total01.toLocaleString('fr-FR');
+        document.getElementById('frontTotalBeneficeReelPrimeDisplay').innerHTML = display.formateEuroBadge(dat_total01);
     },
 
 
@@ -437,15 +437,15 @@ var display = {
     generateTableauComparatifHeader: function (nbMatchs, idtableau) {
 
         htmlTableau = `<h5 class="card-title">${nbMatchs} matchs.<span></span></h5>
-        <table id="${idtableau}" class="table table-sm table-striped table-hover text-center">
+        <table id="${idtableau}" class="table table-sm table-striped table-hover text-center table-header-rotated">
         <thead>
             <tr>
-                <th scope="col">Domicile</th>
+                <th scope="col"> Domicile</th>
                 <th scope="col">Destination</th>
                 <th scope="col">Distance<br>A/R</th>
-                <th scope="col">Péages</th>
+                <th scope="col" class="rotate-45"><div><span>Péages</span></div></th>
                 <th scope="col">Temps de trajet<br>A/R</th>
-                <th scope="col">Grand<br>déplacement</th>
+                <th scope="col">Gd<br>déplacement</th>
                 <th scope="col">Indem. km</th>
                 <th scope="col">PRK</th>
                 <th scope="col">Repas</th>
@@ -702,10 +702,11 @@ var display = {
         </table>`;
 
         // On additionne pour chaque saison les sous totaux des 3 tableaux
-        globalBeneficeReelValues[typeSaison] = totalBeneficeReel; // Benefice de l'indemnite de match en prenant en compte le PRK
-        globalBeneficeReelPrimeValues[typeSaison] = totalPrimeBenefice;
+        globalBeneficeReelValues[typeSaison] = totalBeneficeFraisSSPRK; // Benefice de l'indemnite de match en prenant en compte le PRK
+        globalBeneficeReelPrimeValues[typeSaison] = totalBeneficePrimeSSPRK;
 
         // On affiche le resultat des sous totaux
+        // display.formateEuroBadge(
         display.updateFrontendTotalBeneficeReel();
         display.updateFrontendTotalBeneficePrimeReel();
 
@@ -950,7 +951,7 @@ var display = {
 
 
     },
-
+    
 
     // Mise à jour de l'ensemble des tableaux prévisionnels de la fédération
     updateTableauImpositions: function () {
@@ -1270,8 +1271,6 @@ var display = {
         display.updateTableauImpositionGenerale();
 
         display.updateFrontendBadge();
-        //display.generateTableauDesignations();
-       // display.tableauComparatif();
 
     }
 }; // EOF display
