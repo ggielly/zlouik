@@ -450,7 +450,7 @@ var display = {
                 <th scope="col">PRK</th>
                 <th scope="col">Repas</th>
                 <th scope="col">Hôtel</th>
-                <th scope="col">Indemnité de préparation <br> et d'équipement</th>
+                <th scope="col">Indemnité</th>
                 <th scope="col">Chiffre d'affaire<br> note de frais</th>
                 <th scope="col">Bénéfices rééls <br> note de frais</th>
                 <th scope="col">Chiffre d'affaire<br> primes</th>
@@ -659,22 +659,22 @@ var display = {
         colorTotalBeneficePrimeSSPRK = totalBeneficePrimeSSPRK < 0 ? "color:red;" : "";
         colorTotalBeneficeFraisSSPRK = totalBeneficeFraisSSPRK < 0 ? "color:red;" : "";
         
-
+        // Footer du tableau
         htmlTableau += `</tbody>
         <tfoot>
             <tr class="totalRow">
                 <td>TOTAUX</td>
                 <td><span class="text-primary">${nbMatchs} matchs</span></td>
-                <td>${totalDistance} km</td>
-                <td>${totalPeages.toFixed(2)}</td>
+                <td>${totalDistance}</td>
+                <td>${totalPeages.toFixed(0)}</td>
                 <td>${Math.floor(totalTempsTrajet / 60)}h${totalTempsTrajet % 60}</td>
                 <td>${totalGrandDeplacement.toFixed(0)}</td>
-                <td>${totalKilometriques.toFixed(2)}</td>
+                <td>${totalKilometriques.toFixed(0)}</td>
                 <td>${totalPRK.toFixed()}</td>
-                <td>${totalRepas.toFixed(2)}</td>
-                <td>${totalHotels.toFixed(2)}</td>
+                <td>${totalRepas.toFixed(0)}</td>
+                <td>${totalHotels.toFixed(0)}</td>
                 <td>${totalPreparation.toFixed(0)}</td>
-                <td>${totalFraisHistorique.toFixed(2)}</td>
+                <td>${totalFraisHistorique.toFixed(0)}</td>
                 <td style ="${colorTotalBeneficeReel}">${totalBeneficeReel.toFixed(0)}</td>
                 <td>${totalPrimes.toFixed(0)}</td>
                 <td>${totalFrais.toFixed(0)}</td>
@@ -702,8 +702,8 @@ var display = {
         </table>`;
 
         // On additionne pour chaque saison les sous totaux des 3 tableaux
-        globalBeneficeReelValues[typeSaison] = totalBeneficeReel; // Benefice de l'indemnite de match en prenant en compte le PRK
-        globalBeneficeReelPrimeValues[typeSaison] = totalPrimeBenefice;
+        globalBeneficeReelValues[typeSaison] = totalBeneficeFraisSSPRK; // Benefice de l'indemnite de match en prenant en compte le PRK
+        globalBeneficeReelPrimeValues[typeSaison] = totalBeneficePrimeSSPRK;
 
         // On affiche le resultat des sous totaux
         display.updateFrontendTotalBeneficeReel();
