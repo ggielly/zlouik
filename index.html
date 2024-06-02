@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <!--
-Générateur de simulation de primes et historique des rémunérations et divers impots, for fun and profit.
+ZLOUïK!
+
+Générateur de simulation de primes et historique des rémunérations et divers impots pour juges et arbitres sportifs en France.
+Fait sur un coin de table fun and profit.
+
 Guillaume - 2024
 
-CONTACT : guillaume ar0base rootshell.fr.
+CONTACT : guillaume arobaz rootshell.fr.
 LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
 
 -->
@@ -12,7 +16,7 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simulateur ZLOUIK</title>
+  <title>ZLOUïK!</title>
   <link href="default.css" rel="stylesheet">
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -104,7 +108,7 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card revenue-card">
                 <div class="card-body">
-                  <h5 class="card-title">Bénéfices avec indemnités<span> | net</span></h5>
+                  <h5 class="card-title">Bénéfices avec indemnités<span> | net avant impots</span></h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bx bx-euro"></i>
@@ -124,7 +128,7 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
             <div class="col-xxl-4 col-xl-12">
               <div class="card info-card revenue-card">
                 <div class="card-body">
-                  <h5 class="card-title">Bénéfices avec primes<span> | net</span></h5>
+                  <h5 class="card-title">Bénéfices avec primes<span> | net avant impots</span></h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bx bx-euro"></i>
@@ -145,7 +149,7 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card customers-card">
                 <div class="card-body">
-                  <h5 class="card-title">Bénéfices en micro entreprise<span> | net</span></h5>
+                  <h5 class="card-title">Bénéfices en micro entreprise<span> | primes, net</span></h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="ri ri-hand-coin-line"></i>
@@ -166,7 +170,7 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card customers-card">
                 <div class="card-body">
-                  <h5 class="card-title">Bénéfices en EURL IR (TNS)<span> | net</span></h5>
+                  <h5 class="card-title">Bénéfices en EURL IR (TNS)<span> | primes, net</span></h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="ri ri-hand-coin-line"></i>
@@ -186,7 +190,7 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
             <div class="col-xxl-4 col-xl-12">
               <div class="card info-card customers-card">
                 <div class="card-body">
-                  <h5 class="card-title">Bénéfices en EURL IS (TNS)<span> | net</span></h5>
+                  <h5 class="card-title">Bénéfices en EURL Iimpot sur les Socités (TNS)<span> | primes, net</span></h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="ri ri-hand-coin-line"></i>
@@ -207,7 +211,7 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card customers-card">
                 <div class="card-body">
-                  <h5 class="card-title">Bénéfices en SASU IR<span> | net</span></h5>
+                  <h5 class="card-title">Bénéfices en SASU Impot sur le Revenu<span> | primes, net</span></h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="ri ri-hand-coin-line"></i>
@@ -228,7 +232,7 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card customers-card">
                 <div class="card-body">
-                  <h5 class="card-title">Bénéfices en SASU IS<span> | sur la déclaration d'impots perso, net</span></h5>
+                  <h5 class="card-title">Bénéfices en SASU IS<span> | sur la déclaration d'impots perso, primes, net</span></h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="ri ri-hand-coin-line"></i>
@@ -267,16 +271,17 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
               </div>
             </div>
             <!-- Fin de la carte impots SASU IS ligne 3 badge 3*********************************************************************-->
-
+            
+            
             <!-- Tableau imposition générale ********************************************************************************************-->
-            <div class="col-12">
+            <div class="col-12 d-none">
               <div class="card recent-sales overflow-auto">
                 <div class="card-body">
                   <h5 class="card-title">DEBUG : Récapitulatifs des impositions<span></span></h5>
                   <div id="divImpotTableauImpositionGenerale"></div>
                 </div>
               </div>
-            </div>
+            </div> 
 
             <!-- Fin du tableau imposition générale****************************************************************************************-->
 
@@ -310,7 +315,7 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
             <div class="col-6">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">Bénéfices sur les phases finales<span> | comparaison</span></h5>
+                  <h5 class="card-title">Bénéfices phases finales<span> | comparaison</span></h5>
                   <div id="chartContainer2"></div>
                 </div>
               </div>
@@ -799,12 +804,12 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                     <thead>
                       <tr>
                         <th>Saison</th>
-                        <th>Head LM amicaux</th>
-                        <th>Head LM SR</th>
-                        <th>Head LM PO</th>
-                        <th>Head D1 amicaux</th>
-                        <th>Head D1 SR</th>
-                        <th>Head D1 PO</th>
+                        <th>Arbitre LM amicaux</th>
+                        <th>Arbitre LM SR</th>
+                        <th>Arbitre LM PO</th>
+                        <th>Arbitre D1 amicaux</th>
+                        <th>Arbitre D1 SR</th>
+                        <th>Arbitre D1 PO</th>
                         <th>JDL amicaux</th>
                         <th>JDL SR</th>
                         <th>JDL PO</th>
@@ -839,10 +844,10 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
             <div class="card">
 
               <div class="card-body pb-0">
-                <h5 class="card-title">Données de trajet<span></span></h5>
+                <h5 class="card-title">Déplacements<span></span></h5>
 
                 <div class="dropdown">
-                  <label for="menuPRK">Prix de reviens kilométrique (PRK) du véhicule :</label>
+                  <label for="menuPRK">Prix de revien kilométrique (PRK) du véhicule :</label>
                   <select id="menuPRK" class="form-control" title="PRK"></select>
                 </div>
 
@@ -869,16 +874,16 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                   <label class="custom-range-label" for="idRevenuFiscalReference"></label>
                   <input type="range" class="custom-range" id="idRevenuFiscalReference" name="revenuFiscalReference"
                     min="10" max="177110" value="55950" step="10" title="revenu fiscal de référence"
-                    oninput="updateOutput('revenuFiscalReference', 'valeurRevenuFiscalReference')">
+                    oninput="()  => { updateOutput('revenuFiscalReference', 'valeurRevenuFiscalReference'); }">
                   <output id="valeurRevenuFiscalReference" class="output">55950</output>
                 </div>
 
-                <h5 class="card-title">nombre de part fiscale<span></span></h5>
+                <h5 class="card-title">Nombre de part fiscale<span></span></h5>
                 <div class="slider-group">
                   <label class="custom-range-label" for="idNombrePartFiscale"></label>
                   <input type="range" class="custom-range" id="idNombrePartFiscale" name="nombrePartFiscale" min="1"
                     max="10" value="3" step="0.5" title="nombre de part fiscale"
-                    oninput="updateOutput('nombrePartFiscale', 'valeurNombrePartFiscale')">
+                    oninput="()  => { updateOutput('nombrePartFiscale', 'valeurNombrePartFiscale'); }">
                   <output id="valeurNombrePartFiscale" class="output">3</output>
                 </div>
               </div>
@@ -893,21 +898,21 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                 <div class="slider-group">
                   <label class="custom-range-label" for="nbre_matchs_01">Saison régulière</label>
                   <input type="range" class="custom-range" id="nbre_matchs_01" name="nbre_matchs_01" min="0" max="60"
-                    value="20" step="1" oninput="updateOutput('nbre_matchs_01', 'valeur_match_01')">
+                    value="20" step="1" oninput="()  => { updateOutput('nbre_matchs_01', 'valeur_match_01'); }">
                   <output id="valeur_match_01" class="output">20</output>
                 </div>
 
                 <div class="slider-group">
                   <label class="custom-range-label" for="nbre_matchs_02">Poule de relégation</label>
                   <input type="range" class="custom-range" id="nbre_matchs_02" name="nbre_matchs_02" min="0" max="60"
-                    value="24" step="1" oninput="updateOutput('nbre_matchs_02', 'valeur_match_02')">
+                    value="24" step="1" oninput="()  => { updateOutput('nbre_matchs_02', 'valeur_match_02'); }">
                   <output id="valeur_match_02" class="output">24</output>
                 </div>
 
                 <div class="slider-group">
                   <label class="custom-range-label" for="nbre_matchs_03">Phase finale</label>
                   <input type="range" class="custom-range" id="nbre_matchs_03" name="nbre_matchs_03" min="0" max="60"
-                    value="7" step="1" oninput="updateOutput('nbre_matchs_03', 'valeur_match_03')">
+                    value="7" step="1" oninput="()  => { updateOutput('nbre_matchs_03', 'valeur_match_03'); }">
                   <output id="valeur_match_03" class="output">7</output>
 
                 </div>
@@ -972,21 +977,21 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                 <div class="slider-group">
                   <label for="prime_montant_01">Saison régulière</label>
                   <input type="range" class="custom-range" id="prime_montant_01" name="prime_montant_01" min="100"
-                    max="2000" value="550" step="10" oninput="updateOutput('prime_montant_01', 'valeur_prime_01')">
+                    max="2000" value="550" step="10" oninput="()  => { updateOutput('prime_montant_01', 'valeur_prime_01'); }">
                   <output id="valeur_prime_01">550</output>€
                 </div>
 
                 <div class="slider-group">
                   <label for="prime_montant_02">Poule de relégation</label>
                   <input type="range" class="custom-range" id="prime_montant_02" name="prime_montant_02" min="100"
-                    max="2000" value="700" step="10" oninput="updateOutput('prime_montant_02', 'valeur_prime_02')">
+                    max="2000" value="700" step="10" oninput="()  => { updateOutput('prime_montant_02', 'valeur_prime_02'); }">
                   <output id="valeur_prime_02">700</output>€
                 </div>
 
                 <div class="slider-group">
                   <label for="prime_montant_03">Phase finale</label>
                   <input type="range" class="custom-range" id="prime_montant_03" name="prime_montant_03" min="100"
-                    max="2000" value="800" step="10" oninput="updateOutput('prime_montant_03', 'valeur_prime_03')">
+                    max="2000" value="800" step="10" oninput="()  => { updateOutput('prime_montant_03', 'valeur_prime_03'); }">
                   <output id="valeur_prime_03">800</output>€
                 </div>
               </div>
@@ -997,21 +1002,21 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
                 <div class="slider-group">
                   <label for="frais_par_match01">Saison régulière</label>
                   <input type="range" class="custom-range" id="frais_par_match01" name="frais_par_match01" min="10"
-                    max="1200" value="130" step="10" oninput="updateOutput('frais_par_match01', 'valeur_frais_01')">
+                    max="1200" value="130" step="10" oninput="()  => { updateOutput('frais_par_match01', 'valeur_frais_01'); }">
                   <output id="valeur_frais_01">130</output>€
                 </div>
 
                 <div class="slider-group">
                   <label for="frais_par_match02">Poule de relégation</label>
                   <input type="range" class="custom-range" id="frais_par_match02" name="frais_par_match02" min="10"
-                    max="1200" value="260" step="10" oninput="updateOutput('frais_par_match02', 'valeur_frais_02')">
+                    max="1200" value="260" step="10" oninput="()  => { updateOutput('frais_par_match02', 'valeur_frais_02'); }">
                   <output id="valeur_frais_02">260</output>€
                 </div>
 
                 <div class="slider-group">
                   <label for="frais_par_match03">Phase finale</label>
                   <input type="range" class="custom-range" id="frais_par_match03" name="frais_par_match03" min="10"
-                    max="1200" value="260" step="10" oninput="updateOutput('frais_par_match03', 'valeur_frais_03')">
+                    max="1200" value="260" step="10" oninput="()  => { updateOutput('frais_par_match03', 'valeur_frais_03'); }">
                   <output id="valeur_frais_03">260</output>€
                 </div>
 
@@ -1037,11 +1042,11 @@ LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
     <hr>
 
     PRK : https://www.cartecarburant.leclerc/actualites/prix-revient-kilometrique<br>
-    <img src="https://simu.aahg.fr/tableau_prk.png" alt="Tableau PRK">
+    <img src="tableau_prk.png" alt="Tableau PRK">
     <br>
 
     <footer class="text-center text-muted">
-      © 2024 ZLOUIK! par Guillaume Gielly. Code source sous licence WTFPLv2 ou LPRAB en France. <br>
+      © 2024 ZLOUïK! par Guillaume. Code source sous licence WTFPLv2 ou LPRAB en France. <br>
       Les données sont fournies à titre indicatif et ne sauraient engager la responsabilité de l'auteur ni
       de personne.
       <br>

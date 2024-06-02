@@ -1,55 +1,52 @@
 # Présentation
 
-Bienvenue sur ZLOUIK, la Zone Logicielle Orientée Utilisation et Impositions Kafkaïennes !
-ZLOUIK est conçue pour simplifier la vie des arbitres et autres professionnels indépendants en leur
- permettant de calculer efficacement leurs revenus nets, tout en prenant en compte divers facteurs
-  tels que les primes, les frais divers et les cotisations URSSAF.
+Bienvenue sur ZLOUïK!, la Zone Logicielle Orientée Utilisation et Impositions Kafkaïennes ! 
 
-ZLOUIK est idéale pour ceux qui cherchent à avoir une estimation claire et précise de leurs
- revenus annuels à partir de simulations basées sur des données réelles ou hypothétiques
-  de matchs arbitré.
+ZLOUïK est simulateur conçue pour simplifier la vie des arbitres sportifs en France et autres professionnels indépendants en leur
+ permettant de calculer ou simuler efficacement leurs revenus bruts, superbruts et nets, tout en prenant en compte divers facteurs
+  tels que les primes, les frais divers ou des cotisations URSSAF.
+
+ZLOUïK! est idéal pour les juge et arbitres sportifs qui cherchent à avoir une estimation claire et précise de leurs revenus annuels à partir de simulations basées sur des données réelles ou rencontres hypothétiques arbitrées.
+
+Les formules de calcul pour la simulation proviennent du site des impots ou de documents comptables validés en 2024. 
+
+Malgré de nombreuses relectures une erreur aurait pu se glisser. Ne pas hésiter à me contacter pour correction : guillaume@rootshell.fr.
+
+ZLOUïK! est orienté pour les arbitres de hockey sur glace mais rien n'empêche son utilisation pour tout autre sport. COntactez moi ou forkez moi.
 
 # Mode d'Emploi
 
 ## Configuration Initiale
 
-    Accès aux paramètres
-        Commencez par accéder à l'onglet "Paramétrage" où vous pouvez entrer les différentes
-         configurations liées à votre activité :
-            PRK (Prix de Reviens Kilométrique) : choisissez le PRK applicable à votre véhicule
-             pour le calcul des indemnisations kilométriques.
-            Domicile : sélectionnez votre ville de domicile pour la simulation des déplacements.
-            Matchs : réglez le nombre de matchs prévus pour chaque phase (saison régulière, 
-            poule de relégation, etc.) ainsi que le pourcentage de grands déplacements.
+Utilisez les curseurs pour : 
 
-    Entrée des données
-        Sur la même page, vous trouverez des sliders vous permettant de définir le montant des
-         primes par match et les frais associés à chaque type de match.
+  définir votre revenu fiscal de référence (disponible sur votre feuille d'impot). En effet, pour certains statuts d'entreprise il est nécessaire de disposer de cette donnée. 
+  sélectionner le nombre de match pour la saison régulière, la poule de maintien ainsi que les phases finales.
+  sélectionner les montants de vos différentes (nouvelles) primes
+  sélectionner le Prix de Revien Kilométrique de votre véhicule
+  choisir les frais fixes en moyennes que vous avez par match
+  ou encore choisir depuis quelle ville vous souhaitez faire partir votre simulation. Le chiffre entre parenthses est le nombre de destinations possibles depuis la ville de départ. 
 
-## Utilisation des Calculatrices
+  NOTE : si vous souhaitez rajouter des villes de départ et de destinations aucun problème, contactez-moi en me faisant parvenir vos données qui doivent contenir la ville de départ, la ville d'arrivée, le nombre de kilomêtres aller, le prix aller de l'ensemble des péages et le temps aller pour s'y rendre. Je les rajouterai.
 
-    Calculateur de Revenus pour Auto-Entrepreneurs
-        Cette section calcule votre revenu net en prenant en compte les primes, les frais et
-         les cotisations URSSAF. Vous verrez des tables pré-remplies où vous pouvez simplement
-          entrer vos données pour chaque match.
-        Les résultats incluront votre brut annuel, les cotisations annuelles, les frais
-         par match et le résultat net annuel.
+## Utilisation des badges
 
-    Visualisation et Interaction
-        Les lignes des tableaux sont interactives—survolez une ligne avec votre souris pour
-         la mettre en évidence, facilitant la lecture des données spécifiques.
-        Les couleurs des lignes alternent pour une meilleure lisibilité : une facilité
-         visuelle pour suivre les données sans se perdre.
+Sur le haut de la page vous apercevez des badges qui vous indiquent rapidement -en fonction de l'ensemble des paramêtres positionnés dans ZLOUïK!- quel est le meilleur type de fiscalisation ou d'indemnisation.
 
-## Réglages avancés
+## Lecture des graphiques
 
-    Configurez des détails supplémentaires comme les taux de cotisation URSSAF selon les 
-    directives les plus récentes pour une estimation encore plus précise.
+Les graphiques vont vous permettre en un coup d'oeil de voir si la rémunération par indemnités ou par primes est le meilleur choix.
 
-## Support et retours
+## Tableau des désignations
 
-    N’hésitez pas à contacter notre support technique via l’interface de l’application
-     pour toute question ou si vous avez besoin d’aide avec les configurations ou les calculs.
+Un tableau fictif de désignations est généré pour chaque poules, avec le nombre de rencontres définies, en tenant compte de la ville de départ. Chaque colonnes va représenter une dépense ou une rentrée financière.
+Un comparatif est fait entre une rémunération par indemnité ou par prime. Avec l'affichage de l'optimum.
+
+
+
+## Support, retours, demandes d'évolutions
+
+N’hésitez pas à me contacter directement sur mon email : guillaume@rootshell.fr pour toute question ou si vous avez besoin d’aide avec les configurations ou si les calculs vous paraissent bizarres.
 
 # Licence
 

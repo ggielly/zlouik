@@ -220,8 +220,6 @@ var calculateTaxTest = function (revenu) {
 };
 
 
-
-
 function calculerMontantImpotIntermediaireEurlIr() {
     const taxFromFirstCalculation = parseFloat(document.getElementById("r5c5").innerHTML.replace(/,/g, ''));
     const taxFromSecondCalculation = parseFloat(document.getElementById("r5c6").innerHTML.replace(/,/g, ''));
@@ -434,24 +432,24 @@ var gereEvents = function () {
 
 
 
-    document
-        .getElementById("nbre_matchs_01")
-        .addEventListener("input", display.updateSliderValues);
-    document
-        .getElementById("nbre_matchs_02")
-        .addEventListener("input", display.updateSliderValues);
-    document
-        .getElementById("nbre_matchs_03")
-        .addEventListener("input", display.updateSliderValues);
-    document
-        .getElementById("nbre_matchs_01")
-        .addEventListener("change", updateCalculs);
-    document
-        .getElementById("nbre_matchs_02")
-        .addEventListener("change", updateCalculs);
-    document
-        .getElementById("nbre_matchs_03")
-        .addEventListener("change", updateCalculs);
+    // document
+    //     .getElementById("nbre_matchs_01")
+    //     .addEventListener("input", display.updateSliderValues);
+    // document
+    //     .getElementById("nbre_matchs_02")
+    //     .addEventListener("input", display.updateSliderValues);
+    // document
+    //     .getElementById("nbre_matchs_03")
+    //     .addEventListener("input", display.updateSliderValues);
+    // document
+    //     .getElementById("nbre_matchs_01")
+    //     .addEventListener("change", updateCalculs);
+    // document
+    //     .getElementById("nbre_matchs_02")
+    //     .addEventListener("change", updateCalculs);
+    // document
+    //     .getElementById("nbre_matchs_03")
+    //     .addEventListener("change", updateCalculs);
 
     document
         .getElementById("indemniteChoisieDiv")
@@ -514,13 +512,11 @@ var initialize = function () {
     display.updatePrimeMontant();
 
     updateCalculs();
+    display.updateGlobal();
 
     display.updateSelectedIndemnityValue();
     display.updateHistoriqueVille();
     display.updateFrontendBadge();
-
-
-
 };
 
 var init = function () {

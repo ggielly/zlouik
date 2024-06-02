@@ -401,14 +401,14 @@ var display = {
     // Fonction de mise à jour du badge en frontend ligne 1 badge 2 - total benefice apres PRK pour le defrayement par indemnités
     updateFrontendTotalBeneficeReel: function () {
         let dat_total00 = (Object.values(globalBeneficeReelValues).reduce((acc, value) => acc + value, 0)).toFixed();
-        document.getElementById('frontTotalBeneficeReelDisplay').innerHTML = dat_total00.toLocaleString('fr-FR');
+        document.getElementById('frontTotalBeneficeReelDisplay').innerHTML = display.formateEuroBadge(dat_total00);
     },
 
 
     // Fonction de mise à jour du badge en frontend ligne 1 badge 3 - total benefice apres PRK pour le defrayement par prime (nouveau système)
     updateFrontendTotalBeneficePrimeReel: function () {
         let dat_total01 = (Object.values(globalBeneficeReelPrimeValues).reduce((acc, value) => acc + value, 0)).toFixed();
-        document.getElementById('frontTotalBeneficeReelPrimeDisplay').innerHTML = dat_total01.toLocaleString('fr-FR');
+        document.getElementById('frontTotalBeneficeReelPrimeDisplay').innerHTML = display.formateEuroBadge(dat_total01);
     },
 
 
@@ -437,15 +437,15 @@ var display = {
     generateTableauComparatifHeader: function (nbMatchs, idtableau) {
 
         htmlTableau = `<h5 class="card-title">${nbMatchs} matchs.<span></span></h5>
-        <table id="${idtableau}" class="table table-sm table-striped table-hover text-center">
+        <table id="${idtableau}" class="table table-sm table-striped table-hover text-center table-header-rotated">
         <thead>
             <tr>
-                <th scope="col">Domicile</th>
+                <th scope="col"> Domicile</th>
                 <th scope="col">Destination</th>
                 <th scope="col">Distance<br>A/R</th>
-                <th scope="col">Péages</th>
+                <th scope="col" class="rotate-45"><div><span>Péages</span></div></th>
                 <th scope="col">Temps de trajet<br>A/R</th>
-                <th scope="col">Grand<br>déplacement</th>
+                <th scope="col">Gd<br>déplacement</th>
                 <th scope="col">Indem. km</th>
                 <th scope="col">PRK</th>
                 <th scope="col">Repas</th>
@@ -702,10 +702,11 @@ var display = {
         </table>`;
 
         // On additionne pour chaque saison les sous totaux des 3 tableaux
-        globalBeneficeReelValues[typeSaison] = totalBeneficeReel; // Benefice de l'indemnite de match en prenant en compte le PRK
-        globalBeneficeReelPrimeValues[typeSaison] = totalPrimeBenefice;
+        globalBeneficeReelValues[typeSaison] = totalBeneficeFraisSSPRK; // Benefice de l'indemnite de match en prenant en compte le PRK
+        globalBeneficeReelPrimeValues[typeSaison] = totalBeneficePrimeSSPRK;
 
         // On affiche le resultat des sous totaux
+        // display.formateEuroBadge(
         display.updateFrontendTotalBeneficeReel();
         display.updateFrontendTotalBeneficePrimeReel();
 
@@ -729,7 +730,7 @@ var display = {
 
             if (tableauContainer) {
                 // Mettre à jour le contenu du tableau des résultats avec les données et le PRKVoiture sélectionné
-                tableauContainer.innerHTML = display.tableauComparatif(resultats, typeSaison);
+                //tableauContainer.innerHTML = display.tableauComparatif(resultats, typeSaison);
                 display.updateFrontendBadge();
 
             } else {
@@ -950,7 +951,7 @@ var display = {
 
 
     },
-
+    
 
     // Mise à jour de l'ensemble des tableaux prévisionnels de la fédération
     updateTableauImpositions: function () {
@@ -1228,19 +1229,32 @@ var display = {
 
 
     // Mise à jour des valeurs affichées des sliders
+    // comme on utilise des variables globales de data.js qui peuvent être lues par d'autres fonctions
+    // on n'oublie pas de les mettre à jour avec les valeurs des inputs
     updateSliderValues: function () {
-        document.getElementById("valeur_prime_01").textContent = document.getElementById("prime_montant_01").value;
-        document.getElementById("valeur_prime_02").textContent = document.getElementById("prime_montant_02").value;
-        document.getElementById("valeur_prime_03").textContent = document.getElementById("prime_montant_03").value;
+        prime_montant_01 = parseInt(document.getElementById("prime_montant_01").value);
+        prime_montant_02 = parseInt(document.getElementById("prime_montant_02").value);
+        prime_montant_03 = parseInt(document.getElementById("prime_montant_03").value);
+        document.getElementById("valeur_prime_01").textContent = prime_montant_01;
+        document.getElementById("valeur_prime_02").textContent = prime_montant_02;
+        document.getElementById("valeur_prime_03").textContent = prime_montant_03;
 
-        document.getElementById("valeur_frais_01").textContent = document.getElementById("frais_par_match01").value;
-        document.getElementById("valeur_frais_02").textContent = document.getElementById("frais_par_match02").value;
-        document.getElementById("valeur_frais_03").textContent = document.getElementById("frais_par_match03").value;
+        frais_par_match01 = parseInt(document.getElementById("frais_par_match01").value);
+        frais_par_match02 = parseInt(document.getElementById("frais_par_match02").value);
+        frais_par_match03 = parseInt(document.getElementById("frais_par_match03").value);
+        document.getElementById("valeur_frais_01").textContent = frais_par_match01;
+        document.getElementById("valeur_frais_02").textContent = frais_par_match02;
+        document.getElementById("valeur_frais_03").textContent = frais_par_match03;
 
-        document.getElementById("valeur_match_01").textContent = document.getElementById("nbre_matchs_01").value;
-        document.getElementById("valeur_match_02").textContent = document.getElementById("nbre_matchs_02").value;
-        document.getElementById("valeur_match_03").textContent = document.getElementById("nbre_matchs_03").value;
+        nbre_matchs_01 = parseInt(document.getElementById("nbre_matchs_01").value);
+        nbre_matchs_02 = parseInt(document.getElementById("nbre_matchs_02").value);
+        nbre_matchs_03 = parseInt(document.getElementById("nbre_matchs_03").value);
+        document.getElementById("valeur_match_01").textContent = nbre_matchs_01;
+        document.getElementById("valeur_match_02").textContent = nbre_matchs_02;
+        document.getElementById("valeur_match_03").textContent = nbre_matchs_03;
 
+// >> ATTENTION ICI :
+        // si ces 2 inputs modifient aussi des variables globales de data.js, alors il faudra les mettre à jour
         document.getElementById("valeurNombrePartFiscale").textContent = document.getElementById("idNombrePartFiscale").value;
         document.getElementById("valeurRevenuFiscalReference").textContent = document.getElementById("idRevenuFiscalReference").value;
     },
@@ -1256,9 +1270,7 @@ var display = {
         // Mise à jour du tableau de calcul debug
         display.updateTableauImpositionGenerale();
 
-        //display.updateFrontendBadge();
-        display.generateTableauDesignations();
-        display.tableauComparatif();
+        display.updateFrontendBadge();
 
     }
 }; // EOF display
