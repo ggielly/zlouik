@@ -437,15 +437,15 @@ var display = {
     generateTableauComparatifHeader: function (nbMatchs, idtableau) {
 
         htmlTableau = `<h5 class="card-title">${nbMatchs} matchs.<span></span></h5>
-        <table id="${idtableau}" class="table table-sm table-striped table-hover text-center table-header-rotated">
+        <table id="${idtableau}" class="table table-sm table-striped table-hover text-center">
         <thead>
             <tr>
-                <th scope="col"> Domicile</th>
+                <th scope="col">Domicile</th>
                 <th scope="col">Destination</th>
-                <th scope="col">Distance<br>A/R</th>
+                <th scope="col">Distance<br>A/R Km</th>
                 <th scope="col" class="rotate-45"><div><span>Péages</span></div></th>
                 <th scope="col">Temps de trajet<br>A/R</th>
-                <th scope="col">Gd<br>déplacement</th>
+                <th scope="col">Grand<br>déplacement</th>
                 <th scope="col">Indem. km</th>
                 <th scope="col">PRK</th>
                 <th scope="col">Repas</th>
@@ -456,8 +456,8 @@ var display = {
                 <th scope="col">Chiffre d'affaire<br> primes</th>
                 <th scope="col">Frais fixes moyens</th>
                 <th scope="col">Bénéfice rééls<br> primes</th>
-                <th scope="col">Bénéfices note de frais<br> sans PRK</th>
-                <th scope="col">Bénéfices primes<br> sans PRK</th>
+                <th scope="col">Bénéfices note de frais<br>sans PRK</th>
+                <th scope="col">Bénéfices primes<br>sans PRK</th>
             </tr>
         </thead>
         <tbody>` ;
@@ -602,22 +602,22 @@ var display = {
             <tr>
                 <th scope="row">${trajet.VilleDepart}</th>
                 <td><span class="text-primary">${trajet.VilleDestination}</span></td>
-                <td>${distance} Km</td>
+                <td>${distance}</td>
                 <td>${peages}</td>
                 <td>${Math.floor(TempsTrajetAllerRetour / 60)}h${TempsTrajetAllerRetour % 60} min</td>
                 <td>${grandDeplacement}</td>
                 <td>${indemnites.toFixed()}</td>
-                <td>${prk.toFixed(2)}</td>
+                <td>${prk.toFixed(0)}</td>
                 <td>${repas.toFixed()}</td>
                 <td>${hotel.toFixed()}</td>
                 <td>${valeurIndemnite}</td>
                 <td>${fraisHistorique.toFixed(0)}</td>
-                <td style="${beneficeReel < 0 ? "color:red;" : ""}">${beneficeReel.toFixed(2)}</td>
+                <td style="${beneficeReel < 0 ? "color:red;" : ""}">${beneficeReel.toFixed(0)}</td>
                 <td>${prime.toFixed(0)}</td>
                 <td>${frais.toFixed(0)}</td>
-                <td style="${primeBenefice < 0 ? "color:red;" : ""}">${primeBenefice.toFixed(2)}</td>
-                <td style="${beneficeFraisSSPRK < 0 ? "color:red;" : ""}">${beneficeFraisSSPRK.toFixed(2)}</td>
-                <td style="${beneficePrimeSSPRK < 0 ? "color:red;" : ""}">${beneficePrimeSSPRK.toFixed(2)}</td>
+                <td style="${primeBenefice < 0 ? "color:red;" : ""}">${primeBenefice.toFixed(0)}</td>
+                <td style="${beneficeFraisSSPRK < 0 ? "color:red;" : ""}">${beneficeFraisSSPRK.toFixed(0)}</td>
+                <td style="${beneficePrimeSSPRK < 0 ? "color:red;" : ""}">${beneficePrimeSSPRK.toFixed(0)}</td>
 
             </tr>`;
 
@@ -675,12 +675,12 @@ var display = {
                 <td>${totalHotels.toFixed(2)}</td>
                 <td>${totalPreparation.toFixed(0)}</td>
                 <td>${totalFraisHistorique.toFixed(2)}</td>
-                <td style ="${colorTotalBeneficeReel}">${totalBeneficeReel.toFixed(2)}</td>
+                <td style ="${colorTotalBeneficeReel}">${totalBeneficeReel.toFixed(0)}</td>
                 <td>${totalPrimes.toFixed(0)}</td>
                 <td>${totalFrais.toFixed(0)}</td>
-                <td style ="${colorTotalPrimeBenefice}">${totalPrimeBenefice.toFixed(2)}</td>
-                <td style ="${colorTotalBeneficeFraisSSPRK}"><b>${totalBeneficeFraisSSPRK.toFixed(2)}</b></td>
-                <td style ="${colorTotalBeneficePrimeSSPRK}"><b>${totalBeneficePrimeSSPRK.toFixed(2)}</b></td>
+                <td style ="${colorTotalPrimeBenefice}">${totalPrimeBenefice.toFixed(0)}</td>
+                <td style ="${colorTotalBeneficeFraisSSPRK}"><b>${totalBeneficeFraisSSPRK.toFixed(0)}</b></td>
+                <td style ="${colorTotalBeneficePrimeSSPRK}"><b>${totalBeneficePrimeSSPRK.toFixed(0)}</b></td>
             </tr>
         </tfoot>
         </table>`;
@@ -702,11 +702,10 @@ var display = {
         </table>`;
 
         // On additionne pour chaque saison les sous totaux des 3 tableaux
-        globalBeneficeReelValues[typeSaison] = totalBeneficeFraisSSPRK; // Benefice de l'indemnite de match en prenant en compte le PRK
-        globalBeneficeReelPrimeValues[typeSaison] = totalBeneficePrimeSSPRK;
+        globalBeneficeReelValues[typeSaison] = totalBeneficeReel; // Benefice de l'indemnite de match en prenant en compte le PRK
+        globalBeneficeReelPrimeValues[typeSaison] = totalPrimeBenefice;
 
         // On affiche le resultat des sous totaux
-        // display.formateEuroBadge(
         display.updateFrontendTotalBeneficeReel();
         display.updateFrontendTotalBeneficePrimeReel();
 
@@ -951,7 +950,7 @@ var display = {
 
 
     },
-    
+
 
     // Mise à jour de l'ensemble des tableaux prévisionnels de la fédération
     updateTableauImpositions: function () {
@@ -1271,6 +1270,8 @@ var display = {
         display.updateTableauImpositionGenerale();
 
         display.updateFrontendBadge();
+        //display.generateTableauDesignations();
+       // display.tableauComparatif();
 
     }
 }; // EOF display
