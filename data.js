@@ -2,6 +2,9 @@
 
 // Déclaration des variables globales
 
+
+var csvData = [];
+
 var totalBeneficeReel = 0;
 var resultats_filtres = 0;
 var resultat_intermediaire_total = 0;
