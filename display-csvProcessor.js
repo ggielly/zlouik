@@ -74,7 +74,7 @@ function displayFirst20Lines(data) {
 
     // Clear any existing content and append the new table
     container.innerHTML = '';
-    container.appendChild(table);
+    //container.appendChild(table);
 }
 
 // Helper function to calculate the sum of numeric values in each row
@@ -132,25 +132,81 @@ function displayGroupedData(groupedData) {
                 const td = document.createElement('td');
                 td.textContent = value;
                 tr.appendChild(td);
-
-                // Add to sum if the value is a number
-                const num = parseFloat(value);
-                if (!isNaN(num)) {
-                    
-                }
             });
-            sum ++;
+            
+            sum ++ ; 
             table.appendChild(tr);
         });
 
         // Create a title for each group with the sum included
         const title = document.createElement('h2');
-        title.textContent = `${key} (${sum} matchs)`;
+        title.textContent = `${key} (Sum: ${sum})`;
 
         // Append the title and table to the container
         container.appendChild(title);
         container.appendChild(table);
     });
+}
+
+// Function to display the summary table with the name and number of games
+function displaySummary(groupedData) {
+    const container = document.getElementById('summaryContainer');
+    container.innerHTML = ''; // Clear any existing content
+
+    const table = document.createElement('table');
+    const headerRow = document.createElement('tr');
+
+    // Create table headers
+    const thName = document.createElement('th');
+    thName.textContent = 'Name';
+    thName.dataset.sort = "name";
+    headerRow.appendChild(thName);
+
+    const thGames = document.createElement('th');
+    thGames.textContent = 'Number of Games';
+    thGames.dataset.sort = "games";
+    headerRow.appendChild(thGames);
+
+    table.appendChild(headerRow);
+
+    // Create table rows for each group
+    Object.keys(groupedData).forEach(key => {
+        const tr = document.createElement('tr');
+        
+        const tdName = document.createElement('td');
+        tdName.textContent = key;
+        tr.appendChild(tdName);
+
+        const tdGames = document.createElement('td');
+        tdGames.textContent = groupedData[key].length;
+        tr.appendChild(tdGames);
+
+        table.appendChild(tr);
+    });
+
+    // Append the summary table to the container
+    container.appendChild(table);
+
+    // Add event listeners for sorting
+    thName.addEventListener('click', () => sortTable(table, 0));
+    thGames.addEventListener('click', () => sortTable(table, 1));
+}
+
+// Function to sort the table based on the clicked column
+function sortTable(table, colIndex) {
+    const rows = Array.from(table.querySelectorAll('tr:nth-child(n+2)'));
+    const sortedRows = rows.sort((a, b) => {
+        const aText = a.children[colIndex].textContent;
+        const bText = b.children[colIndex].textContent;
+
+        if (colIndex === 1) {
+            return parseInt(aText) - parseInt(bText);
+        } else {
+            return aText.localeCompare(bText);
+        }
+    });
+
+    sortedRows.forEach(row => table.appendChild(row));
 }
 
 // Function to process CSV data and display grouped tables for specified columns
@@ -168,6 +224,7 @@ function processCSVData() {
     const groupedData = groupByColumns(csvData, columns);
 
     displayGroupedData(groupedData);
+    displaySummary(groupedData);
 }
 
 // Initialize the CSV import process

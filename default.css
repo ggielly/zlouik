@@ -1,3 +1,26 @@
+/* Summary table specific styles */
+#summaryContainer table {
+  width: 50%;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+#summaryContainer th {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 1.2em;
+}
+#summaryContainer td {
+  font-size: 1.1em;
+}
+#summaryContainer tr:nth-child(even) {
+  background-color: #e9f5e9;
+}
+#summaryContainer tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
 tr:nth-child(even) {
   background-color: #f9f9f9;
 }
