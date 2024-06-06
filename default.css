@@ -1,3 +1,9 @@
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+tr:nth-child(odd) {
+  background-color: #ffffff;
+
 .table-header-rotated th.rotate-45 {
   height: 100px; /* Adjust this height as needed */
   width: 40px;   /* Adjust this width as needed */
@@ -20,8 +26,6 @@
   display: block;
   white-space: nowrap;
 }
-
-
 
 .axis {
   font-family: sans-serif;

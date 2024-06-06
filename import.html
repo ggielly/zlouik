@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!--
+ZLOUïK!
+
+Générateur de simulation de primes et historique des rémunérations et divers impots pour juges et arbitres sportifs en France.
+Fait sur un coin de table fun and profit.
+
+ZLOUïK!
+
+Générateur de simulation de primes et historique des rémunérations et divers impots pour juges et arbitres sportifs en France.
+Fait sur un coin de table fun and profit.
+
+Guillaume - 2024
+
+CONTACT : guillaume ar0base rootshell.fr.
+LICENCE : Sous licence WTFPLv2 ou LPRAB en France.
+
+-->
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZLOUïK!</title>
+  <title>ZLOUïK!</title>
+  <link href="default.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="data.js"></script>
+  <script src="display.js"></script>
+  <script src="simu.js"></script>
+  <script src="graph.js"></script>
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="assets/vendor/quill/quill.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/w3schools/w3.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</head>
+
+<body>
+  <div w3-include-html="header.html"></div>
+  <div w3-include-html="sidebar-left.html"></div>
+
+  <!-- Bandeau de navigation -->
+
+  <main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Tableau</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">ZLOUïK!</a></li>
+          <li class="breadcrumb-item active">Tableaux</li>
+        </ol>
+      </nav>
+    </div><!-- Fin du bandeau de navigation -->
+
+    <!-- Importation du CSV fédéral ****************************************************************************************-->
+    <!--********************************************************************************************************************-->
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Importer un csv de désignation</h5>
+          <div id="DivImportCSV"></div>
+        </div>
+      </div>
+    </div>
+    <!-- FIN de l'importation du csv fédéral *********************************************************************************-->
+
+    </form>
+    </div><!-- Fin des colonnes de droite -->
+    </div>
+
+    </section>
+
+    <input type="file" id="csvFileInput" accept=".csv">
+    <div id="csvTableContainer"></div>
+    <script src="csvProcessor.js"></script>
+
+  </main>
+</body>
+
+</html>

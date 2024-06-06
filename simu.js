@@ -517,6 +517,10 @@ var initialize = function () {
     display.updateSelectedIndemnityValue();
     display.updateHistoriqueVille();
     display.updateFrontendBadge();
+
+    // Initialize the CSV import process
+    initCSVImport();
+
 };
 
 var init = function () {
