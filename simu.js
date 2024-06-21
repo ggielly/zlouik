@@ -519,7 +519,7 @@ var initialize = function () {
     display.updateFrontendBadge();
 
     // Initialize the CSV import process
-    initCSVImport();
+    //initCSVImport();
 
 };
 
